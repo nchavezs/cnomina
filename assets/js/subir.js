@@ -1,0 +1,151 @@
+$('.cb-value').click(function () {
+    var mainParent = $(this).parent('.toggle-btn');
+    if ($(mainParent).find('input.cb-value').is(':checked')) {
+        $(mainParent).addClass('active');
+    } else {
+        $(mainParent).removeClass('active');
+    }
+});
+
+var check1 = 0;
+
+$("#check1").change(function () {
+    if ($(this).is(':checked')) {
+        check1 = 1;
+    } else {
+        check1 = 0;
+    }
+});
+
+Dropzone.prototype.defaultOptions.dictRemoveFile = "X";
+Dropzone.prototype.defaultOptions.dictCancelUpload = "X";
+Dropzone.prototype.defaultOptions.dictInvalidFileType = "Formato de archivo incorrecto";
+
+Dropzone.options.myAwesomeDropzone = {
+    paramName: "file",
+    maxFileSize: 3,
+    parallelUploads: 1,
+    acceptedFiles: '.pdf',
+    addRemoveLinks: true,
+    autoProcessQueue: false,
+    init: function init() {
+        myDropzone = this;
+        contenido = "";
+        a = 0;
+        b = 0;
+        c = 0;
+
+        this.on("error", function (file) {
+            if (!file.accepted) this.removeFile(file);
+        });
+
+        this.on("removedfile", function () {
+            if (myDropzone.getQueuedFiles().length === 0) {
+                $("#enviar").html('');
+            }
+        });
+
+        this.on("sending", function (file, xhr, formData) {
+            formData.append("check1", check1);
+        });
+
+        this.on("addedfile", function () {
+            $("#enviar").html('<button id="enviar-btn" type="button" class="btn btn-primary btn-round"><i class="material-icons">done</i> Subir archivos</button>');
+            
+            $("#enviar").html('<div class="boton_generar_reporte"><div id="enviar-btn" class="btn btn-primary regresar"><i class="material-icons">upload</i> Subir archivos</div></div>');
+            var submitButton = document.querySelector("#enviar-btn");
+            submitButton.addEventListener("click", function () {
+                myDropzone.options.autoProcessQueue = true;
+                myDropzone.processQueue();
+                clearInterval(numero_evento);
+                mensaje();
+            });
+        });
+
+        this.on("success", function (file, data) {
+            Swal.getContent().innerHTML = file.name;
+            if (data == 2) {
+                contenido = contenido + "<h5><span class='material-icons info'>info</span>" + file.name + "</h5>";
+                b++;
+            } else if (data == 1) {
+                contenido = contenido + "<h5><span class='material-icons success'>check_circle</span>" + file.name + "</h5>";
+                a++;
+            } else {
+                contenido = contenido + "<h5><span class='material-icons error'>error</span>" + file.name + "</h5>";
+                c++;
+            }
+        });
+
+        this.on("queuecomplete", function (file) {
+            Swal.close();
+            log_show(html(contenido, a, b, c));
+            $(".contenido_log").perfectScrollbar();
+            Dropzone.forElement("#myAwesomeDropzone").removeAllFiles(true);
+            window.scroll(0, 0);
+            myDropzone.options.autoProcessQueue = false;
+            $("#enviar").html('');
+            contenido = "";
+            a = 0;
+            b = 0;
+            c = 0;
+            eliminar_archivos();
+            numero_evento = setInterval(numero, 10000);
+        });
+    }
+};
+
+
+function mensaje() {
+    Swal.fire({
+        title: 'Subiendo archivos',
+        html: 'Espere porfavor',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
+};
+
+function log_show(html) {
+    Swal.fire({
+        html: html,
+        allowOutsideClick: false,
+        allowEscapeKey: false,   
+    });
+}
+
+function html(contenido, a, b, c) {
+    return "<div class='log archivos'>" +
+        "<h4>Información de archivos cargados</h4>" +
+        "<div class='row informacion_archivos'>" +
+        "<div class='col-10'>" +
+        "<h5>Archivo ya ha sido cargado anteriormente <span class='material-icons info'>info</span></h5>" +
+        "</div>" +
+        "<div class='col-2'>" +
+        "<p>" + b + "</p>" +
+        "</div>" +
+        "<div class='col-10'>" +
+        "<h5>Archivo incompatible<span class='material-icons error'>error</span></h5>" +
+        "</div>" +
+        "<div class='col-2'>" +
+        "<p>" + c + "</p>" +
+        "</div>" +
+        "<div class='col-10'>" +
+        "<h5>Archivo cargado correctamente<span class='material-icons success'>check_circle</span></h5>" +
+        "</div>" +
+        "<div class='col-2'>" +
+        "<p>" + a + "</p>" +
+        "</div>" +
+        "</div>" +
+        "<div class='contenido_log'>" + contenido + "</div>" +
+        "</div>";
+}
+
+function eliminar_archivos() {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/eliminar_temporal.php",
+        success: function (data) {}
+    });
+}

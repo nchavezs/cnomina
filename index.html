@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/login.css?v=1.1">
+    <script src="assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <script src="assets/js/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Consulta Nómina</title>
+</head>
+
+<body>
+    <div class="se-pre-con"></div>
+    <div class="wrapper">
+        <div class="container">
+            <h1 id="titulo" class="animated fadeInUp slow">CONSULTA NOMINA</h1>
+            <br><br><br>
+            <form class="form" method="post" action="./assets/php/validarSession.php">
+
+                <div class="caja-input">
+                    <i class="material-icons">person</i>
+                    <input type="text" name="usuario" placeholder="Identificador" required autocomplete="off">
+                </div>
+
+                <div class="caja-input">
+                    <i class="material-icons">lock_open</i>
+                    <input type="password" name="contrasenia" placeholder="Contraseña" required autocomplete="off">
+                </div>
+
+                <button type="submit" id="login-button"><i class="material-icons">
+						exit_to_app</i> INICIAR SESION</button>
+            </form>
+        </div>
+
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+
+        </ul>
+    </div>
+</body>
+
+<script>
+    $('#login-button').submit(function(event) {
+        event.preventDefault();
+        $("body").fadeIn(3000);
+    });
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");;
+    });
+</script>
+
+</html>

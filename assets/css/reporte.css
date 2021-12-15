@@ -1,0 +1,183 @@
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+a {
+	color: #5D6975;
+	text-decoration: underline;
+}
+
+h2{
+	color: #555;
+}
+
+body {
+	position: relative;
+	width: 21cm;
+	height: 29.7cm;
+	margin: 0 auto;
+	color: #444;
+	background: #FFFFFF;
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+header {
+	border-top: 3px solid #eee;
+	border-bottom: 1px solid rgb(245,245,245);
+	padding: 10px;
+	margin-bottom: 30px;
+	background-color: rgb(250, 250, 250);
+}
+
+.logo {
+	background-repeat: no-repeat;
+	background: url(../img/logo.png);
+	background-size: contain;
+	width: 100px;
+	height: 100px;
+	float: right;
+	margin-top: 0px;
+	margin-right: 0px;
+}
+
+#imagen {
+	border-radius: 50px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100px;
+	height: 100px;
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+.ok {
+	margin: 0;
+	height: 50px;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	background-color: rgb(250, 250, 250);
+}
+
+.error {
+	margin: 30px 0;
+	height: 50px;
+	border: 1px solid #ccc;
+	background-color: rgb(250, 250, 250);
+}
+
+.titulo {
+	height: 30px;
+	color: #5D6975;
+	font-size: 1.2em;
+	font-weight: normal;
+	float: right;
+	text-align: left;
+	padding-top: 3px;
+	padding-left: 20px;
+}
+
+
+.icono {
+	background: url("../img/error.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 26px;
+	height: 25px;
+	float: left;
+	margin-top: 11px;
+	margin-left: 10px;
+}
+
+.icono2 {
+	background: url("../img/ok.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 26px;
+	height: 25px;
+	float: left;
+	margin-top: 11px;
+	margin-left: 10px;
+}
+
+#project {
+	float: left;
+	margin-top: -60px;
+	padding-top: 0px;
+	padding-bottom: 5px;
+}
+
+#project span {
+	color: #5D6975;
+	font-size: 0.85em;
+}
+
+#company {
+	float: right;
+	text-align: right;
+	margin-top: 60px;
+	padding-bottom: -90px;
+	margin-right: -130px;
+}
+
+#company span {
+	color: #5D6975;
+	font-size: 0.85em;
+}
+
+#project div,
+#company div {
+	white-space: nowrap;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #C1CED9;
+}
+
+
+table th {
+	padding: 5px 10px;
+	color: #5D6975;
+	border-bottom: 1px solid #C1CED9;
+	white-space: nowrap;
+	font-weight: normal;
+	border-right: 1px solid #C1CED9;
+	border-left: 1px solid #C1CED9;
+	border-top: 1px solid #ccc;
+}
+
+table .desc {
+	text-align: justify;
+}
+
+table td {
+	padding: 5px 10px;
+	text-align: right;
+	border-right: 1px solid #C1CED9;
+	border-left: 1px solid #C1CED9;
+	font-size: 11px;
+}
+
+table td.desc {
+	vertical-align: middle;
+}
+
+.footer {
+	width: 100%;
+	border-top: 1px solid #ddd;
+	padding-top: 0px;
+	text-align: center;
+}
+
+.footer p {
+	color: #444 !important;
+	font-size: 1em;
+}
