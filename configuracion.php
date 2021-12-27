@@ -32,6 +32,8 @@ if ($rol != 1) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/css/material-dashboard.css?v=3.1.4" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
+    <link href="assets/css/dropzone.min.css" rel="stylesheet" />
+    <link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
 
 </head>
 
@@ -39,7 +41,7 @@ if ($rol != 1) {
     <div class="wrapper">
         <div class="wizard_fondo">
             <div class="wizard_caja">
-                <div class="row w-100">
+                <div class="row">
                     <div class="col-lg-4">
                         <div class="wizard_steps">
                             <div class="wizard_step wizard_step_inicio activo">
@@ -62,13 +64,17 @@ if ($rol != 1) {
                     </div>
                     <div class="col-lg-8">
                         <div class="wizard_contenido">
-                            <div class="wizard_panel wizard_panel_inicio">
-                                <h2 class="text-primary pb-4 font-weight-bold">Vamos a configurarlo todo</h2>
-                                <p>Es necesario establecer algunos parámetros, puedes omitir el proceso de configuración
-                                    y dirigirte diréctamente al menú principal para configurar todo manualmente.</p>
-                                <p>Para continuar completa la información requerida en los siguientes apartados.</p>
-                                <div class="wizard_img">
-                                    <img src="./assets/img/1.png" alt="">
+                            <!-- INICIO -->
+                            <div class="wizard_panel hidden">
+                                <div class="wizard_panel_inicio">
+                                    <h2 class="text-primary pb-4 font-weight-bold">Vamos a configurarlo todo</h2>
+                                    <p>Es necesario establecer algunos parámetros, puedes omitir el proceso de
+                                        configuración
+                                        y dirigirte diréctamente al menú principal para configurar todo manualmente.</p>
+                                    <p>Para continuar completa la información requerida en los siguientes apartados.</p>
+                                    <div class="wizard_img">
+                                        <img src="./assets/img/1.png" alt="">
+                                    </div>
                                 </div>
                                 <div class="wizard_footer">
                                     <small class="wizard_omitir">Continuar al menú principal</small>
@@ -76,37 +82,57 @@ if ($rol != 1) {
                                             class="material-icons">navigate_next</i> </button>
                                 </div>
                             </div>
-                            <div class="wizard_panel wizard_panel_perfil hidden">
-                                <form id="form_wizard_perfil">
+                            <!-- PERFIL -->
+                            <div class="wizard_panel hidden">
+                                <div class="wizard_panel_perfil">
                                     <h2 class="text-primary pb-4 font-weight-bold">Configura tu información de perfil
                                     </h2>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <p>¿Cúal es tu nombre?</p>
-                                            <input id="nombre" name="nombre" type="text" placeholder="Jhon Brown"
-                                                class="mb-4" value="<?php echo $varName ?>" required>
-                                            <p>Escribe una contraseña</p>
-                                            <input id="password" name="password" type="password"
-                                                placeholder="***********" class="mb-4" required minlength="6">
-                                            <p>Repite tu contraseña</p>
-                                            <input id="confirmar" name="confirmar" type="password"
-                                                placeholder="***********" class="mb-4" required>
-                                            <!-- <button class="btn btn-success btn-sm">Guardar
-                                                información de perfil <i class="material-icons">save</i> </button> -->
+                                    <p>Configura tu nombre y establece una contraseña nueva para el inicio de sesión,
+                                        antes de continuar presiona <a href="#">guardar información de perfil</a> para
+                                        guardar cambios.</p>
+                                    <form id="form_wizard_perfil">
+                                        <p>¿Cúal es tu nombre?</p>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Jhon Brown"
+                                            class="mb-4" value="<?php echo $varName ?>" required>
+                                        <p class="text-mutted">Escribe una contraseña</p>
+                                        <input id="password" name="password" type="password" placeholder="***********"
+                                            class="mb-4" required minlength="6">
+                                        <p>Repite tu contraseña</p>
+                                        <input id="confirmar" name="confirmar" type="password" placeholder="***********"
+                                            class="mb-4" required>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success btn-sm">Guardar
+                                                información de perfil <i class="material-icons">save</i> </button>
                                         </div>
-
-                                    </div>
-                                    <div class="wizard_footer">
-                                        <button type="button" class="btn btn-primary btn-sm px-3" onclick="wizard_inicio();">Anterior
-                                            <i class="material-icons">undo</i> </button>
-                                        <button type="submit" class="btn btn-primary btn-sm px-3">Siguiente
-                                            <i class="material-icons">navigate_next</i> </button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+                                <div class="wizard_footer">
+                                    <button type="button" class="btn btn-primary btn-sm px-3"
+                                        onclick="wizard_inicio();">Anterior
+                                        <i class="material-icons">undo</i> </button>
+                                    <button class="btn btn-primary btn-sm px-3" onclick="wizard_logo();">Siguiente
+                                        <i class="material-icons">navigate_next</i> </button>
+                                </div>
                             </div>
-                            <div class="wizard_panel wizard_panel_logo hidden">
-                                <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
-
+                            <!-- LOGO -->
+                            <div class="wizard_panel">
+                                <div class="wizard_panel_logo">
+                                    <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est facere voluptatum dolores exercitationem quis recusandae commodi facilis libero architecto, neque aperiam incidunt laborum fugit. Odit mollitia quis quisquam odio quas?</p>
+                                    <form action="assets/php/wizard_logo.php" class="dropzone"
+                                        id="dropzone-logo">
+                                        <div class="dz-message">
+                                            <div class="row">
+                                                <div class="col-md-4"><img src="assets/img/upload_image.svg" alt=""></div>
+                                                <div class="col-md-8">
+                                                    <h3 class="font-weight-bold">Selecciona tu archivo</h3>
+                                                    <div><small>Arrastra un archivo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
+                                                    <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar archivo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="wizard_footer">
                                     <button class="btn btn-primary btn-sm px-3" onclick="wizard_perfil();">Anterior <i
                                             class="material-icons">undo</i> </button>
@@ -114,9 +140,34 @@ if ($rol != 1) {
                                         <i class="material-icons">navigate_next</i> </button>
                                 </div>
                             </div>
-                            <div class="wizard_panel wizard_panel_importar hidden">
-                                <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de puestos</h2>
-                                <input type="file">
+                            <!-- IMPORTAR -->
+                            <div class="wizard_panel hidden">
+                                <div class="wizard_panel_importar">
+                                    <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de puestos</h2>
+                                    <p>Con esta herramienta puede importar datos desde una hoja de cálculo sin necesidad
+                                        de crear los registros manualmente, es necesario seguir los siguientes puntos:
+                                    </p>
+                                    <ol>
+                                        <li>Descargue la plantilla para importar datos <a class="text-warning"
+                                                href="./assets/docs/puestos.xlsx" download>aquí</a> .</li>
+                                        <li>Busque la ubicación del archivo, edítelo y carguelo en la siguiente sección.
+                                            <i class="material-icons">arrow_downward</i>
+                                        </li>
+                                    </ol>
+                                    <form action="assets/php/wizard_plantilla.php" class="dropzone"
+                                        id="dropzone-plantilla">
+                                        <div class="dz-message">
+                                            <div class="row">
+                                                <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
+                                                <div class="col-md-8">
+                                                    <h3 class="font-weight-bold">Selecciona tu archivo</h3>
+                                                    <div><small>Arrastra un archivo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
+                                                    <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar archivo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <div class="wizard_footer">
                                     <button class="btn btn-primary btn-sm px-3" onclick="wizard_logo();">Anterior <i
                                             class="material-icons">undo</i> </button>
@@ -136,11 +187,10 @@ if ($rol != 1) {
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap-material-design.min.js"></script>
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
     <script src="assets/js/material-dashboard.js?v=3.1.4" type="text/javascript"></script>
-    <script src="assets/js/block.js"></script>
+    <script src="assets/js/dropzone.js"></script>
     <script src="assets/js/configuracion.js?v=3.1.4"></script>
 </body>
 

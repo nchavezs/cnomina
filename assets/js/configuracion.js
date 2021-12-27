@@ -1,6 +1,6 @@
 function wizard_perfil() {
     $(".wizard_panel").hide();
-    $(".wizard_panel_perfil").show();
+    $(".wizard_panel_perfil").parent().show();
     $(".wizard_step").removeClass("activo");
     $(".wizard_step_perfil").addClass("activo");
     $(".wizard_step_inicio").addClass("terminado");
@@ -8,14 +8,14 @@ function wizard_perfil() {
 
 function wizard_inicio() {
     $(".wizard_panel").hide();
-    $(".wizard_panel_inicio").show();
+    $(".wizard_panel_inicio").parent().show();
     $(".wizard_step").removeClass("activo");
     $(".wizard_step_inicio").addClass("activo");
 }
 
 function wizard_logo() {
     $(".wizard_panel").hide();
-    $(".wizard_panel_logo").show();
+    $(".wizard_panel_logo").parent().show();
     $(".wizard_step").removeClass("activo");
     $(".wizard_step_logo").addClass("activo");
     $(".wizard_step_perfil").addClass("terminado");
@@ -23,13 +23,13 @@ function wizard_logo() {
 
 function wizard_importar() {
     $(".wizard_panel").hide();
-    $(".wizard_panel_importar").show();
+    $(".wizard_panel_importar").parent().show();
     $(".wizard_step").removeClass("activo");
     $(".wizard_step_importar").addClass("activo");
     $(".wizard_step_logo").addClass("terminado");
 }
 
-$(document).on("submit", "#form_wizard_perfil", function(e){
+$(document).on("submit", "#form_wizard_perfil", function (e) {
     e.preventDefault();
     $.ajax({
         url: "assets/php/wizard_perfil.php",
@@ -39,15 +39,102 @@ $(document).on("submit", "#form_wizard_perfil", function(e){
             password: $("#password").val(),
             confirmar: $("#confirmar").val()
         },
-        success: function(data){
-            if(data == 1){
+        success: function (data) {
+            if (data == 1) {
                 md.showNotification("top", "right", "Datos actualizados correctamente.");
-                wizard_logo();
-            }else if(data == 2){
+            } else if (data == 2) {
                 md.showNotification("top", "right", "Las contraseñas no coinciden.");
-            }else if(data == 0){
+            } else if (data == 0) {
                 md.showNotification("top", "right", "Error al actualizar.");
             }
         }
     });
 })
+
+
+
+Dropzone.options.dropzonePlantilla = {
+    paramName: "file",
+    maxFileSize: 3,
+    maxFiles: 1,
+    acceptedFiles: '.xlsx',
+    addRemoveLinks: true,
+    dictRemoveFile: "X",
+    dictCancelUpload: "Cancelar carga",
+    dictInvalidFileType: "Formato incorrecto",
+
+    init: function init() {
+        myDropzone = this;
+
+        this.on("success", function (file, data) {
+            if (file.accepted) {
+                log_show(data);    
+                // Dropzone.forElement("#dropzone-plantilla").removeAllFiles(true);
+                $(".wizard_step_importar").addClass("terminado");
+            }
+        });
+
+        this.on("addedfile", function(file) {
+            let ext = file.name.split('.').pop();
+            switch(ext){
+                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/pdf.png");
+                break;
+                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/xlsx.png");
+                break;
+                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                break;
+                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                break;
+                default: $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/file.png");
+                break;
+            }
+        });
+    }
+};
+
+Dropzone.options.dropzoneLogo = {
+    paramName: "file",
+    maxFileSize: 5,
+    maxFiles: 1,
+    acceptedFiles: '.png,.jpg,.svg,.jpeg',
+    addRemoveLinks: true,
+    dictRemoveFile: "X",
+    dictCancelUpload: "Cancelar carga",
+    dictInvalidFileType: "Formato incorrecto",
+    
+    init: function init() {
+        myDropzone = this;
+
+        this.on("success", function (file, data) {
+            if (file.accepted) {
+                $(".wizard_step_logo").addClass("terminado");
+            }
+        });
+
+        this.on("addedfile", function(file) {
+            let ext = file.name.split('.').pop();
+            switch(ext){
+                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/pdf.png");
+                break;
+                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/xlsx.png");
+                break;
+                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                break;
+                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                break;
+                default: $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/file.png");
+                break;
+            }
+        });
+    }
+};
+
+function log_show(html) {
+    Swal.fire({
+        html: html,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        padding: 0
+    });
+}
+

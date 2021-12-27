@@ -5,7 +5,7 @@ $conexion = conexion();
 function eliminar_simbolos($string)
 {
 
-    $string = trim($string);
+    $string = mb_strtoupper(trim($string));
 
     $string = str_replace(
         array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
@@ -55,13 +55,16 @@ function eliminar_simbolos($string)
         ' ',
         $string
     );
+
     return $string;
 }
 
-$total = 0;
+$puestos_actualizados = 0;
+$total_departamentos = 0;
+$total_puestos = 0;
 $errores = [];
 
-$archivo = $_FILES['file']['name'];
+$archivo = $_FILES['file']['tmp_name'];
 
 require_once "../../vendor/autoload.php";
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
@@ -75,57 +78,71 @@ $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFrom
 
 for ($row = 2; $row <= $highestRow; ++$row) {
     $datos = [];
+
     for ($col = 1; $col <= $highestColumnIndex; ++$col) {
         $valor = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
         array_push($datos, $valor);
     }
 
-    $puesto = eliminar_simbolos(mb_strtoupper($datos[0]));
-    $departamento = eliminar_simbolos(mb_strtoupper($datos[1]));
-    $cantidad = eliminar_simbolos(mb_strtoupper($datos[2]));
+    $puesto = eliminar_simbolos($datos[0]);
+    $departamento = eliminar_simbolos($datos[1]);
+    $cantidad = eliminar_simbolos($datos[2]);
 
-    $sql = "SELECT RFC FROM Usuario WHERE RFC = '" . $rfc . "'";
+    $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
     $consulta = mysqli_query($conexion, $sql);
+
     if ($consulta && mysqli_num_rows($consulta) == 0) {
-
-        $sql = "INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombres, apellidop, apellidom, RFC,
-		CURP, fechaRelLab, puesto, departamento, banca, afiliacion, tipoTrabajador, nombre)
-		VALUES(" . $datos[0] . ", 'user', '" . $password . "', '" . $nombres . "' , '" . $apellidop . "' , '" . $apellidom . "', '" . $rfc . "',
-		'" . $curp . "', '" . $fecha . "', '" . $puesto . "', '" . $departamento . "', NULLIF('" . $banca . "', ''),
-		NULLIF('" . $afiliacion . "',''), NULLIF('" . $trabajador . "', ''), '" . $nombreEmpleado . "')";
+        $sql = "INSERT INTO Departamento(nombre) VALUES('" . $departamento . "')";
         if (mysqli_query($conexion, $sql)) {
-            $total++;
-        } else {
-            array_push($errores, $rfc);
+            $id_depa = mysqli_insert_id($conexion);
+            $total_departamentos++;
         }
+    } elseif($consulta && mysqli_num_rows($consulta) > 0){
+        $res = mysqli_fetch_row($consulta);
+        $id_depa = $res[0];
+    }
+    
+    $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = ".$id_depa;
+    $consulta = mysqli_query($conexion, $sql);
 
-    } elseif (mysqli_num_rows($consulta) == 1) {
-        $sql = "UPDATE Usuario SET nombre = '" . $nombreEmpleado . "', RFC = '" . $rfc . "', CURP = '" . $curp . "',
-        puesto = '" . $puesto . "', departamento = '" . $departamento . "', banca = NULLIF('" . $banca . "', ''),
-        afiliacion = NULLIF('" . $afiliacion . "',''), nombres = '" . $nombres . "', apellidop = '" . $apellidop . "',
-        apellidom = '" . $apellidom . "',
-        fechaRelLab = '" . $fecha . "',
-        tipoTrabajador = NULLIF('" . $trabajador . "', '')
-        WHERE RFC = '" . $rfc . "'";
-
-        if (mysqli_query($conexion, $sql)) {
-            $total++;
+    if ($consulta && mysqli_num_rows($consulta) == 0) {
+        $sql = "INSERT INTO Puesto(nombre, id_departamento, cantidad) VALUES('" . $puesto . "', " . $id_depa . ", " . $cantidad . ")";
+        if (mysqli_query($conexion, $sql) && $cantidad > 0) {
+            $total_puestos++;
         } else {
-            array_push($errores, $rfc);
+            array_push($errores, "Fila ".$row." : error al importar.");
+        }
+    }elseif($consulta && mysqli_num_rows($consulta) > 0) {
+        $res = mysqli_fetch_row($consulta);
+        $id_puesto = $res[0];
+
+        $sql = "UPDATE Puesto SET cantidad = " . $cantidad ." WHERE id_puesto = ".$id_puesto;
+        if (mysqli_query($conexion, $sql)) {
+            $puestos_actualizados++;
+        }else {
+            array_push($errores, "Fila ".$row." : error al actualizar");
         }
     }
 
 }
+
 $highestRow--;
 echo "<div class='log'>";
-echo "<h4>Elementos actualizados: </h4>";
-echo "<h5> " . $total . " <span>de un total de</span> " . $highestRow . "</h5>";
-echo "<h5>La siguiente lista muesta los RFC no actualizados. </h5>";
-echo "</div>";
-echo "<div class='log-contenido'>";
-foreach ($errores as $error) {
-    echo "<h5>" . $error . "<h5>";
+echo "<div class='log_titulo'>REGISTRO DE IMPORTACIÓN</div>";
+echo "<div class='log_cuerpo'>";
+echo "<h5> " . $total_puestos . " <span> puestos nuevos importados</span></h5>";
+echo "<h5> " . $total_departamentos . " <span>departamentos nuevos importados</span></h5>";
+echo "<h5> " . $puestos_actualizados . " <span>filas actualizadas</span></h5>";
+
+if(sizeof($errores)>0){
+    echo "<h5>La siguiente lista muesta las filas no importadas. </h5>";
+    echo "</div>";
+    echo "<div class='log-contenido'>";
+    foreach ($errores as $error) {
+        echo "<h5>" . $error . "<h5>";
+    }
 }
+
 echo "</div>";
 
 mysqli_close($conexion);
