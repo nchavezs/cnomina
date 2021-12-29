@@ -1,5 +1,6 @@
 $(document).ready(function () {
     // $.post("assets/php/actualizar_password.php", function(data) {});
+
     $("#generar-prenomina").click(function () {
         Swal.mixin({
             showCancelButton: true,
@@ -168,15 +169,13 @@ $(document).ready(function () {
             Swal.fire({
                 position: 'center',
                 html: html,
-                
                 width: '50em',
                 allowOutsideClick: false,
-                showConfirmButton: false,
-
+                showConfirmButton: false
             });
+            
             select_estilo();
-            $(".select-empleado .custom-options").perfectScrollbar();
-
+            depa_on_change();
             $("#nombre").blur();
             var ingreso;
             var date = new Date();
@@ -201,32 +200,32 @@ $(document).ready(function () {
                 swal.close();
             });
 
-            $("#file").change(function () {
-                if ($("#file").val() !== "") {
-                    $.blockUI({
-                        message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-                    });
+            // $("#file").change(function () {
+            //     if ($("#file").val() !== "") {
+            //         $.blockUI({
+            //             message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+            //         });
 
-                    var formData = new FormData();
-                    var files = $("#file")[0].files[0];
-                    formData.append("file", files);
+            //         var formData = new FormData();
+            //         var files = $("#file")[0].files[0];
+            //         formData.append("file", files);
 
-                    $.ajax({
-                        url: "assets/php/empleadoArchivo.php",
-                        type: "post",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        cache: false,
-                        success: function (data) {
-                            $("#archivo").val(data);
-                            $("#file").val("");
-                            $.unblockUI();
-                            md.showNotification("top", "right", "Archivo cargado correctamente.");
-                        }
-                    });
-                }
-            });
+            //         $.ajax({
+            //             url: "assets/php/empleadoArchivo.php",
+            //             type: "post",
+            //             data: formData,
+            //             contentType: false,
+            //             processData: false,
+            //             cache: false,
+            //             success: function (data) {
+            //                 $("#archivo").val(data);
+            //                 $("#file").val("");
+            //                 $.unblockUI();
+            //                 md.showNotification("top", "right", "Archivo cargado correctamente.");
+            //             }
+            //         });
+            //     }
+            // });
 
             $("#form-empleado").submit(function (e) {
                 e.preventDefault();
@@ -1603,7 +1602,7 @@ function movimiento(id) {
                     });
 
                     select_estilo();
-                    $(".select-empleado .custom-options").perfectScrollbar();
+                    depa_on_change();
 
                     $.post("assets/php/fechaInicio.php", {
                         "id": id
@@ -1644,9 +1643,7 @@ function movimiento(id) {
                                 type: 'warning',
                                 showCancelButton: true,
                                 confirmButtonText: 'Si, continuar',
-                                cancelButtonText: 'No',
-                                
-
+                                cancelButtonText: 'No'
                             }).then(function (result) {
                                 if (result.value) {
                                     $.ajax({
@@ -1662,14 +1659,13 @@ function movimiento(id) {
                                         },
                                         success: function (html) {
                                             var idUsuario = id.split("-");
+
                                             if (html != 0) {
                                                 formato_movimiento(html);
                                                 Swal.fire({
                                                     title: 'Correcto',
                                                     text: 'Movimiento agregado',
-                                                    type: 'success',
-
-                                                    
+                                                    type: 'success'
                                                 }).then((result) => {
                                                     $('#tabla-empleado').DataTable().ajax.reload();
                                                     verMovimientos(idUsuario[0]);
@@ -1678,9 +1674,7 @@ function movimiento(id) {
                                                 Swal.fire({
                                                     title: 'Error',
                                                     text: 'Movimiento no agregado',
-                                                    type: 'error',
-
-                                                    
+                                                    type: 'error'
                                                 }).then((result) => {
                                                     verMovimientos(idUsuario[0]);
                                                 })
@@ -2491,8 +2485,7 @@ function editar_usuario(id, event) {
                     width: '50em'
                 });
                 select_estilo();
-                $(".select-empleado .custom-options").perfectScrollbar();
-
+                depa_on_change_update();
                 $("#ingreso").blur();
 
                 $("#salir").click(function () {
@@ -2503,32 +2496,32 @@ function editar_usuario(id, event) {
                     descargar($("#descargar-input").val(), 'Archivo')
                 });
 
-                $("#file").change(function () {
-                    if ($("#file").val() !== "") {
-                        $.blockUI({
-                            message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-                        });
+                // $("#file").change(function () {
+                //     if ($("#file").val() !== "") {
+                //         $.blockUI({
+                //             message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+                //         });
 
-                        var formData = new FormData();
-                        var files = $("#file")[0].files[0];
-                        formData.append("file", files);
+                //         var formData = new FormData();
+                //         var files = $("#file")[0].files[0];
+                //         formData.append("file", files);
 
-                        $.ajax({
-                            url: "assets/php/empleadoArchivo.php",
-                            type: "post",
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            cache: false,
-                            success: function (data) {
-                                $("#archivo").val(data);
-                                $("#file").val("");
-                                $.unblockUI();
-                                md.showNotification("top", "right", "Archivo cargado correctamente.");
-                            }
-                        });
-                    }
-                });
+                //         $.ajax({
+                //             url: "assets/php/empleadoArchivo.php",
+                //             type: "post",
+                //             data: formData,
+                //             contentType: false,
+                //             processData: false,
+                //             cache: false,
+                //             success: function (data) {
+                //                 $("#archivo").val(data);
+                //                 $("#file").val("");
+                //                 $.unblockUI();
+                //                 md.showNotification("top", "right", "Archivo cargado correctamente.");
+                //             }
+                //         });
+                //     }
+                // });
 
                 $(".readonly").keydown(function (e) {
                     e.preventDefault();
@@ -2577,9 +2570,7 @@ function editar_usuario(id, event) {
                                     Swal.fire({
                                         title: 'Correcto',
                                         text: 'Datos de empleado actualizados',
-                                        type: 'success',
-
-                                        
+                                        type: 'success'
                                     })
                                 } else if (data == 2) {
                                     no_pasar();
@@ -2630,56 +2621,16 @@ function mensaje_cargar() {
 };
 
 function select_estilo() {
-    var classes;
-    var id;
-    var name;
-
-    $(".custom-select").each(function () {
-        classes = $(this).attr("class"),
-            id = $(this).attr("id"),
-            name = $(this).attr("name");
-        var template = '<div class="' + classes + '">';
-        template += '<span class="custom-select-trigger">' + $("#" + id + ">option:selected").html() + '</span>';
-        template += '<div class="custom-options">';
-        $(this).find("option").each(function () {
-            template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
-        });
-        template += '</div></div>';
-
-        $(this).wrap('<div class="custom-select-wrapper"></div>');
-        $(this).hide();
-        $(this).after(template);
-    });
-    $(".custom-option:first-of-type").hover(function () {
-        $(this).parents(".custom-options").addClass("option-hover");
-    }, function () {
-        $(this).parents(".custom-options").removeClass("option-hover");
-    });
-
-    var cambio = true;
-    $(".custom-select-trigger").on("click", function (event) {
-        $(".custom-select").removeClass("opened");
-        if (cambio) {
-            $(this).parents(".custom-select").addClass("opened");
-        } else {
-            $(this).parents(".custom-select").removeClass("opened");
-        }
-        cambio = !cambio;
-
-        $('html').one('click', function () {
-            $(".custom-select").removeClass("opened");
-            cambio = true;
-        });
-        event.stopPropagation();
-    });
-    $(".custom-option").on("click", function () {
-        $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
-        $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
-        $(this).addClass("selection");
-        $(this).parents(".custom-select").removeClass("opened");
-        $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
-        $("#" + id).val($("#" + id + ">option:selected").val()).change();
-        cambio = true;
+    tail.select("select:not(.dataTables_length select)", {
+        locale: "es",
+        animate: true,
+        classNames: ["form-control"],
+        width: "100%",
+        search: true,
+        placeholder: "SELECCIONA UNA OPCIÓN",
+        // items: {
+        //     "": "SELECCIONA UNA OPCIÓN"
+        // }
     });
 };
 
@@ -2994,4 +2945,41 @@ function diferencia_fecha(fecha1, fecha2) {
     if (diffDays <= 0)
         diffDays = 0;
     $("#dias").val(diffDays);
+}
+
+function depa_on_change(){
+    $("#departamento").on("change", function(){
+        $.ajax({
+            url: "assets/php/depa_change.php",
+            type: "POST",
+            data: {
+                departamento: $("#departamento").val(),
+            },
+            success: function(data){
+                $("#puesto").html(data);
+                tail.select("#puesto").reload();
+            }
+        });
+    });
+
+    $("#departamento").change();
+}
+
+function depa_on_change_update(){
+    $("#departamento").on("change", function(){
+        $.ajax({
+            url: "assets/php/depa_change_update.php",
+            type: "POST",
+            data: {
+                departamento: $("#departamento").val(),
+                RFC: $("#rfc").val(),
+            },
+            success: function(data){
+                $("#puesto").html(data);
+                tail.select("#puesto").reload();
+            }
+        });
+    });
+
+    $("#departamento").change();
 }

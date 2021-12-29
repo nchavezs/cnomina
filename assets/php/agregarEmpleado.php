@@ -41,6 +41,9 @@ if (mysqli_num_rows($consulta) == 0) {
         //         }
         //     }
         // }
+
+        $sql = "UPDATE Puesto SET ocupado = (ocupado + 1)  WHERE nombre = '".$puesto."'";
+        mysqli_query($conexion,$sql);
         
         echo 0;
     } else {

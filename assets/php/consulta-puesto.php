@@ -10,7 +10,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     $i = 1;
     while ($res = mysqli_fetch_array($resultado)) {
         $res['numero'] = $i++;
-        $res['disponible'] = $res['cantidad'] - $res['ocupado'];
+        $res['vacantes'] = $res['cantidad'] - $res['ocupado'];
         $arreglo["data"][] = $res;
     }   
     echo json_encode($arreglo);

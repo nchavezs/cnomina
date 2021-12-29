@@ -45,18 +45,22 @@ echo '<div class="col-md-6">
 $sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-	$sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
-	$consulta2 = mysqli_query($conexion, $sql2);
-	if (mysqli_num_rows($consulta2) == 0)
-		echo '<option selected value="">SELECCIONAR</option>';
-	while ($res2 = mysqli_fetch_row($consulta)) {
-		echo '<option value="' . $res2[1] . '" ';
-		if ($res['tipoTrabajador'] === $res2[1])
-			echo 'selected';
-		echo '>' . $res2[1] . '</option>';
-	}
+    $sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
+    $consulta2 = mysqli_query($conexion, $sql2);
+    if (mysqli_num_rows($consulta2) == 0) {
+        echo '<option selected value="">SELECCIONAR</option>';
+    }
+
+    while ($res2 = mysqli_fetch_row($consulta)) {
+        echo '<option value="' . $res2[1] . '" ';
+        if ($res['tipoTrabajador'] === $res2[1]) {
+            echo 'selected';
+        }
+
+        echo '>' . $res2[1] . '</option>';
+    }
 } else {
-	echo '<option selected="true" value="">SIN RESULTADOS</option>';
+    echo '<option selected="true" value="">SIN RESULTADOS</option>';
 }
 
 echo '</select></div>
@@ -88,6 +92,33 @@ echo '</select></div>
 								<input id="curp" type="text" class="form-control" minlength=18 maxlength=18 value="' . $res['CURP'] . '" required>
 							</div>
 						</div>';
+echo '<div class="col-md-6">
+						<div class="select">
+						<div class="select-label label-depa">Departamento</div>
+						<select id="departamento" class="custom-select select-empleado departamento-select">';
+$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
+$consulta = mysqli_query($conexion, $sql);
+if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+    $sql2 = "SELECT * FROM Departamento WHERE nombre = '" . $res['departamento'] . "'";
+    $consulta2 = mysqli_query($conexion, $sql2);
+    if (mysqli_num_rows($consulta2) == 0) {
+        echo '<option selected value="">SELECCIONAR</option>';
+    }
+
+    while ($res2 = mysqli_fetch_row($consulta)) {
+        echo '<option value="' . $res2[1] . '" ';
+        if ($res['departamento'] === $res2[1]) {
+            echo 'selected';
+        }
+
+        echo '>' . $res2[1] . '</option>';
+    }
+} else {
+    echo '<option selected="true" value="">SIN RESULTADOS</option>';
+}
+
+echo '</select></div>
+						</div>';
 
 echo '<div class="col-md-6">
 						<div class="select">
@@ -97,47 +128,26 @@ echo '<div class="col-md-6">
 $sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-	$sql2 = "SELECT * FROM Puesto WHERE nombre = '" . $res['puesto'] . "'";
-	$consulta2 = mysqli_query($conexion, $sql2);
-	if (mysqli_num_rows($consulta2) == 0)
-		echo '<option selected value="">SELECCIONAR</option>';
-	while ($res2 = mysqli_fetch_row($consulta)) {
-		echo '<option value="' . $res2[1] . '" ';
-		if ($res['puesto'] === $res2[1])
-			echo 'selected';
-		echo '>' . $res2[1] . '</option>';
-	}
+    $sql2 = "SELECT * FROM Puesto WHERE nombre = '" . $res['puesto'] . "'";
+    $consulta2 = mysqli_query($conexion, $sql2);
+    if (mysqli_num_rows($consulta2) == 0) {
+        echo '<option selected value="">SELECCIONAR</option>';
+    }
+
+    while ($res2 = mysqli_fetch_row($consulta)) {
+        echo '<option value="' . $res2[1] . '" ';
+        if ($res['puesto'] === $res2[1]) {
+            echo 'selected';
+        }
+
+        echo '>' . $res2[1] . '</option>';
+    }
 } else {
-	echo '<option selected="true" value="">SIN RESULTADOS</option>';
+    echo '<option selected="true" value="">SIN RESULTADOS</option>';
 }
 
 echo '</select></div>
 						</div>';
-
-echo '<div class="col-md-6">
-						<div class="select">
-						<div class="select-label label-depa">Departamento</div>
-						<select id="departamento" class="custom-select select-empleado departamento-select">';
-$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
-if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-	$sql2 = "SELECT * FROM Departamento WHERE nombre = '" . $res['departamento'] . "'";
-	$consulta2 = mysqli_query($conexion, $sql2);
-	if (mysqli_num_rows($consulta2) == 0)
-		echo '<option selected value="">SELECCIONAR</option>';
-	while ($res2 = mysqli_fetch_row($consulta)) {
-		echo '<option value="' . $res2[1] . '" ';
-		if ($res['departamento'] === $res2[1])
-			echo 'selected';
-		echo '>' . $res2[1] . '</option>';
-	}
-} else {
-	echo '<option selected="true" value="">SIN RESULTADOS</option>';
-}
-
-echo '</select></div>
-						</div>';
-
 
 echo '<div class="col-md-6">
 							<div class="form-group">
@@ -154,19 +164,19 @@ echo '<div class="col-md-6">
 						</div>';
 
 // if(!is_null($res["archivo"])){
-// 	echo '<div class="col-md-6">
-// 			<input type="file" id="file" /><label for="file" class="descargar btn-3"><span> <i class="material-icons">cloud_upload</i> Reemplazar archivo</span></label>
-// 			<input type="input" id="archivo" value="' . $res['archivo'] . '" hidden="true">
-// 		</div>
-// 			<div class="col-md-6">
-// 			<div id="descargar-btn" class="descargar btn-3"><span> <i class="material-icons">cloud_download</i>Descargar archivo</span></div>
-// 			<input id="descargar-input" value="' . $res['archivo'] . '" hidden="true">
-// 		</div>';
+//     echo '<div class="col-md-6">
+//             <input type="file" id="file" /><label for="file" class="descargar btn-3"><span> <i class="material-icons">cloud_upload</i> Reemplazar archivo</span></label>
+//             <input type="input" id="archivo" value="' . $res['archivo'] . '" hidden="true">
+//         </div>
+//             <div class="col-md-6">
+//             <div id="descargar-btn" class="descargar btn-3"><span> <i class="material-icons">cloud_download</i>Descargar archivo</span></div>
+//             <input id="descargar-input" value="' . $res['archivo'] . '" hidden="true">
+//         </div>';
 // }
 // else{
-// 	echo '<div class="col-md-12">
-// 	<input type="file" id="file" /><label for="file" class="descargar btn-3"><span> <i class="material-icons">cloud_upload</i> Subir archivo</span></label>
-// 	<input type="input" id="archivo" value="' . $res['archivo'] . '" hidden="true">
+//     echo '<div class="col-md-12">
+//     <input type="file" id="file" /><label for="file" class="descargar btn-3"><span> <i class="material-icons">cloud_upload</i> Subir archivo</span></label>
+//     <input type="input" id="archivo" value="' . $res['archivo'] . '" hidden="true">
 // </div>';
 // }
 echo '</div>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "conexion.php";
 include "rol.php";
 $rol = rol();
 $conexion = conexion();

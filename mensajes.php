@@ -1,16 +1,5 @@
 <?php
-session_start();
-
-$varUser = $_SESSION['usuario'];
-$varCateg = $_SESSION['categoria'];
-
-if ($varUser == null || $varUser == '' || $varCateg == "user") {
-	header("location: /");
-}
-
-include "./assets/php/rol.php";
-$rol = rol();
-
+include "assets/php/main_admin.php";
 ?>
 
 <!DOCTYPE html>
@@ -37,9 +26,9 @@ $rol = rol();
 		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
 			<div class="logo">
 				<a class="simple-text logo-normal">
-					<img src="assets/img/logo.svg?v=1.0.0" id="logo1">
+					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
 				</a>
-				<div class="simple-text municipio">Municipio de Yuriria</div>
+				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
@@ -56,7 +45,7 @@ $rol = rol();
 						</a>
 					</li>
 					<?php
-					if ($rol == 2) {
+					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -74,7 +63,7 @@ $rol = rol();
 					?>
 
 					<?php
-					if ($rol == 2) {
+					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -92,7 +81,7 @@ $rol = rol();
 					?>
 
 					<?php
-					if ($rol != 1) {
+					if (rol() != 1) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -101,7 +90,7 @@ $rol = rol();
 					</li>';
 					} else {
 						echo '<li class="nav-item">
-							<a class="nav-link" href="./configuracion">
+							<a class="nav-link" href="./catalogos">
 								<i class="material-icons">build</i>
 								<p>Catálogos</p>
 							</a>
@@ -115,7 +104,7 @@ $rol = rol();
 						</a>
 					</li>
 					<?php
-					if ($rol != 1) {
+					if (rol() != 1) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>

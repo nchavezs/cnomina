@@ -1,17 +1,7 @@
 <?php
-session_start();
+include "assets/php/main_admin.php";
 
-$varUser = $_SESSION['usuario'];
-$varCateg = $_SESSION['categoria'];
-$varName = $_SESSION['nombre'];
-
-if ($varUser == null || $varUser == '' || $varCateg == "user") { // Si el usuario no esta autorizado, no lo deja acceder
-    header("location: /");
-}
-
-include "./assets/php/rol.php";
-$rol = rol();
-if ($rol != 1) {
+if (rol() != 1) {
     header('location:./registrar');
 }
 ?>
@@ -65,7 +55,7 @@ if ($rol != 1) {
                     <div class="col-lg-8">
                         <div class="wizard_contenido">
                             <!-- INICIO -->
-                            <div class="wizard_panel hidden">
+                            <div class="wizard_panel">
                                 <div class="wizard_panel_inicio">
                                     <h2 class="text-primary pb-4 font-weight-bold">Vamos a configurarlo todo</h2>
                                     <p>Es necesario establecer algunos parámetros, puedes omitir el proceso de
@@ -77,7 +67,7 @@ if ($rol != 1) {
                                     </div>
                                 </div>
                                 <div class="wizard_footer">
-                                    <small class="wizard_omitir">Continuar al menú principal</small>
+                                    <small class="wizard_omitir" onclick="wizard_omitir();">Continuar al menú principal</small>
                                     <button class="btn btn-primary btn-sm px-3" onclick="wizard_perfil();">Siguiente <i
                                             class="material-icons">navigate_next</i> </button>
                                 </div>
@@ -115,10 +105,10 @@ if ($rol != 1) {
                                 </div>
                             </div>
                             <!-- LOGO -->
-                            <div class="wizard_panel">
+                            <div class="wizard_panel hidden">
                                 <div class="wizard_panel_logo">
                                     <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est facere voluptatum dolores exercitationem quis recusandae commodi facilis libero architecto, neque aperiam incidunt laborum fugit. Odit mollitia quis quisquam odio quas?</p>
+                                    <p>Puedes cambiar</p>
                                     <form action="assets/php/wizard_logo.php" class="dropzone"
                                         id="dropzone-logo">
                                         <div class="dz-message">
@@ -126,8 +116,8 @@ if ($rol != 1) {
                                                 <div class="col-md-4"><img src="assets/img/upload_image.svg" alt=""></div>
                                                 <div class="col-md-8">
                                                     <h3 class="font-weight-bold">Selecciona tu archivo</h3>
-                                                    <div><small>Arrastra un archivo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
-                                                    <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar archivo</button>
+                                                    <div><small>Arrastra tu logo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
+                                                    <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar imagen</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,7 +161,7 @@ if ($rol != 1) {
                                 <div class="wizard_footer">
                                     <button class="btn btn-primary btn-sm px-3" onclick="wizard_logo();">Anterior <i
                                             class="material-icons">undo</i> </button>
-                                    <button class="btn btn-primary btn-sm px-3" onclick="">Finalizar <i
+                                    <button class="btn btn-primary btn-sm px-3" onclick="wizard_finalizar();">Finalizar <i
                                             class="material-icons">navigate_next</i> </button>
                                 </div>
                             </div>

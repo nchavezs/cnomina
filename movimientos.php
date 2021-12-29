@@ -1,12 +1,5 @@
 <?php
-session_start();
-
-$varUser = $_SESSION['usuario'];
-$varCateg = $_SESSION['categoria'];
-
-if ($varUser == null || $varUser == '' || $varCateg == "admin") {
-	header("location: /");
-}
+include "assets/php/main_user.php";
 ?>
 
 <!DOCTYPE html>
@@ -33,9 +26,9 @@ if ($varUser == null || $varUser == '' || $varCateg == "admin") {
 		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
 			<div class="logo">
 				<a class="simple-text logo-normal">
-					<img src="assets/img/logo.svg?v=1.0.0" id="logo1">
+					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
 				</a>
-				<div class="simple-text municipio">Municipio de Yuriria</div>
+				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">

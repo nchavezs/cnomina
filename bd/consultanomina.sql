@@ -36,6 +36,16 @@ DROP TABLE IF EXISTS Roles;
 
 DROP TABLE IF EXISTS Correos;
 
+DROP TABLE IF EXISTS Configuracion;
+
+CREATE TABLE Configuracion(
+	id_configuracion INT(1) PRIMARY KEY AUTO_INCREMENT,
+	logo VARCHAR(255),
+	nombre VARCHAR(255)
+);
+
+INSERT INTO Configuracion(logo,nombre) VALUES("logo.png", "COMONFORT");
+
 CREATE TABLE Correos(
 	id_correo INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	RFC VARCHAR(13) NOT NULL,
@@ -202,6 +212,7 @@ CREATE TABLE Movimiento(
 	url VARCHAR(100),
 	puestoAnterior VARCHAR(100) NOT NULL,
 	departamentoAnterior VARCHAR(100) NOT NULL,
+	tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
 	observacion VARCHAR(100),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

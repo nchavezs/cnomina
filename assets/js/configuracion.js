@@ -29,6 +29,26 @@ function wizard_importar() {
     $(".wizard_step_logo").addClass("terminado");
 }
 
+function wizard_omitir() {
+    window.location.href = "./registrar?pass=1";
+}
+
+function wizard_finalizar() {
+    Swal.fire({
+        title: "Finalizar configuración",
+        text: "¿Seguro que quieres finalizar la configuración?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "Cancelar",
+        reverseButtons: "true"
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = "./registrar";
+        }
+    })
+}
+
 $(document).on("submit", "#form_wizard_perfil", function (e) {
     e.preventDefault();
     $.ajax({
@@ -77,15 +97,15 @@ Dropzone.options.dropzonePlantilla = {
         this.on("addedfile", function(file) {
             let ext = file.name.split('.').pop();
             switch(ext){
-                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/pdf.png");
+                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/pdf.png");
                 break;
-                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/xlsx.png");
+                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/xlsx.png");
                 break;
-                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/img.png");
                 break;
-                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/img.png");
                 break;
-                default: $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/file.png");
+                default: $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/file.png");
                 break;
             }
         });
@@ -96,7 +116,7 @@ Dropzone.options.dropzoneLogo = {
     paramName: "file",
     maxFileSize: 5,
     maxFiles: 1,
-    acceptedFiles: '.png,.jpg,.svg,.jpeg',
+    acceptedFiles: 'image/*',
     addRemoveLinks: true,
     dictRemoveFile: "X",
     dictCancelUpload: "Cancelar carga",
@@ -114,15 +134,15 @@ Dropzone.options.dropzoneLogo = {
         this.on("addedfile", function(file) {
             let ext = file.name.split('.').pop();
             switch(ext){
-                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/pdf.png");
+                case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/pdf.png");
                 break;
-                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/xlsx.png");
+                case 'xlsx': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/xlsx.png");
                 break;
-                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                case 'png': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/img.png");
                 break;
-                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/img.png");
+                case 'jpg': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/img.png");
                 break;
-                default: $(file.previewElement).find(".dz-image img").attr("src", "/assets/img/icons/file.png");
+                default: $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/file.png");
                 break;
             }
         });

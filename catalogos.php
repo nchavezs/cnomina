@@ -1,16 +1,7 @@
 <?php
-session_start();
+include "assets/php/main_admin.php";
 
-$varUser = $_SESSION['usuario'];
-$varCateg = $_SESSION['categoria'];
-
-if ($varUser == null || $varUser == '' || $varCateg == "user") { // Si el usuario no esta autorizado, no lo deja acceder
-	header("location: /");
-}
-
-include "./assets/php/rol.php";
-$rol = rol();
-if ($rol != 1) {
+if (rol() != 1) {
 	header('location:./registrar');
 }
 ?>
@@ -41,9 +32,9 @@ if ($rol != 1) {
 		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
 			<div class="logo">
 				<a class="simple-text logo-normal">
-					<img src="assets/img/logo.svg?v=1.0.0" id="logo1">
+					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
 				</a>
-				<div class="simple-text municipio">Municipio de Yuriria</div>
+				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
@@ -73,7 +64,7 @@ if ($rol != 1) {
 					</li>
 
 					<li id="link1" class="nav-item active">
-						<a class="nav-link" href="./configuracion">
+						<a class="nav-link" href="./catalogos">
 							<i class="material-icons">build</i>
 							<p>Catálogos</p>
 						</a>

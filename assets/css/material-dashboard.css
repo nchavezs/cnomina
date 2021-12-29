@@ -1,3 +1,15 @@
+.tag{
+    background: #4f75c5;
+    border-radius: 4px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    color:white;
+    width: 30px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
 .log_titulo{
     background: #f0f0f0;
     padding: 30px 50px;
@@ -1795,8 +1807,11 @@ div[data-notify="container"] {
 }
 
 #logo1 {
-    width: 120px;
+    max-width: 100%;
+    width: auto;
+    max-height: 80px;
     height: auto;
+    padding: 0 20px;
 }
 
 #enviar {
@@ -2359,7 +2374,6 @@ body {
     line-height: 1.5;
     color: #333;
     text-align: left;
-    background-color: red;
 }
 
 [tabindex="-1"]:focus {
@@ -21894,7 +21908,7 @@ input[type="checkbox"]:checked+label:after {
     font-size: 13px;
     font-weight: 500;
     position: relative;
-    pointer-events: none;
+    /* pointer-events: none; */
     top: 0px;
 }
 

@@ -1,11 +1,12 @@
 <?php
 $conexion = conexion();
 
-if($rol == 1){
+$omitir = $_GET["pass"] ?? null;
+
+if (rol() == 1) {
     $sql = "SELECT * FROM Puesto";
     $resultado = mysqli_query($conexion, $sql);
-    $total = mysqli_num_rows($resultado);
-    if($total == 0){
+    if (mysqli_num_rows($resultado) == 0 && $omitir == null) {
         header("location: ./configuracion");
     }
 }

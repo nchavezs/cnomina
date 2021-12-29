@@ -1,5 +1,6 @@
 <?php
 include "conexion.php";
+include "municipio.php";
 $conexion = conexion();
 require_once "../../vendor/autoload.php";
 $css = file_get_contents("../css/reporte.css");
@@ -53,7 +54,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
 						<header class="clearfix">
 							<div class="logo"></div>
 							<div id="company" class="clearfix">
-								<h2>MUNICIPIO DE YURIRIA, GTO</h2>
+								<h2>MUNICIPIO DE '.get_municipio().', GTO</h2>
 								<div><span>FECHA DE ELABORACIÓN</span> ' . $hoy . '</div>
 							</div>
 							<div id="project">

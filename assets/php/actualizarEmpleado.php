@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "conexion.php";
 include "rol.php";
 $rol = rol();
 if ($rol != 1) {
@@ -44,6 +45,11 @@ if ($rol != 1) {
     //     }
     // }
 
+    $sql = "SELECT * FROM Usuario WHERE RFC = '".$RFC."'";
+    $consulta = mysqli_query($conexion, $sql);
+    $res = mysqli_fetch_array($consulta);
+    $puesto_anterior = $res["puesto"];
+
     $sql = "UPDATE Usuario SET id_usuario = " . $id_usuario . ", nombre = '" . $nombreEmpleado . "', CURP = '" . $CURP . "',
     puesto = '" . $puesto . "', departamento = '" . $departamento . "', banca = NULLIF('" . $banca . "', ''),
     afiliacion = NULLIF('" . $afiliacion . "',''), nombres = '" . $nombres . "', apellidop = '" . $apellidop . "',
@@ -55,6 +61,11 @@ if ($rol != 1) {
     // archivo = NULLIF('" . $archivo . "', '')
 
     if (mysqli_query($conexion, $sql)) {
+        $sql = "UPDATE Puesto SET ocupado = (ocupado - 1)  WHERE nombre = '".$puesto_anterior."'";
+        mysqli_query($conexion,$sql);
+        $sql = "UPDATE Puesto SET ocupado = (ocupado + 1)  WHERE nombre = '".$puesto."'";
+        mysqli_query($conexion,$sql);
+
         echo 1;
     } else {
         echo 0;

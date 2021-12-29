@@ -1,14 +1,5 @@
 <?php
-session_start();
-
-$varUser = $_SESSION['usuario'];
-$varCateg = $_SESSION['categoria'];
-
-if ($varUser == null || $varUser == '' || $varCateg == "user") { // Si el usuario no esta autorizado, no lo deja acceder
-	header("location: /");
-}
-include "./assets/php/rol.php";
-$rol = rol();
+include "assets/php/main_admin.php";
 include "./assets/php/comprobar_catalago.php";
 ?>
 
@@ -26,10 +17,11 @@ include "./assets/php/comprobar_catalago.php";
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/css/material-dashboard.css?v=3.1.4" rel="stylesheet" />
-	<link href="assets/css/select2.css?v=3.1.4" rel="stylesheet" />
 	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
+	<link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -39,9 +31,9 @@ include "./assets/php/comprobar_catalago.php";
 		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
 			<div class="logo">
 				<a class="simple-text logo-normal">
-					<img src="assets/img/logo.svg?v=1.0.0" id="logo1">
+					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
 				</a>
-				<div class="simple-text municipio">Municipio de Yuriria</div>
+				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
@@ -58,7 +50,7 @@ include "./assets/php/comprobar_catalago.php";
 						</a>
 					</li>
 					<?php
-					if ($rol == 2) {
+					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -76,7 +68,7 @@ include "./assets/php/comprobar_catalago.php";
 					?>
 
 					<?php
-					if ($rol == 2) {
+					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -93,7 +85,7 @@ include "./assets/php/comprobar_catalago.php";
 					}
 					?>
 					<?php
-					if ($rol != 1) {
+					if (rol() != 1) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -102,7 +94,7 @@ include "./assets/php/comprobar_catalago.php";
 					</li>';
 					} else {
 						echo '<li class="nav-item">
-							<a class="nav-link" href="./configuracion">
+							<a class="nav-link" href="./catalogos">
 								<i class="material-icons">build</i>
 								<p>Catálogos</p>
 							</a>
@@ -117,7 +109,7 @@ include "./assets/php/comprobar_catalago.php";
 						</a>
 					</li>
 					<?php
-					if ($rol != 1) {
+					if (rol() != 1) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
@@ -192,7 +184,7 @@ include "./assets/php/comprobar_catalago.php";
 								</div>
 								<div class="col-md-6 msn-mostrar botones-tabla">
 									<?php
-									if ($rol == 1) {
+									if (rol() == 1) {
 										echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add</i>
 											<div class="oculto">Nuevo empleado</div>
 												</button>
@@ -251,30 +243,21 @@ include "./assets/php/comprobar_catalago.php";
 			</footer>
 		</div>
 	</div>
-	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap-material-design.min.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-
-	<!-- Chartist JS -->
-
-	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="assets/js/material-dashboard.js?v=3.1.4" type="text/javascript"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/block.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+	<script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/registrar.js?v=3.1.4"></script>
 	<script src="assets/js/sesion.js?v=3.1.4"></script>
 	<script src="assets/js/mensajes.js?v=3.1.4"></script>

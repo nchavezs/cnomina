@@ -26,7 +26,9 @@ $(document).ready(function () {
                 "data": "cantidad"
             },
             {
-                "data": "disponible"
+                "render": function (data, type, row) {
+                    return '<div class="tag">'+row.vacantes+'</div>';
+                }
             },
             {
                 "render": function (data, type, row) {

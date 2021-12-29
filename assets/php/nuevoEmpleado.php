@@ -32,7 +32,6 @@ echo '<form id="form-empleado">
 							</div>
 						</div>';
 
-
 echo '<div class="col-md-6">
 						<div class="select">
 							<div class="select-label label-tipo">Tipo de trabajador</div>
@@ -41,7 +40,7 @@ echo '<div class="col-md-6">
 $sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
 $consulta = mysqli_query($conexion, $sql);
 while ($res2 = mysqli_fetch_row($consulta)) {
-	echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
+    echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
 }
 echo '</select>
 							</div>
@@ -74,26 +73,7 @@ echo '<div class="col-md-6">
 							</div>
 						</div>';
 
-echo '<div class="col-md-6">
-						<div class="select">
-							<div class="select-label label-puesto">Puesto</div>
-								<select id="puesto" class="custom-select select-empleado puesto-select">';
-
-$sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
-if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-	while ($res2 = mysqli_fetch_row($consulta)) {
-		echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
-	}
-} else {
-	echo '<option selected="true" value="">NO SE ENCONTRO PUESTO</option>';
-}
-
-echo '</select>
-							</div>
-						</div>';
-
-echo '<div class="col-md-6">
+						echo '<div class="col-md-6">
 							<div class="select">
 								<div class="select-label label-depa">Departamento</div>
 									<select id="departamento" class="custom-select select-empleado departamento-select">';
@@ -101,14 +81,25 @@ echo '<div class="col-md-6">
 $sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-	while ($res2 = mysqli_fetch_row($consulta)) {
-		echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
-	}
+    while ($res2 = mysqli_fetch_row($consulta)) {
+        echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
+    }
 } else {
-	echo '<option selected="true" value="">NO SE ENCONTRO DEPARTAMENTO</option>';
+    echo '<option selected="true" value="">NO SE ENCONTRO DEPARTAMENTO</option>';
 }
 
 echo '</select></div>
+						</div>';
+
+echo '<div class="col-md-6">
+						<div class="select">
+							<div class="select-label label-puesto">Puesto</div>
+								<select id="puesto" class="custom-select select-empleado puesto-select">';
+
+
+
+echo '</select>
+							</div>
 						</div>';
 
 echo '<div class="col-md-6">
@@ -125,7 +116,7 @@ echo '<div class="col-md-6">
 							</div>
 						</div>
 
-						
+
 					</div>
 				</div>
 				<div id="advertencia" class="hide"><i class="material-icons">error</i>Completa todos los campos</div>
@@ -140,8 +131,7 @@ echo '<div class="col-md-6">
 
 mysqli_close($conexion);
 
-
-		// <div class="col-md-12">
-		// 					<input type="file" id="file" /><label for="file" class="btn-3"><span> <i class="material-icons">cloud_upload</i> Subir archivo</span></label>
-		// 					<input type="input" id="archivo" hidden="true">
-		// 				</div>
+// <div class="col-md-12">
+//                     <input type="file" id="file" /><label for="file" class="btn-3"><span> <i class="material-icons">cloud_upload</i> Subir archivo</span></label>
+//                     <input type="input" id="archivo" hidden="true">
+//                 </div>

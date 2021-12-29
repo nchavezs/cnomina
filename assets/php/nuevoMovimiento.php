@@ -52,19 +52,8 @@
 						echo '<div class="col-md-6">
 						<div class="select">
 							<div class="select-label label-puesto">Nuevo puesto</div>
-								<select id="puesto" class="custom-select select-empleado puesto-select">';
-
-								$sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
-								$consulta = mysqli_query($conexion, $sql);
-								if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-									while($res2 = mysqli_fetch_row($consulta)){
-										echo '<option value="'.$res2[1].'">'.$res2[1].'</option>';
-									}	
-								} else {
-									echo '<option selected="true" value="">NO SE ENCONTRO PUESTO</option>';
-								}
-
-						echo '</select>
+								<select id="puesto" class="custom-select select-empleado puesto-select">
+								</select>
 							</div>
 						</div>';
 

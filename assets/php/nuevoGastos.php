@@ -45,7 +45,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 							  <div class="select-label label-puesto">Nombre de quién otorga el apoyo</div>
-							  <input id="nombre" type="text" class="form-control" required="true" />
+							  <input id="nombre" type="text" maxlength="100" class="form-control" required="true" />
 							</div>
 						</div>
 
