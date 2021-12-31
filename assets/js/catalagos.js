@@ -27,7 +27,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<div class="tag">'+row.vacantes+'</div>';
+                    return '<div class="tag">' + row.vacantes + '</div>';
                 }
             },
             {
@@ -76,33 +76,15 @@ $(document).ready(function () {
             formData.append("file", files);
 
             $.ajax({
-                url: "assets/php/subirTxt.php",
+                url: "assets/php/wizard_plantilla.php",
                 type: "post",
                 data: formData,
                 contentType: false,
                 processData: false,
                 cache: false,
-                success: function (dato) {
-                    if (dato == 1) {
-                        $.post("assets/php/leerTxt.php", {
-                            categoria: 'Puesto'
-                        }, function (html) {
-                            Swal.fire({
-                                title: 'Correcto',
-                                text: 'Datos importados',
-                                type: 'success',
-
-                                
-                            });
-                            $('#tabla-puesto').DataTable().ajax.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'El formato del archivo no es el correcto',
-                            type: 'error'
-                        })
-                    }
+                success: function (data) {
+                    log_show(data);
+                    $('#tabla-puesto').DataTable().ajax.reload();
                     $("#importar-puestos").val("");
                 }
             });
@@ -119,35 +101,15 @@ $(document).ready(function () {
             formData.append("file", files);
 
             $.ajax({
-                url: "assets/php/subirTxt.php",
+                url: "assets/php/importar_depa.php",
                 type: "post",
                 data: formData,
                 contentType: false,
                 processData: false,
                 cache: false,
-                success: function (dato) {
-                    if (dato == 1) {
-                        $.post("assets/php/leerTxt.php", {
-                            categoria: 'Departamento'
-                        }, function (html) {
-                            Swal.fire({
-                                title: 'Correcto',
-                                text: 'Datos importados',
-                                type: 'success',
-
-                                
-                            });
-                            $('#tabla-departamento').DataTable().ajax.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'El formato del archivo no es el correcto',
-                            type: 'error',
-
-                            
-                        })
-                    }
+                success: function (data) {
+                    log_show(data);
+                    $('#tabla-departamento').DataTable().ajax.reload();
                     $("#importar-departamentos").val("");
                 }
             });
@@ -156,24 +118,34 @@ $(document).ready(function () {
 
 });
 
-function generar(categoria) {
-    $.post("assets/php/generarTxt.php", {
-        categoria: categoria
-    }, function (data) {
+function exportar_puesto() {
+    $.post("assets/php/exportar_puesto.php", function (data) {
         if (data != 0) {
-            descargar(data, categoria);
+            descargar(data, "Puestos.xlsx");
         } else {
             Swal.fire({
                 title: 'Error',
                 text: 'No se pudo generar el archivo',
-                type: 'error',
-
-                
+                type: 'error'
             });
         }
     });
 };
 
+function exportar_depa() {
+    $.post("assets/php/exportar_depa.php", function (data) {
+        if (data != 0) {
+            alert(data);
+            descargar(data, "Departamentos.xlsx");
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo generar el archivo',
+                type: 'error'
+            });
+        }
+    });
+};
 
 function mensaje_cargar() {
     let timerInterval
@@ -181,7 +153,7 @@ function mensaje_cargar() {
         title: 'Cargando',
         html: 'Espere porfavor',
         allowOutsideClick: false,
-        
+
 
         onBeforeOpen: () => {
             Swal.showLoading()
@@ -208,9 +180,8 @@ function nuevo_puesto() {
         var opciones = jQuery.parseJSON(data);
         Swal.mixin({
             showCancelButton: true,
-            progressSteps: ["1","2","3"],
-        }).queue([
-            {
+            progressSteps: ["1", "2", "3"],
+        }).queue([{
                 title: "Nombre del puesto",
                 confirmButtonText: "Siguiente",
                 input: "text",
@@ -233,9 +204,9 @@ function nuevo_puesto() {
                 input: "number",
                 inputValue: 1,
                 inputValidator: (value) => {
-                    if(!value)
+                    if (!value)
                         return "Completa los campos"
-                    else if(value < 1)
+                    else if (value < 1)
                         return "Valor no valido"
                 }
             },
@@ -246,7 +217,7 @@ function nuevo_puesto() {
                 var nombre = datos[0];
                 var departamento = datos[1];
                 var cantidad = datos[2];
-    
+
                 $.post("assets/php/nuevoPuesto.php", {
                         nombre: nombre,
                         departamento: departamento,
@@ -278,23 +249,21 @@ function nuevo_puesto() {
         });
     });
 
-    
+
 };
 
 function nuevo_departamento() {
     Swal.mixin({
         showCancelButton: true,
         progressSteps: ["1"],
-    }).queue([
-        {
-            title: "Nombre del departamento",
-            confirmButtonText: "Guardar",
-            input: "text",
-            inputValidator: (value) => {
-                return !value && "Completa los campos"
-            }
-        },
-    ]).then((result) => {
+    }).queue([{
+        title: "Nombre del departamento",
+        confirmButtonText: "Guardar",
+        input: "text",
+        inputValidator: (value) => {
+            return !value && "Completa los campos"
+        }
+    }, ]).then((result) => {
         if (result.value) {
             var resultado = JSON.stringify(result.value);
             var datos = jQuery.parseJSON(resultado);
@@ -329,6 +298,16 @@ function nuevo_departamento() {
     });
 };
 
+function log_show(html) {
+    Swal.fire({
+        html: html,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        padding: 0
+    });
+}
+
+
 
 function eliminar(id, categoria) {
     Swal.fire({
@@ -338,8 +317,8 @@ function eliminar(id, categoria) {
         showCancelButton: true,
         confirmButtonText: "Si",
         cancelButtonText: "Cancelar",
-        
-        
+
+
     }).then((result) => {
         if (result.value) {
             $.ajax({
@@ -356,7 +335,7 @@ function eliminar(id, categoria) {
                             text: 'Eliminado correctamente',
                             type: 'success',
 
-                            
+
                         })
                     } else if (html == 2) {
                         no_pasar();
@@ -366,7 +345,7 @@ function eliminar(id, categoria) {
                             text: 'Elemento no eliminado',
                             type: 'error',
 
-                            
+
                         })
                     }
                     $('#tabla-puesto').DataTable().ajax.reload();

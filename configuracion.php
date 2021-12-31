@@ -108,7 +108,7 @@ if (rol() != 1) {
                             <div class="wizard_panel hidden">
                                 <div class="wizard_panel_logo">
                                     <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
-                                    <p>Puedes cambiar</p>
+                                    <p>Puedes elegir una imagen y establecerla como logo para tus reportes y mostrarla en el panel principal. La imagen deberá estar en formato <span class="text-warning">PNG</span> y deberá pesar menos de <span class="text-warning">5 Mb</span>.</p>
                                     <form action="assets/php/wizard_logo.php" class="dropzone"
                                         id="dropzone-logo">
                                         <div class="dz-message">

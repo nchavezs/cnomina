@@ -58,10 +58,8 @@ function eliminar_simbolos($string)
 
     return $string;
 }
-
-$puestos_actualizados = 0;
+$total = 0;
 $total_departamentos = 0;
-$total_puestos = 0;
 $errores = [];
 
 $archivo = $_FILES['file']['tmp_name'];
@@ -78,50 +76,25 @@ $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFrom
 
 for ($row = 2; $row <= $highestRow; ++$row) {
     $datos = [];
-
     for ($col = 1; $col <= $highestColumnIndex; ++$col) {
         $valor = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
         array_push($datos, $valor);
     }
 
-    $puesto = eliminar_simbolos($datos[0]);
-    $departamento = eliminar_simbolos($datos[1]);
-    $cantidad = eliminar_simbolos($datos[2]);
+    $departamento = eliminar_simbolos($datos[0]);
 
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
     $consulta = mysqli_query($conexion, $sql);
 
-    if ($consulta && mysqli_num_rows($consulta) == 0) {
+    if ($consulta && mysqli_num_rows($consulta) == 0 ) {
         $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
         if (mysqli_query($conexion, $sql)) {
-            $id_depa = mysqli_insert_id($conexion);
             $total_departamentos++;
+        }else{
+            array_push($errores, "Fila ".$row." : valor no válido.");
         }
-    } elseif($consulta && mysqli_num_rows($consulta) > 0){
-        $res = mysqli_fetch_row($consulta);
-        $id_depa = $res[0];
-    }
-    
-    $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = ".$id_depa;
-    $consulta = mysqli_query($conexion, $sql);
-
-    if ($consulta && mysqli_num_rows($consulta) == 0) {
-        $sql = "INSERT INTO Puesto(nombre, id_departamento, cantidad) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ", " . $cantidad . ")";
-        if (mysqli_query($conexion, $sql) && $cantidad > 0) {
-            $total_puestos++;
-        } else {
-            array_push($errores, "Fila ".$row." : error al importar.");
-        }
-    }elseif($consulta && mysqli_num_rows($consulta) > 0) {
-        $res = mysqli_fetch_row($consulta);
-        $id_puesto = $res[0];
-
-        $sql = "UPDATE Puesto SET cantidad = " . $cantidad ." WHERE id_puesto = ".$id_puesto;
-        if (mysqli_query($conexion, $sql)) {
-            $puestos_actualizados++;
-        }else {
-            array_push($errores, "Fila ".$row." : error al actualizar");
-        }
+    } else{
+        array_push($errores, "Fila ".$row." : el departamento ya existe.");
     }
 
 }
@@ -130,9 +103,7 @@ $highestRow--;
 echo "<div class='log'>";
 echo "<div class='log_titulo'>REGISTRO DE IMPORTACIÓN</div>";
 echo "<div class='log_cuerpo'>";
-echo "<h5> " . $total_puestos . " <span> puestos nuevos importados</span></h5>";
-echo "<h5> " . $total_departamentos . " <span>departamentos nuevos importados</span></h5>";
-echo "<h5> " . $puestos_actualizados . " <span>filas actualizadas</span></h5>";
+echo "<h5> " . $total_departamentos . " <span>departamentos importados de ".$highestRow."</span></h5>";
 
 if(sizeof($errores)>0){
     echo "<h5>La siguiente lista muesta las filas no importadas. </h5>";

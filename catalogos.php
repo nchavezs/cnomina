@@ -140,8 +140,8 @@ if (rol() != 1) {
 										</div>
 										<div class="col-md-6 msn-mostrar botones-tabla">
 											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add</i>Nuevo</button>
-											<input type="file" id="importar-puestos" accept=".txt" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">arrow_upward</i>Importar</label>
-											<button onclick="generar('Puesto');" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
+											<input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">arrow_upward</i>Importar</label>
+											<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
 										</div>
 									</div>
 
@@ -175,8 +175,8 @@ if (rol() != 1) {
 										</div>
 										<div class="col-md-6 msn-mostrar botones-tabla">
 											<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add</i>Nuevo</button>
-											<input type="file" id="importar-departamentos" accept=".txt" /><label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">arrow_upward</i>Importar</label>
-											<button onclick="generar('Departamento');" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
+											<input type="file" id="importar-departamentos" accept=".xlsx" /><label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">arrow_upward</i>Importar</label>
+											<button onclick="exportar_depa();" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
 										</div>
 									</div>
 
