@@ -49,14 +49,14 @@ include "assets/php/main_admin.php";
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Archivo</p>
+							<p>Cargar CFDI</p>
 						</a>
 					</li>';
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Archivo</p>
+								<p>Cargar CFDI</p>
 							</a>
 						</li>';
 					}

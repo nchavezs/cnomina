@@ -49,7 +49,7 @@ if (rol() == 2) {
 					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./subir">
 							<i class="material-icons">cloud_upload</i>
-							<p>Archivo</p>
+							<p>Cargar CFDI</p>
 						</a>
 					</li>
 
@@ -159,7 +159,7 @@ if (rol() == 2) {
 											</div>
 										</div>
 										<div class="col-10">
-											<h5>Registrar trabajadores al subir <a href="consultar" class="text-info">archivos de nómina</a>.</h5>
+											<h5>Registrar trabajadores al subir <a href="consultar" class="text-info">archivos CFDI</a>.</h5>
 											<p>Los datos del trabajador con número de empleado ya registrado no serán sobreescritos.</p>
 										</div>
 									</div>

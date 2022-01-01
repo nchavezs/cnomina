@@ -54,14 +54,14 @@ if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Archivo</p>
+							<p>Cargar CFDI</p>
 						</a>
 					</li>';
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Archivo</p>
+								<p>Cargar CFDI</p>
 							</a>
 						</li>';
 					}
@@ -166,12 +166,12 @@ if (rol() == 2) {
 							<div class="row">
 								<div class="col-md-4">
 									<h4 class="card-title ">Recibos de nómina</h4>
-									<p class="card-category"> Lista de archivos</p>
+									<p class="card-category"> Lista de archivos CFDI</p>
 								</div>
 								<div class="col-md-8 msn-mostrar botones-tabla">
 									<?php
 									if (rol() != 2) {
-										echo '<button onclick="window.location.href=\'./subir\'" class="btn-mostrar"><i class="material-icons">arrow_upward</i>Cargar archivos</button>';
+										echo '<button onclick="window.location.href=\'./subir\'" class="btn-mostrar"><i class="material-icons">arrow_upward</i>Cargar CFDI</button>';
 										echo '<button onclick="eliminar_periodo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button>';
 									}
 									?>

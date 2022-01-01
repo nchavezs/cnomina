@@ -63,14 +63,14 @@ if ($resultadoUsuario) {
                   echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Archivo</p>
+							<p>Cargar CFDI</p>
 						</a>
 					</li>';
                } else {
                   echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Archivo</p>
+								<p>Cargar CFDI</p>
 							</a>
 						</li>';
                }
@@ -277,8 +277,8 @@ if ($resultadoUsuario) {
                         <div class="col-md 12">
                            <div class="card">
                               <div class="card-body">
-                                 <h5>Eliminar <a href="consultar" class="text-info">archivos de nómina</a>.</h5>
-                                 <p>Eliminar todos los archivos de nómina de la base de datos. Esto no eliminará la
+                                 <h5>Eliminar <a href="consultar" class="text-info">archivos CFDI</a>.</h5>
+                                 <p>Eliminar todos los archivos CFDI de la base de datos. Esto no eliminará la
                                     lista de empleados.</p>
                                  <?php
                                  if (rol() == 1) {

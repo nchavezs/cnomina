@@ -53,7 +53,7 @@ if (rol() != 1) {
 					<li class="nav-item">
 						<a class="nav-link" href="./subir">
 							<i class="material-icons">cloud_upload</i>
-							<p>Archivo</p>
+							<p>Cargar CFDI</p>
 						</a>
 					</li>
 					<li class="nav-item">
