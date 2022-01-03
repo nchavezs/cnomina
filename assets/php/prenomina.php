@@ -232,7 +232,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -294,7 +294,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -354,7 +354,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -420,7 +420,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -502,7 +502,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -566,7 +566,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -634,7 +634,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -756,7 +756,7 @@ $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
 $spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');

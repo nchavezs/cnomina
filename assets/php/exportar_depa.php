@@ -13,7 +13,7 @@ if (!file_exists($ruta)) {
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet()->setTitle("Departamentos");
 $spreadsheet->getActiveSheet()->getStyle('A1:A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A1:A1')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A1:A1')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A1', 'NOMBRE');
 
