@@ -227,7 +227,7 @@ function nuevo_puesto() {
                 }
             },
             {
-                title: "Cantidad",
+                title: "Plazas",
                 confirmButtonText: "Guardar",
                 input: "number",
                 inputValue: 1,

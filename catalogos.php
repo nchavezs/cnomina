@@ -157,7 +157,7 @@ if ($varFoto != null) {
 													<th class="">#</th>
 													<th class="">Nombre</th>
 													<th class="oculto">Departamento</th>
-													<th class="oculto">Cantidad</th>
+													<th class="oculto">Plazas</th>
 													<th class="">Vacantes</th>
 													<th class="">Eliminar</th>
 												</tr>
