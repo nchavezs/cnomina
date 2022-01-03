@@ -116,7 +116,7 @@ Dropzone.options.dropzoneLogo = {
     paramName: "file",
     maxFileSize: 5,
     maxFiles: 1,
-    acceptedFiles: 'image/*',
+    acceptedFiles: 'image/jpeg,image/png',
     addRemoveLinks: true,
     dictRemoveFile: "X",
     dictCancelUpload: "Cancelar carga",
@@ -126,6 +126,13 @@ Dropzone.options.dropzoneLogo = {
         myDropzone = this;
 
         this.on("success", function (file, data) {
+            alert(data);
+            switch(data){
+                case "1": md.showNotification("top", "right", "Imagen cargada correctamente."); 
+                break;
+                default: md.showNotification("top", "right", "Error al cargar imagen.");
+                break;
+            }
             if (file.accepted) {
                 $(".wizard_step_logo").addClass("terminado");
             }

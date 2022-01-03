@@ -64,7 +64,7 @@
     position: relative;
     height: 80vh;
     overflow: hidden;
-    width: 250px !important;
+    width: 290px !important;
     z-index: 4;
     padding-bottom: 100px
 }
@@ -80,7 +80,7 @@
 .municipio {
     padding: 30px 5px;
     font-weight: bold;
-    font-size: 15px !important;
+    font-size: 16px !important;
     color: rgb(255, 255, 255) !important;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -93,7 +93,7 @@
     bottom: 0;
     left: 0;
     z-index: 2;
-    width: 250px;
+    width: 290px;
     background: #2a3447;
     /* box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .2), 0 4px 25px 0 rgba(0, 0, 0, .05), 0 8px 10px -5px rgba(0, 0, 0, .1) */
 }
@@ -1831,9 +1831,13 @@ div[data-notify=container] {
 }
 
 @media (max-width:768px) {
+    .main-panel>.content {
+        padding: 30px 10px 50px 10px !important;
+    }
+
     .msn-mostrar{
         display: block;
-        text-align: center;
+        /* text-align: center; */
     }
     .btn-mostrar {
         /* padding: 5px 15px; */
@@ -17461,7 +17465,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .main-panel {
     position: relative;
     float: right;
-    width: calc(100% - 250px);
+    width: calc(100% - 290px);
     transition: .33s, cubic-bezier(.685, .0473, .346, 1)
 }
 
@@ -17469,7 +17473,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     position: relative;
     overflow:hidden;
     margin-top: 70px;
-    padding: 30px 10px 50px 10px;
+    /* padding: 30px 10px 50px 10px; */
+    padding: 30px 5% 50px 5%;
     height: calc(100vh - 70px)
 }
 
