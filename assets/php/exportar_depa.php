@@ -12,8 +12,8 @@ if (!file_exists($ruta)) {
 
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet()->setTitle("Departamentos");
-$spreadsheet->getActiveSheet()->getStyle('A1:A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A1:A1')->getFont()->getColor()->setRGB('FFFFFF');
+$spreadsheet->getActiveSheet()->getStyle('A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->getColor()->setRGB('FFFFFF');
 
 $sheet->setCellValue('A1', 'NOMBRE');
 
@@ -26,7 +26,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $i++;
     }
 
-    foreach (range('A', 'A') as $columnID) {
+    foreach (range('A1', 'A1') as $columnID) {
         $sheet->getColumnDimension($columnID)->setAutoSize(true);
     }
     $spreadsheet->getActiveSheet()->setAutoFilter('A1:A1');
