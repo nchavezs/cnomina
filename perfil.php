@@ -36,12 +36,19 @@ if ($resultadoUsuario) {
 
 <body class="">
    <div class="wrapper ">
-      <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-         <div class="logo">
-            <a class="simple-text logo-normal">
-               <img src="assets/img/<?php echo get_logo()?>" id="logo1">
-            </a>
-            <div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
+      <div class="sidebar" data-color="purple" data-background-color="white" >
+      <div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+         <div class="avatar">
+               <?php
+         $foto = "assets/img/user.png";
+         if ($varFoto != null) {
+            $foto = $varFoto;
+         }
+
+         ?>
+               <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+               <p><?php echo $varName ?></p>
+               <a href="mailto:"><?php echo $varEmail ?></a>
          </div>
          <div class="sidebar-wrapper">
             <ul class="nav">
@@ -54,7 +61,7 @@ if ($resultadoUsuario) {
 
                <li id="link1" class="nav-item active">
                   <a class="nav-link" href="./perfil">
-                     <i class="material-icons">person</i>
+                     <i class="material-icons">person_pin</i>
                      <p>Perfil</p>
                   </a>
                </li>
@@ -63,14 +70,14 @@ if ($resultadoUsuario) {
                   echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>';
                } else {
                   echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Cargar CFDI</p>
+								<p>Impotar CFDI</p>
 							</a>
 						</li>';
                }
@@ -86,7 +93,7 @@ if ($resultadoUsuario) {
                } else {
                   echo '<li class="nav-item">
 							<a class="nav-link" href="./consultar">
-								<i class="material-icons">content_paste</i>
+								<i class="material-icons">text_snippet</i>
 								<p>Nóminas</p>
 							</a>
 						</li>';
@@ -104,7 +111,7 @@ if ($resultadoUsuario) {
                } else {
                   echo '<li class="nav-item">
 							<a class="nav-link" href="./catalogos">
-								<i class="material-icons">build</i>
+								<i class="material-icons">table_view</i>
 								<p>Catálogos</p>
 							</a>
 						</li>';
@@ -127,7 +134,7 @@ if ($resultadoUsuario) {
                } else {
                   echo '<li class="nav-item">
 							<a class="nav-link" href="./reportes">
-								<i class="material-icons">insert_drive_file</i>
+								<i class="material-icons">summarize</i>
 								<p>Reportes</p>
 							</a>
 						</li>';
@@ -145,7 +152,7 @@ if ($resultadoUsuario) {
       </div>
       <div class="main-panel">
          <!-- Navbar -->
-         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
             <div class="container-fluid">
                <div class="navbar-wrapper">
                   <a class="navbar-brand" href="">Editar Perfil</a>
@@ -182,10 +189,10 @@ if ($resultadoUsuario) {
          <!-- End Navbar -->
          <div class="content">
             <div id="barra"></div>
-            <div id="msn-caja" class="container-fluid msn-caja">
+            <div id="msn-caja" class="container-fluid msn-caja mt-5">
                <div class="row">
                   <div class="col-xl-4">
-                     <div class="card card-profile cajas">
+                     <div class="card card-profile">
                         <div class="card-avatar">
                            <div id="subir">
                               <img id="foto" class="img" src="assets/img/user.svg" />
@@ -193,10 +200,9 @@ if ($resultadoUsuario) {
                            <input type="file" id="archivo" accept=".jpg, .png, .jpeg" style="display:none">
                         </div>
                         <form id="form-user">
-                           <div class="card-body">
+                           <div class="card-body px-5">
                               <h6 class="card-category text-gray">Mi perfil</h6>
-                              <div class="formulario2">
-                                 <div class="row">
+                              <div class="row">
 
                                     <div class="col-md-12">
                                        <div class="form-group">
@@ -224,50 +230,54 @@ if ($resultadoUsuario) {
                                     </div>
 
                                  </div>
-                                 <button type="submit" id="editar" class="btn btn-primary regresar"><i class="material-icons">save</i> Guardar </button>
-                              </div>
+                           </div>
+                           <div class="card-footer">
+                           <button type="submit" id="editar" class="btn btn-primary btn-sm regresar"><i class="material-icons">save</i> Actualizar información </button>
                            </div>
                         </form>
                      </div>
                   </div>
 
                   <div class="col-xl-4">
-                     <div class="card card-profile cajas">
-                        <div class="card-header card-header-primary">
-                           <h4 class="card-title ">CONTRASEÑA</h4>
-                           <p class="card-category">Edita tu contraseña aquí</p>
+                  <div class="card card-profile">
+                        <div class="card-avatar">
+                           <div id="subir">
+                              <img id="foto" class="img" src="assets/img/search.svg" />
+                           </div>
                         </div>
                         <form id="form-cambiar">
-                           <div class="card-body">
+                           <div class="card-body px-5">
+                              
+                           <h6 class="card-category text-gray">Cambiar contraseña</h6>
                               <div class="row">
                                  <div class="col-md-12">
                                     <div class="form-group">
-                                       <div class="formulario">
-                                          <label class="bmd-label-floating">Contraseña actual</label>
+                                        <label class="bmd-label-floating">Contraseña actual</label>
                                           <input type="password" name="pass" id="pass" class="form-control" required autocomplete="off">
-                                       </div>
+                                      
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
-                                       <div class="formulario">
-                                          <label class="bmd-label-floating">Nueva contraseña</label>
+                                    <label class="bmd-label-floating">Nueva contraseña</label>
                                           <input type="password" name="newPass" id="newPass" class="form-control" required autocomplete="off">
-                                       </div>
+                                     
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
-                                       <div class="formulario">
-                                          <label class="bmd-label-floating">Confirmar contraseña</label>
+                                    <label class="bmd-label-floating">Confirmar contraseña</label>
                                           <input type="password" name="confirmacion" id="confirmacion" class="form-control" required autocomplete="off">
-                                       </div>
+                                     
                                     </div>
                                  </div>
                               </div>
-                              <button type="submit" class="btn btn-primary regresar"><i class="material-icons">save</i>
-                                 Guardar </button>
+                             
                            </div>
+                           <div class="card-footer">
+                             <button type="submit" class="btn btn-primary regresar btn-sm"><i class="material-icons">save</i>
+                                 Actualizar información </button>
+                             </div>
                         </form>
                      </div>
                   </div>

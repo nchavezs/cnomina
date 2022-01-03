@@ -80,6 +80,7 @@ if (($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "im
 
         $sql = "UPDATE Usuario SET urlFoto = '" . $ruta . "' WHERE RFC = '" . $id . "'";
         if (mysqli_query($conexion, $sql)) {
+            $_SESSION['foto'] = $ruta;
             echo $ruta;
         } else {
             echo 0;

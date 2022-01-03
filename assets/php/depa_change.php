@@ -17,5 +17,5 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
             echo '<option value="' . $res2[1] . '">' . $res2[1] .' ('.$vacantes.')</option>';
     }
 } else {
-    echo '<option selected="true" value="">NO SE ENCONTRO PUESTO</option>';
+    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 }

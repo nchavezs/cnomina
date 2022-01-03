@@ -23,7 +23,7 @@
 					<p class="card-category">'.strftime("%A, %d de %B de %G", strtotime($resultado1[2])).'</p>
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 						
 						<div class="col-md-12">
 							<div class="form-group">

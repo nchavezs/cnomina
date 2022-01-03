@@ -23,24 +23,31 @@ include "assets/php/main_user.php";
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+				$foto = "assets/img/user.png";
+				if ($varFoto != null) {
+					$foto = $varFoto;
+				}
+
+				?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item  ">
 						<a class="nav-link" href="./tablas">
-							<i class="material-icons">content_paste</i>
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="./perfil_user">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
@@ -105,7 +112,7 @@ include "assets/php/main_user.php";
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg  navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<a class="navbar-brand" href="">Pases</a>

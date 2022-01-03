@@ -24,15 +24,15 @@
    }
 }(function(select){
     select.strings.register("es", {
-        all: "Todos",
-        none: "Ninguno",
-        empty: "No hay opciones disponibles",
-        emptySearch: "No se encontraron opciones",
-        limit: "No puedes seleccionar mas opciones",
-        placeholder: "Selecciona una opción...",
-        placeholderMulti: "Selecciona hasta :límite de opciones...",
-        search: "Escribe para buscar...",
-        disabled: "Este campo esta deshabilitado"
+        all: "TODOS",
+        none: "NINGUNO",
+        empty: "NO HAY OPCIONES DISPONIBLES",
+        emptySearch: "NO SE ENCONTRARON OPCIONES",
+        limit: "NO PUEDES SELECCIONAR MAS OPCIONES",
+        placeholder: "SELECCIONA UNA OPCION",
+        placeholderMulti: "SELECCIONA HASTA :LIMITE DE OPCIONES ...",
+        search: "ESCRIBE PARA BUSCAR ...",
+        disabled: "ESTE CAMPO ESTÁ DESHABILITADO"
     });
     return select;
 }));

@@ -5,7 +5,7 @@ $(document).ready(function () {
         Swal.mixin({
             showCancelButton: true,
             progressSteps: ["1", "2", "3"],
-            
+
 
         }).queue([{
                 title: "Periodo",
@@ -85,9 +85,7 @@ $(document).ready(function () {
                         Swal.fire({
                             title: 'Correcto',
                             text: 'Prenomina generada correctamente',
-                            type: 'success',
-
-                            
+                            type: 'success'
                         })
                     } else {
                         Swal.close();
@@ -96,7 +94,7 @@ $(document).ready(function () {
                             text: 'No se pudo generar el archivo',
                             type: 'error',
 
-                            
+
                         })
                     }
                 });
@@ -132,7 +130,7 @@ $(document).ready(function () {
                                     confirmButtonText: "Aceptar",
                                     allowOutsideClick: true,
                                     showConfirmButton: true,
-                                    
+
 
                                 });
                                 $(".log-contenido").perfectScrollbar();
@@ -141,9 +139,7 @@ $(document).ready(function () {
                                 Swal.fire({
                                     title: 'Error de archivo',
                                     text: 'El formato del archivo no es el correcto',
-                                    type: 'error',
-
-                                    
+                                    type: 'error'
                                 })
                             }
 
@@ -154,7 +150,7 @@ $(document).ready(function () {
                             text: 'El formato del archivo no es el correcto',
                             type: 'error',
 
-                            
+
                         })
                     }
                     $("#importar-empleado").val("");
@@ -173,7 +169,7 @@ $(document).ready(function () {
                 allowOutsideClick: false,
                 showConfirmButton: false
             });
-            
+
             select_estilo();
             depa_on_change();
             $("#nombre").blur();
@@ -274,7 +270,7 @@ $(document).ready(function () {
                                     text: 'El empleado no fue registrado',
                                     type: 'error',
 
-                                    
+
                                 });
 
                             }
@@ -289,7 +285,7 @@ $(document).ready(function () {
     $('#tabla-empleado').DataTable.ext.pager.numbers_length = 5;
     let table = $('#tabla-empleado').DataTable({
         "lengthChange": false,
-        "pageLength": 8,
+        "pageLength": 10,
         "language": {
             url: "assets/js/datatables/es.json"
         },
@@ -297,27 +293,37 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-empleado.php"
         },
-        "columnDefs": [ {
-            "targets": [5,6,7],
-            "orderable": false 
-        },{
-            "targets": [2,3,4,5],
-            "className": "oculto"
-        }],
+        "drawCallback": function( settings ) {
+            document.querySelector('.content').scrollTop = 1;
+        },
+        "columnDefs": [{
+                "className": "oculto",
+                "targets": [2, 3, 4]
+            },
+            {
+                "className": "font-weight-bold",
+                "targets": [0,1]
+            },
+            {
+                "orderable": false,
+                "targets": [4, 5, 6]
+            }
+        ],
         "columns": [
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1">account_circle</i>';
+                    return '<div><i class="material-icons mr-1">fingerprint</i>' + row.id_usuario + '</div>';
                 }
             },
             {
-                "data": "nombre",
+                "render": function (data, type, row) {
+                    let html = "<div>" + row.nombre + "</div>" +
+                        "<small>" + row.puesto + "</small>";
+                    return html;
+                }
             },
             {
                 "data": "RFC"
-            },
-            {
-                "data": "puesto",
             },
             {
                 "data": "departamento",
@@ -331,24 +337,24 @@ $(document).ready(function () {
                     if (estado == 'baja')
                         clase = 'baja';
 
-                    return '<a class="' + clase + '">' + estado + '</a>';
+                    return '<a class="' + clase + '">' + estado + '</a>' + '<a class="tipo ml-3">' + row.tipoTrabajador + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onClick="editar_usuario(\'' + row.RFC + '\', event);">edit</i>';
+                    return '<i class="material-icons btn1" onClick="editar_usuario(\'' + row.RFC + '\', event);">edit_note</i>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar_usuario(\'' + row.RFC + '\',event);">delete</i>';
+                    return '<i class="material-icons btn1-danger" onClick="eliminar_usuario(\'' + row.RFC + '\',event);">delete_sweep</i>';
                 }
             }
         ]
-    });
+    });    
 
     $(document).on("click", "#tabla-empleado tr", function (e) {
-        var data = table.row( this ).data();
+        var data = table.row(this).data();
         ver(data[0], 0);
     });
 });
@@ -380,7 +386,7 @@ function baja(id) {
                 showCloseButton: true,
                 position: 'center',
                 html: html,
-                
+
                 showConfirmButton: false,
 
             });
@@ -418,7 +424,7 @@ function baja(id) {
                     showCancelButton: true,
                     confirmButtonText: 'Si, continuar',
                     cancelButtonText: 'No',
-                    
+
 
                 }).then(function (result) {
                     if (result.value) {
@@ -440,7 +446,7 @@ function password(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -464,7 +470,7 @@ function reestablecer_password(id) {
                 text: 'Contraseña reestablecida',
                 type: 'success',
 
-                
+
             }).then((result) => {
                 ver(id, 1);
             });
@@ -480,7 +486,7 @@ function baja_prenomina(fechaBaja, id, razon) {
         showCancelButton: true,
         confirmButtonText: 'Si',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -508,7 +514,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                     text: 'Empleado dado de baja',
                     type: 'success',
 
-                    
+
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     ver(id, 1);
@@ -519,7 +525,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                     text: 'Debe esperar al menos 15 días para dar de baja a este empleado',
                     type: 'error',
 
-                    
+
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
@@ -530,7 +536,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                     text: 'El empleado no cuenta con una fecha de inicio laboral válida',
                     type: 'error',
 
-                    
+
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
@@ -541,7 +547,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                     text: 'No fue posible dar de baja al empleado',
                     type: 'error',
 
-                    
+
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
@@ -563,7 +569,7 @@ function reingreso(id) {
                 showCloseButton: true,
                 position: 'center',
                 html: html,
-                
+
                 showConfirmButton: false,
 
             });
@@ -601,7 +607,7 @@ function reingreso(id) {
                     showCancelButton: true,
                     confirmButtonText: 'Si, continuar',
                     cancelButtonText: 'No',
-                    
+
 
                 }).then(function (result) {
                     if (result.value) {
@@ -620,7 +626,7 @@ function reingreso(id) {
                                         text: 'Empleado dado de alta',
                                         type: 'success',
 
-                                        
+
                                     }).then((result) => {
                                         $('#tabla-empleado').DataTable().ajax.reload();
                                         ver(id, 1);
@@ -631,7 +637,7 @@ function reingreso(id) {
                                         text: 'No fue posible dar de alta al empleado',
                                         type: 'error',
 
-                                        
+
                                     }).then((result) => {
                                         $('#tabla-empleado').DataTable().ajax.reload();
                                         reingreso(id);
@@ -769,7 +775,7 @@ function permiso(id) {
                                                 text: 'Licencia agregada',
                                                 type: 'success',
 
-                                                
+
                                             }).then((result) => {
                                                 var idUsuario = id.split("-");
                                                 verPermisos(idUsuario[0]);
@@ -780,7 +786,7 @@ function permiso(id) {
                                                 text: 'Licencia no agregada',
                                                 type: 'error',
 
-                                                
+
                                             }).then((result) => {
                                                 var idUsuario = id.split("-");
                                                 verPermisos(idUsuario[0]);
@@ -822,7 +828,7 @@ function ver(id, ventana, event) {
                     showCloseButton: true,
                     showConfirmButton: false,
 
-                    
+
                 });
                 cambiarFoto(id);
                 $("#siguiente").on('click', function () {
@@ -882,7 +888,7 @@ function opciones(id) {
             showCloseButton: true,
             showConfirmButton: false,
 
-            
+
         });
 
         cambiarFoto(id);
@@ -1089,7 +1095,7 @@ function archivo2(url, id) {
             title: 'Sin archivo',
             text: 'No se ha encontrado ningún archivo',
             type: 'warning',
-            
+
 
         }).then(function () {
             $.ajax({
@@ -1123,7 +1129,7 @@ function archivo(id, url, usuario, tabla, condicion) {
             showCancelButton: true,
             confirmButtonText: 'Continuar',
             cancelButtonText: 'Cancelar',
-            
+
 
             preConfirm: () => {
                 if (document.getElementById('file').value == "")
@@ -1175,7 +1181,7 @@ function archivo(id, url, usuario, tabla, condicion) {
                             text: 'Archivo cargado',
                             type: 'success',
 
-                            
+
                         }).then((result) => {
                             ventanaRegresar(tabla, condicion, id, usuario);
                         })
@@ -1232,7 +1238,7 @@ function borrar(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -1249,7 +1255,7 @@ function borrar(id) {
                         text: 'Permiso eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verPermisos(data);
                     })
@@ -1423,7 +1429,7 @@ function vacacion(id) {
                                                 text: 'Vacaciones agregadas',
                                                 type: 'success',
 
-                                                
+
                                             }).then((result) => {
                                                 verVacaciones(idUsuario[0]);
                                             })
@@ -1433,7 +1439,7 @@ function vacacion(id) {
                                                 text: 'No agregado',
                                                 type: 'error',
 
-                                                
+
                                             }).then((result) => {
                                                 verVacaciones(idUsuario[0]);
                                             })
@@ -1515,7 +1521,7 @@ function borrar_vacacion(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -1532,7 +1538,7 @@ function borrar_vacacion(id) {
                         text: 'Registro eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verVacaciones(data);
                     })
@@ -1743,7 +1749,7 @@ function borrar_movimiento(id) {
                 text: "Solo puedes eliminar el último movimiento realizado",
                 type: 'warning',
                 confirmButtonText: 'Aceptar',
-                
+
 
             }).then(function () {
                 verMovimientos(array.usuario);
@@ -1756,7 +1762,7 @@ function borrar_movimiento(id) {
                 showCancelButton: true,
                 confirmButtonText: 'Si, continuar',
                 cancelButtonText: 'No',
-                
+
 
             }).then(function (result) {
                 if (result.value) {
@@ -1773,7 +1779,7 @@ function borrar_movimiento(id) {
                                 text: 'Registro eliminado',
                                 type: 'success',
 
-                                
+
                             }).then((result) => {
                                 $('#tabla-empleado').DataTable().ajax.reload();
                                 verMovimientos(data);
@@ -1809,7 +1815,7 @@ function verExpediente(id) {
             Swal.fire({
                 position: 'center',
                 html: html,
-                
+
                 allowOutsideClick: false,
                 showCloseButton: true,
                 showConfirmButton: false,
@@ -1925,7 +1931,7 @@ function eliminar_expediente(id, nombre) {
         allowOutsideClick: false,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -1942,7 +1948,7 @@ function eliminar_expediente(id, nombre) {
                         text: 'Archivo eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verExpediente(id);
                     })
@@ -2052,7 +2058,7 @@ function gastos(id) {
                                             text: 'Gastos médicos agregados',
                                             type: 'success',
 
-                                            
+
                                         }).then((result) => {
                                             verGastos(idUsuario[0]);
                                         })
@@ -2062,7 +2068,7 @@ function gastos(id) {
                                             text: 'No agregado',
                                             type: 'error',
 
-                                            
+
                                         }).then((result) => {
                                             verGastos(idUsuario[0]);
                                         })
@@ -2105,7 +2111,7 @@ function borrar_gastos(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -2122,7 +2128,7 @@ function borrar_gastos(id) {
                         text: 'Registro eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verGastos(data);
                     })
@@ -2265,7 +2271,7 @@ function descuento(id) {
                                             text: 'Descuento agregado',
                                             type: 'success',
 
-                                            
+
                                         }).then((result) => {
                                             verDescuentos(idUsuario[0]);
                                         })
@@ -2275,7 +2281,7 @@ function descuento(id) {
                                             text: 'No agregado',
                                             type: 'error',
 
-                                            
+
                                         }).then((result) => {
                                             verDescuentos(idUsuario[0]);
                                         })
@@ -2317,7 +2323,7 @@ function borrar_descuento(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -2334,7 +2340,7 @@ function borrar_descuento(id) {
                         text: 'Registro eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verDescuentos(data);
                     })
@@ -2427,7 +2433,7 @@ function eliminar_usuario(id, event) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then((result) => {
         if (result.value) {
@@ -2445,7 +2451,7 @@ function eliminar_usuario(id, event) {
                             text: 'Empleado eliminado',
                             type: 'success',
 
-                            
+
                         })
                     } else if (data == 2) {
                         no_pasar();
@@ -2455,7 +2461,7 @@ function eliminar_usuario(id, event) {
                             text: 'Empleado no eliminado',
                             type: 'error',
 
-                            
+
                         })
                     }
 
@@ -2478,7 +2484,7 @@ function editar_usuario(id, event) {
                 Swal.fire({
                     position: 'center',
                     html: html,
-                    
+
                     allowOutsideClick: false,
                     showConfirmButton: false,
 
@@ -2580,7 +2586,7 @@ function editar_usuario(id, event) {
                                         text: 'Datos de empleado no actualizados',
                                         type: 'error',
 
-                                        
+
                                     })
                                 }
                             }
@@ -2607,7 +2613,7 @@ function mensaje_cargar() {
         title: 'Cargando',
         html: 'Espere porfavor',
         allowOutsideClick: false,
-        
+
 
         onBeforeOpen: () => {
             Swal.showLoading()
@@ -2731,7 +2737,7 @@ function pase(id) {
                                             text: 'Pase agregado',
                                             type: 'success',
 
-                                            
+
                                         }).then((result) => {
                                             verPases(idUsuario[0]);
                                         })
@@ -2741,7 +2747,7 @@ function pase(id) {
                                             text: 'Debe especificar fecha y hora',
                                             type: 'warning',
 
-                                            
+
                                         }).then((result) => {
                                             verPases(idUsuario[0]);
                                         })
@@ -2751,7 +2757,7 @@ function pase(id) {
                                             text: 'No agregado',
                                             type: 'error',
 
-                                            
+
                                         }).then((result) => {
                                             verPases(idUsuario[0]);
                                         })
@@ -2797,7 +2803,7 @@ function borrar_pase(id) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -2814,7 +2820,7 @@ function borrar_pase(id) {
                         text: 'Registro eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         verPases(data);
                     })
@@ -2908,7 +2914,7 @@ function eliminar_archivo(id, tabla) {
         showCancelButton: true,
         confirmButtonText: 'Si, continuar',
         cancelButtonText: 'No',
-        
+
 
     }).then(function (result) {
         if (result.value) {
@@ -2925,7 +2931,7 @@ function eliminar_archivo(id, tabla) {
                         text: 'Archivo eliminado',
                         type: 'success',
 
-                        
+
                     }).then((result) => {
                         ventanaRegresar(tabla, 1, id, 0);
                     })
@@ -2947,15 +2953,15 @@ function diferencia_fecha(fecha1, fecha2) {
     $("#dias").val(diffDays);
 }
 
-function depa_on_change(){
-    $("#departamento").on("change", function(){
+function depa_on_change() {
+    $("#departamento").on("change", function () {
         $.ajax({
             url: "assets/php/depa_change.php",
             type: "POST",
             data: {
                 departamento: $("#departamento").val(),
             },
-            success: function(data){
+            success: function (data) {
                 $("#puesto").html(data);
                 tail.select("#puesto").reload();
             }
@@ -2965,8 +2971,8 @@ function depa_on_change(){
     $("#departamento").change();
 }
 
-function depa_on_change_update(){
-    $("#departamento").on("change", function(){
+function depa_on_change_update() {
+    $("#departamento").on("change", function () {
         $.ajax({
             url: "assets/php/depa_change_update.php",
             type: "POST",
@@ -2974,7 +2980,7 @@ function depa_on_change_update(){
                 departamento: $("#departamento").val(),
                 RFC: $("#rfc").val(),
             },
-            success: function(data){
+            success: function (data) {
                 $("#puesto").html(data);
                 tail.select("#puesto").reload();
             }

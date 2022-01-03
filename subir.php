@@ -19,19 +19,26 @@ if (rol() == 2) {
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/css/material-dashboard.css?v=3.1.4" rel="stylesheet" />
-	<link href="assets/css/dropzone.css" rel="stylesheet" />
+	<link href="assets/css/dropzone.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/animate.css">
 </head>
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+				$foto = "assets/img/user.png";
+				if ($varFoto != null) {
+					$foto = $varFoto;
+				}
+
+				?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item">
@@ -42,20 +49,20 @@ if (rol() == 2) {
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
 					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./subir">
 							<i class="material-icons">cloud_upload</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" href="./consultar">
-							<i class="material-icons">content_paste</i>
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
 					</li>
@@ -70,7 +77,7 @@ if (rol() == 2) {
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./catalogos">
-								<i class="material-icons">build</i>
+								<i class="material-icons">table_view</i>
 								<p>Catálogos</p>
 							</a>
 						</li>';
@@ -93,7 +100,7 @@ if (rol() == 2) {
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./reportes">
-								<i class="material-icons">insert_drive_file</i>
+								<i class="material-icons">summarize</i>
 								<p>Reportes</p>
 							</a>
 						</li>';
@@ -110,7 +117,7 @@ if (rol() == 2) {
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<a class="navbar-brand" href="">Subir recibos de nómina</a>
@@ -148,7 +155,7 @@ if (rol() == 2) {
 				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-12 col-xl-8">
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
@@ -167,8 +174,22 @@ if (rol() == 2) {
 							</div>
 						</div>
 						<div class="col-md-12">
-							<div class="drop-fondo">
-								<form action="assets/php/subir.php" class="dropzone" id="myAwesomeDropzone" enctype="multipart/form-data">
+							<div class="card">
+							<form action="assets/php/subir.php" class="dropzone"
+                                        id="myAwesomeDropzone">
+                                        <div class="dz-message">
+                                            <div class="row">
+                                                <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
+                                                <div class="col-md-8">
+												<h2 class="font-weight-bold mt-3">Selecciona tus archivos CFDI</h2>
+                                                    <div><p>Arrastra tus archivos en formato <span class="text-danger">PDF</span> aquí o búscalos para cargarlos.</p></div>
+                                                    <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar CDFI</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+								<!-- <form action="assets/php/subir.php" class="dropzone" id="myAwesomeDropzone" enctype="multipart/form-data">
 									<div class="dz-message" data-dz-message>
 										<div class="row">
 											<div class="col-md-4 drop-icon">
@@ -180,7 +201,7 @@ if (rol() == 2) {
 											</div>
 										</div>
 									</div>
-								</form>
+								</form> -->
 							</div>
 						</div>
 						<div class="col-md-12">

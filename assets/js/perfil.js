@@ -51,7 +51,7 @@ $(document).ready(function () {
     $("#eliminar_nominas").on('click', function () {
         Swal.fire({
             title: 'Eliminar recibos de nómina',
-            text: "¿Está seguro de eliminar todos los archivos de nómina?",
+            text: "¿Está seguro de eliminar todos los archivos CFDI?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Si, continuar',

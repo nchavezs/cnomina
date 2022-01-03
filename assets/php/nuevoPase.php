@@ -24,7 +24,7 @@
 								<input id="temporal" type="hidden" />
 							</div>
 							<div class="col-md-6">
-								<div class="row formulario2">
+								<div class="row">
 									<div class="col-md-12">
 										<div class="select">
 											<div class="select-label label-puesto">Tipo de pase</div>

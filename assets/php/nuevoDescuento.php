@@ -24,7 +24,7 @@
 								<input id="fecha1" type="hidden" />
 							</div>
 							<div class="col-md-6">
-								<div class="row formulario2">
+								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
 										<div class="select-label label-puesto">Días de descuento</div>

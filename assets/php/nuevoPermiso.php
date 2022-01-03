@@ -22,7 +22,7 @@
 					<p class="card-category">Empleado: '.$resultado1[6].'</p>
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 					
 						<div class="col-md-4">
 							<div class="form-group">
@@ -35,8 +35,8 @@
 							<div class="select">
 								<div class="select-label label-puesto">Tipo de permiso</div>
 								<select id="sources" class="custom-select select-empleado sources" >
-									<option value="0">Permiso con goce de sueldo</option>
-									<option value="1">Permiso sin goce de sueldo</option>
+									<option value="0">PERMISO CON GOCE DE SUELDO</option>
+									<option value="1">PERMISO SIN GOCE DE SUELDO</option>
 								</select>
 							</div>
 						</div>

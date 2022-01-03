@@ -65,7 +65,7 @@ function ver(x) {
                 html: html,
                 allowOutsideClick: false,
                 confirmButtonText: 'Salir',
-                customClass: 'swal0-width animated fadeIn faster',
+                customClass: 'animated fadeIn faster',
                 
             });
         }

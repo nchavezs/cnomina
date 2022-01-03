@@ -56,12 +56,12 @@ if ($resultado = mysqli_query($conexion, $consulta)) {
 
 									if($rol != 2){
 										echo '<div id="recibos-link" class="icono-caja2">
-										<i class="material-icons">content_paste</i>
+										<i class="material-icons">text_snippet</i>
 										<p>Nóminas</p>
 									</div>';
 									}else{
 										echo '<div onclick="no_pasar();" class="icono-caja2">
-										<i class="material-icons">content_paste</i>
+										<i class="material-icons">text_snippet</i>
 										<p>Nóminas</p>
 									</div>';
 									}

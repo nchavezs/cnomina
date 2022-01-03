@@ -28,13 +28,20 @@ if (rol() != 1) {
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+				$foto = "assets/img/user.png";
+				if ($varFoto != null) {
+					$foto = $varFoto;
+				}
+
+				?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item ">
@@ -45,26 +52,26 @@ if (rol() != 1) {
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="./subir">
 							<i class="material-icons">cloud_upload</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" href="./consultar">
-							<i class="material-icons">content_paste</i>
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./catalogos">
-							<i class="material-icons">build</i>
+							<i class="material-icons">table_view</i>
 							<p>Catálogos</p>
 						</a>
 					</li>
@@ -76,7 +83,7 @@ if (rol() != 1) {
 					</li>
 					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./reportes">
-							<i class="material-icons">insert_drive_file</i>
+							<i class="material-icons">summarize</i>
 							<p>Reportes</p>
 						</a>
 					</li>
@@ -91,7 +98,7 @@ if (rol() != 1) {
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<a class="navbar-brand" href="">Reportes</a>
@@ -128,10 +135,8 @@ if (rol() != 1) {
 			<div class="content">
 				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
-
-
-
-					<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
 						<div class="caja_magica">
 							<div class="caja-todos-empleado">
 								<div class="card card-stats">
@@ -172,7 +177,7 @@ if (rol() != 1) {
 								<div class="card card-stats">
 									<div class="card-header card-header-primary apagado2 card-header-icon carta-uno">
 										<div class="card-icon">
-											<i class="material-icons">person</i>
+											<i class="material-icons">person_pin</i>
 										</div>
 										<div id="nuevo-empleado" class="btn nuevo-empleado-apagado"><i class="material-icons">add</i>Seleccionar empleado </div>
 									</div>
@@ -203,20 +208,56 @@ if (rol() != 1) {
 							</div>
 						</div>
 					</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+							<h4 class="card-title text-gray">PARÁMETROS</h4>
+							<p class="card-category">Selecciona los parámetros a mostrar</p>
+							</div>
+
+							<div class="card-body table-responsive p-0">
+							<table class="table">
+									<thead class="text-primary">
+										<th class="">Beneficiarios</th>
+										<th class="">Periodo</th>
+										<th class="">Fecha del</th>
+										<th class="">Fecha al</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="">
+												<div class="toggle-btn">
+													<input id="check6" type="checkbox" class="cb-value" />
+													<span class="round-btn"></span>
+												</div>
+											</td>
+											<td class="">
+												<div class="toggle-btn">
+													<input id="check7" type="checkbox" class="cb-value" />
+													<span class="round-btn"></span>
+												</div>
+											</td>
+											<td class=""><input id="fecha11" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
+											<td class=""><input id="fecha12" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
+										</tr>
+									</tbody>
+								</table>
+
+								
+
+							</div>
+						</div>
+					</div>
 
 					<div class="col-md-12">
 						<div class="card">
-							<div class="card-header card-header-primary">
-								<h4 class="card-title">Parámetros</h4>
-								<p class="card-category">Selecciona los parámetros a mostrar</p>
-							</div>
-							<div class="card-body table-responsive">
-								<table class="table table-hover centrado">
+							<div class="card-body table-responsive p-0">
+								<table class="table table-hover">
 									<thead class="text-primary">
 										<th></th>
-										<th class="titulo">Parámetro</th>
-										<th class="titulo">Fecha del</th>
-										<th class="titulo">Fecha al</th>
+										<th class="">Parámetro</th>
+										<th class="">Fecha del</th>
+										<th class="">Fecha al</th>
 									</thead>
 									<tbody>
 										<tr>
@@ -318,45 +359,15 @@ if (rol() != 1) {
 							</div>
 						</div>
 					</div>
-
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-body table-responsive centrado">
-								<table class="table">
-									<thead class="text-primary">
-										<th class="titulo2">Beneficiarios</th>
-										<th class="titulo2">Aplicar a todo</th>
-										<th class="titulo">Fecha del</th>
-										<th class="titulo">Fecha al</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="centrado">
-												<div class="toggle-btn">
-													<input id="check6" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-											</td>
-											<td class="centrado">
-												<div class="toggle-btn">
-													<input id="check7" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-											</td>
-											<td class="centrado"><input id="fecha11" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td class="centrado"><input id="fecha12" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
 					</div>
+
+					
 				</div>
 			</div>
 
 			<div class="p-5"></div>
 			<div class="boton_generar_reporte">
-				<div id="generar" class="btn btn-primary regresar"><i class="material-icons">download</i> Generar reporte </div>
+				<div id="generar" class="btn btn-primary btn-sm regresar"><i class="material-icons">download</i> Generar reporte </div>
 			</div>
 
 			<footer class="footer">

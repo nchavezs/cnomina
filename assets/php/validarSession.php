@@ -9,15 +9,17 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
     $consulta = mysqli_query($conexion, $sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 1) {
-        $categoria = mysqli_fetch_array($consulta);
+        $res = mysqli_fetch_array($consulta);
         session_start();
-        $_SESSION['usuario'] = $categoria[8];
-        $_SESSION['categoria'] = $categoria[1];
-        $_SESSION['nombre'] = $categoria[6];
+        $_SESSION['usuario'] = $res["RFC"];
+        $_SESSION['categoria'] = $res["categoria"];
+        $_SESSION['nombre'] = $res["nombre"];
+        $_SESSION['email'] = $res["email"];
+        $_SESSION['foto'] = $res["urlFoto"];
 
-        if ($categoria[1] === 'user') {
+        if ($res["categoria"] === 'user') {
             header('location:../../tablas');
-        } else if ($categoria[1] === 'admin') {
+        } else if ($res["categoria"] === 'admin') {
             header('location:../../registrar');
         } else {
             echo 0;

@@ -32,46 +32,46 @@ if ($resultado) {
 
     echo '<div class="modal-archivo">
             <div class="row">
-               <div class="col-5">
-                  <h5>No. de empleado:</h5>
-                  <h5>Nombre:</h5>
-                  <h5>Fecha de inicio:</h5>
-                  <h5>CURP:</h5>
-                  <h5>RFC:</h5>
-                  <h5>Puesto:</h5>
-                  <h5>Departamento:</h5>
-                  <h5>Fecha de pago:</h5>
-                  <h5>Ver archivo:</h5>
-                  <h5>Fecha de carga:</h5>
-                  <h5>Estado del empleado:</h5>
+               <div class="col-5 text-right font-weight-bold">
+                  <p># Empleado:</p>
+                  <p>Nombre:</p>
+                  <p>Fecha de inicio:</p>
+                  <p>CURP:</p>
+                  <p>RFC:</p>
+                  <p>Puesto:</p>
+                  <p>Departamento:</p>
+                  <p>Fecha de pago:</p>
+                  <p>Ver archivo:</p>
+                  <p>Fecha de carga:</p>
+                  <p>Estado:</p>
                </div>
                <div class="col-7">
-                  <h5>' . str_pad($res[1], 5, '0', STR_PAD_LEFT) . '</h5>
-                  <h5>' . $res[9] . '</h5>
-                  <h5>' . $res[12] . '</h5>
-                  <h5>' . $res[11] . '</h5>
-                  <h5>' . $res[10] . '</h5>
-                  <h5>' . $res[13] . '</h5>
-                  <h5>' . $res[14] . '</h5>
-                  <h5>' . $res[8] . '</h5>
-                  <a target="_blank" href="' . $res[4] . '"><h5>' . $res[2] . ' </h5></a>
-                  <h5>' . $res[15] . '</h5>';
+                  <p>' . str_pad($res[1], 5, '0', STR_PAD_LEFT) . '</p>
+                  <p>' . $res[9] . '</p>
+                  <p>' . $res[12] . '</p>
+                  <p>' . $res[11] . '</p>
+                  <p>' . $res[10] . '</p>
+                  <p>' . $res[13] . '</p>
+                  <p>' . $res[14] . '</p>
+                  <p>' . $res[8] . '</p>
+                  <p><a class="tipo" target="_blank" href="' . $res[4] . '">' . $res[2] . ' </a></p>
+                  <p>' . $res[15] . '</p>';
 
     $sql = "SELECT estado FROM Usuario WHERE RFC = '" . $res[10]."'";
     $resultado2 = mysqli_query($conexion, $sql);
     $estado = mysqli_fetch_array($resultado2);
     if($estado){
         if ($estado[0] == null) 
-        echo '<h5>-</h5>';
+        echo '<p>-</p>';
         else{
             if (strcmp($estado[0], "alta") == 0) {
-                echo '<h5 class="alta">' . strtoupper($estado[0]) . '</h5>';
+                echo '<p><span class="alta">' . strtoupper($estado[0]) . '</span></p>';
             } else {
-                echo '<h5 class="baja">' . strtoupper($estado[0]) . '</h5>';
+                echo '<p><span class="baja">' . strtoupper($estado[0]) . '</span></p>';
             }
         }
     }else{
-        echo '<h5>-</h5>'; 
+        echo '<p>-</p>'; 
     }
     
     echo '</div>

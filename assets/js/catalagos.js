@@ -13,6 +13,23 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-puesto.php"
         },
+        // "drawCallback": function( settings ) {
+        //     document.querySelector('.content').scrollTop = 1;
+        // },
+        "columnDefs": [
+            {
+                "className": "oculto",
+                "targets": [2,3,4]
+            },
+            {
+                "className": "font-weight-bold",
+                "targets": [0]
+            },
+            {
+                "orderable": false,
+                "targets": [5]
+            }
+        ],
         "columns": [{
                 "data": "numero"
             },
@@ -27,12 +44,12 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<div class="tag">' + row.vacantes + '</div>';
+                    return '<a class="tipo">' + row.vacantes + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onClick="eliminar(' + row.id_puesto + ', \'Puesto\');">delete</i>';
+                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_puesto + ', \'Puesto\');">delete</i>';
                 }
             }
         ]
@@ -52,16 +69,28 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-departamento.php"
         },
+        "drawCallback": function( settings ) {
+            document.querySelector('.content').scrollTop = 1;
+        },
+        "columnDefs": [
+            {
+                "className": "font-weight-bold",
+                "targets": [0]
+            },
+            {
+                "orderable": false,
+                "targets": [2]
+            }
+        ],
         "columns": [{
                 "data": "numero"
             },
             {
                 "data": "nombre"
             },
-
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onClick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
+                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
                 }
             }
         ]
@@ -135,7 +164,6 @@ function exportar_puesto() {
 function exportar_depa() {
     $.post("assets/php/exportar_depa.php", function (data) {
         if (data != 0) {
-            alert(data);
             descargar(data, "Departamentos.xlsx");
         } else {
             Swal.fire({

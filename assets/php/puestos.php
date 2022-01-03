@@ -13,7 +13,7 @@
 			echo '<option value="'.$res[1].'">'.$res[1].'</option>';
 		}	
 	}else{
-		echo '<option selected="true" value="">NO SE ENCONTRO PUESTO</option>';
+		echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 	}
 		
 	echo '</select>

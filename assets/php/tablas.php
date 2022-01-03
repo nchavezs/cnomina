@@ -68,7 +68,7 @@ for ($i = 1; $i <= 12; $i++) {
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table centrado">
+                        <table class="table text-center">
                             <thead class=" text-primary">
                                 <th class="titulo">Quincena</th>
                                                 <th class="titulo">Fecha pago</th>

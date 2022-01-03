@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 
 if (rol() != 1) {
-	header('location:./registrar');
+    header('location:./registrar');
 }
 ?>
 
@@ -29,13 +29,20 @@ if (rol() != 1) {
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+$foto = "assets/img/user.png";
+if ($varFoto != null) {
+    $foto = $varFoto;
+}
+
+?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item ">
@@ -46,26 +53,26 @@ if (rol() != 1) {
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="./subir">
 							<i class="material-icons">cloud_upload</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="./consultar">
-							<i class="material-icons">content_paste</i>
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
 					</li>
 
 					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./catalogos">
-							<i class="material-icons">build</i>
+							<i class="material-icons">table_view</i>
 							<p>Catálogos</p>
 						</a>
 					</li>
@@ -77,7 +84,7 @@ if (rol() != 1) {
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./reportes">
-							<i class="material-icons">insert_drive_file</i>
+							<i class="material-icons">summarize</i>
 							<p>Reportes</p>
 						</a>
 					</li>
@@ -92,10 +99,10 @@ if (rol() != 1) {
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg  navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
-						<a class="navbar-brand" href="">Catálogo de puestos y departamentos</a>
+						<a class="navbar-brand" href="">Catálogos</a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="sr-only">Toggle navigation</span>
@@ -130,59 +137,49 @@ if (rol() != 1) {
 				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-xl-7">
 							<div class="card">
-								<div class="card-header card-header-primary">
-									<div class="row">
-										<div class="col-md-6">
-											<h4 class="card-title ">Puestos</h4>
-											<p class="card-category"> Lista de puestos</p>
-										</div>
-										<div class="col-md-6 msn-mostrar botones-tabla">
-											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add</i>Nuevo</button>
-											<input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">arrow_upward</i>Importar</label>
-											<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
-										</div>
-									</div>
-
+								<div class="card-header text-center">
+								<h6 class="card-category text-gray">CATÁLOGO DE PUESTOS</h6>
 								</div>
-								<div class="card-body p-0">
-									<div class="table-responsive">
+								<div class="card-body p-1">
+								<div class="msn-mostrar">
+											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo</button>
+											<input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
+											<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>
+										</div>
+								</div>
+							</div>
+							<div class="table-responsive">
 										<table id="tabla-puesto" class="table table-striped" style="width:100%">
 											<thead class="text-primary">
 												<tr>
-													<th class="titulo">#</th>
-													<th class="titulo">Nombre</th>
-													<th class="titulo">Departamento</th>
-													<th class="titulo">Cantidad</th>
-													<th class="titulo">Vacantes</th>
-													<th class="titulo">Eliminar</th>
+													<th class="">#</th>
+													<th class="">Nombre</th>
+													<th class="oculto">Departamento</th>
+													<th class="oculto">Cantidad</th>
+													<th class="">Vacantes</th>
+													<th class="">Eliminar</th>
 												</tr>
 											</thead>
 										</table>
 									</div>
-								</div>
-							</div>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-xl-5">
 							<div class="card">
-								<div class="card-header card-header-primary">
-									<div class="row">
-										<div class="col-md-6">
-											<h4 class="card-title ">Departamentos</h4>
-											<p class="card-category"> Lista de departamentos</p>
-										</div>
-										<div class="col-md-6 msn-mostrar botones-tabla">
-											<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add</i>Nuevo</button>
-											<input type="file" id="importar-departamentos" accept=".xlsx" /><label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">arrow_upward</i>Importar</label>
-											<button onclick="exportar_depa();" class="btn-mostrar"><i class="material-icons">arrow_downward</i>Exportar</button>
-										</div>
-									</div>
-
+							<div class="card-header text-center">
+								<h6 class="card-category text-gray">CATÁLOGO DE DEPARTAMENTOS</h6>
 								</div>
-								<div class="card-body p-0">
-									<div class="table-responsive">
+								<div class="card-body p-1">
+								<div class="msn-mostrar">
+											<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo</button>
+											<input type="file" id="importar-departamentos" accept=".xlsx" /><label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">file_upload</i>Importar</label>
+											<button onclick="exportar_depa();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>
+										</div>
+								</div>
+							</div>
+							<div class="table-responsive">
 										<table id="tabla-departamento" class="table table-striped" style="width:100%">
 											<thead class="text-primary">
 												<tr>
@@ -193,8 +190,6 @@ if (rol() != 1) {
 											</thead>
 										</table>
 									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

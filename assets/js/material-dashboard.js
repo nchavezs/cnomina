@@ -1,13 +1,8 @@
-var ps1 = $('.sidebar').perfectScrollbar({
-    maxScrollbarLength: 1,
-    scrollYMarginOffset: 80
-});
 var ps2 = $('.sidebar-wrapper').perfectScrollbar({
-    maxScrollbarLength: 1
+    maxScrollbarLength: 250
 });
-var ps3 = $('.main-panel').perfectScrollbar({
-    maxScrollbarLength: 200
-
+var ps3 = $('.main-panel>.content').perfectScrollbar({
+    maxScrollbarLength: 250
 });
 
 var breakCards = true;
@@ -31,12 +26,11 @@ var seq2 = 0,
     durations2 = 500;
 
 $(document).ready(function() {
-
     $('body').bootstrapMaterialDesign();
 
     $sidebar = $('.sidebar');
 
-    md.initSidebarsCheck();
+    // md.initSidebarsCheck();
 
     window_width = $(window).width();
 

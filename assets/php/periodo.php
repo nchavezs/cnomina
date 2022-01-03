@@ -10,7 +10,7 @@ echo '<form id="form-periodo">
 					<p class="card-category">Indique el periodo que desea eliminar</p>
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 
 						<div class="col-md-6">
 							<div class="form-group">

@@ -18,7 +18,7 @@
 					
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 						
 						<div class="col-md-6">
 							<div class="form-group">

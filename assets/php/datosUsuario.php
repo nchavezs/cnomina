@@ -3,10 +3,15 @@ include "conexion.php";
 $conexion = conexion();
 session_start();
 $id = $_SESSION['usuario'];
+$nombre = mb_strtoupper(trim($_POST['nombre']));
+$email = trim($_POST['email']);
+$telefono = $_POST['telefono'];
 
-$sql = "UPDATE Usuario SET nombre = '" . $_POST['nombre'] . "', telefono = '" . $_POST['telefono'] . "',
-email = '" . $_POST['email'] . "' WHERE RFC = '" . $id . "'";
+$sql = "UPDATE Usuario SET nombre = '" . $nombre . "', telefono = '" . $telefono . "',
+email = '" . $email . "' WHERE RFC = '" . $id . "'";
 if (mysqli_query($conexion, $sql)) {
+    $_SESSION['nombre'] = $nombre;
+    $_SESSION['email'] = $email;
     echo 1;
 } else {
     echo 0;

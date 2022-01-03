@@ -12,7 +12,7 @@ echo '<form id="form-empleado">
 					<p class="card-category">Complete los siguientes campos</p>
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<div class="select-label">Nombre(s)</div>

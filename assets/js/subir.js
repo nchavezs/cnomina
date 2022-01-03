@@ -49,10 +49,17 @@ Dropzone.options.myAwesomeDropzone = {
             formData.append("check1", check1);
         });
 
-        this.on("addedfile", function () {
-            $("#enviar").html('<button id="enviar-btn" type="button" class="btn btn-primary btn-round"><i class="material-icons">done</i> Subir archivos</button>');
-            
-            $("#enviar").html('<div class="boton_generar_reporte"><div id="enviar-btn" class="btn btn-primary regresar"><i class="material-icons">upload</i> Subir archivos</div></div>');
+        this.on("addedfile", function (file) {
+            // $("#enviar").html('<button id="enviar-btn" type="button" class="btn btn-primary btn-sm btn-round"><i class="material-icons">done</i> Subir archivos</button>');
+           
+                let ext = file.name.split('.').pop();
+                switch(ext){
+                    case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/pdf.png");
+                    break;
+                    default: $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/file.png");
+                    break;
+                }
+            $("#enviar").html('<div class="boton_generar_reporte"><div id="enviar-btn" class="btn btn-primary btn-sm regresar"><i class="material-icons">upload</i> Subir archivos</div></div>');
             var submitButton = document.querySelector("#enviar-btn");
             submitButton.addEventListener("click", function () {
                 myDropzone.options.autoProcessQueue = true;

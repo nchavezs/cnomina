@@ -23,13 +23,20 @@ include "assets/php/main_admin.php";
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+				$foto = "assets/img/user.png";
+				if ($varFoto != null) {
+					$foto = $varFoto;
+				}
+
+				?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item">
@@ -40,7 +47,7 @@ include "assets/php/main_admin.php";
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
@@ -49,14 +56,14 @@ include "assets/php/main_admin.php";
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>';
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Cargar CFDI</p>
+								<p>Impotar CFDI</p>
 							</a>
 						</li>';
 					}
@@ -73,7 +80,7 @@ include "assets/php/main_admin.php";
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./consultar">
-								<i class="material-icons">content_paste</i>
+								<i class="material-icons">text_snippet</i>
 								<p>Nóminas</p>
 							</a>
 						</li>';
@@ -91,7 +98,7 @@ include "assets/php/main_admin.php";
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./catalogos">
-								<i class="material-icons">build</i>
+								<i class="material-icons">table_view</i>
 								<p>Catálogos</p>
 							</a>
 						</li>';
@@ -114,7 +121,7 @@ include "assets/php/main_admin.php";
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./reportes">
-								<i class="material-icons">insert_drive_file</i>
+								<i class="material-icons">summarize</i>
 								<p>Reportes</p>
 							</a>
 						</li>';
@@ -131,7 +138,7 @@ include "assets/php/main_admin.php";
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<a class="navbar-brand" href="">Mensajes</a>

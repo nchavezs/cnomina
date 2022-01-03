@@ -28,13 +28,20 @@ if (rol() == 2) {
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.png?v=1.0.0">
-			<div class="logo">
-				<a class="simple-text logo-normal">
-					<img src="assets/img/<?php echo get_logo()?>" id="logo1">
-				</a>
-				<div class="text-center municipio">MUNICIPIO DE <?php echo get_municipio();?></div>
-			</div>
+		<div class="sidebar" data-color="purple" data-background-color="white">
+		<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+            <div class="avatar">
+                <?php
+				$foto = "assets/img/user.png";
+				if ($varFoto != null) {
+					$foto = $varFoto;
+				}
+
+				?>
+                <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p><?php echo $varName ?></p>
+                <a href="mailto:"><?php echo $varEmail ?></a>
+            </div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
 					<li class="nav-item">
@@ -45,7 +52,7 @@ if (rol() == 2) {
 					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
-							<i class="material-icons">person</i>
+							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
 						</a>
 					</li>
@@ -54,14 +61,14 @@ if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
-							<p>Cargar CFDI</p>
+							<p>Impotar CFDI</p>
 						</a>
 					</li>';
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./subir">
 								<i class="material-icons">cloud_upload</i>
-								<p>Cargar CFDI</p>
+								<p>Impotar CFDI</p>
 							</a>
 						</li>';
 					}
@@ -69,7 +76,7 @@ if (rol() == 2) {
 
 					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./consultar">
-							<i class="material-icons">content_paste</i>
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
 					</li>
@@ -84,7 +91,7 @@ if (rol() == 2) {
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./catalogos">
-								<i class="material-icons">build</i>
+								<i class="material-icons">table_view</i>
 								<p>Catálogos</p>
 							</a>
 						</li>';
@@ -107,7 +114,7 @@ if (rol() == 2) {
 					} else {
 						echo '<li class="nav-item">
 							<a class="nav-link" href="./reportes">
-								<i class="material-icons">insert_drive_file</i>
+								<i class="material-icons">summarize</i>
 								<p>Reportes</p>
 							</a>
 						</li>';
@@ -124,7 +131,7 @@ if (rol() == 2) {
 		</div>
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<a class="navbar-brand" href="">Registro de recibos de nómina</a>
@@ -162,24 +169,18 @@ if (rol() == 2) {
 				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
 					<div class="card">
-						<div class="card-header card-header-primary">
-							<div class="row">
-								<div class="col-md-4">
-									<h4 class="card-title ">Recibos de nómina</h4>
-									<p class="card-category"> Lista de archivos CFDI</p>
-								</div>
-								<div class="col-md-8 msn-mostrar botones-tabla">
+						<div class="card-body">
+						<div class="msn-mostrar">
 									<?php
 									if (rol() != 2) {
-										echo '<button onclick="window.location.href=\'./subir\'" class="btn-mostrar"><i class="material-icons">arrow_upward</i>Cargar CFDI</button>';
+										echo '<a href="./subir" class="btn-mostrar"><i class="material-icons">file_upload</i>Impotar CFDI</a>';
 										echo '<button onclick="eliminar_periodo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button>';
 									}
 									?>
 								</div>
-							</div>
 						</div>
-						<div class="card-body p-0">
-							<div class="table-responsive">
+					</div>
+					<div class="table-responsive">
 								<table id="consulta_tabla" class="table table-striped" style="width:100%">
 									<thead class="text-primary">
 										<tr>
@@ -196,8 +197,6 @@ if (rol() == 2) {
 									</thead>
 								</table>
 							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 

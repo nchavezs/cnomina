@@ -17,7 +17,7 @@ echo '<form id="form-empleado">
 					<p class="card-category">' . $res['nombre'] . '</p>
 				</div>
 				<div class="card-body">
-					<div class="row formulario3">
+					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							<div class="select-label">Nombre(s)</div>
@@ -48,7 +48,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     $sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
     $consulta2 = mysqli_query($conexion, $sql2);
     if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONAR</option>';
+        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
     }
 
     while ($res2 = mysqli_fetch_row($consulta)) {
@@ -60,7 +60,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         echo '>' . $res2[1] . '</option>';
     }
 } else {
-    echo '<option selected="true" value="">SIN RESULTADOS</option>';
+    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 }
 
 echo '</select></div>
@@ -102,7 +102,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     $sql2 = "SELECT * FROM Departamento WHERE nombre = '" . $res['departamento'] . "'";
     $consulta2 = mysqli_query($conexion, $sql2);
     if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONAR</option>';
+        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
     }
 
     while ($res2 = mysqli_fetch_row($consulta)) {
@@ -114,7 +114,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         echo '>' . $res2[1] . '</option>';
     }
 } else {
-    echo '<option selected="true" value="">SIN RESULTADOS</option>';
+    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 }
 
 echo '</select></div>
@@ -131,7 +131,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     $sql2 = "SELECT * FROM Puesto WHERE nombre = '" . $res['puesto'] . "'";
     $consulta2 = mysqli_query($conexion, $sql2);
     if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONAR</option>';
+        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
     }
 
     while ($res2 = mysqli_fetch_row($consulta)) {
@@ -143,7 +143,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         echo '>' . $res2[1] . '</option>';
     }
 } else {
-    echo '<option selected="true" value="">SIN RESULTADOS</option>';
+    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 }
 
 echo '</select></div>
