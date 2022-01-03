@@ -19,7 +19,7 @@ if (rol() == 2) {
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="assets/css/material-dashboard.css?v=3.1.4" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
 	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
@@ -224,7 +224,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 
 
@@ -242,11 +242,11 @@ if (rol() == 2) {
 	<script src="assets/js/material-dashboard.js" type="text/javascript"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
-	<script src="assets/js/sesion.js?v=3.1.4"></script>
+	<script src="assets/js/sesion.js?v=3.1.5"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
-	<script src="assets/js/consultar.js?v=3.1.4"></script>
-	<script src="assets/js/mensajes.js?v=3.1.4"></script>
+	<script src="assets/js/consultar.js?v=3.1.5"></script>
+	<script src="assets/js/mensajes.js?v=3.1.5"></script>
 
 </body>
 

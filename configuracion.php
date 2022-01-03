@@ -20,10 +20,10 @@ if (rol() != 1) {
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="assets/css/material-dashboard.css?v=3.1.4" rel="stylesheet" />
+    <link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/dropzone.min.css" rel="stylesheet" />
-    <link href="assets/css/sweetalert2.min.css?v=3.1.4" rel="stylesheet" />
+    <link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
 
 </head>
 
@@ -179,9 +179,9 @@ if (rol() != 1) {
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/material-dashboard.js?v=3.1.4" type="text/javascript"></script>
+    <script src="assets/js/material-dashboard.js?v=3.1.5" type="text/javascript"></script>
     <script src="assets/js/dropzone.js"></script>
-    <script src="assets/js/configuracion.js?v=3.1.4"></script>
+    <script src="assets/js/configuracion.js?v=3.1.5"></script>
 </body>
 
 </html>
