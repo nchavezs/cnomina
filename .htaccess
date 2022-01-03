@@ -13,9 +13,9 @@ RewriteRule ^(.*)$ $1.php
 #evita listado de directorios
 Options -Indexes
 
-# DO NOT REMOVE THIS LINE AND THE LINES BELOW SSL_REDIRECT:consultanomina.com
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW SSL_REDIRECT:consultanominacomonfort.com
 RewriteEngine on
 RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} ^consultanomina.com$
+RewriteCond %{HTTP_HOST} ^consultanominacomonfort.com$
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-# DO NOT REMOVE THIS LINE AND THE LINES ABOVE SSL_REDIRECT:consultanomina.com
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE SSL_REDIRECT:consultanominacomonfort.com

@@ -1,9 +1,9 @@
 <?php 
     function conexion(){
         $servidor="localhost";
-        $usuario="u612058578_admin";
-        $password="Warfram3";
-        $bd="u612058578_nomin";
+        $usuario="u214291592_admin";
+        $password="W4rfr4m3";
+        $bd="u214291592_consultanomina";
         $conexion=mysqli_connect($servidor,$usuario,$password,$bd);
         return $conexion;
     }

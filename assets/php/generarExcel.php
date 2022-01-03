@@ -5,6 +5,11 @@
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+	$ruta = '../archivos/';
+	if (!file_exists($ruta)) {
+		mkdir($ruta, 0777, true);
+	}
+
 	$spreadsheet = new Spreadsheet();
 	$sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
 	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');

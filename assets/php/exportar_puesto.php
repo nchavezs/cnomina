@@ -5,6 +5,11 @@ require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+$ruta = '../archivos/';
+if (!file_exists($ruta)) {
+    mkdir($ruta, 0777, true);
+}
+
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet()->setTitle("Puestos");
 $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
@@ -20,10 +25,10 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $i = 2;
     while ($res = mysqli_fetch_array($consulta)) {
         $spreadsheet->getActiveSheet()->getCell('A' . $i)->setValueExplicit(mb_strtoupper($res["nombre"]), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-		$spreadsheet->getActiveSheet()->getCell('B' . $i)->setValueExplicit(mb_strtoupper($res["departamento"]), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $spreadsheet->getActiveSheet()->getCell('B' . $i)->setValueExplicit(mb_strtoupper($res["departamento"]), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $spreadsheet->getActiveSheet()->setCellValue('C' . $i, $res["cantidad"]);
 
-		$i++;
+        $i++;
     }
 
     foreach (range('A', 'C') as $columnID) {
