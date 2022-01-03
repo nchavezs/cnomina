@@ -18,3 +18,14 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+
+# configurar email y usuario
+# mover archivos a public_html
+# git config --global credential.helper store
+# composer install
+# sustituir conexion.php
+
+# git pull --rebase
+
+

@@ -12,12 +12,12 @@ if (!file_exists($ruta)) {
 
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet()->setTitle("Puestos");
-$spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A1', 'PUESTO');
 $sheet->setCellValue('B1', 'DEPARTAMENTO');
-$sheet->setCellValue('C1', 'CANTIDAD');
+$sheet->setCellValue('C1', 'PLAZAS');
 
 $sql = "SELECT Puesto.nombre, Departamento.nombre AS 'departamento', Puesto.cantidad FROM Puesto JOIN Departamento ON Puesto.id_departamento = Departamento.id_departamento";
 $consulta = mysqli_query($conexion, $sql);

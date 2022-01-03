@@ -231,8 +231,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -293,8 +293,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -353,8 +353,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:I2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -419,8 +419,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:J2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -501,8 +501,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -565,8 +565,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -633,8 +633,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -653,7 +653,7 @@ $consulta = mysqli_query($conexion, $sql);
 $i = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    $spreadsheet->getActiveSheet()->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+    $spreadsheet->getActiveSheet()->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
     while ($res = mysqli_fetch_array($consulta)) {
         $bandera = false;
         if ($res[7] === 'baja') {
@@ -720,7 +720,7 @@ for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
         }
 
     }
-    $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB($color);
+    $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
     $i++;
 }
 
@@ -755,8 +755,8 @@ $drawing->setCoordinates('A1');
 $drawing->setOffsetX(30);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+$spreadsheet->getActiveSheet()->getStyle('A2:K2')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 
 $sheet->setCellValue('A2', 'ID');
 $sheet->setCellValue('B2', 'NOMBRE');
@@ -776,7 +776,7 @@ $consulta = mysqli_query($conexion, $sql);
 $i = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    $spreadsheet->getActiveSheet()->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+    $spreadsheet->getActiveSheet()->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
     while ($res = mysqli_fetch_array($consulta)) {
         $bandera = false;
         if ($res[7] === 'baja') {
@@ -843,7 +843,7 @@ for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
         }
 
     }
-    $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB($color);
+    $spreadsheet->getActiveSheet()->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
     $i++;
 }
 

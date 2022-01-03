@@ -12,8 +12,8 @@
 
 	$spreadsheet = new Spreadsheet();
 	$sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
-	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('37548E');
-	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFont()->getColor()->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
 	
 	$sheet->setCellValue('A1', 'ID');
 	$sheet->setCellValue('B1', 'NOMBRE(S)');
