@@ -24,6 +24,7 @@ if (rol() != 1) {
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/dropzone.min.css" rel="stylesheet" />
     <link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
 

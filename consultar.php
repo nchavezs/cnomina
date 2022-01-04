@@ -225,6 +225,7 @@ if (rol() == 2) {
 
 	<!--  Plugin for Sweet Alert -->
 	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 
 

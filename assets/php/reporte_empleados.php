@@ -79,7 +79,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'ID');
     $sheet->setCellValue('B2', 'NOMBRE');
@@ -143,7 +143,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'ID');
     $sheet->setCellValue('B2', 'NOMBRE');
@@ -209,7 +209,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
 
     $sheet->setCellValue('A2', 'ID');
@@ -275,7 +275,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:O2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:O2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:O2')->getFont()->getColor()->setRGB('FFFFFF');
 
     $sheet->setCellValue('A2', 'ID');
@@ -348,7 +348,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
 
     $sheet->setCellValue('A2', 'ID');
@@ -413,7 +413,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'ID');
     $sheet->setCellValue('B2', 'NOMBRE');
@@ -483,7 +483,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'ID');
     $sheet->setCellValue('B2', 'NOMBRE');
@@ -537,7 +537,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:D2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:D2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:D2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'NOMBRE DEL USUARIO');
     $sheet->setCellValue('B2', 'NOMBRE DEL BENEFICIARIO');
@@ -581,7 +581,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $drawing->setOffsetX(30);
     $drawing->setWorksheet($spreadsheet->getActiveSheet());
     $spreadsheet->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+    $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
     $spreadsheet->getActiveSheet()->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
     $sheet->setCellValue('A2', 'ID');
     $sheet->setCellValue('B2', 'NOMBRE');

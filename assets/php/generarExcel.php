@@ -12,7 +12,7 @@
 
 	$spreadsheet = new Spreadsheet();
 	$sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
-	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('37548E');
+	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
 	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFont()->getColor()->setRGB('FFFFFF');
 	
 	$sheet->setCellValue('A1', 'ID');
