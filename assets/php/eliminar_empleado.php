@@ -33,6 +33,10 @@ if ($rol != 1) {
         mysqli_query($conexion, $sql);
         $sql = "DELETE FROM Reingreso WHERE RFC = '" . $id . "'";
         mysqli_query($conexion, $sql);
+        $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $id . "'";
+        mysqli_query($conexion, $sql);
+        $sql = "DELETE FROM Correo WHERE RFC = '" . $id . "'";
+        mysqli_query($conexion, $sql);
         echo 1;
     } else {
         echo 0;

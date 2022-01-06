@@ -177,3 +177,58 @@ function mensaje_enviado(){
        type: "success"
    })
 }
+
+function mensaje_cargar() {
+   let timerInterval
+   Swal.fire({
+       title: 'Cargando',
+       html: 'Espere porfavor',
+       allowOutsideClick: false,
+       onBeforeOpen: () => {
+           Swal.showLoading()
+       },
+       onClose: () => {
+           clearInterval(timerInterval)
+       }
+   }).then((result) => {
+       if (result.dismiss === Swal.DismissReason.timer) {}
+   })
+};
+
+function select_estilo() {
+   tail.select("select:not(.dataTables_length select)", {
+       locale: "es",
+       animate: true,
+       classNames: ["form-control"],
+       width: "100%",
+       search: true,
+       placeholder: "SELECCIONA UNA OPCIÓN",
+       // items: {
+       //     "": "SELECCIONA UNA OPCIÓN"
+       // }
+   });
+};
+
+function depa_on_change() {
+   $("#departamento").on("change", function () {
+       $.ajax({
+           url: "assets/php/depa_change.php",
+           type: "POST",
+           data: {
+               departamento: $("#departamento").val(),
+           },
+           success: function (data) {
+               $("#puesto").html(data);
+               tail.select("#puesto").reload();
+           }
+       });
+   });
+
+   $("#departamento").change();
+}
+
+
+$(document).on("click","#salir", function () {
+   Swal.close();
+});
+

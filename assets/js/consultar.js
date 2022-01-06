@@ -212,25 +212,3 @@ function eliminar_periodo() {
         }
     });
 };
-
-
-function mensaje_cargar() {
-    let timerInterval
-    Swal.fire({
-        title: 'Cargando',
-        html: 'Espere porfavor',
-        allowOutsideClick: false,
-        
-
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-
-        }
-    })
-};

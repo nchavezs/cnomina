@@ -73,10 +73,10 @@
 						$consulta = mysqli_query($conexion, $sql);
 						if($consulta && (mysqli_num_rows($consulta)) > 0){
 							while($res2 = mysqli_fetch_row($consulta)){
-								echo '<option value="'.$res2[1].'">'.$res2[1].'</option>';
+								echo '<option value="'.$res2[0].'">'.$res2[1].'</option>';
 							}		
 						}else{
-						echo '<option selected="true" value="">NO SE ENCONTRO DEPARTAMENTO</option>';
+						echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
 						}
 
 						echo '</select></div>

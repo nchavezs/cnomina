@@ -126,7 +126,6 @@ Dropzone.options.dropzoneLogo = {
         myDropzone = this;
 
         this.on("success", function (file, data) {
-            alert(data);
             switch(data){
                 case "1": md.showNotification("top", "right", "Imagen cargada correctamente."); 
                 break;

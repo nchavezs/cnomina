@@ -1,0 +1,223 @@
+$(document).ready(function () {
+    $('#tabla-plaza').DataTable.ext.pager.numbers_length = 5;
+    $('#tabla-plaza').DataTable({
+        "lengthChange": false,
+        "pageLength": 5,
+        "order": [
+            [0, "desc"]
+        ],
+        "language": {
+            url: "assets/js/datatables/es.json"
+        },
+        "ajax": {
+            "type": "POST",
+            "url": "assets/php/consulta-plaza.php"
+        },
+        "drawCallback": function (settings) {
+            document.querySelector('.content').scrollTop = 1;
+        },
+        "columnDefs": [{
+                "className": "font-weight-bold",
+                "targets": [0, 1]
+            },
+            {
+                "orderable": false,
+                "targets": [3]
+            }
+        ],
+        "columns": [{
+                "render": function (data, type, row) {
+                    let html = "<div>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
+                    return html;
+                }
+            },
+            {
+                "data": "usuario"
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<a class="tipo">' + row.ocupados + '</a>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<a class="tipo">' + row.vacantes + '</a>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ');">delete</i>';
+                }
+            }
+        ]
+    });
+
+    $("#importar-puestos").change(function () {
+        if ($(this).val() != "") {
+            mensaje_cargar();
+
+            var formData = new FormData();
+            var files = $("#importar-puestos")[0].files[0];
+            formData.append("file", files);
+
+            $.ajax({
+                url: "assets/php/wizard_plantilla.php",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    log_show(data);
+                    $('#tabla-puesto').DataTable().ajax.reload();
+                    $("#importar-puestos").val("");
+                }
+            });
+        }
+    });
+});
+
+function exportar_puesto() {
+    $.post("assets/php/exportar_puesto.php", function (data) {
+        if (data != 0) {
+            descargar(data, "Puestos.xlsx");
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo generar el archivo',
+                type: 'error'
+            });
+        }
+    });
+};
+
+function descargar(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+function nueva_plaza() {
+    $.post("assets/php/nuevaPlaza.php").done(function (html) {
+        Swal.fire({
+            html: html,
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+        select_estilo();
+        document.getElementById("dias").max = "" + dias_ano();
+        $("#dias").val(dias_ano());
+        depa_on_change();
+
+        $("#form-plaza").on("submit", function (e) {
+            e.preventDefault();
+            guardar_plaza();
+        });
+
+        $("#dias").on("keyup", function (event) {
+            if (this.value > dias_ano()) {
+                this.value = dias_ano();
+            } else if (this.value < 0) {
+                this.value = 0;
+            }
+            $("#fecha").val(fecha_presupuesto(this.value));
+        });
+
+        $("#dias").on("change", function (event) {
+            $("#fecha").val(fecha_presupuesto(this.value));
+        });
+    });
+};
+
+function guardar_plaza() {
+    $.ajax({
+        url: "assets/php/agregarPlaza.php",
+        type: "POST",
+        data: {
+            puesto: $("#puesto").val(),
+            dias: $("#dias").val(),
+            cantidad: $("#cantidad").val()
+        },
+        success: function (data) {
+            alert(data);
+            if (data == 1) {
+                Swal.fire({
+                    title: 'Correcto',
+                    text: 'Registro agregado',
+                    type: 'success'
+                })
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Registro no agregado',
+                    type: 'error'
+                })
+            }
+            $('#tabla-plaza').DataTable().ajax.reload();
+        }
+    });
+}
+
+function log_show(html) {
+    Swal.fire({
+        html: html,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        padding: 0
+    });
+}
+
+function eliminar(id) {
+    Swal.fire({
+        title: "Eliminar",
+        text: "¿Seguro que quieres eliminar este elemento?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "POST",
+                url: "assets/php/eliminarPlaza.php",
+                data: {
+                    "id": id
+                },
+                success: function (html) {
+                    if (html == 1) {
+                        Swal.fire({
+                            title: 'Correcto',
+                            text: 'Eliminado correctamente',
+                            type: 'success'
+                        })
+                    } else if (html == 2) {
+                        no_pasar();
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Elemento no eliminado',
+                            type: 'error',
+                        })
+                    }
+                    $('#tabla-plaza').DataTable().ajax.reload();
+                }
+            });
+        }
+    })
+};
+
+function fecha_presupuesto(dias) {
+    var fecha = moment("31/12/" + moment().year(), 'D/M/YYYY').subtract(dias, 'days').format("DD/MM/YYYY");
+
+    return fecha;
+}
+
+
+function dias_ano() {
+    var d1 = moment("01-01" + moment().year(), "D/M/YYYY");
+    var d2 = moment("31-12" + moment().year(), "D/M/YYYY");
+
+    var dias = moment.duration(d2.diff(d1)).asDays();
+    return dias;
+}

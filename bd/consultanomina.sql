@@ -18,11 +18,7 @@ DROP TABLE IF EXISTS Permiso;
 
 DROP TABLE IF EXISTS Baja;
 
-DROP TABLE IF EXISTS Puesto;
-
 DROP TABLE IF EXISTS Trabajador;
-
-DROP TABLE IF EXISTS Departamento;
 
 DROP TABLE IF EXISTS Pase;
 
@@ -38,6 +34,14 @@ DROP TABLE IF EXISTS Correos;
 
 DROP TABLE IF EXISTS Configuracion;
 
+DROP TABLE IF EXISTS Historial_Plaza;
+
+DROP TABLE IF EXISTS Plaza;
+
+DROP TABLE IF EXISTS Puesto;
+
+DROP TABLE IF EXISTS Departamento;
+
 CREATE TABLE Configuracion(
 	id_configuracion INT(1) PRIMARY KEY AUTO_INCREMENT,
 	logo VARCHAR(255),
@@ -51,6 +55,7 @@ CREATE TABLE Correos(
 	receptor VARCHAR(13) NOT NULL,
 	emisor VARCHAR(13) NOT NULL,
 	mensaje VARCHAR(255) NOT NULL,
+	url VARCHAR(100),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -237,8 +242,6 @@ CREATE TABLE Puesto(
 	id_puesto INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nombre VARCHAR(100) NOT NULL,
 	id_departamento INT(5) NOT NULL,
-	cantidad INT(5) DEFAULT 1 NOT NULL,
-	ocupado INT(5) DEFAULT 0,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(id_departamento) REFERENCES Departamento(id_departamento)
 );
@@ -259,6 +262,25 @@ CREATE TABLE Pase(
 	url VARCHAR(200),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE Plaza(
+	id_plaza INT(5) PRIMARY KEY AUTO_INCREMENT,
+	id_puesto INT(5) NOT NULL,
+	RFC INT(5),
+	dias INT(3) NOT NULL,
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_puesto) REFERENCES Puesto(id_puesto)
+);
+
+CREATE TABLE Historial_Plaza(
+	id_historial_plaza INT(5) PRIMARY KEY AUTO_INCREMENT,
+	id_plaza INT(5) NOT NULL,
+	fecha_inicio DATE NOT NULL,
+	fecha_fin DATE NOT NULL,
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(id_plaza) REFERENCES Plaza(id_plaza)
+);
+
 
 INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, RFC) VALUES ('0', 'admin', 'admin', 'Administrador', 'admin');
 

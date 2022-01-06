@@ -1,6 +1,9 @@
 <?php
 include "assets/php/main_admin.php";
-include "./assets/php/comprobar_catalago.php";
+
+if (rol() != 1) {
+    header('location:./registrar');
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,15 +17,15 @@ include "./assets/php/comprobar_catalago.php";
     <title>
         Consulta Nómina
     </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
+    <link href="assets/css/select2.css?v=3.1.5" rel="stylesheet" />
     <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-    <link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
+	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -45,7 +48,7 @@ if ($varFoto != null) {
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li id="link1" class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" href="./registrar">
                             <i class="material-icons">people</i>
                             <p>Empleados</p>
@@ -57,88 +60,43 @@ if ($varFoto != null) {
                             <p>Perfil</p>
                         </a>
                     </li>
-                    <?php
-                    if (rol() == 2) {
-                        echo '<li class="nav-item">
-                                            <a class="nav-link" href="#" onclick="no_pasar();">
-                                                <i class="material-icons">lock</i>
-                                                <p>Impotar CFDI</p>
-                                            </a>
-                                        </li>';
-                    } else {
-                        echo '<li class="nav-item">
-                                                <a class="nav-link" href="./subir">
-                                                    <i class="material-icons">cloud_upload</i>
-                                                    <p>Impotar CFDI</p>
-                                                </a>
-                                            </li>';
-                    }
-                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./subir">
+                            <i class="material-icons">cloud_upload</i>
+                            <p>Impotar CFDI</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./consultar">
+                            <i class="material-icons">text_snippet</i>
+                            <p>Nóminas</p>
+                        </a>
+                    </li>
 
-                    <?php
-                    if (rol() == 2) {
-                        echo '<li class="nav-item">
-                                <a class="nav-link" href="#" onclick="no_pasar();">
-                                    <i class="material-icons">lock</i>
-                                    <p>Nóminas</p>
-                                </a>
-                            </li>';
-                    } else {
-                        echo '<li class="nav-item">
-                                <a class="nav-link" href="./consultar">
-                                    <i class="material-icons">text_snippet</i>
-                                    <p>Nóminas</p>
-                                </a>
-                            </li>';
-                    }
-                        
-                    if (rol() != 1) {
-                        echo '<li class="nav-item">
-                                <a class="nav-link" href="#" onclick="no_pasar();">
-                                    <i class="material-icons">lock</i>
-                                    <p>Catálogos</p>
-                                </a>
-                            </li>';
-                    } else {
-                        echo '<li class="nav-item">
-                            <a class="nav-link" href="./catalogos">
-                                <i class="material-icons">table_view</i>
-                                <p>Catálogos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./presupuesto">
-                                <i class="material-icons">receipt_long</i>
-                                <p>Presupuesto</p>
-                            </a>
-                        </li>';
-                    }
-                    ?>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="./catalogos">
+                            <i class="material-icons">table_view</i>
+                            <p>Catálogos</p>
+                        </a>
+                    </li>
+                    <li id="link1" class="nav-item active">
+                        <a class="nav-link" href="./presupuesto">
+                            <i class="material-icons">receipt_long</i>
+                            <p>Presupuesto</p>
+                        </a>
+                    </li>
                     <li id="link2" class="nav-item">
                         <a class="nav-link" href="./mensajes">
                             <i class="material-icons">message</i>
                             <p>Mensajes</p>
                         </a>
                     </li>
-                    <?php
-if (rol() != 1) {
-    echo '<li class="nav-item">
-						<a class="nav-link" href="#" onclick="no_pasar();">
-							<i class="material-icons">lock</i>
-							<p>Reportes</p>
-						</a>
-					</li>';
-} else {
-    echo '<li class="nav-item">
-							<a class="nav-link" href="./reportes">
-								<i class="material-icons">summarize</i>
-								<p>Reportes</p>
-							</a>
-						</li>';
-}
-?>
-
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./reportes">
+                            <i class="material-icons">summarize</i>
+                            <p>Reportes</p>
+                        </a>
+                    </li>
                     <li class="nav-item" id="cerrar-btn">
                         <a class="nav-link">
                             <i class="material-icons">exit_to_app</i>
@@ -150,10 +108,10 @@ if (rol() != 1) {
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
+            <nav class="navbar navbar-expand-lg  navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="">Lista de empleados</a>
+                        <a class="navbar-brand" href="">Presupuesto</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -178,8 +136,7 @@ if (rol() != 1) {
                             </li>
                             <li class="nav-item">
                                 <a id="cerrar" class="nav-link" href="#">
-                                    <i class="material-icons">exit_to_app</i>
-                                    Cerrar sesión
+                                    <i class="material-icons">exit_to_app</i>Cerrar sesión
                                 </a>
                             </li>
                         </ul>
@@ -191,44 +148,35 @@ if (rol() != 1) {
                 <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-header text-center">
+                            <h6 class="card-category text-gray">PLAZAS</h6>
+                        </div>
+                        <div class="card-body p-1">
                             <div class="msn-mostrar">
-                                <?php
-if (rol() == 1) {
-    echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>
-											<div class="">Nuevo empleado</div>
-												</button>
-												<input type="file" id="importar-empleado" accept=".xlsx" /><label
-													class="btn-mostrar" for="importar-empleado"><i
-														class="material-icons">file_upload</i>Importar</label>
-													<button onclick="generar_empleados();" class="btn-mostrar"><i
-													class="material-icons">file_download</i>
-												<div class="">Exportar</div>
-											</button>
-											<button id="generar-prenomina" class="btn-mostrar"><i
-													class="material-icons">assignment</i>Prenómina</button>';
-}
-?>
+                                <button onclick="nueva_plaza();" class="btn-mostrar"><i
+                                        class="material-icons">add_circle_outline</i>Nuevo</button>
+                                <input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar"
+                                    for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
+                                <button onclick="exportar_plazas();" class="btn-mostrar"><i
+                                        class="material-icons">file_download</i>Exportar</button>
                             </div>
                         </div>
                     </div>
-					<div class="table-responsive">
-                        <table id="tabla-empleado" class="table table-striped" style="width:100%">
+                    <div class="table-responsive">
+                        <table id="tabla-plaza" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
-                                    <th class="">ID</th>
-                                    <th class="">Nombre</th>
-                                    <th class="oculto">RFC</th>
-                                    <th class="oculto">Departamento</th>
-                                    <th class="oculto">Estado / Trabajador</th>
-                                    <th class="">Editar</th>
-                                    <th class="">Eliminar</th>
+									<th class="oculto">Puesto / Departamento</th>
+                                    <th class="">Trabajador</th>
+                                    <th class="oculto">Días ocupados</th>
+                                    <th class="">Días vacantes</th>
+									<th class="">Eliminar</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
-            </div>
                 </div>
+            </div>
 
             <footer class="footer">
                 <div class="chat_fondo"></div>
@@ -247,6 +195,7 @@ if (rol() == 1) {
             </footer>
         </div>
     </div>
+
     <script src="assets/js/core/jquery.min.js"></script>
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap-material-design.min.js"></script>
@@ -260,12 +209,12 @@ if (rol() == 1) {
     <script src="assets/js/datepicker.min.js"></script>
     <script src="assets/js/plugins/datepicker.es.js"></script>
     <script src="assets/js/block.js"></script>
-    <script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
-    <script src="assets/js/registrar.js?v=3.1.5"></script>
+	<script src="assets/js/moment.js"></script>
+    <script src="assets/js/presupuesto.js?v=3.1.5"></script>
     <script src="assets/js/sesion.js?v=3.1.5"></script>
     <script src="assets/js/mensajes.js?v=3.1.5"></script>
-    <script src="assets/js/moment.js"></script>
 
 </body>
 

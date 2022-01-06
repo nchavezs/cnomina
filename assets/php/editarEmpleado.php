@@ -37,35 +37,35 @@ echo '<form id="form-empleado">
 							</div>
 						</div>';
 
-echo '<div class="col-md-6">
-						<div class="select">
-						<div class="select-label">Tipo de trabajador</div>
-						<select id="trabajador" class="custom-select select-empleado trabajador-select">';
+// echo '<div class="col-md-6">
+// 						<div class="select">
+// 						<div class="select-label">Tipo de trabajador</div>
+// 						<select id="trabajador" class="custom-select select-empleado trabajador-select">';
 
-$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
-if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-    $sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
-    $consulta2 = mysqli_query($conexion, $sql2);
-    if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
-    }
+// $sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
+// $consulta = mysqli_query($conexion, $sql);
+// if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+//     $sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
+//     $consulta2 = mysqli_query($conexion, $sql2);
+//     if (mysqli_num_rows($consulta2) == 0) {
+//         echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
+//     }
 
-    while ($res2 = mysqli_fetch_row($consulta)) {
-        echo '<option value="' . $res2[1] . '" ';
-        if ($res['tipoTrabajador'] === $res2[1]) {
-            echo 'selected';
-        }
+//     while ($res2 = mysqli_fetch_row($consulta)) {
+//         echo '<option value="' . $res2[1] . '" ';
+//         if ($res['tipoTrabajador'] === $res2[1]) {
+//             echo 'selected';
+//         }
 
-        echo '>' . $res2[1] . '</option>';
-    }
-} else {
-    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
-}
+//         echo '>' . $res2[1] . '</option>';
+//     }
+// } else {
+//     echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
+// }
 
-echo '</select></div>
-						</div>
-						<div class="col-md-3">
+// echo '</select></div>
+// 						</div>
+					echo '<div class="col-md-3">
 							<div class="form-group">
 								<div class="select-label">Número de empleado</div>
 								<input id="numero" type="text" class="form-control" maxlength=5 value="' . str_pad($res['id_usuario'], 5, '0', STR_PAD_LEFT) . '" required>
@@ -92,62 +92,62 @@ echo '</select></div>
 								<input id="curp" type="text" class="form-control" minlength=18 maxlength=18 value="' . $res['CURP'] . '" required>
 							</div>
 						</div>';
-echo '<div class="col-md-6">
-						<div class="select">
-						<div class="select-label label-depa">Departamento</div>
-						<select id="departamento" class="custom-select select-empleado departamento-select">';
-$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
-if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-    $sql2 = "SELECT * FROM Departamento WHERE nombre = '" . $res['departamento'] . "'";
-    $consulta2 = mysqli_query($conexion, $sql2);
-    if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
-    }
+// echo '<div class="col-md-6">
+// 						<div class="select">
+// 						<div class="select-label label-depa">Departamento</div>
+// 						<select id="departamento" class="custom-select select-empleado departamento-select">';
+// $sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
+// $consulta = mysqli_query($conexion, $sql);
+// if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+//     $sql2 = "SELECT * FROM Departamento WHERE nombre = '" . $res['departamento'] . "'";
+//     $consulta2 = mysqli_query($conexion, $sql2);
+//     if (mysqli_num_rows($consulta2) == 0) {
+//         echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
+//     }
 
-    while ($res2 = mysqli_fetch_row($consulta)) {
-        echo '<option value="' . $res2[1] . '" ';
-        if ($res['departamento'] === $res2[1]) {
-            echo 'selected';
-        }
+//     while ($res2 = mysqli_fetch_row($consulta)) {
+//         echo '<option value="' . $res2[1] . '" ';
+//         if ($res['departamento'] === $res2[1]) {
+//             echo 'selected';
+//         }
 
-        echo '>' . $res2[1] . '</option>';
-    }
-} else {
-    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
-}
+//         echo '>' . $res2[1] . '</option>';
+//     }
+// } else {
+//     echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
+// }
 
-echo '</select></div>
-						</div>';
+// echo '</select></div>
+// 						</div>';
 
-echo '<div class="col-md-6">
-						<div class="select">
-						<div class="select-label label-puesto">Puesto</div>
-						<select id="puesto" class="custom-select select-empleado puesto-select">';
+// echo '<div class="col-md-6">
+// 						<div class="select">
+// 						<div class="select-label label-puesto">Puesto</div>
+// 						<select id="puesto" class="custom-select select-empleado puesto-select">';
 
-$sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
-if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-    $sql2 = "SELECT * FROM Puesto WHERE nombre = '" . $res['puesto'] . "'";
-    $consulta2 = mysqli_query($conexion, $sql2);
-    if (mysqli_num_rows($consulta2) == 0) {
-        echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
-    }
+// $sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
+// $consulta = mysqli_query($conexion, $sql);
+// if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+//     $sql2 = "SELECT * FROM Puesto WHERE nombre = '" . $res['puesto'] . "'";
+//     $consulta2 = mysqli_query($conexion, $sql2);
+//     if (mysqli_num_rows($consulta2) == 0) {
+//         echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
+//     }
 
-    while ($res2 = mysqli_fetch_row($consulta)) {
-        echo '<option value="' . $res2[1] . '" ';
-        if ($res['puesto'] === $res2[1]) {
-            echo 'selected';
-        }
+//     while ($res2 = mysqli_fetch_row($consulta)) {
+//         echo '<option value="' . $res2[1] . '" ';
+//         if ($res['puesto'] === $res2[1]) {
+//             echo 'selected';
+//         }
 
-        echo '>' . $res2[1] . '</option>';
-    }
-} else {
-    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
-}
+//         echo '>' . $res2[1] . '</option>';
+//     }
+// } else {
+//     echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
+// }
 
-echo '</select></div>
-						</div>';
+// echo '</select></div>
+// 						</div>';
 
 echo '<div class="col-md-6">
 							<div class="form-group">

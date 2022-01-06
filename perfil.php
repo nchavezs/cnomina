@@ -110,11 +110,17 @@ if ($resultadoUsuario) {
 					</li>';
                } else {
                   echo '<li class="nav-item">
-							<a class="nav-link" href="./catalogos">
-								<i class="material-icons">table_view</i>
-								<p>Catálogos</p>
-							</a>
-						</li>';
+                     <a class="nav-link" href="./catalogos">
+                        <i class="material-icons">table_view</i>
+                        <p>Catálogos</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="./presupuesto">
+                        <i class="material-icons">receipt_long</i>
+                        <p>Presupuesto</p>
+                     </a>
+                  </li>';
                }
                ?>
                <li id="link2" class="nav-item">

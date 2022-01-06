@@ -238,8 +238,8 @@ $(document).ready(function () {
                             "nombre": $("#nombre").val(),
                             "rfc": $("#rfc").val(),
                             "curp": $("#curp").val(),
-                            "puesto": $("#puesto").val(),
-                            "departamento": $("#departamento").val(),
+                            "puesto": $("#puesto option:selected").text(),
+                            "departamento": $("#departamento option:selected").text(),
                             "banca": $("#banca").val(),
                             "afiliacion": $("#afiliacion").val(),
                             "trabajador": $("#trabajador").val(),
@@ -1635,8 +1635,8 @@ function movimiento(id) {
 
                     $("#form-movimiento").click(function () {
                         var fecha = $("#fecha1").val();
-                        var puesto = $("#puesto").val();
-                        var departamento = $("#departamento").val();
+                        var puesto = $("#puesto option:selected").text();
+                        var departamento = $("#departamento option:selected").text();
                         var observacion = $("#observacion").val();
                         var trabajador = $("#trabajador").val();
                         if ($("#puesto").val() === "" || $("#departamento").val() === "" || $("#puesto").val() === null || $("#departamento").val() === null) {
@@ -2484,23 +2484,21 @@ function editar_usuario(id, event) {
                 Swal.fire({
                     position: 'center',
                     html: html,
-
                     allowOutsideClick: false,
                     showConfirmButton: false,
-
                     width: '50em'
                 });
-                select_estilo();
-                depa_on_change_update();
+                // select_estilo();
+                // depa_on_change_update();
                 $("#ingreso").blur();
 
                 $("#salir").click(function () {
                     swal.close();
                 });
 
-                $("#descargar-btn").click(function () {
-                    descargar($("#descargar-input").val(), 'Archivo')
-                });
+                // $("#descargar-btn").click(function () {
+                //     descargar($("#descargar-input").val(), 'Archivo')
+                // });
 
                 // $("#file").change(function () {
                 //     if ($("#file").val() !== "") {
@@ -2548,50 +2546,53 @@ function editar_usuario(id, event) {
 
                 $("#form-empleado").submit(function (e) {
                     e.preventDefault();
-                    if ($("#puesto").val() === "" || $("#departamento").val() === "" || $("#trabajador").val() === "") {
-                        $("#advertencia").removeClass("hide");
-                        $("#advertencia").addClass("advertencia");
-                    } else {
-                        $.ajax({
-                            type: "POST",
-                            url: "assets/php/actualizarEmpleado.php",
-                            data: {
-                                "id": $("#numero").val(),
-                                "rfc": $("#rfc").val(),
-                                "curp": $("#curp").val(),
-                                "puesto": $("#puesto").val(),
-                                "departamento": $("#departamento").val(),
-                                "banca": $("#banca").val(),
-                                "afiliacion": $("#afiliacion").val(),
-                                "nombres": $("#nombres").val(),
-                                "apellidop": $("#apellidop").val(),
-                                "apellidom": $("#apellidom").val(),
-                                "trabajador": $("#trabajador").val(),
-                                "archivo": $("#archivo").val(),
-                                "ingreso": $("#ingreso").val()
-                            },
-                            success: function (data) {
-                                $('#tabla-empleado').DataTable().ajax.reload();
-                                if (data == 1) {
-                                    Swal.fire({
-                                        title: 'Correcto',
-                                        text: 'Datos de empleado actualizados',
-                                        type: 'success'
-                                    })
-                                } else if (data == 2) {
-                                    no_pasar();
-                                } else {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: 'Datos de empleado no actualizados',
-                                        type: 'error',
+
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/php/actualizarEmpleado.php",
+                        data: {
+                            "id": $("#numero").val(),
+                            "rfc": $("#rfc").val(),
+                            "curp": $("#curp").val(),
+                            // "puesto": $("#puesto").val(),
+                            // "departamento": $("#departamento").val(),
+                            "banca": $("#banca").val(),
+                            "afiliacion": $("#afiliacion").val(),
+                            "nombres": $("#nombres").val(),
+                            "apellidop": $("#apellidop").val(),
+                            "apellidom": $("#apellidom").val(),
+                            // "trabajador": $("#trabajador").val(),
+                            "archivo": $("#archivo").val(),
+                            "ingreso": $("#ingreso").val()
+                        },
+                        success: function (data) {
+                            $('#tabla-empleado').DataTable().ajax.reload();
+                            if (data == 1) {
+                                Swal.fire({
+                                    title: 'Correcto',
+                                    text: 'Datos de empleado actualizados',
+                                    type: 'success'
+                                })
+                            } else if (data == 2) {
+                                no_pasar();
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Datos de empleado no actualizados',
+                                    type: 'error',
 
 
-                                    })
-                                }
+                                })
                             }
-                        });
-                    }
+                        }
+                    });
+
+                    // if ($("#puesto").val() === "" || $("#departamento").val() === "" || $("#trabajador").val() === "") {
+                    //     $("#advertencia").removeClass("hide");
+                    //     $("#advertencia").addClass("advertencia");
+                    // } else {
+                       
+                    // }
 
                 });
 
@@ -2604,39 +2605,6 @@ function editar_usuario(id, event) {
                 customClass: 'animated fadeInDown'
             })
         }
-    });
-};
-
-function mensaje_cargar() {
-    let timerInterval
-    Swal.fire({
-        title: 'Cargando',
-        html: 'Espere porfavor',
-        allowOutsideClick: false,
-
-
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {}
-    })
-};
-
-function select_estilo() {
-    tail.select("select:not(.dataTables_length select)", {
-        locale: "es",
-        animate: true,
-        classNames: ["form-control"],
-        width: "100%",
-        search: true,
-        placeholder: "SELECCIONA UNA OPCIÓN",
-        // items: {
-        //     "": "SELECCIONA UNA OPCIÓN"
-        // }
     });
 };
 
@@ -2953,39 +2921,39 @@ function diferencia_fecha(fecha1, fecha2) {
     $("#dias").val(diffDays);
 }
 
-function depa_on_change() {
-    $("#departamento").on("change", function () {
-        $.ajax({
-            url: "assets/php/depa_change.php",
-            type: "POST",
-            data: {
-                departamento: $("#departamento").val(),
-            },
-            success: function (data) {
-                $("#puesto").html(data);
-                tail.select("#puesto").reload();
-            }
-        });
-    });
+// function depa_on_change() {
+//     $("#departamento").on("change", function () {
+//         $.ajax({
+//             url: "assets/php/depa_change.php",
+//             type: "POST",
+//             data: {
+//                 departamento: $("#departamento").val(),
+//             },
+//             success: function (data) {
+//                 $("#puesto").html(data);
+//                 tail.select("#puesto").reload();
+//             }
+//         });
+//     });
 
-    $("#departamento").change();
-}
+//     $("#departamento").change();
+// }
 
-function depa_on_change_update() {
-    $("#departamento").on("change", function () {
-        $.ajax({
-            url: "assets/php/depa_change_update.php",
-            type: "POST",
-            data: {
-                departamento: $("#departamento").val(),
-                RFC: $("#rfc").val(),
-            },
-            success: function (data) {
-                $("#puesto").html(data);
-                tail.select("#puesto").reload();
-            }
-        });
-    });
+// function depa_on_change_update() {
+//     $("#departamento").on("change", function () {
+//         $.ajax({
+//             url: "assets/php/depa_change_update.php",
+//             type: "POST",
+//             data: {
+//                 departamento: $("#departamento").val(),
+//                 RFC: $("#rfc").val(),
+//             },
+//             success: function (data) {
+//                 $("#puesto").html(data);
+//                 tail.select("#puesto").reload();
+//             }
+//         });
+//     });
 
-    $("#departamento").change();
-}
+//     $("#departamento").change();
+// }

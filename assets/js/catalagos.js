@@ -13,38 +13,31 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-puesto.php"
         },
-        // "drawCallback": function( settings ) {
-        //     document.querySelector('.content').scrollTop = 1;
-        // },
+        "drawCallback": function( settings ) {
+            document.querySelector('.content').scrollTop = 1;
+        },
         "columnDefs": [
             {
-                "className": "oculto",
-                "targets": [2,3,4]
-            },
-            {
                 "className": "font-weight-bold",
-                "targets": [0]
+                "targets": [0,1]
             },
             {
                 "orderable": false,
-                "targets": [5]
+                "targets": [3]
             }
         ],
         "columns": [{
                 "data": "numero"
             },
             {
-                "data": "nombre"
-            },
-            {
-                "data": "departamento"
-            },
-            {
-                "data": "cantidad"
+                "render": function (data, type, row) {
+                    let html = "<div>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
+                    return html;
+                }
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.vacantes + '</a>';
+                    return '<a class="tipo">' + row.plazas + '</a>';
                 }
             },
             {
@@ -69,9 +62,9 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-departamento.php"
         },
-        "drawCallback": function( settings ) {
-            document.querySelector('.content').scrollTop = 1;
-        },
+        // "drawCallback": function( settings ) {
+        //     document.querySelector('.content').scrollTop = 1;
+        // },
         "columnDefs": [
             {
                 "className": "font-weight-bold",
@@ -105,7 +98,7 @@ $(document).ready(function () {
             formData.append("file", files);
 
             $.ajax({
-                url: "assets/php/wizard_plantilla.php",
+                url: "assets/php/importar_puesto.php",
                 type: "post",
                 data: formData,
                 contentType: false,
@@ -175,27 +168,6 @@ function exportar_depa() {
     });
 };
 
-function mensaje_cargar() {
-    let timerInterval
-    Swal.fire({
-        title: 'Cargando',
-        html: 'Espere porfavor',
-        allowOutsideClick: false,
-
-
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-
-        }
-    })
-};
-
 function descargar(uri, name) {
     var link = document.createElement("a");
     link.download = name;
@@ -226,30 +198,30 @@ function nuevo_puesto() {
                     return !value && "Completa los campos"
                 }
             },
-            {
-                title: "Plazas",
-                confirmButtonText: "Guardar",
-                input: "number",
-                inputValue: 1,
-                inputValidator: (value) => {
-                    if (!value)
-                        return "Completa los campos"
-                    else if (value < 1)
-                        return "Valor no valido"
-                }
-            },
+            // {
+            //     title: "Plazas",
+            //     confirmButtonText: "Guardar",
+            //     input: "number",
+            //     inputValue: 1,
+            //     inputValidator: (value) => {
+            //         if (!value)
+            //             return "Completa los campos"
+            //         else if (value < 1)
+            //             return "Valor no valido"
+            //     }
+            // },
         ]).then((result) => {
             if (result.value) {
                 var resultado = JSON.stringify(result.value);
                 var datos = jQuery.parseJSON(resultado);
                 var nombre = datos[0];
                 var departamento = datos[1];
-                var cantidad = datos[2];
+                // var cantidad = datos[2];
 
                 $.post("assets/php/nuevoPuesto.php", {
                         nombre: nombre,
-                        departamento: departamento,
-                        cantidad: cantidad
+                        departamento: departamento
+                        // cantidad: cantidad
                     })
                     .done(function (html) {
                         if (html == 1) {

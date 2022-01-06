@@ -75,6 +75,12 @@ if (rol() != 1) {
 							<p>Catálogos</p>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./presupuesto">
+							<i class="material-icons">receipt_long</i>
+							<p>Presupuesto</p>
+						</a>
+					</li>
 					<li id="link2" class="nav-item">
 						<a class="nav-link" href="./mensajes">
 							<i class="material-icons">message</i>
