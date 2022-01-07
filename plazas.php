@@ -80,9 +80,9 @@ if ($varFoto != null) {
                         </a>
                     </li>
                     <li id="link1" class="nav-item active">
-                        <a class="nav-link" href="./presupuesto">
+                        <a class="nav-link" href="./plazas">
                             <i class="material-icons">receipt_long</i>
-                            <p>Presupuesto</p>
+                            <p>Plazas</p>
                         </a>
                     </li>
                     <li id="link2" class="nav-item">
@@ -111,7 +111,7 @@ if ($varFoto != null) {
             <nav class="navbar navbar-expand-lg  navbar-absolute fixed-top ">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="">Presupuesto</a>
+                        <a class="navbar-brand" href="">Plazas</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -153,12 +153,12 @@ if ($varFoto != null) {
                         </div>
                         <div class="card-body p-1">
                             <div class="msn-mostrar">
-                                <button onclick="nueva_plaza();" class="btn-mostrar"><i
-                                        class="material-icons">add_circle_outline</i>Nuevo</button>
+                                <label onclick="nueva_plaza();" class="btn-mostrar"><i
+                                        class="material-icons">add_circle_outline</i>Nuevo</label>
                                 <input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar"
                                     for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
-                                <button onclick="exportar_plazas();" class="btn-mostrar"><i
-                                        class="material-icons">file_download</i>Exportar</button>
+                                <label onclick="exportar_plazas();" class="btn-mostrar"><i
+                                        class="material-icons">file_download</i>Exportar</label>
                             </div>
                         </div>
                     </div>
@@ -166,6 +166,7 @@ if ($varFoto != null) {
                         <table id="tabla-plaza" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
+                                    <th class="">ID</th>
 									<th class="oculto">Puesto / Departamento</th>
                                     <th class="">Trabajador</th>
                                     <th class="oculto">Días ocupados</th>
@@ -212,7 +213,7 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/moment.js"></script>
-    <script src="assets/js/presupuesto.js?v=3.1.5"></script>
+    <script src="assets/js/plazas.js?v=3.1.5"></script>
     <script src="assets/js/sesion.js?v=3.1.5"></script>
     <script src="assets/js/mensajes.js?v=3.1.5"></script>
 

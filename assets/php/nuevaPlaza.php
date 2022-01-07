@@ -13,20 +13,20 @@ echo '<form id="form-plaza">
 
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Días presupuestados</div>
-							  <input id="dias" step="1" type="number" min="0" class="form-control" required/>
+							<div class="select-label">Días presupuestados</div>
+							  <input id="dias" type="text" maxlength="3" min="1" class="form-control" required onkeydown="return isNumberKey(event)"/>
 							</div>
 						</div>
                         <div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Fecha</div>
+							<div class="select-label">Fecha</div>
 							  <input id="fecha" type="text" class="form-control datepicker-here" readonly value="01/01/'.date("Y").'"/>
 							</div>
 						</div>
 
                         <div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Cantidad de plazas</div>
+							<div class="select-label">Cantidad de plazas</div>
 							  <input id="cantidad" step="1" type="number" min="1" max="999" class="form-control" value="1" required/>
 							</div>
 						</div>

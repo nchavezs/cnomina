@@ -11,7 +11,7 @@
 	if(trim($resultado1[8]) === "")
 		$obs = "Sin observación";
 	else
-		$obs = $resultado1[8];
+		$obs = $resultado1["observacion"];
 
 	date_default_timezone_set('America/Mexico_City');
 	setlocale(LC_TIME, 'es_CO.UTF-8');

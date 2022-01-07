@@ -2,19 +2,35 @@
 include "conexion.php";
 $conexion = conexion();
 $puesto = $_POST["puesto"];
-$departamento = $_POST["departamento"];
+$ano = date("Y");
+$hoy = date("Y-m-d");
 
-
-$sql = "SELECT nombre FROM Departamento WHERE id_departamento = " . $puesto[1];
-$consulta = mysqli_query($conexion, $sql);
-$departamento = mysqli_fetch_row($consulta);
-
-$sql = "SELECT * FROM Plaza WHERE id_puesto = " . $id_puesto . " ORDER BY elaboracion";
+$sql = "SELECT * FROM Plaza WHERE RFC IS NULL AND id_puesto = " . $puesto . " ORDER BY elaboracion";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
-        echo '<option value="' . $res[0] . '">' . $res[1] . '</option>';
+        $ocupados = 0;
+        $ocupados_total = 0;
+        $vacantes = $res["dias"];
+        $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
+        $consulta2 = mysqli_query($conexion, $sql);
+        if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
+            while ($historial = mysqli_fetch_array($consulta2)) {
+                $fecha1 = new DateTime($historial["fecha_inicio"]);
+                if ($historial["fecha_fin"] != "") {
+                    $fecha2 = new DateTime($historial["fecha_fin"]);
+                }else{
+                    $fecha2 = new DateTime($hoy);
+                }
+                $diff = $fecha2->diff($fecha1);
+                $ocupados = $diff->format('%a');
+                $ocupados_total = $ocupados_total + $ocupados;
+            }
+            $vacantes = $res["dias"] - $ocupados_total;
+        }
+
+        echo '<option value="' . $res[0] . '">PLAZA #' . $res[0] . ' ➟ ' . $vacantes . ' DIAS VACANTES</option>';
     }
 } else {
-    echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
+    echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
 }

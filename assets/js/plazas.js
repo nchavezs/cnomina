@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#tabla-plaza').DataTable.ext.pager.numbers_length = 5;
-    $('#tabla-plaza').DataTable({
+    var tabla = $('#tabla-plaza').DataTable({
         "lengthChange": false,
         "pageLength": 5,
         "order": [
@@ -26,6 +26,9 @@ $(document).ready(function () {
             }
         ],
         "columns": [{
+                "data": "id_plaza"
+            },
+            {
                 "render": function (data, type, row) {
                     let html = "<div>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
                     return html;
@@ -36,7 +39,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.ocupados + '</a>';
+                    return '<a class="baja">' + row.ocupados + '</a>';
                 }
             },
             {
@@ -46,57 +49,62 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ');">delete</i>';
+                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ', event);">delete</i>';
                 }
             }
         ]
     });
 
-    $("#importar-puestos").change(function () {
-        if ($(this).val() != "") {
-            mensaje_cargar();
-
-            var formData = new FormData();
-            var files = $("#importar-puestos")[0].files[0];
-            formData.append("file", files);
-
-            $.ajax({
-                url: "assets/php/wizard_plantilla.php",
-                type: "post",
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    log_show(data);
-                    $('#tabla-puesto').DataTable().ajax.reload();
-                    $("#importar-puestos").val("");
-                }
-            });
-        }
+    $(document).on("click", "#tabla-plaza tr", function (e) {
+        let data = tabla.row(this).data();
+        detalle_plaza(data[0]);
     });
+
+    // $("#importar-puestos").change(function () {
+    //     if ($(this).val() != "") {
+    //         mensaje_cargar();
+
+    //         var formData = new FormData();
+    //         var files = $("#importar-puestos")[0].files[0];
+    //         formData.append("file", files);
+
+    //         $.ajax({
+    //             url: "assets/php/wizard_plantilla.php",
+    //             type: "post",
+    //             data: formData,
+    //             contentType: false,
+    //             processData: false,
+    //             cache: false,
+    //             success: function (data) {
+    //                 log_show(data);
+    //                 $('#tabla-puesto').DataTable().ajax.reload();
+    //                 $("#importar-puestos").val("");
+    //             }
+    //         });
+    //     }
+    // });
 });
 
-function exportar_puesto() {
-    $.post("assets/php/exportar_puesto.php", function (data) {
-        if (data != 0) {
-            descargar(data, "Puestos.xlsx");
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: 'No se pudo generar el archivo',
-                type: 'error'
-            });
-        }
-    });
-};
+// function exportar_puesto() {
+//     $.post("assets/php/exportar_puesto.php", function (data) {
+//         if (data != 0) {
+//             descargar(data, "Puestos.xlsx");
+//         } else {
+//             Swal.fire({
+//                 title: 'Error',
+//                 text: 'No se pudo generar el archivo',
+//                 type: 'error'
+//             });
+//         }
+//     });
+// };
 
-function descargar(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    link.click();
-}
+// function descargar(uri, name) {
+//     var link = document.createElement("a");
+//     link.download = name;
+//     link.href = uri;
+//     link.click();
+// }
 
 function nueva_plaza() {
     $.post("assets/php/nuevaPlaza.php").done(function (html) {
@@ -108,7 +116,9 @@ function nueva_plaza() {
         select_estilo();
         document.getElementById("dias").max = "" + dias_ano();
         $("#dias").val(dias_ano());
-        depa_on_change();
+        $("#fecha").css("color", "green");
+        
+        select_change();
 
         $("#form-plaza").on("submit", function (e) {
             e.preventDefault();
@@ -118,13 +128,11 @@ function nueva_plaza() {
         $("#dias").on("keyup", function (event) {
             if (this.value > dias_ano()) {
                 this.value = dias_ano();
-            } else if (this.value < 0) {
-                this.value = 0;
+            } else if (this.value < 1) {
+                $("#fecha").css("color", "red");
+            }else{
+                $("#fecha").css("color", "green");
             }
-            $("#fecha").val(fecha_presupuesto(this.value));
-        });
-
-        $("#dias").on("change", function (event) {
             $("#fecha").val(fecha_presupuesto(this.value));
         });
     });
@@ -159,16 +167,17 @@ function guardar_plaza() {
     });
 }
 
-function log_show(html) {
-    Swal.fire({
-        html: html,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        padding: 0
-    });
-}
+// function log_show(html) {
+//     Swal.fire({
+//         html: html,
+//         allowOutsideClick: false,
+//         allowEscapeKey: false,
+//         padding: 0
+//     });
+// }
 
-function eliminar(id) {
+function eliminar(id, event) {
+    event.stopPropagation();
     Swal.fire({
         title: "Eliminar",
         text: "¿Seguro que quieres eliminar este elemento?",
@@ -208,16 +217,34 @@ function eliminar(id) {
 };
 
 function fecha_presupuesto(dias) {
-    var fecha = moment("31/12/" + moment().year(), 'D/M/YYYY').subtract(dias, 'days').format("DD/MM/YYYY");
-
+    var fecha = moment("01-01" + (moment().year() + 1), 'D/M/YYYY').subtract(dias, 'days').format("DD/MM/YYYY");
     return fecha;
 }
 
 
 function dias_ano() {
     var d1 = moment("01-01" + moment().year(), "D/M/YYYY");
-    var d2 = moment("31-12" + moment().year(), "D/M/YYYY");
+    var d2 = moment("01-01" + (moment().year() + 1), "D/M/YYYY");
 
     var dias = moment.duration(d2.diff(d1)).asDays();
     return dias;
+}
+
+function detalle_plaza(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/detalle_plaza.php",
+        data: {
+            "id": id
+        },
+        success: function (html) {
+            Swal.fire({
+                position: 'center',
+                html: html,
+                allowOutsideClick: true,
+                showCloseButton: true,
+                showConfirmButton: false
+            });
+        }
+    });
 }

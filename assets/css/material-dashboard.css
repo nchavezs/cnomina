@@ -1837,7 +1837,7 @@ div[data-notify=container] {
 
     .msn-mostrar{
         display: block;
-        /* text-align: center; */
+        text-align: center;
     }
     .btn-mostrar {
         /* padding: 5px 15px; */

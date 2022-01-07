@@ -22,14 +22,14 @@
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label label-puesto">Fecha de elaboración</div>
+							<div class="select-label">Fecha de elaboración</div>
 							  <input type="text" class="form-control datepicker-here" disabled value="'.$hoy.'"/> 
 							</div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label label-puesto">Fecha de apoyo</div>
+							<div class="select-label">Fecha de apoyo</div>
 							  <input id="fecha" type="text" class="form-control datepicker-here" readonly required="true" value="'.$hoy.'"/> 
 							</div>
 						</div>
@@ -37,14 +37,14 @@
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label label-puesto">Monto $</div>
+							<div class="select-label">Monto $</div>
 							  <input id="monto" type="text" class="form-control" required="true" />
 							</div>
 						</div>
 
 						<div class="col-md-12">
 							<div class="form-group">
-							  <div class="select-label label-puesto">Nombre de quién otorga el apoyo</div>
+							  <div class="select-label">Nombre de quién otorga el apoyo</div>
 							  <input id="nombre" type="text" maxlength="100" class="form-control" required="true" />
 							</div>
 						</div>
@@ -52,7 +52,7 @@
 						
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Concepto</div>
+							<div class="select-label">Concepto</div>
 								 <textarea id="concepto" class="form-control" rows="5" required="true"></textarea>
 							</div>
                   </div>

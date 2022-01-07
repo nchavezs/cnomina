@@ -116,9 +116,9 @@ if ($resultadoUsuario) {
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="./presupuesto">
+                     <a class="nav-link" href="./plazas">
                         <i class="material-icons">receipt_long</i>
-                        <p>Presupuesto</p>
+                        <p>Plazas</p>
                      </a>
                   </li>';
                }

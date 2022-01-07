@@ -11,7 +11,7 @@
 	if(trim($resultado1[8]) === "")
 		$obs = "Sin observación";
 	else
-		$obs = $resultado1[8];
+		$obs = $resultado1["observacion"];
 
 
 	$sql2 = "SELECT nombre FROM Usuario WHERE RFC = '".$resultado1[1]."'";
@@ -29,39 +29,39 @@
 						
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Fecha de movimeinto</div>
+							<div class="select-label">Fecha de movimeinto</div>
 							  <input id="fecha1" type="text" class="form-control datepicker-here" readonly value="'.$fecha.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Puesto anterior</div>
+							<div class="select-label">Puesto anterior</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[6].'"/> 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Puesto actual</div>
+							<div class="select-label">Puesto actual</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[3].'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Departamento anterior</div>
+							<div class="select-label">Departamento anterior</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[7].'"/> 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label label-puesto">Departamento actual</div>
+							<div class="select-label">Departamento actual</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[4].'"/> 
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Observaciones</div>
+							<div class="select-label">Observaciones</div>
 								<textarea id="observacion" readonly class="form-control" rows="3">'.$obs.'</textarea>
 							</div>
 						  </div>';

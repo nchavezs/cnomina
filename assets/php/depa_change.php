@@ -6,6 +6,7 @@ $departamento = $_POST["departamento"];
 $sql = "SELECT * FROM Puesto WHERE id_departamento = " . $departamento . "  ORDER BY nombre ASC";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+    // echo '<option selected value="">SELECCIONAR OPCION</option>';
     while ($res = mysqli_fetch_array($consulta)) {
         echo '<option value="' . $res[0] . '">' . $res[1] . '</option>';
     }

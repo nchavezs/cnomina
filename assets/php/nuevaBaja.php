@@ -22,14 +22,14 @@ echo '<form id="form-baja">
 
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Fecha de baja</div>
+							<div class="select-label">Fecha de baja</div>
 							  <input id="fecha1" type="text" class="form-control datepicker-here" readonly value="' . $hoy . '"/>
 							</div>
 						</div>
 
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label label-puesto">Motivo de baja</div>
+							<div class="select-label">Motivo de baja</div>
 								<textarea id="razon" required class="form-control" rows="5"></textarea>
 							</div>
 						</div>

@@ -8,6 +8,10 @@ $(document).ready(
       numero();
       numero_evento = setInterval(numero, 10000);
 
+      $(document).on("click", "#salir", function () {
+         Swal.close();
+      });
+
       $("#navbarDropdownMenuLink").on("click", function () {
          notificaciones();
       });
@@ -170,65 +174,84 @@ function numero() {
    });
 };
 
-function mensaje_enviado(){
+function mensaje_enviado() {
    Swal.fire({
-       title: "Correcto",
-       text: "Enviado",
-       type: "success"
+      title: "Correcto",
+      text: "Enviado",
+      type: "success"
    })
 }
 
 function mensaje_cargar() {
    let timerInterval
    Swal.fire({
-       title: 'Cargando',
-       html: 'Espere porfavor',
-       allowOutsideClick: false,
-       onBeforeOpen: () => {
-           Swal.showLoading()
-       },
-       onClose: () => {
-           clearInterval(timerInterval)
-       }
+      title: 'Cargando',
+      html: 'Espere porfavor',
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+         Swal.showLoading()
+      },
+      onClose: () => {
+         clearInterval(timerInterval)
+      }
    }).then((result) => {
-       if (result.dismiss === Swal.DismissReason.timer) {}
+      if (result.dismiss === Swal.DismissReason.timer) {}
    })
 };
 
 function select_estilo() {
    tail.select("select:not(.dataTables_length select)", {
-       locale: "es",
-       animate: true,
-       classNames: ["form-control"],
-       width: "100%",
-       search: true,
-       placeholder: "SELECCIONA UNA OPCIÓN",
-       // items: {
-       //     "": "SELECCIONA UNA OPCIÓN"
-       // }
+      locale: "es",
+      animate: true,
+      classNames: ["form-control"],
+      width: "100%",
+      search: true,
+      placeholder: "SELECCIONA UNA OPCIÓN",
+      // items: {
+      //     "": "SELECCIONA UNA OPCIÓN"
+      // }
    });
 };
 
-function depa_on_change() {
+function select_change() {
    $("#departamento").on("change", function () {
-       $.ajax({
-           url: "assets/php/depa_change.php",
-           type: "POST",
-           data: {
-               departamento: $("#departamento").val(),
-           },
-           success: function (data) {
-               $("#puesto").html(data);
-               tail.select("#puesto").reload();
-           }
-       });
+      $.ajax({
+         url: "assets/php/depa_change.php",
+         type: "POST",
+         data: {
+            departamento: $("#departamento").val(),
+         },
+         success: function (data) {
+            $("#puesto").html(data);
+            tail.select("#puesto").reload();
+            puesto_on_change();
+         }
+      });
    });
 
    $("#departamento").change();
 }
 
+function puesto_on_change() {
+   $("#puesto").on("change", function () {
+      $.ajax({
+         url: "assets/php/puesto_change.php",
+         type: "POST",
+         data: {
+            puesto: $("#puesto").val(),
+         },
+         success: function (data) {
+            $("#plaza").html(data);
+            tail.select("#plaza").reload();
+         }
+      });
+   });
 
-$(document).on("click","#salir", function () {
-   Swal.close();
-});
+   $("#puesto").change();
+}
 
+
+function isNumberKey(evt) {
+   var charCode = (evt.which) ? evt.which : evt.keyCode
+   return !(charCode > 31 && (charCode < 48 || charCode > 57));
+};

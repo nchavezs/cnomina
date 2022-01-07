@@ -171,7 +171,7 @@ $(document).ready(function () {
             });
 
             select_estilo();
-            depa_on_change();
+            select_change();
             $("#nombre").blur();
             var ingreso;
             var date = new Date();
@@ -190,10 +190,6 @@ $(document).ready(function () {
                     else
                         ingreso = formattedDate;
                 }
-            });
-
-            $("#salir").click(function () {
-                swal.close();
             });
 
             // $("#file").change(function () {
@@ -225,7 +221,7 @@ $(document).ready(function () {
 
             $("#form-empleado").submit(function (e) {
                 e.preventDefault();
-                if ($("#puesto").val() === "" || $("#departamento").val() === "" || $("#trabajador").val() === "") {
+                if ($("#puesto").val() == "" || $("#departamento").val() == "" || $("#trabajador").val() == "" || $("#plaza").val() == "") {
                     $("#advertencia").removeClass("hide");
                     $("#advertencia").addClass("advertencia");
                 } else {
@@ -240,13 +236,15 @@ $(document).ready(function () {
                             "curp": $("#curp").val(),
                             "puesto": $("#puesto option:selected").text(),
                             "departamento": $("#departamento option:selected").text(),
+                            "plaza": $("#plaza").val(),
                             "banca": $("#banca").val(),
                             "afiliacion": $("#afiliacion").val(),
                             "trabajador": $("#trabajador").val(),
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
-                            "archivo": $("#archivo").val()
+                            "plaza": $("#plaza").val()
+                            // "archivo": $("#archivo").val()
                         },
                         success: function (data) {
                             $('#tabla-empleado').DataTable().ajax.reload();
@@ -966,11 +964,6 @@ function opciones(id) {
     });
 }
 
-function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode
-    return !(charCode > 31 && (charCode < 48 || charCode > 57));
-};
-
 function detalle(id) {
     $.post("assets/php/detallePermiso.php", {
         "id": id
@@ -979,7 +972,6 @@ function detalle(id) {
         Swal.fire({
             position: 'center',
             html: data.html,
-
             allowOutsideClick: true,
             showCloseButton: true,
             showConfirmButton: false,
@@ -1608,7 +1600,7 @@ function movimiento(id) {
                     });
 
                     select_estilo();
-                    depa_on_change();
+                    select_change();
 
                     $.post("assets/php/fechaInicio.php", {
                         "id": id
@@ -1639,7 +1631,9 @@ function movimiento(id) {
                         var departamento = $("#departamento option:selected").text();
                         var observacion = $("#observacion").val();
                         var trabajador = $("#trabajador").val();
-                        if ($("#puesto").val() === "" || $("#departamento").val() === "" || $("#puesto").val() === null || $("#departamento").val() === null) {
+                        var plaza = $("#plaza").val();
+
+                        if ($("#puesto").val() == "" || $("#departamento").val() == "" || $("#trabajador").val() == "" || $("#plaza").val() == "") {
                             $("#advertencia").removeClass("hide");
                             $("#advertencia").addClass("advertencia");
                         } else {
@@ -1661,13 +1655,14 @@ function movimiento(id) {
                                             "puesto": puesto,
                                             "departamento": departamento,
                                             "observacion": observacion,
-                                            "trabajador": trabajador
+                                            "trabajador": trabajador,
+                                            "plaza": plaza
                                         },
-                                        success: function (html) {
+                                        success: function (data) {
+                                            alert(data);
                                             var idUsuario = id.split("-");
-
-                                            if (html != 0) {
-                                                formato_movimiento(html);
+                                            if (data != 0) {
+                                                formato_movimiento(data);
                                                 Swal.fire({
                                                     title: 'Correcto',
                                                     text: 'Movimiento agregado',
@@ -2489,12 +2484,8 @@ function editar_usuario(id, event) {
                     width: '50em'
                 });
                 // select_estilo();
-                // depa_on_change_update();
+                // select_change_update();
                 $("#ingreso").blur();
-
-                $("#salir").click(function () {
-                    swal.close();
-                });
 
                 // $("#descargar-btn").click(function () {
                 //     descargar($("#descargar-input").val(), 'Archivo')
@@ -2921,7 +2912,7 @@ function diferencia_fecha(fecha1, fecha2) {
     $("#dias").val(diffDays);
 }
 
-// function depa_on_change() {
+// function select_change() {
 //     $("#departamento").on("change", function () {
 //         $.ajax({
 //             url: "assets/php/depa_change.php",
@@ -2939,7 +2930,7 @@ function diferencia_fecha(fecha1, fecha2) {
 //     $("#departamento").change();
 // }
 
-// function depa_on_change_update() {
+// function select_change_update() {
 //     $("#departamento").on("change", function () {
 //         $.ajax({
 //             url: "assets/php/depa_change_update.php",

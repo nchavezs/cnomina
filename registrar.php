@@ -14,8 +14,7 @@ include "./assets/php/comprobar_catalago.php";
     <title>
         Consulta Nómina
     </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
     <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -33,12 +32,12 @@ include "./assets/php/comprobar_catalago.php";
             <div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
             <div class="avatar">
                 <?php
-$foto = "assets/img/user.png";
-if ($varFoto != null) {
-    $foto = $varFoto;
-}
+                $foto = "assets/img/user.png";
+                if ($varFoto != null) {
+                    $foto = $varFoto;
+                }
 
-?>
+                ?>
                 <a href="./perfil"><img src="<?php echo $foto ?>"></a>
                 <p><?php echo $varName ?></p>
                 <a href="mailto:"><?php echo $varEmail ?></a>
@@ -91,7 +90,7 @@ if ($varFoto != null) {
                                 </a>
                             </li>';
                     }
-                        
+
                     if (rol() != 1) {
                         echo '<li class="nav-item">
                                 <a class="nav-link" href="#" onclick="no_pasar();">
@@ -107,9 +106,9 @@ if ($varFoto != null) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./presupuesto">
+                            <a class="nav-link" href="./plazas">
                                 <i class="material-icons">receipt_long</i>
-                                <p>Presupuesto</p>
+                                <p>Plazas</p>
                             </a>
                         </li>';
                     }
@@ -122,22 +121,22 @@ if ($varFoto != null) {
                         </a>
                     </li>
                     <?php
-if (rol() != 1) {
-    echo '<li class="nav-item">
+                    if (rol() != 1) {
+                        echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
 							<p>Reportes</p>
 						</a>
 					</li>';
-} else {
-    echo '<li class="nav-item">
+                    } else {
+                        echo '<li class="nav-item">
 							<a class="nav-link" href="./reportes">
 								<i class="material-icons">summarize</i>
 								<p>Reportes</p>
 							</a>
 						</li>';
-}
-?>
+                    }
+                    ?>
 
                     <li class="nav-item" id="cerrar-btn">
                         <a class="nav-link">
@@ -155,8 +154,7 @@ if (rol() != 1) {
                     <div class="navbar-wrapper">
                         <a class="navbar-brand" href="">Lista de empleados</a>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
                         <span class="navbar-toggler-icon icon-bar"></span>
@@ -165,14 +163,12 @@ if (rol() != 1) {
                     <div class="collapse navbar-collapse justify-content-end">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">notifications</i>
                                     <span class="notification noti-numero">0</span>
                                     <p class="d-lg-none d-md-block">Mensajes</p>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right noti-caja"
-                                    aria-labelledby="navbarDropdownMenuLink">
+                                <div class="dropdown-menu dropdown-menu-right noti-caja" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="#">No tiene notificaciones</a>
                                 </div>
                             </li>
@@ -188,14 +184,15 @@ if (rol() != 1) {
             </nav>
             <!-- End Navbar -->
             <div class="content">
+
                 <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">
                         <div class="card-body">
                             <div class="msn-mostrar">
                                 <?php
-if (rol() == 1) {
-    echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>
+                                if (rol() == 1) {
+                                    echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>
 											<div class="">Nuevo empleado</div>
 												</button>
 												<input type="file" id="importar-empleado" accept=".xlsx" /><label
@@ -207,12 +204,12 @@ if (rol() == 1) {
 											</button>
 											<button id="generar-prenomina" class="btn-mostrar"><i
 													class="material-icons">assignment</i>Prenómina</button>';
-}
-?>
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-					<div class="table-responsive">
+                    <div class="table-responsive">
                         <table id="tabla-empleado" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
@@ -227,8 +224,8 @@ if (rol() == 1) {
                             </thead>
                         </table>
                     </div>
-            </div>
                 </div>
+            </div>
 
             <footer class="footer">
                 <div class="chat_fondo"></div>
@@ -266,6 +263,7 @@ if (rol() == 1) {
     <script src="assets/js/sesion.js?v=3.1.5"></script>
     <script src="assets/js/mensajes.js?v=3.1.5"></script>
     <script src="assets/js/moment.js"></script>
+
 
 </body>
 

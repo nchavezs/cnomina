@@ -3,8 +3,8 @@
 	$conexion =  conexion();
 
 	echo '<div class="select">
-				<div class="select-label label-puesto">Puesto</div>
-				<select id="puesto" class="custom-select select-empleado puesto-select">';
+				<div class="select-label">Puesto</div>
+				<select id="puesto" class="">';
 	
 	$sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
 	$consulta = mysqli_query($conexion, $sql);

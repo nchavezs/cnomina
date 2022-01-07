@@ -44,8 +44,8 @@ DROP TABLE IF EXISTS Departamento;
 
 CREATE TABLE Configuracion(
 	id_configuracion INT(1) PRIMARY KEY AUTO_INCREMENT,
-	logo VARCHAR(255),
-	nombre VARCHAR(255)
+	logo VARCHAR(100),
+	nombre VARCHAR(100)
 );
 
 INSERT INTO Configuracion(logo,nombre) VALUES("logo.png", "COMONFORT");
@@ -76,7 +76,7 @@ CREATE TABLE Gastos(
 	fecha DATE NOT NULL,
 	monto DECIMAL(8,2) NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
-	url VARCHAR(200),
+	url VARCHAR(100),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE Usuario(
 	contrasenia VARCHAR(30) NOT NULL,
 	email VARCHAR(50),
 	telefono VARCHAR(20),
-	urlFoto VARCHAR(200),
+	urlFoto VARCHAR(100),
 	nombre VARCHAR(100),
 	estado VARCHAR(5) DEFAULT 'alta',
 	RFC VARCHAR(13) PRIMARY KEY NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE Usuario(
 	apellidop VARCHAR(50),
 	apellidom VARCHAR(50),
 	nombres VARCHAR(50),
-	archivo VARCHAR(200),
+	archivo VARCHAR(100),
 	tipoTrabajador VARCHAR(30),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -135,7 +135,7 @@ CREATE TABLE Archivo(
 	ano INT(4) NOT NULL,
 	fecha_pago VARCHAR(10) NOT NULL,
 	nombreEmpleado VARCHAR(100) NOT NULL,
-	RFC VARCHAR(18) NOT NULL,
+	RFC VARCHAR(13) NOT NULL,
 	CURP VARCHAR(18) NOT NULL,
 	fechaRelLab VARCHAR(10) NOT NULL,
 	puesto VARCHAR(100) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE Archivo(
 CREATE TABLE Mensaje(
 	id_mensaje INT(8) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_chat INT(5) NOT NULL,
-	mensaje VARCHAR(700) NOT NULL,
+	mensaje VARCHAR(500) NOT NULL,
 	fecha VARCHAR(30) NOT NULL,
 	emisor VARCHAR(13) NOT NULL,
 	receptor VARCHAR(13) NOT NULL,
@@ -266,7 +266,7 @@ CREATE TABLE Pase(
 CREATE TABLE Plaza(
 	id_plaza INT(5) PRIMARY KEY AUTO_INCREMENT,
 	id_puesto INT(5) NOT NULL,
-	RFC INT(5),
+	RFC VARCHAR(13),
 	dias INT(3) NOT NULL,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(id_puesto) REFERENCES Puesto(id_puesto)
@@ -275,10 +275,11 @@ CREATE TABLE Plaza(
 CREATE TABLE Historial_Plaza(
 	id_historial_plaza INT(5) PRIMARY KEY AUTO_INCREMENT,
 	id_plaza INT(5) NOT NULL,
+	RFC VARCHAR(13) NOT NULL,
 	fecha_inicio DATE NOT NULL,
-	fecha_fin DATE NOT NULL,
+	fecha_fin DATE,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY(id_plaza) REFERENCES Plaza(id_plaza)
+	FOREIGN KEY(id_plaza) REFERENCES Plaza(id_plaza) ON DELETE CASCADE
 );
 
 

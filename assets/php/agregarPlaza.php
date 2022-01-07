@@ -4,6 +4,7 @@ $conexion = conexion();
 $dias = $_POST['dias'];
 $puesto = $_POST['puesto'];
 $cantidad = $_POST['cantidad'];
+$bandera = false;
 
 $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $puesto . ", " . $dias . ")";
 for($i=0;$i<$cantidad;$i++){
