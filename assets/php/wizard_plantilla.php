@@ -44,14 +44,16 @@ function eliminar_simbolos($string)
     );
 
     $string = str_replace(
-        array("\\", "¨", "º", "-", "~",
+        array(
+            "\\", "¨", "º", "-", "~",
             "#", "@", "|", "!", "\"",
             "·", "$", "%", "&", "/",
             "(", ")", "?", "'", "¡",
             "¿", "[", "^", "<code>", "]",
             "+", "}", "{", "¨", "´",
             ">", "< ", ";", ",", ":",
-            ".", " "),
+            ".", " ",
+        ),
         ' ',
         $string
     );
@@ -59,7 +61,6 @@ function eliminar_simbolos($string)
     return $string;
 }
 
-$puestos_actualizados = 0;
 $total_departamentos = 0;
 $total_puestos = 0;
 $errores = [];
@@ -73,7 +74,7 @@ $spreadsheet = $reader->load($archivo);
 
 $worksheet = $spreadsheet->getActiveSheet();
 $highestRow = $worksheet->getHighestRow();
-$highestColumn = "C";
+$highestColumn = "D";
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
 for ($row = 2; $row <= $highestRow; ++$row) {
@@ -86,7 +87,8 @@ for ($row = 2; $row <= $highestRow; ++$row) {
 
     $puesto = eliminar_simbolos($datos[0]);
     $departamento = eliminar_simbolos($datos[1]);
-    $cantidad = eliminar_simbolos($datos[2]);
+    $dias = eliminar_simbolos($datos[2]);
+    $cantidad = eliminar_simbolos($datos[3]);
 
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
     $consulta = mysqli_query($conexion, $sql);
@@ -97,33 +99,38 @@ for ($row = 2; $row <= $highestRow; ++$row) {
             $id_depa = mysqli_insert_id($conexion);
             $total_departamentos++;
         }
-    } elseif($consulta && mysqli_num_rows($consulta) > 0){
+    } elseif ($consulta && mysqli_num_rows($consulta) > 0) {
         $res = mysqli_fetch_row($consulta);
         $id_depa = $res[0];
     }
-    
-    $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = ".$id_depa;
-    $consulta = mysqli_query($conexion, $sql);
 
-    if ($consulta && mysqli_num_rows($consulta) == 0) {
-        $sql = "INSERT INTO Puesto(nombre, id_departamento, cantidad) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ", " . $cantidad . ")";
-        if (mysqli_query($conexion, $sql) && $cantidad > 0) {
+    $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = " . $id_depa;
+    $consulta = mysqli_query($conexion, $sql);
+    $total = mysqli_num_rows($consulta);
+
+    if ($consulta && $total > 0) {
+        $id_puesto = mysqli_fetch_row($consulta);
+        $id_puesto = $id_puesto[0];
+
+        $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
+        for ($i = 0; $i < $cantidad; $i++) {
+            $consulta = mysqli_query($conexion, $sql);
+        }
+    } else if ($consulta && $total == 0) {
+        $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
+        if (mysqli_query($conexion, $sql)) {
+            $id_puesto = mysqli_insert_id($conexion);
+            $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
+            for ($i = 0; $i < $cantidad; $i++) {
+                $consulta = mysqli_query($conexion, $sql);
+            }
             $total_puestos++;
         } else {
-            array_push($errores, "Fila ".$row." : error al importar.");
+            array_push($errores, "Fila " . $row . " : error al importar.");
         }
-    }elseif($consulta && mysqli_num_rows($consulta) > 0) {
-        $res = mysqli_fetch_row($consulta);
-        $id_puesto = $res[0];
-
-        $sql = "UPDATE Puesto SET cantidad = " . $cantidad ." WHERE id_puesto = ".$id_puesto;
-        if (mysqli_query($conexion, $sql)) {
-            $puestos_actualizados++;
-        }else {
-            array_push($errores, "Fila ".$row." : error al actualizar");
-        }
+    } else {
+        array_push($errores, "Fila " . $row . " : error al importar.");
     }
-
 }
 
 $highestRow--;
@@ -132,9 +139,8 @@ echo "<div class='log_titulo'>REGISTRO DE IMPORTACIÓN</div>";
 echo "<div class='log_cuerpo'>";
 echo "<h5> " . $total_puestos . " <span> puestos nuevos importados</span></h5>";
 echo "<h5> " . $total_departamentos . " <span>departamentos nuevos importados</span></h5>";
-echo "<h5> " . $puestos_actualizados . " <span>filas actualizadas</span></h5>";
 
-if(sizeof($errores)>0){
+if (sizeof($errores) > 0) {
     echo "<h5>La siguiente lista muesta las filas no importadas. </h5>";
     echo "</div>";
     echo "<div class='log-contenido'>";

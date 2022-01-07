@@ -31,6 +31,7 @@ if ($consulta) {
 		'" . $departamentoAnterior . "', '" . $observacion . "', STR_TO_DATE('" . $hoy . "','%d/%m/%Y'), '" . $tipoTrabajadorAnterior . "')";
     
         if (mysqli_query($conexion, $sql)) {
+        $movimiento = mysqli_insert_id($conexion);
 
         // --------------------------------------------------------------------
         $sql = "UPDATE Plaza SET RFC = NULL WHERE id_plaza = " . $plazaAnterior[0];
@@ -53,12 +54,13 @@ if ($consulta) {
 
         $sql = "UPDATE Usuario SET puesto = '" . $puesto . "', departamento = '" . $departamento . "', tipoTrabajador = '" . $trabajador . "'  WHERE RFC = '" . $RFC . "'";
         if (mysqli_query($conexion, $sql)) {
-            $sql = "SELECT MAX(id_movimiento) FROM Movimiento";
-            $consulta = mysqli_query($conexion, $sql);
-            if ($consulta) {
-                $res = mysqli_fetch_row($consulta);
-                echo $res[0];
-            }
+            echo $movimiento;
+            // $sql = "SELECT MAX(id_movimiento) FROM Movimiento";
+            // $consulta = mysqli_query($conexion, $sql);
+            // if ($consulta) {
+            //     $res = mysqli_fetch_row($consulta);
+            //     echo $res[0];
+            // }
         } else {
             echo 0;
         }

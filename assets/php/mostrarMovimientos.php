@@ -15,7 +15,6 @@ if (mysqli_num_rows($consulta) > 0) {
 					<th class="titulo">Detalle</th>
 					<th class="titulo">Formato</th>
 					<th class="titulo">Archivo</th>
-					<th class="titulo">Eliminar</th>
 				</thead>
 				<tbody>';
     while ($res = mysqli_fetch_row($consulta)) {
@@ -24,7 +23,6 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td> <a class="material-icons btn1"  id="' . $res[0] . '-" onclick="detalle_movimiento(this.id)">visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="formato_movimiento(' . $res[0] . ')">play_for_work</a></td>
 				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[5] . '\',\'' . $res[1] . '\',\'Movimiento\',0)">attachment</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '" onclick="borrar_movimiento(this.id)">delete</a></td>
 			</tr>';
     }
     echo '</tbody>
@@ -48,3 +46,8 @@ if (mysqli_num_rows($consulta) > 0) {
 }
 
 mysqli_close($conexion);
+
+
+
+// <th class="titulo">Eliminar</th>
+// <td> <a class="material-icons btn1" id="' . $res[0] . '" onclick="borrar_movimiento(this.id)">delete</a></td>

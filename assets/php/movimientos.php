@@ -47,10 +47,10 @@ if (mysqli_num_rows($consulta) == 0) {
                <h1>Nada registrado</h1>
 					<div class="chat-nuevo">
 						<i id="chat-icono" class="material-icons">add</i>
-						<p id="' . $id . '-" onclick="movimiento(this.id);">Nuevo movimiento</p>
+						<p onclick="movimiento(\''.$id.'\');">Nuevo movimiento</p>
 					</div>
 				</div>';
-    echo '<div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
+    echo '<div class="btn btn-primary regresar" onclick="ver(\''.$id.'\', 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
 } else {
     echo '<div class="row">
 					<div class="col-3">
@@ -78,10 +78,10 @@ if (mysqli_num_rows($consulta) == 0) {
 
     echo '<div class="row">
 					<div class="col-6">
-						<div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
+						<div class="btn btn-primary regresar" onclick="ver(\''.$id.'\', 1)"><i class="material-icons">arrow_back</i> Regresar </div>
 						</div>
 					<div class="col-6">
-						<div class="btn btn-primary regresar" id="' . $id . '-" onclick="movimiento(this.id)"><i class="material-icons">add</i> Nuevo </div>
+						<div class="btn btn-primary regresar" onclick="movimiento(\''.$id.'\')"><i class="material-icons">add</i> Nuevo </div>
 						</div>
 					</div>
 				</div>';

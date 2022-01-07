@@ -52,11 +52,10 @@ $(document).ready(function () {
                 inputClass: "swal2-input",
                 inputPlaceholder: "SELECCIONA",
                 inputOptions: {
-                    "2018": "2018",
-                    "2019": "2019",
-                    "2020": "2020",
-                    "2021": "2021"
-
+                    "2022": "2022",
+                    "2023": "2023",
+                    "2024": "2024",
+                    "2025": "2025"
                 },
                 inputValidator: (value) => {
                     return !value && "Selecciona una opción"
@@ -1659,8 +1658,7 @@ function movimiento(id) {
                                             "plaza": plaza
                                         },
                                         success: function (data) {
-                                            alert(data);
-                                            var idUsuario = id.split("-");
+                                            // var idUsuario = id.split("-");
                                             if (data != 0) {
                                                 formato_movimiento(data);
                                                 Swal.fire({
@@ -1669,7 +1667,7 @@ function movimiento(id) {
                                                     type: 'success'
                                                 }).then((result) => {
                                                     $('#tabla-empleado').DataTable().ajax.reload();
-                                                    verMovimientos(idUsuario[0]);
+                                                    verMovimientos(id);
                                                 })
                                             } else {
                                                 Swal.fire({
@@ -1677,7 +1675,7 @@ function movimiento(id) {
                                                     text: 'Movimiento no agregado',
                                                     type: 'error'
                                                 }).then((result) => {
-                                                    verMovimientos(idUsuario[0]);
+                                                    verMovimientos(id);
                                                 })
                                             }
                                         }
@@ -2695,8 +2693,6 @@ function pase(id) {
                                             title: 'Correcto',
                                             text: 'Pase agregado',
                                             type: 'success',
-
-
                                         }).then((result) => {
                                             verPases(idUsuario[0]);
                                         })

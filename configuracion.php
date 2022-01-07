@@ -134,13 +134,13 @@ if (rol() != 1) {
                             <!-- IMPORTAR -->
                             <div class="wizard_panel hidden">
                                 <div class="wizard_panel_importar">
-                                    <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de puestos</h2>
+                                    <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de plazas</h2>
                                     <p>Con esta herramienta puede importar datos desde una hoja de cálculo sin necesidad
                                         de crear los registros manualmente, es necesario seguir los siguientes puntos:
                                     </p>
                                     <ol>
                                         <li>Descargue la plantilla para importar datos <a class="text-warning"
-                                                href="./assets/docs/puestos.xlsx" download>aquí</a> .</li>
+                                                href="./assets/docs/plazas.xlsx" download>aquí</a> .</li>
                                         <li>Busque la ubicación del archivo, edítelo y carguelo en la siguiente sección.
                                             <i class="material-icons">arrow_downward</i>
                                         </li>
