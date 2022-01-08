@@ -60,29 +60,29 @@ $(document).ready(function () {
         detalle_plaza(data[0]);
     });
 
-    // $("#importar-puestos").change(function () {
-    //     if ($(this).val() != "") {
-    //         mensaje_cargar();
+    $("#importar-plazas").change(function () {
+        if ($(this).val() != "") {
+            mensaje_cargar();
 
-    //         var formData = new FormData();
-    //         var files = $("#importar-puestos")[0].files[0];
-    //         formData.append("file", files);
+            var formData = new FormData();
+            var files = $("#importar-plazas")[0].files[0];
+            formData.append("file", files);
 
-    //         $.ajax({
-    //             url: "assets/php/wizard_plantilla.php",
-    //             type: "post",
-    //             data: formData,
-    //             contentType: false,
-    //             processData: false,
-    //             cache: false,
-    //             success: function (data) {
-    //                 log_show(data);
-    //                 $('#tabla-puesto').DataTable().ajax.reload();
-    //                 $("#importar-puestos").val("");
-    //             }
-    //         });
-    //     }
-    // });
+            $.ajax({
+                url: "assets/php/importar_plazas.php",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    log_show(data);
+                    $('#tabla-plaza').DataTable().ajax.reload();
+                    $("#importar-plazas").val("");
+                }
+            });
+        }
+    });
 });
 
 // function exportar_puesto() {
@@ -99,12 +99,6 @@ $(document).ready(function () {
 //     });
 // };
 
-// function descargar(uri, name) {
-//     var link = document.createElement("a");
-//     link.download = name;
-//     link.href = uri;
-//     link.click();
-// }
 
 function nueva_plaza() {
     $.post("assets/php/nuevaPlaza.php").done(function (html) {
@@ -166,14 +160,14 @@ function guardar_plaza() {
     });
 }
 
-// function log_show(html) {
-//     Swal.fire({
-//         html: html,
-//         allowOutsideClick: false,
-//         allowEscapeKey: false,
-//         padding: 0
-//     });
-// }
+function log_show(html) {
+    Swal.fire({
+        html: html,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        padding: 0
+    });
+}
 
 function eliminar(id, event) {
     event.stopPropagation();
@@ -201,6 +195,9 @@ function eliminar(id, event) {
                         })
                     } else if (html == 2) {
                         no_pasar();
+                    } else if (html == 3) {
+                        md.showNotification("top", "right", "No puedes eliminar esta plaza mientras esté ocupada.");
+
                     } else {
                         Swal.fire({
                             title: 'Error',
@@ -236,14 +233,19 @@ function detalle_plaza(id) {
         data: {
             "id": id
         },
-        success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false
-            });
+        success: function (data) {
+            if(data != 0){
+                Swal.fire({
+                    position: 'center',
+                    html: data,
+                    allowOutsideClick: true,
+                    showCloseButton: true,
+                    showConfirmButton: false
+                });
+            }else{
+                md.showNotification("top", "right", "Sin historial de vacantes.");
+            }
+            
         }
     });
 }

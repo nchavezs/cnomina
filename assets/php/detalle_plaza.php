@@ -5,7 +5,7 @@ $id = $_POST["id"];
 
 $ano = date("Y");
 $hoy = date("Y-m-d");
-$html = "";
+$html = '<div class="row">';
 
 $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $id . " AND YEAR(fecha_inicio) = " . $ano;
 $consulta = mysqli_query($conexion, $sql);
@@ -24,17 +24,20 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
         $diff = $fecha2->diff($fecha1);
         $ocupados = $diff->format('%a');
 
-        $html=$html. '<div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>' . $usuario[0] . '</h5>
+        $html=$html. '<div class="col-md-6">
+                        <div class="card overflow-hidden border">
+                            <div class="card-body historial_caja">
+                                <img src="assets/img/user.png" alt="">
+                                <div class="p-4">
+                                <h6>' . $usuario[0] . '</h6>
                                 <small>' . $ocupados . ' dias ocupados</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>';
+                    </div>';
     }
+
+    $html=$html. '</div>';
     echo $html;
 }else {
     echo 0;

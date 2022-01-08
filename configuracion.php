@@ -145,7 +145,7 @@ if (rol() != 1) {
                                             <i class="material-icons">arrow_downward</i>
                                         </li>
                                     </ol>
-                                    <form action="assets/php/wizard_plantilla.php" class="dropzone"
+                                    <form action="assets/php/importar_plazas.php" class="dropzone"
                                         id="dropzone-plantilla">
                                         <div class="dz-message">
                                             <div class="row">

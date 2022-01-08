@@ -168,12 +168,6 @@ function exportar_depa() {
     });
 };
 
-function descargar(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    link.click();
-}
 
 function nuevo_puesto() {
     $.post("assets/php/opciones_departamento.php").done(function (data) {

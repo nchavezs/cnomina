@@ -253,7 +253,3 @@ function descargar_expediente(id, nombre) {
         }
     });
 };
-
-function descargar(direccion, nombre) {
-    window.location = "assets/php/download.php?filename=" + direccion;
-};

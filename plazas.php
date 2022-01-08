@@ -155,10 +155,11 @@ if ($varFoto != null) {
                             <div class="msn-mostrar">
                                 <label onclick="nueva_plaza();" class="btn-mostrar"><i
                                         class="material-icons">add_circle_outline</i>Nuevo</label>
-                                <input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar"
-                                    for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
-                                <label onclick="exportar_plazas();" class="btn-mostrar"><i
-                                        class="material-icons">file_download</i>Exportar</label>
+                                <input type="file" id="importar-plazas" accept=".xlsx" /><label class="btn-mostrar"
+                                    for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
+                                <!-- <label onclick="exportar_plazas();" class="btn-mostrar"><i
+                                        class="material-icons">file_download</i>Exportar</label> -->
+                                        <a href="./assets/docs/plazas.xlsx" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
                             </div>
                         </div>
                     </div>

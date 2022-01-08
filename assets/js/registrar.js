@@ -2601,10 +2601,6 @@ function generar_empleados() {
     });
 };
 
-function descargar(direccion, nombre) {
-    window.location = "assets/php/download.php?filename=" + direccion;
-};
-
 function verPases(id) {
     $.ajax({
         type: "POST",

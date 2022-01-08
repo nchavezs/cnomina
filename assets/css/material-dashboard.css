@@ -7,6 +7,23 @@
     background: linear-gradient(60deg, #6d7993, #2A3447)
 }
 
+.overflow-hidden{
+    overflow: hidden;
+}
+
+.historial_caja{
+    display: flex;
+    height: 80px;
+    padding: 0 !important;
+    overflow: hidden !important;
+    font-weight: bold;
+}
+
+.historial_caja img{
+    width: 80px;
+    height: 100%;
+}
+
 .navbar {
     border: 0;
     border-radius: 3px;

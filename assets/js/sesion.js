@@ -250,8 +250,19 @@ function puesto_on_change() {
    $("#puesto").change();
 }
 
-
 function isNumberKey(evt) {
    var charCode = (evt.which) ? evt.which : evt.keyCode
    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+};
+
+
+function descargar(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+function descargar_php(direccion) {
+   window.location = "assets/php/download.php?filename=" + direccion;
 };

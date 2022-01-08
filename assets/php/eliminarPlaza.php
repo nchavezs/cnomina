@@ -19,7 +19,7 @@ if ($rol != 1) {
             echo 0;
         }
     } else {
-        echo 0;
+        echo 3;
     }
 
     mysqli_close($conexion);
