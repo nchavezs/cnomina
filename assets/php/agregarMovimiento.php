@@ -1,8 +1,8 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-$id = explode("-", $_POST["id"]);
-$RFC = $id[0];
+// $id = explode("-", $_POST["id"]);
+$RFC = $_POST["id"];
 $fecha = $_POST["fecha"];
 $puesto = $_POST["puesto"];
 $departamento = $_POST["departamento"];
@@ -14,9 +14,9 @@ date_default_timezone_set('America/Mexico_City');
 setlocale(LC_TIME, 'es_CO.UTF-8');
 $hoy = date('d/m/Y', time());
 
-$sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
-$consulta = mysqli_query($conexion, $sql);
-$plazaAnterior = mysqli_fetch_array($consulta);
+// $sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
+// $consulta = mysqli_query($conexion, $sql);
+// $plazaAnterior = mysqli_fetch_array($consulta);
 
 $sql = "SELECT puesto, departamento, tipoTrabajador FROM Usuario WHERE RFC = '" . $RFC . "'";
 $consulta = mysqli_query($conexion, $sql);
@@ -34,7 +34,7 @@ if ($consulta) {
         $movimiento = mysqli_insert_id($conexion);
 
         // --------------------------------------------------------------------
-        $sql = "UPDATE Plaza SET RFC = NULL WHERE id_plaza = " . $plazaAnterior[0];
+        $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC."'";
         $consulta = mysqli_query($conexion, $sql);
 
         $sql = "UPDATE Plaza SET RFC = '".$RFC."' WHERE id_plaza = " . $plaza;

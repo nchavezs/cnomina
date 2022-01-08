@@ -148,7 +148,6 @@ function guardar_plaza() {
             cantidad: $("#cantidad").val()
         },
         success: function (data) {
-            alert(data);
             if (data == 1) {
                 Swal.fire({
                     title: 'Correcto',

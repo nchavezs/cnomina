@@ -478,7 +478,7 @@ function reestablecer_password(id) {
 function baja_prenomina(fechaBaja, id, razon) {
     Swal.fire({
         title: '¿El empleado fué dado de baja en el periodo anterior?',
-        html: "Los días a pagar se establecerán en 0 en caso de ser correcto",
+        html: "De ser así, los días a pagar al empleado en este periodo serán 0.",
         type: 'info',
         showCancelButton: true,
         confirmButtonText: 'Si',
@@ -509,9 +509,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                 Swal.fire({
                     title: 'Correcto',
                     text: 'Empleado dado de baja',
-                    type: 'success',
-
-
+                    type: 'success'
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     ver(id, 1);
@@ -519,10 +517,8 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
             } else if (html == 2) {
                 Swal.fire({
                     title: 'No fue posible dar de baja al empleado',
-                    text: 'Debe esperar al menos 15 días para dar de baja a este empleado',
-                    type: 'error',
-
-
+                    text: 'Debe esperar al menos una semana para dar de baja a este empleado',
+                    type: 'error'
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
@@ -531,9 +527,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                 Swal.fire({
                     title: 'No fue posible dar de baja al empleado',
                     text: 'El empleado no cuenta con una fecha de inicio laboral válida',
-                    type: 'error',
-
-
+                    type: 'error'
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
@@ -542,9 +536,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
                 Swal.fire({
                     title: 'Error',
                     text: 'No fue posible dar de baja al empleado',
-                    type: 'error',
-
-
+                    type: 'error'
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
                     baja(id);
