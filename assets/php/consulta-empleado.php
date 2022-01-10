@@ -9,6 +9,7 @@
 	}else{
       while($res = mysqli_fetch_array($resultado)){
          $res["id_usuario"] = str_pad($res["id_usuario"], 5, '0', STR_PAD_LEFT);
+         if($res["tipoTrabajador"] == null)$res["tipoTrabajador"] = "N/A";
          $arreglo["data"][] = $res;
       }
       echo json_encode($arreglo);
