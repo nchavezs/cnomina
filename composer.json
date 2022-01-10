@@ -1,6 +1,6 @@
 {
     "require": {
-        "mpdf/mpdf": "^8.0",
-        "phpoffice/phpspreadsheet": "^1.10"
+        "phpoffice/phpspreadsheet": "^1.10",
+        "spatie/pdf-to-text": "^1.51"
     }
 }

@@ -11,29 +11,24 @@ $(document).ready(function () {
             "url": "assets/php/consultar.php"
         },
         "columnDefs": [ {
-            "targets": [5,6],
+            "targets": [3,4],
             "orderable": false 
         },{
-            "targets": [1,2,3,4],
+            "targets": [2],
             "className": "oculto"
         }],
         "columns": [{
-                "data": "nombreEmpleado",
+                "data": "nombre",
                 
+            },{
+                "render": function (data, type, row) {
+                    return '<span class="tipo">'+row.fecha_pago+'</span>';
+                }
             },
             {
-                "data": "fecha_pago"
-            },
-            {
-                "data": "RFC"
-            },
-            {
-                "data": "puesto",
-                
-            },
-            {
-                "data": "departamento",
-               
+                "render": function (data, type, row) {
+                    return '<span class="alta">'+row.dias_pago+'</span>';
+                }
             },
             {
                 "render": function (data, type, row) {

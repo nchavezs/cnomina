@@ -46,7 +46,7 @@ Dropzone.options.myAwesomeDropzone = {
         });
 
         this.on("sending", function (file, xhr, formData) {
-            formData.append("check1", check1);
+            formData.append("registrar_usuario", check1);
         });
 
         this.on("addedfile", function (file) {
@@ -113,14 +113,6 @@ function mensaje() {
         }
     });
 };
-
-function log_show(html) {
-    Swal.fire({
-        html: html,
-        allowOutsideClick: false,
-        allowEscapeKey: false,   
-    });
-}
 
 function html(contenido, a, b, c) {
     return "<div class='log archivos'>" +

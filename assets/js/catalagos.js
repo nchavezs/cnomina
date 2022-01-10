@@ -292,17 +292,6 @@ function nuevo_departamento() {
     });
 };
 
-function log_show(html) {
-    Swal.fire({
-        html: html,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        padding: 0
-    });
-}
-
-
-
 function eliminar(id, categoria) {
     Swal.fire({
         title: "Eliminar",

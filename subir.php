@@ -257,10 +257,10 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="assets/js/material-dashboard.js?v=3.1.5" type="text/javascript"></script>
-	<script src="assets/js/sesion.js?v=3.1.5"></script>
 	<script src="assets/js/dropzone.js"></script>
-	<script src="assets/js/subir.js?v=3.1.5"></script>
+	<script src="assets/js/sesion.js?v=3.1.5"></script>
 	<script src="assets/js/mensajes.js?v=3.1.5"></script>
+	<script src="assets/js/subir.js?v=3.1.5"></script>
 
 </body>
 

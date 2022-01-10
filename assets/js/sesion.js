@@ -266,3 +266,11 @@ function descargar(uri, name) {
 function descargar_php(direccion) {
    window.location = "assets/php/download.php?filename=" + direccion;
 };
+
+function log_show(html) {
+   Swal.fire({
+       html: html,
+       allowOutsideClick: false,
+       allowEscapeKey: false
+   });
+}

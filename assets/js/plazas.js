@@ -160,15 +160,6 @@ function guardar_plaza() {
     });
 }
 
-function log_show(html) {
-    Swal.fire({
-        html: html,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        padding: 0
-    });
-}
-
 function eliminar(id, event) {
     event.stopPropagation();
     Swal.fire({

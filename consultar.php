@@ -196,15 +196,11 @@ if (rol() == 2) {
 								<table id="consulta_tabla" class="table table-striped" style="width:100%">
 									<thead class="text-primary">
 										<tr>
-
-											<th class="titulo">Nombre</th>
-											<th class="oculto titulo">Pago</th>
-											<th class="oculto titulo">RFC</th>
-
-											<th class="oculto titulo">Puesto</th>
-											<th class="oculto titulo">Departamento</th>
-											<th class="titulo">Detalle</th>
-											<th class="titulo">Eliminar</th>
+											<th class="">Nombre</th>
+											<th class="">Pago</th>
+											<th class="oculto">Dias de pago</th>
+											<th class="">Detalle</th>
+											<th class="">Eliminar</th>
 										</tr>
 									</thead>
 								</table>
