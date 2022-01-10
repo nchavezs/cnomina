@@ -20,26 +20,26 @@ echo '<form id="form-empleado">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Nombre(s)</div>
+							<div class="select-etiqueta">Nombre(s)</div>
 								<input id="nombres" type="text" value="' . $res['nombres'] . '" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
-							<div class="select-label">Apellido paterno</div>
+							<div class="select-etiqueta">Apellido paterno</div>
 								<input id="apellidop" type="text" value="' . $res['apellidop'] . '" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
-							<div class="select-label">Apellido materno</div>
+							<div class="select-etiqueta">Apellido materno</div>
 								<input id="apellidom" type="text" value="' . $res['apellidom'] . '" class="form-control" required>
 							</div>
 						</div>';
 
 // echo '<div class="col-md-6">
 // 						<div class="select">
-// 						<div class="select-label">Tipo de trabajador</div>
+// 						<div class="select-etiqueta">Tipo de trabajador</div>
 // 						<select id="trabajador" class="custom-select select-empleado trabajador-select">';
 
 // $sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
@@ -67,34 +67,34 @@ echo '<form id="form-empleado">
 // 						</div>
 					echo '<div class="col-md-3">
 							<div class="form-group">
-								<div class="select-label">Número de empleado</div>
+								<div class="select-etiqueta">Número de empleado</div>
 								<input id="numero" type="text" class="form-control" maxlength=5 value="' . str_pad($res['id_usuario'], 5, '0', STR_PAD_LEFT) . '" required>
 							</div>
 						</div>
 
 						<div class="col-md-3">
 							<div class="form-group">
-							<div class="select-label">Fecha de ingreso</div>
+							<div class="select-etiqueta">Fecha de ingreso</div>
 								<input id="ingreso" type="text" class="datepicker-here form-control readonly" value="' . $res['fechaRelLab'] . '" required>
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">RFC</div>
+							<div class="select-etiqueta">RFC</div>
 								<input id="rfc" type="text" class="form-control" disabled minlength=13 maxlength=13 value="' . $res['RFC'] . '" required>
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<div class="select-label">CURP</div>
+								<div class="select-etiqueta">CURP</div>
 								<input id="curp" type="text" class="form-control" minlength=18 maxlength=18 value="' . $res['CURP'] . '" required>
 							</div>
 						</div>';
 // echo '<div class="col-md-6">
 // 						<div class="select">
-// 						<div class="select-label label-depa">Departamento</div>
+// 						<div class="select-etiqueta label-depa">Departamento</div>
 // 						<select id="departamento" class="custom-select select-empleado departamento-select">';
 // $sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
 // $consulta = mysqli_query($conexion, $sql);
@@ -122,7 +122,7 @@ echo '<form id="form-empleado">
 
 // echo '<div class="col-md-6">
 // 						<div class="select">
-// 						<div class="select-label">Puesto</div>
+// 						<div class="select-etiqueta">Puesto</div>
 // 						<select id="puesto" class="">';
 
 // $sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
@@ -151,14 +151,14 @@ echo '<form id="form-empleado">
 
 echo '<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Cuenta bancaria <cite class="text-danger"> opcional</cite></div>
+							<div class="select-etiqueta">Cuenta bancaria <cite class="text-danger"> opcional</cite></div>
 								<input id="banca" type="text" class="form-control" value="' . $res['banca'] . '">
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<div class="select-label">No. de afiliación <cite class="text-danger"> opcional</cite></div>
+								<div class="select-etiqueta">No. de afiliación <cite class="text-danger"> opcional</cite></div>
 								<input id="afiliacion" type="text" class="form-control" value="' . $res['afiliacion'] . '">
 							</div>
 						</div>';

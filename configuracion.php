@@ -74,7 +74,7 @@ if (rol() != 1) {
                                 </div>
                             </div>
                             <!-- PERFIL -->
-                            <div class="wizard_panel hidden">
+                            <div class="wizard_panel hide">
                                 <div class="wizard_panel_perfil">
                                     <h2 class="text-primary pb-4 font-weight-bold">Configura tu información de perfil
                                     </h2>
@@ -106,7 +106,7 @@ if (rol() != 1) {
                                 </div>
                             </div>
                             <!-- LOGO -->
-                            <div class="wizard_panel hidden">
+                            <div class="wizard_panel hide">
                                 <div class="wizard_panel_logo">
                                     <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
                                     <p>Puedes elegir una imagen y establecerla como logo para tus reportes y mostrarla en el panel principal. La imagen deberá estar en formato <span class="text-warning">PNG</span> y deberá pesar menos de <span class="text-warning">5 Mb</span>.</p>
@@ -132,7 +132,7 @@ if (rol() != 1) {
                                 </div>
                             </div>
                             <!-- IMPORTAR -->
-                            <div class="wizard_panel hidden">
+                            <div class="wizard_panel hide">
                                 <div class="wizard_panel_importar">
                                     <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de plazas</h2>
                                     <p>Con esta herramienta puede importar datos desde una hoja de cálculo sin necesidad

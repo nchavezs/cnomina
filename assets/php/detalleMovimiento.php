@@ -29,39 +29,39 @@
 						
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label">Fecha de movimeinto</div>
+							<div class="select-etiqueta">Fecha de movimeinto</div>
 							  <input id="fecha1" type="text" class="form-control datepicker-here" readonly value="'.$fecha.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Puesto anterior</div>
+							<div class="select-etiqueta">Puesto anterior</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[6].'"/> 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Puesto actual</div>
+							<div class="select-etiqueta">Puesto actual</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[3].'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Departamento anterior</div>
+							<div class="select-etiqueta">Departamento anterior</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[7].'"/> 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Departamento actual</div>
+							<div class="select-etiqueta">Departamento actual</div>
 								<input type="text" class="form-control" readonly value="'.$resultado1[4].'"/> 
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label">Observaciones</div>
+							<div class="select-etiqueta">Observaciones</div>
 								<textarea id="observacion" readonly class="form-control" rows="3">'.$obs.'</textarea>
 							</div>
 						  </div>';

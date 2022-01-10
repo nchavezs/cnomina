@@ -309,8 +309,8 @@ if ($resultadoUsuario) {
                               <div class="card-body">
                                  <h5>Manuales.</span></h5>
                                  <p>Descarga el manual de administrador y el manual de usuario.</p>
-                                 <a href="./documentos/usuario.pdf" download class="btn btn-primary regresar btn-sm px-3"><i class="material-icons">download</i> Usuario</a>
-                                 <a href="./documentos/administrador.pdf" download class="btn btn-primary regresar btn-sm px-3"><i class="material-icons">download</i> Administrador</a>
+                                 <a href="./documentos/usuario.pdf" download class="btn btn-secondary regresar btn-sm px-3"><i class="material-icons">download</i> Usuario</a>
+                                 <a href="./documentos/administrador.pdf" download class="btn btn-secondary regresar btn-sm px-3"><i class="material-icons">download</i> Administrador</a>
 
                               </div>
                            </div>

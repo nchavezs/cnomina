@@ -22,6 +22,7 @@ include "./assets/php/comprobar_catalago.php";
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
     <link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -259,11 +260,11 @@ include "./assets/php/comprobar_catalago.php";
     <script src="assets/js/block.js"></script>
     <script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+    <script src="assets/js/moment.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/animate/adp.js"></script>
     <script src="assets/js/registrar.js?v=3.1.5"></script>
     <script src="assets/js/sesion.js?v=3.1.5"></script>
     <script src="assets/js/mensajes.js?v=3.1.5"></script>
-    <script src="assets/js/moment.js"></script>
-
 
 </body>
 

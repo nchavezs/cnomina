@@ -14,13 +14,13 @@ echo '<form id="form-periodo">
 
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label ">Fecha del</div>
+							<div class="select-etiqueta ">Fecha del</div>
 								<input id="fecha_del" type="text" class="form-control datepicker-here" value="' . $hoy . '" readonly/>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label ">Fecha al</div>
+							<div class="select-etiqueta ">Fecha al</div>
 								<input id="fecha_al" type="text" class="form-control datepicker-here" value="' . $hoy . '" readonly />
 							</div>
 						</div>

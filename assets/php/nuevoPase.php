@@ -27,7 +27,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="select">
-											<div class="select-label">Tipo de pase</div>
+											<div class="select-etiqueta">Tipo de pase</div>
 											<select id="categoria" class="custom-select select-empleado">
 												<option value="0">PASE DE ENTRADA</option>
 												<option value="1">PASE DE SALIDA</option>
@@ -37,7 +37,7 @@
 
 									<div class="col-md-12">
 										<div class="form-group">
-											<div class="select-label">Observación <cite class="text-danger"> opcional</cite></div>
+											<div class="select-etiqueta">Observación <cite class="text-danger"> opcional</cite></div>
 											<textarea id="observacion" class="form-control" rows="5"></textarea>
 										</div>
 									</div>

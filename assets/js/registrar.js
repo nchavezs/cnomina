@@ -164,9 +164,16 @@ $(document).ready(function () {
             Swal.fire({
                 position: 'center',
                 html: html,
-                width: '50em',
+                width: '60em',
+                showCloseButton: true,
                 allowOutsideClick: false,
                 showConfirmButton: false
+            });
+
+            $(".pagina_2_boton").click(function () {
+                $(".pagina_2").addClass("adp-hide");
+                ADP.show($(".pagina_1")[0], 'fade');
+                $(".pagina_1").removeClass("adp-hide");
             });
 
             select_estilo();
@@ -191,38 +198,17 @@ $(document).ready(function () {
                 }
             });
 
-            // $("#file").change(function () {
-            //     if ($("#file").val() !== "") {
-            //         $.blockUI({
-            //             message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-            //         });
+            $("#form-empleado-1").submit(function (e) {
+                e.preventDefault();
+                $(".pagina_1").addClass("adp-hide");
+                ADP.show($(".pagina_2")[0], 'fade');
+                $(".pagina_2").removeClass("adp-hide");
+            });
 
-            //         var formData = new FormData();
-            //         var files = $("#file")[0].files[0];
-            //         formData.append("file", files);
-
-            //         $.ajax({
-            //             url: "assets/php/empleadoArchivo.php",
-            //             type: "post",
-            //             data: formData,
-            //             contentType: false,
-            //             processData: false,
-            //             cache: false,
-            //             success: function (data) {
-            //                 $("#archivo").val(data);
-            //                 $("#file").val("");
-            //                 $.unblockUI();
-            //                 md.showNotification("top", "right", "Archivo cargado correctamente.");
-            //             }
-            //         });
-            //     }
-            // });
-
-            $("#form-empleado").submit(function (e) {
+            $("#form-empleado-2").submit(function (e) {
                 e.preventDefault();
                 if ($("#puesto").val() == "" || $("#departamento").val() == "" || $("#trabajador").val() == "" || $("#plaza").val() == "") {
-                    $("#advertencia").removeClass("hide");
-                    $("#advertencia").addClass("advertencia");
+                    md.showNotification("top", "right", "Completa todos los campos.");
                 } else {
                     $.ajax({
                         type: "POST",
@@ -255,19 +241,13 @@ $(document).ready(function () {
                                 });
 
                             } else if (data == 2) {
-                                Swal.fire({
-                                    title: 'Ya registrado',
-                                    text: 'El empleado ya se encuentra registrado',
-                                    type: 'warning',
-                                });
+                                md.showNotification("top", "right", "Este RFC ya se encuentra registrado.");
 
                             } else {
                                 Swal.fire({
                                     title: 'Error',
                                     text: 'El empleado no fue registrado',
                                     type: 'error',
-
-
                                 });
 
                             }
@@ -290,7 +270,7 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-empleado.php"
         },
-        "drawCallback": function( settings ) {
+        "drawCallback": function (settings) {
             document.querySelector('.content').scrollTop = 1;
         },
         "columnDefs": [{
@@ -299,15 +279,14 @@ $(document).ready(function () {
             },
             {
                 "className": "font-weight-bold",
-                "targets": [0,1]
+                "targets": [0, 1]
             },
             {
                 "orderable": false,
                 "targets": [4, 5, 6]
             }
         ],
-        "columns": [
-            {
+        "columns": [{
                 "render": function (data, type, row) {
                     return '<div><i class="material-icons mr-1">fingerprint</i>' + row.id_usuario + '</div>';
                 }
@@ -348,7 +327,7 @@ $(document).ready(function () {
                 }
             }
         ]
-    });    
+    });
 
     $(document).on("click", "#tabla-empleado tr", function (e) {
         var data = table.row(this).data();
@@ -2572,7 +2551,7 @@ function editar_usuario(id, event) {
                     //     $("#advertencia").removeClass("hide");
                     //     $("#advertencia").addClass("advertencia");
                     // } else {
-                       
+
                     // }
 
                 });

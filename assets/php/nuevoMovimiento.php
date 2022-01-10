@@ -21,14 +21,14 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<div class="select-label">Tipo de trabajador actual</div>
+								<div class="select-etiqueta">Tipo de trabajador actual</div>
 								<input type="text" class="form-control" disabled value="'.$usuario["tipoTrabajador"].'"/> 
 							</div>
 						</div>
 
 						<div class="col-md-6">
 							<div class="select">
-								<div class="select-label">Tipo de trabajador</div>
+								<div class="select-etiqueta">Tipo de trabajador</div>
 								<select id="trabajador" class="custom-select select-empleado trabajador-select">';
 									$sql = "SELECT nombre FROM Trabajador ORDER BY nombre ASC";
 									$consulta = mysqli_query($conexion, $sql);
@@ -41,14 +41,14 @@
 
 						echo '<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Departamento actual</div>
+							<div class="select-etiqueta">Departamento actual</div>
 									<input type="text" class="form-control" disabled value="'.$usuario[12].'"/> 
 								</div>
 							</div>';
 
 							echo '<div class="col-md-6">
 							<div class="select">
-							<div class="select-label">Nuevo departamento</div>
+							<div class="select-etiqueta">Nuevo departamento</div>
 									<select id="departamento" class="custom-select select-empleado departamento-select">';
 
 						$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
@@ -66,14 +66,14 @@
 
 						echo '<div class="col-md-6">
 							<div class="form-group">
-							<div class="select-label">Puesto actual</div>
+							<div class="select-etiqueta">Puesto actual</div>
 								<input type="text" class="form-control" disabled value="'.$usuario[11].'"/> 
 							</div>
 						</div>';
 
 						echo '<div class="col-md-6">
 								<div class="select">
-									<div class="select-label">Nuevo puesto</div>
+									<div class="select-etiqueta">Nuevo puesto</div>
 										<select id="puesto" class="">
 										</select>
 									</div>
@@ -81,14 +81,14 @@
 
 						echo '<div class="col-md-6">
 								<div class="form-group">
-								<div class="select-label">Fecha de movimiento</div>
+								<div class="select-etiqueta">Fecha de movimiento</div>
 								<input id="fecha1" type="text" class="form-control datepicker-here" readonly value="'.$hoy.'"/> 
 								</div>
 							</div>';
 
 						echo '<div class="col-md-6">
 						<div class="select">
-							<div class="select-label">Plaza</div>
+							<div class="select-etiqueta">Plaza</div>
 							<select id="plaza" class="">
 							</select>
 						</div>
@@ -96,7 +96,7 @@
 
 						echo '<div class="col-md-12">
 						  	<div class="form-group">
-								<div class="select-label">Observacion <cite class="text-danger">opcional</cite></div>
+								<div class="select-etiqueta">Observacion <cite class="text-danger">opcional</cite></div>
 									<textarea id="observacion" class="form-control" rows="2"></textarea>
 								</div>
                   			</div>

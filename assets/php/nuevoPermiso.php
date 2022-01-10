@@ -26,14 +26,14 @@
 					
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label">Fecha de elaboración</div>
+							<div class="select-etiqueta">Fecha de elaboración</div>
 							  <input id="fecha1" type="text" class="form-control datepicker-here" disabled value="'.$hoy.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-8">
 							<div class="select">
-								<div class="select-label">Tipo de permiso</div>
+								<div class="select-etiqueta">Tipo de permiso</div>
 								<select id="sources" class="custom-select select-empleado sources" >
 									<option value="0">PERMISO CON GOCE DE SUELDO</option>
 									<option value="1">PERMISO SIN GOCE DE SUELDO</option>
@@ -43,28 +43,28 @@
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label">Días de permiso</div>
+							<div class="select-etiqueta">Días de permiso</div>
 							  <input id="dias" type="text" class="form-control" disabled onkeypress="return isNumberKey(event)">
 							</div>
 						</div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label">Periodo del</div>
+							<div class="select-etiqueta">Periodo del</div>
 							  <input id="fecha2" type="text" class="datepicker-here form-control" required="true" readonly value="'.$hoy.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
-							<div class="select-label">Al</div>
+							<div class="select-etiqueta">Al</div>
 							  <input id="fecha3" type="text" class="datepicker-here form-control" required="true" readonly value="'.$hoy.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-12">
 							<div class="form-group">
-								 <div class="select-label">Descripción <cite class="text-danger"> opcional</cite></div>
+								 <div class="select-etiqueta">Descripción <cite class="text-danger"> opcional</cite></div>
 								 <textarea id="descripcion" class="form-control" rows="5"></textarea>
 							</div>
                   		</div>

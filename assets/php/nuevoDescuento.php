@@ -27,7 +27,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-										<div class="select-label">Días de descuento</div>
+										<div class="select-etiqueta">Días de descuento</div>
 
 											<input id="dias" type="text" class="form-control" readonly />
 										</div>
@@ -35,7 +35,7 @@
 
 									<div class="col-md-12">
 										<div class="form-group">
-										<div class="select-label">Motivo</div>
+										<div class="select-etiqueta">Motivo</div>
 
 											<textarea id="motivo" required class="form-control" rows="5"></textarea>
 										</div>

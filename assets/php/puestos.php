@@ -3,7 +3,7 @@
 	$conexion =  conexion();
 
 	echo '<div class="select">
-				<div class="select-label">Puesto</div>
+				<div class="select-etiqueta">Puesto</div>
 				<select id="puesto" class="">';
 	
 	$sql = "SELECT * FROM Puesto ORDER BY nombre ASC";

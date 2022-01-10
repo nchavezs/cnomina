@@ -22,14 +22,14 @@
 						
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label">Fecha de reingreso</div>
+							<div class="select-etiqueta">Fecha de reingreso</div>
 							  <input id="fecha1" type="text" class="form-control datepicker-here" readonly value="'.$hoy.'"/> 
 							</div>
 						</div>
 						
 						<div class="col-md-12">
 							<div class="form-group">
-							<div class="select-label">Observaciones <cite class="text-danger"> opcional</cite></div>
+							<div class="select-etiqueta">Observaciones <cite class="text-danger"> opcional</cite></div>
 								<textarea id="observaciones" class="form-control" rows="5"></textarea>
 							</div>
 						</div>
