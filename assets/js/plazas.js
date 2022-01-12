@@ -229,6 +229,7 @@ function detalle_plaza(id) {
                 Swal.fire({
                     position: 'center',
                     html: data,
+                    padding: 0,
                     allowOutsideClick: true,
                     showCloseButton: true,
                     showConfirmButton: false

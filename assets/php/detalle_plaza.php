@@ -5,7 +5,14 @@ $id = $_POST["id"];
 
 $ano = date("Y");
 $hoy = date("Y-m-d");
-$html = '<div class="row">';
+
+$html = '<div class="row formulario p-4">
+<div class="col-md-12">
+<div class="text-left p-2">
+						<h4 class="font-weight-bold text-primary">Historial de vacantes</h4>
+						<small class="text-muted">Usuarios que han estado registrados en esta plaza en el año en curso.</small>
+					</div>
+</div>';
 
 $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $id . " AND YEAR(fecha_inicio) = " . $ano;
 $consulta = mysqli_query($conexion, $sql);
@@ -24,13 +31,19 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
         $diff = $fecha2->diff($fecha1);
         $ocupados = $diff->format('%a');
 
+        if($historial["fecha_fin"] == null){
+            $historial["fecha_fin"] = " -  ";
+        }
+
         $html=$html. '<div class="col-md-6">
-                        <div class="card overflow-hidden border">
+                        <div class="card overflow-hidden">
                             <div class="card-body historial_caja">
-                                <img src="assets/img/user.png" alt="">
-                                <div class="p-4">
-                                <h6>' . $usuario[0] . '</h6>
-                                <small>' . $ocupados . ' dias ocupados</small>
+                                <div class="historial_img"><img src="assets/img/user.png" alt=""></div>
+                                <div class="historial_usuario">
+                                ' . $usuario[0] . '
+                                <p>' . $ocupados . ' dias ocupados</p>
+                                <p>Fecha de inicio: ' . $historial["fecha_inicio"] . '</p>
+                                <p>Fecha de término: ' . $historial["fecha_fin"] . '</p>
                                 </div>
                             </div>
                         </div>

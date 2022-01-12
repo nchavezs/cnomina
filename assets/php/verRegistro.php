@@ -16,6 +16,7 @@ if ($resultado) {
                   <p>Puesto:</p>
                   <p>Departamento:</p>
                   <p>Fecha de pago:</p>
+                  <p>Periodo:</p>
                   <p>Dias de pago:</p>
                   <p>Ver archivo:</p>
                   <p>Fecha de carga:</p>
@@ -26,6 +27,7 @@ if ($resultado) {
                   <p>' . $res["puesto"] . '</p>
                   <p>' . $res["departamento"] . '</p>
                   <p>' . date("d/m/Y", strtotime($res["fecha_pago"] )). '</p>
+                  <p>' . date("d/m/Y", strtotime($res["del"] )). '- '.date("d/m/Y", strtotime($res["al"] )).'</p>
                   <p>' . $res["dias_pago"] . '</p>
                   <p><a class="tipo" target="_blank" href="' . $res["url"] . '">' . $res["url"] . ' </a></p>
                   <p>' .date("d/m/Y h:i A", strtotime($res["elaboracion"] )) . '</p>';

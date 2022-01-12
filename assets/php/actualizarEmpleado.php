@@ -20,7 +20,7 @@ if ($rol != 1) {
     $nombres = trim(ucwords(strtolower($_POST["nombres"])));
     $apellidom = trim(ucfirst(strtolower($_POST["apellidom"])));
     $apellidop = trim(ucfirst(strtolower($_POST["apellidop"])));
-    // $trabajador = trim($_POST["trabajador"]);
+    $trabajador = trim($_POST["trabajador"]);
     $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
 
     $sql = "SELECT * FROM Usuario WHERE RFC = '".$RFC."'";
@@ -35,6 +35,7 @@ if ($rol != 1) {
     afiliacion = NULLIF('" . $afiliacion . "',''),
     nombres = '" . $nombres . "', apellidop = '" . $apellidop . "',
     apellidom = '" . $apellidom . "',
+    tipoTrabajador = '" . $trabajador . "',
     fechaRelLab = '" . $ingreso . "' 
     WHERE RFC = '" . $RFC . "'";
 

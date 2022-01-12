@@ -29,7 +29,7 @@
         empty: "NO HAY OPCIONES DISPONIBLES",
         emptySearch: "NO SE ENCONTRARON OPCIONES",
         limit: "NO PUEDES SELECCIONAR MAS OPCIONES",
-        placeholder: "SELECCIONA UNA OPCION",
+        placeholder: "SELECCIONA UNA OPCIÓN",
         placeholderMulti: "SELECCIONA HASTA :LIMITE DE OPCIONES ...",
         search: "ESCRIBE PARA BUSCAR ...",
         disabled: "ESTE CAMPO ESTÁ DESHABILITADO"

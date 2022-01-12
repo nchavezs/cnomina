@@ -117,7 +117,7 @@ if ($resultadoUsuario) {
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="./plazas">
-                        <i class="material-icons">receipt_long</i>
+                        <i class="material-icons">auto_awesome_motion</i>
                         <p>Plazas</p>
                      </a>
                   </li>';

@@ -8,7 +8,8 @@
 		 echo '{"data":[]}';
 	}else{
       while($res = mysqli_fetch_assoc($resultado)){
-         $res["fecha_pago"] = date("d/m/Y", strtotime($res["fecha_pago"]));
+         $res["del"] = date("d/m/Y", strtotime($res["del"]));
+         $res["al"] = date("d/m/Y", strtotime($res["al"]));
          $arreglo["data"][] = $res;
       }
       echo json_encode($arreglo);

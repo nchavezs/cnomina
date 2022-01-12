@@ -51,6 +51,12 @@ include "./assets/php/comprobar_catalago.php";
                             <p>Empleados</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+						<a class="nav-link" href="./prenomina">
+							<i class="material-icons">receipt_long</i>
+							<p>Prenómina</p>
+						</a>
+					</li>
                     <li class="nav-item ">
                         <a class="nav-link" href="./perfil">
                             <i class="material-icons">person_pin</i>
@@ -108,7 +114,7 @@ include "./assets/php/comprobar_catalago.php";
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./plazas">
-                                <i class="material-icons">receipt_long</i>
+                                <i class="material-icons">auto_awesome_motion</i>
                                 <p>Plazas</p>
                             </a>
                         </li>';
@@ -202,9 +208,7 @@ include "./assets/php/comprobar_catalago.php";
 													<button onclick="generar_empleados();" class="btn-mostrar"><i
 													class="material-icons">file_download</i>
 												<div class="">Exportar</div>
-											</button>
-											<button id="generar-prenomina" class="btn-mostrar"><i
-													class="material-icons">assignment</i>Prenómina</button>';
+											</button>';
                                 }
                                 ?>
                             </div>

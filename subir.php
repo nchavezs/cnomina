@@ -47,6 +47,12 @@ if (rol() == 2) {
 							<p>Empleados</p>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./prenomina">
+							<i class="material-icons">receipt_long</i>
+							<p>Prenómina</p>
+						</a>
+					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
 							<i class="material-icons">person_pin</i>
@@ -83,7 +89,7 @@ if (rol() == 2) {
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="./plazas">
-								<i class="material-icons">receipt_long</i>
+								<i class="material-icons">auto_awesome_motion</i>
 								<p>Plazas</p>
 							</a>
 						</li>';
@@ -173,7 +179,7 @@ if (rol() == 2) {
 										</div>
 										<div class="col-10">
 											<h5>Registrar trabajadores al subir <a href="consultar" class="text-info">archivos CFDI</a>.</h5>
-											<p>Los datos del trabajador con número de empleado ya registrado no serán sobreescritos.</p>
+											<p>Los datos del trabajador ya registrados no serán sobreescritos.</p>
 										</div>
 									</div>
 								</div>

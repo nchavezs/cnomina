@@ -1,3 +1,32 @@
+.select-dropdown{
+    background: rgba(250, 250, 250, 0.6) !important;
+    backdrop-filter: saturate(180%) blur(15px);
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+    box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
+}
+
+.dropdown-optgroup{
+    max-height: 350px !important;
+}
+
+.dropdown-inner{
+    overflow: hidden !important;
+}
+
+.dropdown-search,
+.dropdown-inner{
+    border: none !important;
+}
+
+.dropdown-option{
+    background: transparent !important;
+}
+
+.dropdown-option .selected{
+    background: transparent !important;
+}
+
+
 .card .card-header-primary .card-icon,
 .card .card-header-primary .card-text,
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
@@ -49,15 +78,38 @@
 
 .historial_caja {
     display: flex;
-    height: 80px;
-    padding: 0 !important;
+    height: 100px;
+    padding: 10px !important;
     overflow: hidden !important;
+}
+
+.historial_usuario{
+    white-space: nowrap;
+    text-overflow: ellipsis ;
+    overflow:hidden;
+    text-align: left;
     font-weight: bold;
+    padding-left: 10px;
+}
+
+.historial_usuario p{
+    margin: 2px 0 !important;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.historial_img{
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .historial_caja img {
-    width: 80px;
-    height: 100%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
 }
 
 .navbar {
@@ -15702,7 +15754,7 @@ fieldset[disabled] .form-control,
 fieldset[disabled] .form-group .form-control {
     background-color: transparent;
     cursor: not-allowed;
-    border-bottom: 1px dotted #d2d2d2;
+    /* border-bottom: 1px dotted #d2d2d2; */
     background-repeat: no-repeat
 }
 
@@ -20278,7 +20330,7 @@ label {
 }
 
 .toggle-btn.active {
-    background-color: #2ecc71
+    background-color: #49CF97
 }
 
 .toggle-btn.active .round-btn {

@@ -1,0 +1,80 @@
+<?php
+date_default_timezone_set('America/Mexico_City');
+setlocale(LC_TIME, 'es_CO.UTF-8');
+include "conexion.php";
+$conexion = conexion();
+
+$hoy = date("d/m/Y");
+
+echo '<div class="formulario row">
+		<div class="col-md-4 p-0">
+			<div class="wallpaper">
+				<img src="assets/img/form.svg" alt="">
+			</div>
+		</div>
+
+		<div class="col-md-8 p-0">
+			<div class="card-body">
+				<form id="form-prenomina">
+					<div class="text-left p-2">
+						<h4 class="font-weight-bold text-primary">Genera una nueva prenómina</h4>
+						<small class="text-muted">Selecciona el periodo para generar la prenomina.</small>
+					</div>
+					<div class="card">
+						<div class="row card-body">
+							<div class="col-md-12">
+								<div class="select">
+									<div class="select-etiqueta">Periodo</div>
+									<select id="periodo" class="">
+										<option value="CATORCENAL">CATORCENAL</option>
+										<option value="MENSUAL">MENSUAL</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-2">
+									<div class="toggle-btn">
+										<input id="check1" type="checkbox" class="cb-value" />
+										<span class="round-btn"></span>
+									</div>
+								</div>
+								<div class="col-10">
+									<p class="text-muted">¿Actualizar automáticamente las fechas a partir del último periodo registrado?</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="row card-body">
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="select-etiqueta">Del</div>
+									<input id="del" type="text" readonly class="form-control datepicker-here" value=""/>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="select-etiqueta ">Al</div>
+									<input id="al" type="text" class="form-control" disabled value=""/> 
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="text-right p-3 pagina_2_opciones">
+						<div id="salir" class="btn btn-secondary btn-sm">Cancelar </div>
+						<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Generar prenomina</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>';
+
+mysqli_close($conexion);

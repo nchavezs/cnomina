@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = $_POST['id'];
 $ano = $_POST["ano"];
 
-$sql = "SELECT * FROM Archivo WHERE RFC = '" . $id . "' AND YEAR(fecha_pago) = " . $ano;
+$sql = "SELECT * FROM Archivo WHERE RFC = '" . $id . "' AND YEAR(del) = " . $ano;
 $resultado = mysqli_query($conexion, $sql);
 
 if (mysqli_num_rows($resultado) > 0) {
@@ -18,7 +18,7 @@ if (mysqli_num_rows($resultado) > 0) {
 				<tbody>';
     while ($res = mysqli_fetch_array($resultado)) {
         echo '<tr>
-				<td>' . $res["fecha_pago"] . '</td>
+				<td>' . $res["del"] . ' - '.$res["al"].'</td>
 				<td> <a class="material-icons btn1" target="_blank" href="' . $res["url"] . '">visibility</a></td>
 				<td> <a class="material-icons btn1" href="' . $res["url"] . '" download>cloud_download</a></td>
 			</tr>';

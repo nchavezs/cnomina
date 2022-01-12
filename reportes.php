@@ -50,6 +50,12 @@ if (rol() != 1) {
 							<p>Empleados</p>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./prenomina">
+							<i class="material-icons">receipt_long</i>
+							<p>Prenómina</p>
+						</a>
+					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
 							<i class="material-icons">person_pin</i>
@@ -77,7 +83,7 @@ if (rol() != 1) {
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="./plazas">
-							<i class="material-icons">receipt_long</i>
+							<i class="material-icons">auto_awesome_motion</i>
 							<p>Plazas</p>
 						</a>
 					</li>

@@ -188,7 +188,7 @@ $(document).ready(function () {
                 maxDate: new Date(),
                 language: 'es',
                 autoClose: 'true',
-                position: "bottom center",
+                position: "top center",
                 todayButton: new Date(),
                 onSelect(formattedDate, date, inst) {
                     if (date == '')
@@ -640,8 +640,7 @@ function permiso(id) {
                 },
                 success: function (html) {
                     Swal.getContent().innerHTML = html;
-                    select_estilo();
-                    switcher();
+                    select_estilo_2();
 
                     $(".sources").change(function () {
                         if ($(this).val() == 1)
@@ -1006,7 +1005,7 @@ function verNominas(id) {
 
             });
 
-            select_estilo();
+            select_estilo_2();
 
             tablas_nominas(id);
             $(".sources").change(function () {
@@ -1257,7 +1256,7 @@ function verPermisos(id) {
 
             });
 
-            select_estilo();
+            select_estilo_2();
 
             tablas(id);
             $(".sources").change(function () {
@@ -1284,7 +1283,7 @@ function verVacaciones(id) {
                 showConfirmButton: false,
 
             });
-            select_estilo();
+            select_estilo_2();
 
             tablas_vacaciones(id);
             $(".sources").change(function () {
@@ -1539,7 +1538,7 @@ function verMovimientos(id) {
                 showConfirmButton: false,
 
             });
-            select_estilo();
+            select_estilo_2();
 
             tablas_movimientos(id);
             $(".sources").change(function () {
@@ -1941,7 +1940,7 @@ function verGastos(id) {
                 showConfirmButton: false,
 
             });
-            select_estilo();
+            select_estilo_2();
             tablas_gastos(id);
             $(".sources").change(function () {
                 tablas_gastos(id);
@@ -2162,7 +2161,7 @@ function verDescuentos(id) {
                 showConfirmButton: false,
 
             });
-            select_estilo();
+            select_estilo_2();
             tablas_descuentos(id);
             $(".sources").change(function () {
                 tablas_descuentos(id);
@@ -2450,51 +2449,20 @@ function editar_usuario(id, event) {
                     html: html,
                     allowOutsideClick: false,
                     showConfirmButton: false,
-                    width: '50em'
+                    width: '60em'
                 });
-                // select_estilo();
-                // select_change_update();
+
+                select_estilo();
                 $("#ingreso").blur();
 
-                // $("#descargar-btn").click(function () {
-                //     descargar($("#descargar-input").val(), 'Archivo')
+                // $(".readonly").keydown(function (e) {
+                //     e.preventDefault();
                 // });
-
-                // $("#file").change(function () {
-                //     if ($("#file").val() !== "") {
-                //         $.blockUI({
-                //             message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-                //         });
-
-                //         var formData = new FormData();
-                //         var files = $("#file")[0].files[0];
-                //         formData.append("file", files);
-
-                //         $.ajax({
-                //             url: "assets/php/empleadoArchivo.php",
-                //             type: "post",
-                //             data: formData,
-                //             contentType: false,
-                //             processData: false,
-                //             cache: false,
-                //             success: function (data) {
-                //                 $("#archivo").val(data);
-                //                 $("#file").val("");
-                //                 $.unblockUI();
-                //                 md.showNotification("top", "right", "Archivo cargado correctamente.");
-                //             }
-                //         });
-                //     }
-                // });
-
-                $(".readonly").keydown(function (e) {
-                    e.preventDefault();
-                });
 
                 $('#ingreso').datepicker({
                     language: 'es',
                     autoClose: 'true',
-                    position: "bottom center",
+                    position: "top center",
                     todayButton: new Date(),
                     onSelect(formattedDate, date, inst) {
                         if (date == '')
@@ -2503,10 +2471,22 @@ function editar_usuario(id, event) {
                             valor1 = formattedDate;
                     }
                 });
-
-                $("#form-empleado").submit(function (e) {
+                
+                $("#form-empleado-1").submit(function (e) {
                     e.preventDefault();
+                    $(".pagina_1").addClass("adp-hide");
+                    ADP.show($(".pagina_2")[0], 'fade');
+                    $(".pagina_2").removeClass("adp-hide");
+                });
 
+                $(".pagina_2_boton").click(function () {
+                    $(".pagina_2").addClass("adp-hide");
+                    ADP.show($(".pagina_1")[0], 'fade');
+                    $(".pagina_1").removeClass("adp-hide");
+                });
+
+                $("#form-empleado-2").submit(function (e) {
+                    e.preventDefault();
                     $.ajax({
                         type: "POST",
                         url: "assets/php/actualizarEmpleado.php",
@@ -2521,8 +2501,8 @@ function editar_usuario(id, event) {
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
-                            // "trabajador": $("#trabajador").val(),
-                            "archivo": $("#archivo").val(),
+                            "trabajador": $("#trabajador").val(),
+                            // "archivo": $("#archivo").val(),
                             "ingreso": $("#ingreso").val()
                         },
                         success: function (data) {
@@ -2591,13 +2571,12 @@ function verPases(id) {
             Swal.fire({
                 position: 'center',
                 html: html,
-
                 allowOutsideClick: true,
                 showCloseButton: true,
                 showConfirmButton: false,
 
             });
-            select_estilo();
+            select_estilo_2();
             tablas_pases(id);
             $(".sources").change(function () {
                 tablas_pases(id);
@@ -2636,7 +2615,7 @@ function pase(id) {
                         });
                     });
 
-                    select_estilo();
+                    select_estilo_2();
 
                     $("#form-pase").submit(function (e) {
                         e.preventDefault();
@@ -2801,17 +2780,6 @@ function detalle_pase(id) {
             }
         });
         $('#fecha').data('datepicker').selectDate(date2);
-    });
-};
-
-function switcher() {
-    $('.cb-value').click(function () {
-        var mainParent = $(this).parent('.toggle-btn');
-        if ($(mainParent).find('input.cb-value').is(':checked')) {
-            $(mainParent).addClass('active');
-        } else {
-            $(mainParent).removeClass('active');
-        }
     });
 };
 

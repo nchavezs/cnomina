@@ -189,16 +189,6 @@ $(document).ready(function () {
 
     });
 
-
-    $('.cb-value').click(function () {
-        var mainParent = $(this).parent('.toggle-btn');
-        if ($(mainParent).find('input.cb-value').is(':checked')) {
-            $(mainParent).addClass('active');
-        } else {
-            $(mainParent).removeClass('active');
-        }
-    });
-
     $("#check1").change(function () {
         if ($(this).is(':checked')) {
             $("#fecha1").removeClass("apagado");

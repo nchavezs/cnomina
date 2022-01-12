@@ -5,7 +5,7 @@ $puesto = $_POST["puesto"];
 $ano = date("Y");
 $hoy = date("Y-m-d");
 
-$sql = "SELECT * FROM Plaza WHERE RFC IS NULL AND id_puesto = " . $puesto . " ORDER BY elaboracion";
+$sql = "SELECT * FROM Plaza WHERE id_puesto = " . $puesto . " ORDER BY elaboracion";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
@@ -29,7 +29,11 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
             $vacantes = $res["dias"] - $ocupados_total;
         }
 
-        echo '<option value="' . $res[0] . '">PLAZA #' . $res[0] . ' ➟ ' . $vacantes . ' DIAS VACANTES</option>';
+        if($res["RFC"] != null){
+            echo '<option disabled data-description="'.$vacantes.' días vacantes" value="' . $res[0] . '">PLAZA #' . $res[0] .'</option>';
+        }else{
+            echo '<option data-description="'.$vacantes.' días vacantes" value="' . $res[0] . '">PLAZA #' . $res[0] .'</option>';
+        }
     }
 } else {
     echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';

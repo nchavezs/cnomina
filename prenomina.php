@@ -1,5 +1,9 @@
 <?php
 include "assets/php/main_admin.php";
+
+if (rol() == 2) {
+	header('location:./registrar');
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +20,12 @@ include "assets/php/main_admin.php";
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
-	<link href="assets/css/select.css" rel="stylesheet" />
+	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
+	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
 
@@ -45,7 +53,7 @@ include "assets/php/main_admin.php";
 							<p>Empleados</p>
 						</a>
 					</li>
-					<li class="nav-item">
+					<li id="link1" class="nav-item active">
 						<a class="nav-link" href="./prenomina">
 							<i class="material-icons">receipt_long</i>
 							<p>Prenómina</p>
@@ -75,30 +83,24 @@ include "assets/php/main_admin.php";
 					}
 					?>
 
-					<?php
-					if (rol() == 2) {
-						echo '<li class="nav-item">
-						<a class="nav-link" href="#" onclick="no_pasar();">
-							<i class="material-icons">lock</i>
+					<li class="nav-item">
+						<a class="nav-link" href="./consultar">
+							<i class="material-icons">text_snippet</i>
 							<p>Nóminas</p>
 						</a>
-					</li>';
-					} else {
-						echo '<li class="nav-item">
-							<a class="nav-link" href="./consultar">
-								<i class="material-icons">text_snippet</i>
-								<p>Nóminas</p>
-							</a>
-						</li>';
-					}
-					?>
-
+					</li>
 					<?php
 					if (rol() != 1) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
 							<i class="material-icons">lock</i>
 							<p>Catálogos</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" onclick="no_pasar();">
+							<i class="material-icons">lock</i>
+							<p>Plazas</p>
 						</a>
 					</li>';
 					} else {
@@ -116,7 +118,7 @@ include "assets/php/main_admin.php";
 						</li>';
 					}
 					?>
-					<li class="nav-item active">
+					<li id="link2" class="nav-item">
 						<a class="nav-link" href="./mensajes">
 							<i class="material-icons">message</i>
 							<p>Mensajes</p>
@@ -153,7 +155,7 @@ include "assets/php/main_admin.php";
 			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
-						<a class="navbar-brand" href="">Mensajes</a>
+						<a class="navbar-brand" href="">Prenómina</a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="sr-only">Toggle navigation</span>
@@ -185,51 +187,67 @@ include "assets/php/main_admin.php";
 			</nav>
 			<!-- End Navbar -->
 			<div class="content">
-				<div class="barra">
-					<input class="busqueda-texto" type="text" placeholder="Busqueda . . ." onkeyup="buscar();">
-					<div class="busqueda-icono">
-						<i class="material-icons">search</i>
+				<div id="barra"></div>
+				<div id="msn-caja" class="container-fluid msn-caja">
+					<div class="card">
+						<div class="card-body">
+						<div class="msn-mostrar">
+							<?php
+							if (rol() != 2) {
+								echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Prenomina</button>';
+							}
+							?>
+						</div>
+						</div>
 					</div>
-				</div>
-				<div class="container-fluid">
-					<div class="msn-caja-chat"></div>
+					<div class="table-responsive">
+						<table id="tabla-prenomina" class="table table-striped" style="width:100%">
+							<thead class="text-primary">
+								<tr>
+									<th class="">Fecha de elaboración</th>
+									<th class="">Periodo</th>
+									<th class="oculto">Observaciones</th>
+									<th class="">Descargar</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 
 			<footer class="footer">
+				<div class="chat_fondo"></div>
+				<div class="chat">
+					<i class="material-icons">chat</i>
+				</div>
 
+				<div class="chat_caja">
+					<div class="chat_cerrar">x</div>
+					<div class="chat_cuerpo"></div>
+					<div class="chat_input">
+						<textarea id="chat-input" placeholder="Escribe tu mensaje" rows="1"></textarea>
+						<i class="material-icons text-success chat_enviar">send</i>
+					</div>
+				</div>
 			</footer>
 		</div>
 	</div>
-	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap-material-design.min.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-
-
-
-
-
-
-
-	<!-- Chartist JS -->
-
-	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="assets/js/material-dashboard.js?v=3.1.5" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js" type="text/javascript"></script>
+	<script src="assets/js/datepicker.min.js"></script>
+	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/sesion.js?v=3.1.5"></script>
-	<script src="assets/js/mensajes.js?v=3.1.5?v=3.1.5"></script>
-
+	<script src="assets/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+    <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+	<script src="assets/js/prenomina.js?v=3.1.5"></script>
+	<script src="assets/js/mensajes.js?v=3.1.5"></script>
 
 </body>
 

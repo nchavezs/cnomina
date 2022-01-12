@@ -200,17 +200,32 @@ function mensaje_cargar() {
 };
 
 function select_estilo() {
-   tail.select("select:not(.dataTables_length select)", {
+   tail.select("select", {
       locale: "es",
       animate: true,
       classNames: ["form-control"],
       width: "100%",
       search: true,
+      descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN",
       // items: {
       //     "": "SELECCIONA UNA OPCIÓN"
       // }
    });
+
+   $(".dropdown-optgroup").perfectScrollbar();
+};
+
+function select_estilo_2() {
+   tail.select("select", {
+      animate: true,
+      classNames: ["form-control"],
+      width: "100%",
+      search: false,
+      placeholder: "SELECCIONA UNA OPCIÓN"
+   });
+
+   $(".dropdown-optgroup").perfectScrollbar();
 };
 
 function select_change() {
@@ -274,3 +289,12 @@ function log_show(html) {
        allowEscapeKey: false
    });
 }
+
+$(document).on("click", '.cb-value', function () {
+   var mainParent = $(this).parent('.toggle-btn');
+   if ($(mainParent).find('input.cb-value').is(':checked')) {
+       $(mainParent).addClass('active');
+   } else {
+       $(mainParent).removeClass('active');
+   }
+});

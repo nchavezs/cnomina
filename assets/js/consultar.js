@@ -22,7 +22,7 @@ $(document).ready(function () {
                 
             },{
                 "render": function (data, type, row) {
-                    return '<span class="tipo">'+row.fecha_pago+'</span>';
+                    return '<span class="tipo">'+row.del+' - '+row.al+'</span>';
                 }
             },
             {
