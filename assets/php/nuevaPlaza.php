@@ -62,10 +62,10 @@ echo '<form id="form-plaza">
 
 echo '<div class="row">
         <div class="col-6">
-            <div id="salir" class="btn btn-primary regresar"><i class="material-icons">arrow_back</i> Regresar </div>
+            <div id="salir" class="btn btn-secondary btn-sm regresar "><i class="material-icons">arrow_back</i> Regresar </div>
             </div>
         <div class="col-6">
-            <button type="submit" class="btn btn-primary regresar" ><i class="material-icons">thumb_down_alt</i> Guardar </button>
+            <button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">thumb_down_alt</i> Guardar </button>
         </div>
     </div>
 </form>';

@@ -108,11 +108,11 @@
 
 	echo '<div class="row">
 			<div class="col-6">
-				<div class="btn btn-primary regresar" id="'.$RFC.'" onclick="verMovimientos(this.id);"><i
+				<div class="btn btn-secondary btn-sm regresar " id="'.$RFC.'" onclick="verMovimientos(this.id);"><i
 						class="material-icons">arrow_back</i> Regresar </div>
 			</div>
 			<div class="col-6">
-				<div class="btn btn-primary regresar" id="form-movimiento"><i class="material-icons">save</i> Guardar </div>
+				<div class="btn btn-secondary btn-sm regresar " id="form-movimiento"><i class="material-icons">save</i> Guardar </div>
 			</div>
 		</div>';
 

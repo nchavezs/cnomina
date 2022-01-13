@@ -40,10 +40,10 @@
 
 	echo '<div class="row">
 				<div class="col-6">
-					<div class="btn btn-primary regresar" id="'.$id.'" onclick="ver(this.id,1);"><i class="material-icons">arrow_back</i> Regresar </div>
+					<div class="btn btn-secondary btn-sm regresar " id="'.$id.'" onclick="ver(this.id,1);"><i class="material-icons">arrow_back</i> Regresar </div>
 					</div>
 				<div class="col-6">
-					<button type="submit" class="btn btn-primary regresar" ><i class="material-icons">thumb_up_alt</i> Continuar </button>
+					<button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">thumb_up_alt</i> Continuar </button>
 				</div>
 			</div>
 		</form>';

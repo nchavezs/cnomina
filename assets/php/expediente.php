@@ -193,7 +193,7 @@ echo '</div>
 
 echo '<div class="row">
         <div class="col-12">
-            <div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
+            <div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
         </div>
     </div>';
 

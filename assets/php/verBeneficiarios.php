@@ -48,6 +48,6 @@ echo '</tbody>
 	</div>
 </div>';
 
-echo '<div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i>Regresar</div>';
+echo '<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i>Regresar</div>';
 
 mysqli_close($conexion);

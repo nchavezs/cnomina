@@ -50,7 +50,7 @@ if (mysqli_num_rows($consulta) == 0) {
 						<p id="' . $id . '-" onclick="vacacion(this.id);">Asignar dias</p>
 					</div>
 				</div>';
-    echo '<div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
+    echo '<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
 } else {
     echo '<div class="row">
 					<div class="col-3">
@@ -78,10 +78,10 @@ if (mysqli_num_rows($consulta) == 0) {
 
     echo '<div class="row">
 					<div class="col-6">
-						<div class="btn btn-primary regresar" id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
+						<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
 						</div>
 					<div class="col-6">
-						<div class="btn btn-primary regresar" id="' . $id . '-" onclick="vacacion(this.id)"><i class="material-icons">add</i> Nuevo </div>
+						<div class="btn btn-secondary btn-sm regresar " id="' . $id . '-" onclick="vacacion(this.id)"><i class="material-icons">add</i> Nuevo </div>
 						</div>
 					</div>
 				</div>';

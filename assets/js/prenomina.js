@@ -43,40 +43,60 @@ $(document).ready(function () {
     });
 });
 
-var valor1 = "";
-var valor2 = "";
-var check1 = 0;
-
-$("#check1").change(function () {
-    if ($(this).is(':checked')) {
-        check1 = 1;
-    } else {
-        check1 = 0;
-    }
-});
-
 function nueva_prenomina() {
     $.post("assets/php/nuevaPrenomina.php").done(function (html) {
         Swal.fire({
             html: html,
             allowOutsideClick: false,
             showConfirmButton: false,
-            width: "50em"
+            width: "55em"
         });
 
         select_estilo();
+        ultima_prenomina();
 
         $('#del').datepicker({
             maxDate: new Date(),
             language: 'es',
             autoClose: 'true',
-            position: "top center",
+            position: "bottom center",
             todayButton: new Date(),
             onSelect(formattedDate, date, inst) {
-                if (date == '')
-                    $('#del').val(valor1);
-                else
-                    valor1 = formattedDate;
+                $('#del').change();
+            }
+        });
+
+        $("#del").change(function () {
+            let dias = 13;
+            if($("#periodo").val() == "MENSUAL"){
+                dias = 29;
+            }
+            let al = moment( this.value, "DD/MM/YYYY").add(dias,"days").format("DD/MM/YYYY");
+            $("#al").val(al);
+        });
+
+        $("#periodo").change(function () {
+            ultima_prenomina();
+        });
+
+        $("#check1").click(function () {
+            if ($(this).is(':checked')) {
+                ultima_prenomina();
+                $("#del").prop("disabled", true);
+                $("#al").prop("disabled", true);
+            } else {
+                $("#del").prop("disabled", false);
+                $("#al").prop("disabled", false);
+            }
+        });
+
+        $('#al').datepicker({
+            maxDate: new Date(),
+            language: 'es',
+            autoClose: 'true',
+            position: "bottom center",
+            todayButton: new Date(),
+            onSelect(formattedDate, date, inst) {
             }
         });
 
@@ -87,6 +107,26 @@ function nueva_prenomina() {
     });
 };
 
+function ultima_prenomina() {
+    $.ajax({
+        url: "assets/php/ultima_prenomina.php",
+        method: "POST",
+        data: {
+            periodo: $("#periodo").val()
+        },
+        success: function (data) {
+            let dias = 13;
+            if($("#periodo").val() == "MENSUAL"){
+                dias = 29;
+            }
+            let del = moment(data, "DD/MM/YYYY").format("DD/MM/YYYY");
+            let al = moment(data, "DD/MM/YYYY").add(dias,"days").format("DD/MM/YYYY");
+            $("#del").val(del);
+            $("#al").val(al);
+        }
+    });
+}
+
 function prenomina() {
     $.ajax({
         url: "assets/php/prenomina.php",
@@ -94,7 +134,8 @@ function prenomina() {
         data: {
             del: $("#del").val(),
             al: $("#al").val(),
-            observacion: $("#observacion").val()
+            observacion: $("#observacion").val(),
+            periodo: $("#periodo").val()
         },
         success: function (data) {
             if (data == 1) {

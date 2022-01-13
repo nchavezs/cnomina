@@ -53,16 +53,16 @@ if ($varFoto != null) {
 							<p>Empleados</p>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="./prenomina">
-							<i class="material-icons">receipt_long</i>
-							<p>Prenómina</p>
-						</a>
-					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
 							<i class="material-icons">person_pin</i>
 							<p>Perfil</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./prenomina">
+							<i class="material-icons">receipt_long</i>
+							<p>Prenómina</p>
 						</a>
 					</li>
 					<li class="nav-item">

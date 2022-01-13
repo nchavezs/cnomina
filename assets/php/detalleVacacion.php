@@ -49,7 +49,7 @@
 
 							 <div class="row">
 								<div class="col-12">
-									<div class="btn btn-primary regresar" id="'.$vacacion[1].'" onclick="verVacaciones(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
+									<div class="btn btn-secondary btn-sm regresar " id="'.$vacacion[1].'" onclick="verVacaciones(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
 								</div>
 							 </div>';
 

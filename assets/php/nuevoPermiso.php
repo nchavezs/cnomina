@@ -92,10 +92,10 @@
 
 	echo '<div class="row">
 				<div class="col-6">
-					<div class="btn btn-primary regresar" id="'.$id[0].'" onclick="verPermisos(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
+					<div class="btn btn-secondary btn-sm regresar " id="'.$id[0].'" onclick="verPermisos(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
 				</div>
 				<div class="col-6">
-					<button type="submit" class="continuar btn btn-primary regresar" id="'.$id[0].'-" ><i class="material-icons">save</i> Guardar </button>
+					<button type="submit" class="continuar btn btn-secondary btn-sm regresar " id="'.$id[0].'-" ><i class="material-icons">save</i> Guardar </button>
 				</div>
 			</div>
 		</form>';

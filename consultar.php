@@ -50,12 +50,6 @@ if (rol() == 2) {
 							<p>Empleados</p>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="./prenomina">
-							<i class="material-icons">receipt_long</i>
-							<p>Prenómina</p>
-						</a>
-					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
 							<i class="material-icons">person_pin</i>
@@ -63,6 +57,21 @@ if (rol() == 2) {
 						</a>
 					</li>
 					<?php
+					 if (rol() == 2) {
+						echo '<li class="nav-item">
+							  <a class="nav-link" href="#" onclick="no_pasar();">
+								  <i class="material-icons">lock</i>
+								  <p>Prenómina</p>
+							  </a>
+						  </li>';
+					 } else {
+						echo '<li class="nav-item">
+							  <a class="nav-link" href="./prenomina">
+							  <i class="material-icons">receipt_long</i>
+							  <p>Prenómina</p>
+						   </a>
+						</li>';
+					 }
 					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">

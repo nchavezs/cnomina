@@ -208,7 +208,6 @@ function fecha_presupuesto(dias) {
     return fecha;
 }
 
-
 function dias_ano() {
     var d1 = moment("01-01" + moment().year(), "D/M/YYYY");
     var d2 = moment("01-01" + (moment().year() + 1), "D/M/YYYY");

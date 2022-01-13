@@ -32,10 +32,10 @@ echo '<form id="form-periodo">
 
 			<div class="row">
 				<div class="col-6">
-					<div class="btn btn-primary regresar" onclick="cerrar();"><i class="material-icons">arrow_back</i> Cancelar </div>
+					<div class="btn btn-secondary btn-sm regresar " onclick="cerrar();"><i class="material-icons">arrow_back</i> Cancelar </div>
 				</div>
 				<div class="col-6">
-					<button type="submit" class="btn btn-primary regresar" ><i class="material-icons">delete</i> Eliminar </button>
+					<button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">delete</i> Eliminar </button>
 				</div>
 			</div>
 		</form>';

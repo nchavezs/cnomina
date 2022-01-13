@@ -50,6 +50,7 @@ CREATE TABLE Prenomina(
 	al DATE NOT NULL,
 	url VARCHAR(100),
 	observacion VARCHAR(255),
+	periodo VARCHAR(50),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

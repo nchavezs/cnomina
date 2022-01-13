@@ -46,7 +46,7 @@
 
 							 <div class="row">
 								<div class="col-12">
-									<div class="btn btn-primary regresar" id="'.$gastos[1].'" onclick="verGastos(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
+									<div class="btn btn-secondary btn-sm regresar " id="'.$gastos[1].'" onclick="verGastos(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
 								</div>
 							 </div>';
 

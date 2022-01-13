@@ -44,11 +44,11 @@ echo '<form id="formulario-chat">
 			<br><br>
 			<div class="row">
 				<div class="col-6">
-					<div class="btn btn-primary regresar" onclick="cancelar();"><i class="material-icons">arrow_back</i>
+					<div class="btn btn-secondary btn-sm regresar " onclick="cancelar();"><i class="material-icons">arrow_back</i>
 						Cancelar </div>
 				</div>
 				<div class="col-6">
-					<button type="submit" class="btn btn-primary regresar"><i class="material-icons">send</i> Enviar </button>
+					<button type="submit" class="btn btn-secondary btn-sm regresar "><i class="material-icons">send</i> Enviar </button>
 				</div>
 			</div>
 		</form>';

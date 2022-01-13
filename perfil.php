@@ -66,6 +66,21 @@ if ($resultadoUsuario) {
                   </a>
                </li>
                <?php
+                if (rol() == 2) {
+                  echo '<li class="nav-item">
+						<a class="nav-link" href="#" onclick="no_pasar();">
+							<i class="material-icons">lock</i>
+							<p>Prenómina</p>
+						</a>
+					</li>';
+               } else {
+                  echo '<li class="nav-item">
+						<a class="nav-link" href="./prenomina">
+                        <i class="material-icons">receipt_long</i>
+                        <p>Prenómina</p>
+                     </a>
+                  </li>';
+               }
                if (rol() == 2) {
                   echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
@@ -81,8 +96,6 @@ if ($resultadoUsuario) {
 							</a>
 						</li>';
                }
-               ?>
-               <?php
                if (rol() == 2) {
                   echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
@@ -281,7 +294,7 @@ if ($resultadoUsuario) {
                              
                            </div>
                            <div class="card-footer">
-                             <button type="submit" class="btn btn-primary regresar btn-sm"><i class="material-icons">save</i>
+                             <button type="submit" class="btn btn-primary btn-sm regresar  btn-sm"><i class="material-icons">save</i>
                                  Actualizar información </button>
                              </div>
                         </form>

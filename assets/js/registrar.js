@@ -2835,8 +2835,8 @@ function eliminar_archivo(id, tabla) {
 }
 
 function diferencia_fecha(fecha1, fecha2) {
-    var a = moment(fecha1, 'D/M/YYYY').subtract(1, 'days');;
-    var b = moment(fecha2, 'D/M/YYYY');
+    var a = moment(fecha1, 'DD/MM/YYYY').subtract(1, 'days');;
+    var b = moment(fecha2, 'DD/MM/YYYY');
     var diffDays = b.diff(a, 'days');
     if (diffDays <= 0)
         diffDays = 0;

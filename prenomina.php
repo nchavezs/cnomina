@@ -53,12 +53,6 @@ if (rol() == 2) {
 							<p>Empleados</p>
 						</a>
 					</li>
-					<li id="link1" class="nav-item active">
-						<a class="nav-link" href="./prenomina">
-							<i class="material-icons">receipt_long</i>
-							<p>Prenómina</p>
-						</a>
-					</li>
 					<li class="nav-item ">
 						<a class="nav-link" href="./perfil">
 							<i class="material-icons">person_pin</i>
@@ -66,6 +60,21 @@ if (rol() == 2) {
 						</a>
 					</li>
 					<?php
+					 if (rol() == 2) {
+						echo '<li class="nav-item">
+							  <a class="nav-link" href="#" onclick="no_pasar();">
+								  <i class="material-icons">lock</i>
+								  <p>Prenómina</p>
+							  </a>
+						  </li>';
+					 } else {
+						echo '<li id="link1" class="nav-item active">
+							  <a class="nav-link" href="./prenomina">
+							  <i class="material-icons">receipt_long</i>
+							  <p>Prenómina</p>
+						   </a>
+						</li>';
+					 }
 					if (rol() == 2) {
 						echo '<li class="nav-item">
 						<a class="nav-link" href="#" onclick="no_pasar();">
@@ -241,6 +250,7 @@ if (rol() == 2) {
 	<script src="assets/js/material-dashboard.js" type="text/javascript"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
+	<script src="assets/js/moment.js"></script>
 	<script src="assets/js/sesion.js?v=3.1.5"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
