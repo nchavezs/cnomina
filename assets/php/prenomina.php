@@ -1,15 +1,21 @@
 <?php
+require '../../vendor/autoload.php';
 include "conexion.php";
-$conexion = conexion();
-$mes = $_POST["mes"];
-$ano = $_POST["ano"];
-$periodo = $_POST["periodo"];
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 date_default_timezone_set('America/Mexico_City');
 setlocale(LC_TIME, 'es_CO.UTF-8');
 
-require '../../vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+$conexion = conexion();
+$del = $_POST["del"];
+$al = $_POST["al"];
+$observacion = $_POST["observacion"];
+$periodo = $_POST["periodo"];
+
+$ruta = './../prenominas/';
+if (!file_exists($ruta)) {
+    mkdir($ruta, 0777, true);
+}
 
 function dias_paga($val, $array)
 {
@@ -864,10 +870,21 @@ $spreadsheet->getActiveSheet()->setAutoFilter('A2:J2');
 
 #------------------------------------------------------------------------------------------
 
+$file = uniqid().".xlsx";
+$ruta = $ruta . $id;
+$writer = new Xlsx($spreadsheet);
+$writer->save($ruta);
 
+$sql = "INSERT INTO Prenomina(del, al, periodo, observacion, url) VALUES(
+    STR_TO_DATE('".$del."','%d/%m/%Y'),
+    STR_TO_DATE('".$al."','%d/%m/%Y'),
+    '".$periodo."',
+    '".$observacion."',
+    '".$url."'
+)";
+
+$consulta = mysqli_query($conexion, $sql);
 
 mysqli_close($conexion);
-$writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/prenomina.xlsx');
-echo "assets/archivos/prenomina.xlsx";
+echo 'assets/prenominas/' . $file;
 exit();
