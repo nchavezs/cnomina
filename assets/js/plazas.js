@@ -120,6 +120,7 @@ function nueva_plaza() {
         });
 
         $("#dias").on("keyup", function (event) {
+            console.log(1);
             if (this.value > dias_ano()) {
                 this.value = dias_ano();
             } else if (this.value < 1) {

@@ -23,10 +23,22 @@ $sql = "SELECT RFC FROM Usuario WHERE RFC = '" . $RFC . "'";
 $consulta = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($consulta) == 0) {
     $sql = "INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, rfc, curp, fechaRelLab, puesto,
-    departamento, banca, afiliacion, apellidop, apellidom, nombres, tipoTrabajador) VALUES(" . $id_usuario .
-        ", 'user', '" . $password . "', '" . $nombreEmpleado . "', '" . $RFC . "', '" . $CURP . "', '" .
-        $fechaRelLab . "', '" . $puesto . "', '" . $departamento . "', NULLIF('" . $banca . "', ''), NULLIF('" .
-        $afiliacion . "',''), '" . $apellidop . "' , '" . $apellidom . "', '" . $nombres . "', '" . $trabajador . "')";
+    departamento, banca, afiliacion, apellidop, apellidom, nombres, tipoTrabajador) VALUES(
+    " . $id_usuario .",
+    'user',
+    '" . $password . "',
+    '" . $nombreEmpleado . "',
+    '" . $RFC . "',
+    '" . $CURP . "',
+    '" .$fechaRelLab . "',
+    '" . $puesto . "',
+    '" . $departamento . "',
+    NULLIF('" . $banca . "', ''),
+    NULLIF('" .   $afiliacion . "',''),
+    '" . $apellidop . "' ,
+    '" . $apellidom . "',
+    '" . $nombres . "',
+    '" . $trabajador . "')";
 
     if (mysqli_query($conexion, $sql)) {
         // if ($archivo !== "") {

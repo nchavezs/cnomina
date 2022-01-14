@@ -17,28 +17,36 @@ $(document).ready(function () {
             document.querySelector('.content').scrollTop = 1;
         },
         "columnDefs": [{
-                "className": "font-weight-bold",
-                "targets": [0]
+                "className": "oculto",
+                "targets": [2, 3]
             },
             {
                 "orderable": false,
-                "targets": [3]
+                "targets": [4]
+            }, {
+                "className": "font-weight-bold",
+                "targets": [0]
             }
         ],
         "columns": [{
-                "data": "elaboracion"
+                "render": function (data, type, row) {
+                    return '<a class="">' + row.del + ' ➟ ' + row.al + '</a>';
+                }
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.del + ' - ' + row.al + '</a>';
-                }
-            }, {
-                "data": "observaciones"
-            }, {
-                "render": function (data, type, row) {
-                    return '<a href="' + row.url + '" download><i class="material-icons btn1">download</i></a>';
+                    return '<a class="tipo">' + row.periodo + '</a>';
                 }
             },
+            {
+                "data": "observacion"
+            }, {
+                "data": "elaboracion"
+            }, {
+                "render": function (data, type, row) {
+                    return '<i class="material-icons btn1-danger" onclick="' + "descargar('" + row.url + "','Prenomina')" + ';">download</i>';
+                }
+            }
         ]
     });
 });
@@ -62,18 +70,16 @@ function nueva_prenomina() {
             position: "bottom center",
             todayButton: new Date(),
             onSelect(formattedDate, date, inst) {
-                $('#del').change();
+                let dias = 13;
+                if ($("#periodo").val() == "MENSUAL") {
+                    dias = 29;
+                }
+                let al = moment(formattedDate, "DD/MM/YYYY").add(dias, "days").format("DD/MM/YYYY");
+                $("#al").val(al);
             }
         });
 
-        $("#del").change(function () {
-            let dias = 13;
-            if($("#periodo").val() == "MENSUAL"){
-                dias = 29;
-            }
-            let al = moment( this.value, "DD/MM/YYYY").add(dias,"days").format("DD/MM/YYYY");
-            $("#al").val(al);
-        });
+
 
         $("#periodo").change(function () {
             ultima_prenomina();
@@ -91,13 +97,12 @@ function nueva_prenomina() {
         });
 
         $('#al').datepicker({
-            maxDate: new Date(),
+            minDate: new Date(),
             language: 'es',
             autoClose: 'true',
             position: "bottom center",
             todayButton: new Date(),
-            onSelect(formattedDate, date, inst) {
-            }
+            onSelect(formattedDate, date, inst) {}
         });
 
         $("#form-prenomina").on("submit", function (e) {
@@ -115,12 +120,12 @@ function ultima_prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            let dias = 13;
-            if($("#periodo").val() == "MENSUAL"){
-                dias = 29;
+            let dias = 14;
+            if ($("#periodo").val() == "MENSUAL") {
+                dias = 30;
             }
-            let del = moment(data, "DD/MM/YYYY").format("DD/MM/YYYY");
-            let al = moment(data, "DD/MM/YYYY").add(dias,"days").format("DD/MM/YYYY");
+            let del = moment(data, "DD/MM/YYYY").add(1, "days").format("DD/MM/YYYY");
+            let al = moment(data, "DD/MM/YYYY").add(dias, "days").format("DD/MM/YYYY");
             $("#del").val(del);
             $("#al").val(al);
         }
@@ -138,7 +143,8 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            if (data == 1) {
+            console.log(data);
+            if (data != 0) {
                 Swal.fire({
                     title: 'Correcto',
                     text: 'Registro agregado',

@@ -34,14 +34,14 @@ echo '<div class="formulario row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="select-etiqueta">Del</div>
-									<input id="del" type="text" readonly class="form-control datepicker-here" value="" required/>
+									<input id="del" type="text" readonly class="form-control" value="" required/>
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="select-etiqueta ">Al</div>
-									<input id="al" type="text" disabled readonly class="form-control datepicker-here" value="" required/> 
+									<input id="al" type="text" disabled readonly class="form-control" value="" required/> 
 								</div>
 							</div>
 							<div class="col-md-12">

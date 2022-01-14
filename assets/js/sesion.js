@@ -3,8 +3,7 @@ var total = -1;
 
 var numero_evento = null;
 
-$(document).ready(
-   function () {
+$(document).ready( function () {
       numero();
       numero_evento = setInterval(numero, 10000);
 
@@ -239,7 +238,9 @@ function select_change() {
          success: function (data) {
             $("#puesto").html(data);
             tail.select("#puesto").reload();
-            puesto_on_change();
+            if(document.getElementById( "plaza")){
+               puesto_on_change();
+            }
          }
       });
    });

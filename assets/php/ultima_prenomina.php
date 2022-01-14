@@ -8,9 +8,9 @@ $sql = "SELECT * FROM Prenomina WHERE YEAR(al) = ".$ano." AND periodo = '".$peri
 $consulta = mysqli_query($conexion, $sql);
 if($consulta && mysqli_num_rows($consulta) > 0){
 	$prenomina = mysqli_fetch_array($consulta);
-	echo date("d/m/Y", strtotime($historial["al"]));
+	echo date("d/m/Y", strtotime($prenomina["al"]));
 }else{
-	echo "01/01/".$ano;
+	echo "31/12/". ($ano - 1) ;
 }
 
 mysqli_close($conexion);

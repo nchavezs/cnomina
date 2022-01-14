@@ -220,9 +220,9 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/moment.js"></script>
-    <script src="assets/js/plazas.js?v=3.1.5"></script>
     <script src="assets/js/sesion.js?v=3.1.5"></script>
     <script src="assets/js/mensajes.js?v=3.1.5"></script>
+    <script src="assets/js/plazas.js?v=3.1.5"></script>
 
 </body>
 

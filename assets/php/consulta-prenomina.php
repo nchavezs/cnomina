@@ -2,7 +2,7 @@
 include "conexion.php";
 $conexion = conexion();
 
-$sql = "SELECT * FROM Prenomina";
+$sql = "SELECT * FROM Prenomina ORDER BY al DESC";
 $resultado = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';

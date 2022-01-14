@@ -213,9 +213,10 @@ if (rol() == 2) {
 						<table id="tabla-prenomina" class="table table-striped" style="width:100%">
 							<thead class="text-primary">
 								<tr>
-									<th class="">Fecha de elaboración</th>
 									<th class="">Periodo</th>
+									<th class="">Tipo de periodo</th>
 									<th class="oculto">Observaciones</th>
+									<th class="oculto">Fecha de elaboración</th>
 									<th class="">Descargar</th>
 								</tr>
 							</thead>

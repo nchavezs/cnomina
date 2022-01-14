@@ -72,8 +72,7 @@ echo '<div class="formulario row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="select-etiqueta ">Fecha de ingreso</div>
-									<input id="ingreso" type="text" class="form-control datepicker-here"
-										value="' . $hoy . '" readonly value="'.$res["fechaRelLab"].'" />
+									<input id="ingreso" type="text" class="form-control" readonly value="'.$res["fechaRelLab"].'" />
 								</div>
 							</div>
 						</div>

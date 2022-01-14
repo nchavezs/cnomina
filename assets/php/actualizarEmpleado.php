@@ -38,7 +38,7 @@ if ($rol != 1) {
     tipoTrabajador = '" . $trabajador . "',
     fechaRelLab = '" . $ingreso . "' 
     WHERE RFC = '" . $RFC . "'";
-
+    
     if (mysqli_query($conexion, $sql)) {
         echo 1;
     } else {
