@@ -19,11 +19,11 @@ if (rol() == 2) {
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="assets/css/material-dashboard.css?v=3.1.5" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.1.8" rel="stylesheet" />
 	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.1.5" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.1.8" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -252,13 +252,13 @@ if (rol() == 2) {
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/moment.js"></script>
-	<script src="assets/js/sesion.js?v=3.1.5"></script>
+	<script src="assets/js/sesion.js?v=3.1.8"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
-	<script src="assets/js/prenomina.js?v=3.1.5"></script>
-	<script src="assets/js/mensajes.js?v=3.1.5"></script>
+	<script src="assets/js/prenomina.js?v=3.1.8"></script>
+	<script src="assets/js/mensajes.js?v=3.1.8"></script>
 
 </body>
 
