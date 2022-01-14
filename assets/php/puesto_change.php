@@ -5,7 +5,7 @@ $puesto = $_POST["puesto"];
 $ano = date("Y");
 $hoy = date("Y-m-d");
 
-$sql = "SELECT * FROM Plaza WHERE id_puesto = " . $puesto . " ORDER BY elaboracion";
+$sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE Plaza.id_puesto = " . $puesto . " ORDER BY Plaza.elaboracion";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
@@ -30,9 +30,9 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         }
 
         if($res["RFC"] != null){
-            echo '<option disabled data-description="'.$vacantes.' días vacantes" value="' . $res[0] . '">PLAZA #' . $res[0] .'</option>';
+            echo '<option disabled data-description="'.$res["nombre"].'" value="' . $res["id_plaza"] . '">PLAZA OCUPADA</option>';
         }else{
-            echo '<option data-description="'.$vacantes.' días vacantes" value="' . $res[0] . '">PLAZA #' . $res[0] .'</option>';
+            echo '<option data-description="'.$vacantes.' días vacantes" value="' . $res["id_plaza"] . '">PLAZA #'.$res["id_plaza"].'</option>';
         }
     }
 } else {
