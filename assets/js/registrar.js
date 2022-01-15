@@ -228,7 +228,8 @@ $(document).ready(function () {
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
-                            "plaza": $("#plaza").val()
+                            "plaza": $("#plaza").val(),
+                            "periodo": $("#periodo").val()
                             // "archivo": $("#archivo").val()
                         },
                         success: function (data) {
@@ -2502,8 +2503,8 @@ function editar_usuario(id, event) {
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
                             "trabajador": $("#trabajador").val(),
-                            // "archivo": $("#archivo").val(),
-                            "ingreso": $("#ingreso").val()
+                            "ingreso": $("#ingreso").val(),
+                            "periodo": $("#periodo").val()
                         },
                         success: function (data) {
                             $('#tabla-empleado').DataTable().ajax.reload();
@@ -2520,8 +2521,6 @@ function editar_usuario(id, event) {
                                     title: 'Error',
                                     text: 'Datos de empleado no actualizados',
                                     type: 'error',
-
-
                                 })
                             }
                         }

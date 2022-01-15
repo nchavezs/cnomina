@@ -84,7 +84,7 @@ echo '<div class="formulario row">
 				<form id="form-empleado-2" class="pagina_2 adp-hide">
 					<div class="card">
 						<div class="row card-body">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="select">
 									<div class="select-etiqueta">Tipo de trabajador</div>
 									<select id="trabajador">';
@@ -92,6 +92,18 @@ echo '<div class="formulario row">
 									$consulta = mysqli_query($conexion, $sql);
 									while ($res2 = mysqli_fetch_row($consulta)) {
 										echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
+									}
+									echo '</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="select">
+									<div class="select-etiqueta">Tipo de periodo</div>
+									<select id="periodo">';
+									$sql = "SELECT * FROM Periodo ORDER BY nombre ASC";
+									$consulta = mysqli_query($conexion, $sql);
+									while ($res2 = mysqli_fetch_row($consulta)) {
+										echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
 									}
 									echo '</select>
 								</div>

@@ -25,10 +25,13 @@ echo '<div class="formulario row">
 							<div class="col-md-12">
 								<div class="select">
 									<div class="select-etiqueta">Periodo</div>
-									<select id="periodo" class="">
-										<option value="CATORCENAL">CATORCENAL</option>
-										<option value="MENSUAL">MENSUAL</option>
-									</select>
+									<select id="periodo" class="">';
+									$sql = "SELECT * FROM Periodo";
+									$consulta = mysqli_query($conexion,$sql);
+									while($res = mysqli_fetch_array($consulta)){
+										echo '<option value="'.$res["id_periodo"].'">'.$res["nombre"].'</option>';
+									}
+									echo '</select>
 								</div>
 							</div>
 							<div class="col-md-6">

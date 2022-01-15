@@ -68,7 +68,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $diff = $fecha1->diff($fecha2);
     $dias_pago = $diff->format('%a') + 1;
 
-    $sql = "SELECT * FROM Usuario WHERE categoria = 'user' AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+    $sql = "SELECT * FROM Usuario LEFT JOIN Plaza On Usuario.RFC = Plaza WHERE categoria = 'user' AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
     $consulta = mysqli_query($conexion, $sql);
 
     while ($usuario = mysqli_fetch_array($consulta)) {

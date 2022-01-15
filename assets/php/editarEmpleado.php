@@ -86,7 +86,7 @@ echo '<div class="formulario row">
 				<form id="form-empleado-2" class="pagina_2 adp-hide">
 					<div class="card">
 						<div class="row card-body">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="select">
 									<div class="select-etiqueta">Tipo de trabajador</div>
 									<select id="trabajador">';
@@ -108,7 +108,27 @@ echo '<div class="formulario row">
 											echo '>' . $res2[1] . '</option>';
 										}
 									} else {
-										echo '<option selected="true" value="">NO HAY OPCIONES DISPONIBLES</option>';
+										echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
+									}
+									echo '</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="select">
+									<div class="select-etiqueta">Tipo de periodo</div>
+									<select id="periodo">';
+									$sql = "SELECT * FROM Periodo ORDER BY nombre ASC";
+									$consulta = mysqli_query($conexion, $sql);
+									if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+										while ($res2 = mysqli_fetch_row($consulta)) {
+											echo '<option value="' . $res2[0] . '" ';
+											if ($res['id_periodo'] == $res2[0]) {
+												echo 'selected';
+											}
+											echo '>' . $res2[1] . '</option>';
+										}
+									} else {
+										echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
 									}
 									echo '</select>
 								</div>

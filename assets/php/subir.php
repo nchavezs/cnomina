@@ -136,11 +136,9 @@ if ($posdias1 !== false) {
 }
 
 if (strpos($pdf, 'Catorcenal') !== false) {
-   $periodo = "CATORCENAL";
+   $periodo = 1;
 } else if(strpos($pdf, 'Mensual') !== false) {
-    $periodo = "MENSUAL";
-}else if(strpos($pdf, 'Quincenal') !== false) {
-    $periodo = "QUINCENAL";
+    $periodo = 2;
 }else{
     $periodo = "";
 }
@@ -197,7 +195,7 @@ $total = mysqli_num_rows($consulta);
 
 if ($total == 0) {
     if (validar_fecha($del) && validar_fecha($al) && validar_fecha($pago) && $periodo != "") {
-        $sql = "INSERT INTO Archivo(del, al,fecha_pago,nombre, url, RFC, puesto, departamento, dias_pago, periodo) VALUES(
+        $sql = "INSERT INTO Archivo(del, al,fecha_pago,nombre, url, RFC, puesto, departamento, dias_pago, id_periodo) VALUES(
             STR_TO_DATE('" . $del . "','%d/%m/%Y'),
             STR_TO_DATE('" . $al . "','%d/%m/%Y'),
             STR_TO_DATE('" . $pago . "','%d/%m/%Y'),
@@ -207,13 +205,13 @@ if ($total == 0) {
             '" . $puesto . "',
             '" . $depa . "',
             " . (int) $dias . ",
-            '".$periodo."'
+            ".$periodo."
         )";
 
         if (mysqli_query($conexion, $sql)) {
             if ($registrar_usuario == 1) {
                 $sql = "INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, RFC, CURP, fechaRelLab, 
-                puesto, departamento, apellidop, apellidom, nombres) VALUES(
+                puesto, departamento, apellidop, apellidom, nombres, id_periodo) VALUES(
                     " . $id . ",
                     'user',
                     '" . $password . "', 
@@ -225,7 +223,8 @@ if ($total == 0) {
                     '" . $depa . "', 
                     '" . $apellidop . "',
                     '" . $apellidom . "',
-                    '" . $nombres . "')";
+                    '" . $nombres . "',
+                    ".$periodo.")";
                 if (mysqli_query($conexion, $sql)) {
                 }
             }

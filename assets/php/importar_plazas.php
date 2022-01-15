@@ -90,6 +90,11 @@ for ($row = 2; $row <= $highestRow; ++$row) {
     $dias = eliminar_simbolos($datos[2]);
     $cantidad = eliminar_simbolos($datos[3]);
 
+    if($dias > 365)
+    $dias = 365;
+    else if($dias < 1)
+    $dias = 1;
+
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
     $consulta = mysqli_query($conexion, $sql);
 

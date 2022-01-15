@@ -71,7 +71,7 @@ function nueva_prenomina() {
             todayButton: new Date(),
             onSelect(formattedDate, date, inst) {
                 let dias = 13;
-                if ($("#periodo").val() == "MENSUAL") {
+                if ($("#periodo").val() == 2) {
                     dias = 29;
                 }
                 let al = moment(formattedDate, "DD/MM/YYYY").add(dias, "days").format("DD/MM/YYYY");
@@ -121,7 +121,7 @@ function ultima_prenomina() {
         },
         success: function (data) {
             let dias = 14;
-            if ($("#periodo").val() == "MENSUAL") {
+            if ($("#periodo").val() == 2) {
                 dias = 30;
             }
             let del = moment(data, "DD/MM/YYYY").add(1, "days").format("DD/MM/YYYY");

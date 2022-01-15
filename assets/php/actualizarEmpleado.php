@@ -6,10 +6,8 @@ $rol = rol();
 if ($rol != 1) {
     echo 2;
 } else {
-
     $conexion = conexion();
     $id_usuario = trim($_POST["id"]);
-    // $archivo = trim($_POST["archivo"]);
     $ingreso = trim($_POST["ingreso"]);
     $RFC = trim($_POST["rfc"]);
     $CURP = trim($_POST["curp"]);
@@ -22,6 +20,7 @@ if ($rol != 1) {
     $apellidop = trim(ucfirst(strtolower($_POST["apellidop"])));
     $trabajador = trim($_POST["trabajador"]);
     $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
+    $periodo = $_POST["periodo"];
 
     $sql = "SELECT * FROM Usuario WHERE RFC = '".$RFC."'";
     $consulta = mysqli_query($conexion, $sql);
@@ -30,13 +29,15 @@ if ($rol != 1) {
 
     $sql = "UPDATE Usuario SET 
     id_usuario = " . $id_usuario . ",
-    nombre = '" . $nombreEmpleado . "', CURP = '" . $CURP . "',
+    nombre = '" . $nombreEmpleado . "', 
+    CURP = '" . $CURP . "',
     banca = NULLIF('" . $banca . "', ''),
     afiliacion = NULLIF('" . $afiliacion . "',''),
     nombres = '" . $nombres . "', apellidop = '" . $apellidop . "',
     apellidom = '" . $apellidom . "',
     tipoTrabajador = '" . $trabajador . "',
-    fechaRelLab = '" . $ingreso . "' 
+    fechaRelLab = '" . $ingreso . "',
+    id_periodo = ".$periodo."  
     WHERE RFC = '" . $RFC . "'";
     
     if (mysqli_query($conexion, $sql)) {
