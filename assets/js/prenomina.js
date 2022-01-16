@@ -4,7 +4,7 @@ $(document).ready(function () {
         "lengthChange": false,
         "pageLength": 5,
         "order": [
-            [0, "desc"]
+            [3, "desc"]
         ],
         "language": {
             url: "assets/js/datatables/es.json"
@@ -35,7 +35,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.periodo + '</a>';
+                    return '<a class="tipo">' + row.nombre + '</a>';
                 }
             },
             {
@@ -44,7 +44,12 @@ $(document).ready(function () {
                 "data": "elaboracion"
             }, {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onclick="' + "descargar('" + row.url + "','Prenomina')" + ';">download</i>';
+                    return '<i class="material-icons btn1" onclick="' + "descargar('" + row.url + "','Prenomina')" + ';">download</i>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_prenomina + ', event);">delete</i>';
                 }
             }
         ]
@@ -143,7 +148,6 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            console.log(data);
             if (data != 0) {
                 Swal.fire({
                     title: 'Correcto',

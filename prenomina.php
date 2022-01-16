@@ -214,10 +214,11 @@ if (rol() == 2) {
 							<thead class="text-primary">
 								<tr>
 									<th class="">Periodo</th>
-									<th class="">Tipo de periodo</th>
+									<th class="oculto">Tipo de periodo</th>
 									<th class="oculto">Observaciones</th>
 									<th class="oculto">Fecha de elaboración</th>
 									<th class="">Descargar</th>
+									<th class="">Eliminar</th>
 								</tr>
 							</thead>
 						</table>

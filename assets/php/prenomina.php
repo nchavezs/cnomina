@@ -9,6 +9,8 @@ date_default_timezone_set('America/Mexico_City');
 setlocale(LC_TIME, 'es_CO.UTF-8');
 
 $conexion = conexion();
+$del_original = $_POST["del"];
+$al_original = $_POST["al"];
 $del = $_POST["del"];
 $al = $_POST["al"];
 $observacion = trim($_POST["observacion"]) ? : 'Sin observaciones';
@@ -59,7 +61,7 @@ function validar_fecha($date)
 if (validar_fecha($del) && validar_fecha($al)) {
 
     $descuentos = [];
-    $texto = " titulo";
+    $texto = " DEL ".$del_original." AL ".$al_original;
 
     $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
@@ -68,7 +70,11 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $diff = $fecha1->diff($fecha2);
     $dias_pago = $diff->format('%a') + 1;
 
-    $sql = "SELECT * FROM Usuario LEFT JOIN Plaza On Usuario.RFC = Plaza WHERE categoria = 'user' AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+    $sql = "SELECT * FROM Usuario WHERE 
+    categoria = 'user' AND 
+    id_periodo = ".$periodo." AND 
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+
     $consulta = mysqli_query($conexion, $sql);
 
     while ($usuario = mysqli_fetch_array($consulta)) {
@@ -82,9 +88,8 @@ if (validar_fecha($del) && validar_fecha($al)) {
             } else {
                 $paga = $dias_pago;
             }
-            echo $paga." - ";
         } else {
-            $sql1 = "SELECT fecha, dias FROM Baja WHERE RFC = '" . $usuario[8] . "' ORDER BY id_baja DESC LIMIT 1";
+            $sql1 = "SELECT fecha, dias FROM Baja WHERE RFC = '" . $usuario["RFC"] . "' ORDER BY id_baja DESC LIMIT 1";
             $consulta1 = mysqli_query($conexion, $sql1);
             $fecha_baja = mysqli_fetch_row($consulta1);
             if ($fecha_baja[1] == 1) {
@@ -104,7 +109,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
         $datos = [];
         $descontados = 0;
         $descontados_permiso = 0;
-        $sql1 = "SELECT fechas FROM Descuento WHERE RFC = '" . $usuario[8] . "'";
+        $sql1 = "SELECT fechas FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "'";
         if (($consulta1 = mysqli_query($conexion, $sql1)) && (mysqli_num_rows($consulta1) > 0)) {
             while ($resultado1 = mysqli_fetch_row($consulta1)) {
                 $fechas = explode(",", $resultado1[0]);
@@ -118,7 +123,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
             }
         }
 
-        $sql2 = "SELECT * FROM Permiso WHERE RFC = '" . $usuario[8] . "' AND categoria = 1 AND del <= '" . $al . "'";
+        $sql2 = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 1 AND del <= '" . $al . "'";
         if (($consulta2 = mysqli_query($conexion, $sql2)) && (mysqli_num_rows($consulta2) > 0)) {
             while ($resultado1 = mysqli_fetch_array($consulta2)) {
                 if ($resultado1['al'] >= $al) {
@@ -169,7 +174,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
         if ($descontados_permiso > $dias_pago)
             $descontados_permiso = $dias_pago;
 
-        $datos['id'] = $usuario[8];
+        $datos['id'] = $usuario["RFC"];
         $datos['paga'] = $paga;
         $datos['dias'] = $descontados;
         $datos['dias_permiso'] = $descontados_permiso;
@@ -259,7 +264,22 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('J2', 'DEPARTAMENTO ANTERIOR');
     $sheet->setCellValue('K2', 'FECHA DE MOVIMIENTO');
 
-    $sql = "SELECT Usuario.id_usuario, Usuario.nombre, Usuario.CURP, Usuario.RFC, Usuario.fechaRelLab, Movimiento.departamentoAnterior, Movimiento.puestoAnterior, Movimiento.departamento, Movimiento.puesto, Movimiento.fecha FROM Movimiento INNER JOIN Usuario ON Movimiento.RFC = Usuario.RFC WHERE Movimiento.fecha >= '" . $del . "' AND Movimiento.fecha <= '" . $al . "'";
+    $sql = "SELECT 
+    Usuario.id_usuario, 
+    Usuario.nombre, 
+    Usuario.CURP, 
+    Usuario.RFC, 
+    Usuario.fechaRelLab, 
+    Movimiento.departamentoAnterior, 
+    Movimiento.puestoAnterior, 
+    Movimiento.departamento, 
+    Movimiento.puesto, 
+    Movimiento.fecha 
+    FROM Movimiento INNER JOIN Usuario ON Movimiento.RFC = Usuario.RFC WHERE 
+    id_periodo =  ".$periodo." AND 
+    Movimiento.fecha >= '" . $del . "' AND 
+    Movimiento.fecha <= '" . $al . "'";
+
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -320,7 +340,20 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('I2', 'OBSERVACIONES');
     $sheet->setCellValue('J2', 'DIAS A PAGAR');
 
-    $sql = "SELECT Usuario.id_usuario, Usuario.nombre, Usuario.CURP, Usuario.RFC, Usuario.puesto, Usuario.departamento, Usuario.fechaRelLab, Baja.fecha, Baja.razon FROM Baja INNER JOIN Usuario ON Baja.RFC = Usuario.RFC WHERE Baja.fecha >= '" . $del . "' AND Baja.fecha <= '" . $al . "'";
+    $sql = "SELECT Usuario.id_usuario, 
+    Usuario.nombre, 
+    Usuario.CURP, 
+    Usuario.RFC, 
+    Usuario.puesto, 
+    Usuario.departamento, 
+    Usuario.fechaRelLab, 
+    Baja.fecha, 
+    Baja.razon 
+    FROM Baja INNER JOIN Usuario ON Baja.RFC = Usuario.RFC WHERE 
+    id_periodo =  ".$periodo." AND 
+    Baja.fecha >= '" . $del . "' AND 
+    Baja.fecha <= '" . $al . "'";
+
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -379,7 +412,17 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('H2', 'DIAS A PAGAR');
     $sheet->setCellValue('I2', 'OBSERVACIONES');
 
-    $sql = "SELECT id_usuario, nombre, CURP, RFC, puesto, departamento, fechaRelLab FROM Usuario WHERE STR_TO_DATE(fechaRelLab,'%d/%m/%Y') >= '" . $del . "' AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+    $sql = "SELECT id_usuario, 
+    nombre, 
+    CURP, 
+    RFC, 
+    puesto, 
+    departamento, 
+    fechaRelLab 
+    FROM Usuario WHERE 
+    id_periodo =  ".$periodo." AND 
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') >= '" . $del . "' AND 
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -446,7 +489,17 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('I2', 'DIAS DESCONTADOS');
     $sheet->setCellValue('J2', 'OBSERVACIONES');
 
-    $sql = "SELECT id_usuario, nombre, CURP, RFC, puesto, departamento, fechaRelLab FROM Usuario WHERE STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+    $sql = "SELECT 
+    id_usuario, 
+    nombre, 
+    CURP, 
+    RFC, 
+    puesto, 
+    departamento, 
+    fechaRelLab 
+    FROM Usuario WHERE 
+    id_periodo =  ".$periodo." AND 
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -528,9 +581,24 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('J2', 'DIAS DE LICENCIA');
     $sheet->setCellValue('K2', 'OBSERVACIONES');
 
-    $sql = "SELECT Usuario.id_usuario, Usuario.nombre, Usuario.CURP, Usuario.RFC, Usuario.puesto, Usuario.departamento, Usuario.fechaRelLab,
-    Permiso.del, Permiso.al, Permiso.dias, Permiso.descripcion FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC
-    WHERE Permiso.al >= '" . $del . "' AND Permiso.del <= '" . $al . "' AND Permiso.categoria = 0 ORDER BY Permiso.RFC ASC";
+    $sql = "SELECT 
+    Usuario.id_usuario, 
+    Usuario.nombre, 
+    Usuario.CURP, 
+    Usuario.RFC, 
+    Usuario.puesto, 
+    Usuario.departamento, 
+    Usuario.fechaRelLab,
+    Permiso.del, 
+    Permiso.al, 
+    Permiso.dias, 
+    Permiso.descripcion 
+    FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC WHERE 
+    id_periodo =  ".$periodo." AND 
+    Permiso.al >= '" . $del . "' AND 
+    Permiso.del <= '" . $al . "' AND 
+    Permiso.categoria = 0 
+    ORDER BY Permiso.RFC ASC";
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -593,9 +661,23 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('K2', 'DIAS DE LICENCIA');
     $sheet->setCellValue('L2', 'OBSERVACIONES');
 
-    $sql = "SELECT Usuario.id_usuario, Usuario.nombre, Usuario.CURP, Usuario.RFC, Usuario.puesto, Usuario.departamento, Usuario.fechaRelLab,
-    Permiso.del, Permiso.al, Permiso.dias, Permiso.descripcion FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC
-    WHERE Permiso.del <= '" . $al . "' AND Permiso.categoria = 1 ORDER BY Permiso.RFC ASC";
+    $sql = "SELECT 
+    Usuario.id_usuario, 
+    Usuario.nombre, 
+    Usuario.CURP, 
+    Usuario.RFC, 
+    Usuario.puesto, 
+    Usuario.departamento, 
+    Usuario.fechaRelLab,
+    Permiso.del, 
+    Permiso.al, 
+    Permiso.dias, 
+    Permiso.descripcion 
+    FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC WHERE 
+    id_periodo =  ".$periodo." AND 
+    Permiso.del <= '" . $al . "' AND 
+    Permiso.categoria = 1 
+    ORDER BY Permiso.RFC ASC";
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     if ($consulta && (mysqli_num_rows($consulta) > 0)) {
@@ -780,8 +862,12 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('J2', 'ESTADO DEL EMPLEADO');
     $sheet->setCellValue('K2', 'OBSERVACIONES');
 
-    $sql = "SELECT * FROM Usuario WHERE categoria = 'user' AND tipoTrabajador NOT IN('EVENTUAL','HONORARIOS') 
-AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "' ORDER BY departamento";
+    $sql = "SELECT * FROM Usuario WHERE 
+    id_periodo =  ".$periodo." AND 
+    categoria = 'user' AND 
+    tipoTrabajador NOT IN('EVENTUAL','HONORARIOS') AND 
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "' 
+    ORDER BY departamento";
     $consulta = mysqli_query($conexion, $sql);
     $i = 3;
     $departamentos = [];
@@ -876,10 +962,10 @@ AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "' ORDER BY departamento";
     $ruta = $ruta . $file;
     $url = 'assets/prenominas/' . $file;
 
-    $sql = "INSERT INTO Prenomina(del, al, periodo, observacion, url) VALUES(
-        STR_TO_DATE('" . $_POST["del"] . "','%d/%m/%Y'),
-        STR_TO_DATE('" . $_POST["al"] . "','%d/%m/%Y'),
-        '" . $periodo . "',
+    $sql = "INSERT INTO Prenomina(del, al, id_periodo, observacion, url) VALUES(
+        STR_TO_DATE('" . $del_original . "','%d/%m/%Y'),
+        STR_TO_DATE('" . $al_original . "','%d/%m/%Y'),
+        " . $periodo . ",
         '" . $observacion . "',
         '" . $url . "'
     )";
