@@ -165,3 +165,41 @@ function prenomina() {
         }
     });
 }
+
+function eliminar(id, event) {
+    event.stopPropagation();
+    Swal.fire({
+        title: "Eliminar",
+        text: "¿Seguro que quieres eliminar este elemento?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "POST",
+                url: "assets/php/eliminarPrenomina.php",
+                data: {
+                    "id": id
+                },
+                success: function (html) {
+                    if (html == 1) {
+                        Swal.fire({
+                            title: 'Correcto',
+                            text: 'Eliminado correctamente',
+                            type: 'success'
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Elemento no eliminado',
+                            type: 'error',
+                        })
+                    }
+                    $('#tabla-prenomina').DataTable().ajax.reload();
+                }
+            });
+        }
+    })
+};
