@@ -1,28 +1,198 @@
-.select-dropdown{
+.mensajeria {
+    background: rgba(255, 255, 255, 0.507);
+    box-shadow: 1px 4px 5px rgb(0, 0, 0, .1);
+    padding: 10px 20px 20px 20px;
+}
+
+.mensajeria_caja {
+    position: relative;
+    height: 100%;
+}
+
+.mio {
+    justify-content: end;
+}
+
+.mio .mensajeria_contenido {
+    background: rgba(147, 159, 172, 0.15) !important;
+    color: #555;
+}
+
+.mio img {
+    display: none;
+}
+
+.mensajeria_hora {
+    width: 100%;
+    text-align: right;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.mensajeria_chat {
+    width: 100%;
+    height: 100%;
+    max-height: 70vh;
+    padding: 30px 20px 50px 0;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.mensajeria_mensaje {
+    display: flex;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.mensajeria_contenido {
+    background: #4a75d3;
+    border-radius: 10px;
+    padding: 10px 20px;
+    position: relative;
+    color: white;
+    font-size: 12px;
+    max-width: 60%;
+    min-width: auto;
+}
+
+.mensajeria_mensaje img {
+    width: 45x;
+    height: 45px;
+    border-radius: 50px;
+    margin-right: 15px;
+}
+
+.mensajeria_enviar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.mensajeria_enviar textarea {
+    border: 0;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 14px;
+    box-shadow: 1px 4px 5px rgb(0, 0, 0, .1);
+}
+
+.mensajeria_contactos {
+    position: relative;
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.mensajeria_contacto {
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px rgb(0, 0, 0, .1);
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 15px;
+    background: white;
+    padding: 15px 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mensajeria_contacto p{
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.mensajeria_busqueda {
+    overflow: hidden;
+    border-radius: 50px;
+    background: white;
+    box-shadow: 1px 1px 4px rgb(0, 0, 0, .1);
+    display: flex;
+}
+
+.mensajeria_busqueda input {
+    padding: 5px 20px;
+    font-size: 14px;
+    color: #444;
+    width: 100%;
+    border: transparent;
+}
+
+.mensajeria_busqueda i {
+    padding: 5px 10px;
+    /* background: rgb(61, 146, 216); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: white; */
+    border-radius: 0 50px 50px 0;
+}
+
+.mensajeria_contacto:hover {
+    transform: scale(0.95);
+}
+
+.mensajeria_fecha {
+    right: 10px;
+    font-size: 10px;
+    color: #888;
+    top: 5px;
+    position: absolute;
+}
+
+.mensajeria_noti {
+    font-size: 9px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    display: flex;
+    right: 10px;
+    top: 30px;
+    background: #E94B4B;
+    color: white;
+    border-radius: 50px;
+    justify-content: center;
+    align-content: center;
+}
+
+.mensajeria_contacto img {
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.mensajeria_chat {}
+
+
+.select-dropdown {
     background: rgba(250, 250, 250, 0.6) !important;
     backdrop-filter: saturate(180%) blur(15px);
     -webkit-backdrop-filter: saturate(180%) blur(15px);
     box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
 }
 
-.dropdown-optgroup{
+.dropdown-optgroup {
     max-height: 350px !important;
 }
 
-.dropdown-inner{
+.dropdown-inner {
     overflow: hidden !important;
 }
 
 .dropdown-search,
-.dropdown-inner{
+.dropdown-inner {
     border: none !important;
 }
 
-.dropdown-option{
+.dropdown-option {
     background: transparent !important;
 }
 
-.dropdown-option .selected{
+.dropdown-option .selected {
     background: transparent !important;
 }
 
@@ -42,15 +212,15 @@
     background: #F6F7FB !important;
 }
 
-.formulario .form-control:focus{
+.formulario .form-control:focus {
     border: 1px solid #b1d8e2;
 }
 
-.formulario .select::after{
+.formulario .select::after {
     top: 45px;
 }
 
-.formulario .select-etiqueta{
+.formulario .select-etiqueta {
     padding: 0 0 5px 5px !important;
 }
 
@@ -83,22 +253,22 @@
     overflow: hidden !important;
 }
 
-.historial_usuario{
+.historial_usuario {
     white-space: nowrap;
-    text-overflow: ellipsis ;
-    overflow:hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
     text-align: left;
     font-weight: bold;
     padding-left: 10px;
 }
 
-.historial_usuario p{
+.historial_usuario p {
     margin: 2px 0 !important;
     font-weight: normal;
     font-size: 12px;
 }
 
-.historial_img{
+.historial_img {
     width: 80px;
     height: 100%;
     display: flex;
@@ -2069,14 +2239,14 @@ div[data-notify=container] {
     position: relative;
 }
 
-.sidebar .avatar{
+.sidebar .avatar {
     text-align: center;
     margin-bottom: 20px;
     font-size: 12px;
     font-weight: bold;
 }
 
-.sidebar .avatar p{
+.sidebar .avatar p {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

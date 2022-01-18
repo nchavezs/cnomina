@@ -32,7 +32,7 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
         $ocupados = $diff->format('%a');
 
         if($historial["fecha_fin"] == null){
-            $historial["fecha_fin"] = " -  ";
+            $historial["fecha_fin"] = " - ";
         }
 
         $html=$html. '<div class="col-md-6">

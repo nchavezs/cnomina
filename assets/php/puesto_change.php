@@ -5,7 +5,7 @@ $puesto = $_POST["puesto"];
 $ano = date("Y");
 $hoy = date("Y-m-d");
 
-$sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE Plaza.id_puesto = " . $puesto . " ORDER BY Plaza.elaboracion";
+$sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE Plaza.id_puesto = " . $puesto . " ORDER BY Plaza.id_plaza";
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
