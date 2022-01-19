@@ -19,7 +19,7 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
         $diff = $fecha1->diff($fecha2);
         $dias = $diff->format('%a') + 1;
 
-        if ($dias >= 7) {
+        if ($dias >= 1) {
             $sql = "UPDATE Usuario SET estado = 'baja' WHERE RFC = '" . $RFC . "'";
             if (mysqli_query($conexion, $sql)) {
                 $sql = "INSERT INTO Baja(RFC, fecha, razon, dias) VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), '" . $razon . "', " . $condicion . ")";

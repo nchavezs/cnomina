@@ -496,7 +496,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
             } else if (html == 2) {
                 Swal.fire({
                     title: 'No fue posible dar de baja al empleado',
-                    text: 'Debe esperar al menos una semana para dar de baja a este empleado',
+                    text: 'Debe esperar al menos 24 hrs para dar de baja a este empleado',
                     type: 'error'
                 }).then((result) => {
                     $('#tabla-empleado').DataTable().ajax.reload();
