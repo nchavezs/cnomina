@@ -1,7 +1,17 @@
 .mensajeria {
-    background: rgba(255, 255, 255, 0.507);
-    box-shadow: 1px 4px 5px rgb(0, 0, 0, .1);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 10px 10px 20px 20px rgba(73, 84, 97, 0.1);
     padding: 10px 20px 20px 20px;
+    border-radius: 6px;
+}
+
+.mensajeria_usuario{
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #333650a2;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .mensajeria_caja {
@@ -16,6 +26,7 @@
 .mio .mensajeria_contenido {
     background: rgba(147, 159, 172, 0.15) !important;
     color: #555;
+    border-radius: 20px 20px 0px 20px;
 }
 
 .mio img {
@@ -33,7 +44,7 @@
     width: 100%;
     height: 100%;
     max-height: 70vh;
-    padding: 30px 20px 50px 0;
+    padding: 10px 20px 50px 0;
     overflow-y: scroll;
     position: relative;
 }
@@ -45,14 +56,16 @@
 }
 
 .mensajeria_contenido {
-    background: #4a75d3;
-    border-radius: 10px;
+    background: #5377DB;
+    border-radius: 0 20px 20px 20px;
     padding: 10px 20px;
     position: relative;
     color: white;
     font-size: 12px;
     max-width: 60%;
     min-width: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
 }
 
 .mensajeria_mensaje img {
@@ -67,6 +80,19 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    display: flex;
+}
+
+.mensajeria_enviar i {
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
+    background: white;
+    justify-content: center;
+    border-radius: 6px;
+    color: #3dc950;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .mensajeria_enviar textarea {
@@ -74,18 +100,20 @@
     width: 100%;
     padding: 10px 20px;
     font-size: 14px;
-    box-shadow: 1px 4px 5px rgb(0, 0, 0, .1);
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
 }
 
 .mensajeria_contactos {
     position: relative;
     height: 70vh;
     overflow-y: scroll;
+    border-right: 1px solid #eee;
 }
 
 .mensajeria_contacto {
-    border-radius: 2px;
-    box-shadow: 1px 1px 4px rgb(0, 0, 0, .1);
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
     width: 100%;
     height: 70px;
     display: flex;
@@ -98,6 +126,8 @@
     font-size: 12px;
     cursor: pointer;
     transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif ;
+    font-weight: 600;
 }
 
 .mensajeria_contacto p{
@@ -109,9 +139,9 @@
 
 .mensajeria_busqueda {
     overflow: hidden;
-    border-radius: 50px;
+    border-radius: 6px;
     background: white;
-    box-shadow: 1px 1px 4px rgb(0, 0, 0, .1);
+    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
     display: flex;
 }
 
@@ -133,14 +163,15 @@
     border-radius: 0 50px 50px 0;
 }
 
-.mensajeria_contacto:hover {
+.mensajeria_contacto:hover,
+.mensajeria_enviar i:hover {
     transform: scale(0.95);
 }
 
 .mensajeria_fecha {
     right: 10px;
     font-size: 10px;
-    color: #888;
+    color: #aaa;
     top: 5px;
     position: absolute;
 }
@@ -164,9 +195,6 @@
     border-radius: 50px;
     margin-right: 10px;
 }
-
-.mensajeria_chat {}
-
 
 .select-dropdown {
     background: rgba(250, 250, 250, 0.6) !important;

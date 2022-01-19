@@ -18,46 +18,35 @@ $trabajador = $_POST["trabajador"];
 $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
 $password = str_pad($id_usuario, 5, '0', STR_PAD_LEFT);
 $plaza = $_POST["plaza"];
+$periodo = $_POST["periodo"];
 
 $sql = "SELECT RFC FROM Usuario WHERE RFC = '" . $RFC . "'";
 $consulta = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($consulta) == 0) {
     $sql = "INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, rfc, curp, fechaRelLab, puesto,
-    departamento, banca, afiliacion, apellidop, apellidom, nombres, tipoTrabajador) VALUES(
-    " . $id_usuario .",
+    departamento, banca, afiliacion, apellidop, apellidom, nombres, tipoTrabajador, id_periodo) VALUES(
+    " . $id_usuario . ",
     'user',
     '" . $password . "',
     '" . $nombreEmpleado . "',
     '" . $RFC . "',
     '" . $CURP . "',
-    '" .$fechaRelLab . "',
+    '" . $fechaRelLab . "',
     '" . $puesto . "',
     '" . $departamento . "',
     NULLIF('" . $banca . "', ''),
-    NULLIF('" .   $afiliacion . "',''),
+    NULLIF('" . $afiliacion . "',''),
     '" . $apellidop . "' ,
     '" . $apellidom . "',
     '" . $nombres . "',
-    '" . $trabajador . "')";
+    '" . $trabajador . "',
+    " . $periodo . ")";
 
     if (mysqli_query($conexion, $sql)) {
-        // if ($archivo !== "") {
-        //     $file = explode("/", $archivo);
-        //     $de = "./../archivos/" . $file[2];
-        //     $a = "./../usuario/" . $file[2];
-        //     copy($de, $a);
-        //     $files = glob('./../archivos/*');
-        //     foreach ($files as $file) {
-        //         if (is_file($file)) {
-        //             unlink($file);
-        //         }
-        //     }
-        // }
-
         $sql = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
         $consulta = mysqli_query($conexion, $sql);
-        $sql = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC) 
-        VALUES(".$plaza.", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '".$RFC."')";
+        $sql = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
+        VALUES(" . $plaza . ", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '" . $RFC . "')";
         $consulta = mysqli_query($conexion, $sql);
 
         echo 0;

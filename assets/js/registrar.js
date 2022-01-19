@@ -1,105 +1,105 @@
 $(document).ready(function () {
     // $.post("assets/php/actualizar_password.php", function(data) {});
 
-    $("#generar-prenomina").click(function () {
-        Swal.mixin({
-            showCancelButton: true,
-            progressSteps: ["1", "2", "3"],
+    // $("#generar-prenomina").click(function () {
+    //     Swal.mixin({
+    //         showCancelButton: true,
+    //         progressSteps: ["1", "2", "3"],
 
 
-        }).queue([{
-                title: "Periodo",
-                confirmButtonText: "Siguiente &rarr;",
-                input: "select",
-                inputClass: "swal2-input",
-                inputPlaceholder: "SELECCIONA",
-                inputOptions: {
-                    "1": "PRIMERA QUINCENA",
-                    "2": "SEGUNDA QUINCENA"
-                },
-                inputValidator: (value) => {
-                    return !value && "Selecciona una opción"
-                }
-            },
-            {
-                title: "Mes",
-                confirmButtonText: "Siguiente &rarr;",
-                input: "select",
-                inputClass: "swal2-input",
-                inputPlaceholder: "SELECCIONA",
-                inputOptions: {
-                    "1": "ENERO",
-                    "2": "FEBRERO",
-                    "3": "MARZO",
-                    "4": "ABRIL",
-                    "5": "MAYO",
-                    "6": "JUNIO",
-                    "7": "JULIO",
-                    "8": "AGOSTO",
-                    "9": "SEPTIEMBRE",
-                    "10": "OCTUBRE",
-                    "11": "NOVIEMBRE",
-                    "12": "DICIEMBRE"
-                },
-                inputValidator: (value) => {
-                    return !value && "Selecciona una opción"
-                }
-            },
-            {
-                title: "Año",
-                confirmButtonText: "Generar &rarr;",
-                input: "select",
-                inputClass: "swal2-input",
-                inputPlaceholder: "SELECCIONA",
-                inputOptions: {
-                    "2022": "2022",
-                    "2023": "2023",
-                    "2024": "2024",
-                    "2025": "2025"
-                },
-                inputValidator: (value) => {
-                    return !value && "Selecciona una opción"
-                }
-            }
-        ]).then((result) => {
-            if (result.value) {
-                var resultado = JSON.stringify(result.value);
-                var datos = jQuery.parseJSON(resultado);
-                var periodo = datos[0];
-                var mes = datos[1];
-                var ano = datos[2];
-                mensaje_cargar();
-                $.ajax({
-                    url: "assets/php/prenomina.php",
-                    type: "post",
-                    data: {
-                        "periodo": periodo,
-                        "mes": mes,
-                        "ano": ano
-                    }
-                }).done(function (file) {
-                    if (file != 0) {
-                        descargar(file, 'Prenomina');
-                        Swal.close();
-                        Swal.fire({
-                            title: 'Correcto',
-                            text: 'Prenomina generada correctamente',
-                            type: 'success'
-                        })
-                    } else {
-                        Swal.close();
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'No se pudo generar el archivo',
-                            type: 'error',
+    //     }).queue([{
+    //             title: "Periodo",
+    //             confirmButtonText: "Siguiente &rarr;",
+    //             input: "select",
+    //             inputClass: "swal2-input",
+    //             inputPlaceholder: "SELECCIONA",
+    //             inputOptions: {
+    //                 "1": "PRIMERA QUINCENA",
+    //                 "2": "SEGUNDA QUINCENA"
+    //             },
+    //             inputValidator: (value) => {
+    //                 return !value && "Selecciona una opción"
+    //             }
+    //         },
+    //         {
+    //             title: "Mes",
+    //             confirmButtonText: "Siguiente &rarr;",
+    //             input: "select",
+    //             inputClass: "swal2-input",
+    //             inputPlaceholder: "SELECCIONA",
+    //             inputOptions: {
+    //                 "1": "ENERO",
+    //                 "2": "FEBRERO",
+    //                 "3": "MARZO",
+    //                 "4": "ABRIL",
+    //                 "5": "MAYO",
+    //                 "6": "JUNIO",
+    //                 "7": "JULIO",
+    //                 "8": "AGOSTO",
+    //                 "9": "SEPTIEMBRE",
+    //                 "10": "OCTUBRE",
+    //                 "11": "NOVIEMBRE",
+    //                 "12": "DICIEMBRE"
+    //             },
+    //             inputValidator: (value) => {
+    //                 return !value && "Selecciona una opción"
+    //             }
+    //         },
+    //         {
+    //             title: "Año",
+    //             confirmButtonText: "Generar &rarr;",
+    //             input: "select",
+    //             inputClass: "swal2-input",
+    //             inputPlaceholder: "SELECCIONA",
+    //             inputOptions: {
+    //                 "2022": "2022",
+    //                 "2023": "2023",
+    //                 "2024": "2024",
+    //                 "2025": "2025"
+    //             },
+    //             inputValidator: (value) => {
+    //                 return !value && "Selecciona una opción"
+    //             }
+    //         }
+    //     ]).then((result) => {
+    //         if (result.value) {
+    //             var resultado = JSON.stringify(result.value);
+    //             var datos = jQuery.parseJSON(resultado);
+    //             var periodo = datos[0];
+    //             var mes = datos[1];
+    //             var ano = datos[2];
+    //             mensaje_cargar();
+    //             $.ajax({
+    //                 url: "assets/php/prenomina.php",
+    //                 type: "post",
+    //                 data: {
+    //                     "periodo": periodo,
+    //                     "mes": mes,
+    //                     "ano": ano
+    //                 }
+    //             }).done(function (file) {
+    //                 if (file != 0) {
+    //                     descargar(file, 'Prenomina');
+    //                     Swal.close();
+    //                     Swal.fire({
+    //                         title: 'Correcto',
+    //                         text: 'Prenomina generada correctamente',
+    //                         type: 'success'
+    //                     })
+    //                 } else {
+    //                     Swal.close();
+    //                     Swal.fire({
+    //                         title: 'Error',
+    //                         text: 'No se pudo generar el archivo',
+    //                         type: 'error',
 
 
-                        })
-                    }
-                });
-            }
-        });
-    });
+    //                     })
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
 
 
     $("#importar-empleado").change(function () {
@@ -255,7 +255,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-
             });
         });
     });

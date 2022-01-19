@@ -105,4 +105,34 @@
 $(document).ready(function(){
     $(".mensajeria_contactos").perfectScrollbar();
     $(".mensajeria_chat").perfectScrollbar();
+
+    contactos("");
 });
+
+
+function chat(id, nombre){
+    $.ajax({
+        url: "assets/php/chat_mensaje.php",
+        type: "POST",
+        data:{
+            id: id
+        },
+        success: function(data){
+            $(".mensajeria_chat").html(data);
+            $(".mensajeria_usuario").html(nombre);
+        }
+    });
+}
+
+function contactos(texto){
+    $.ajax({
+        url: "assets/php/buscar_contacto.php",
+        type: "POST",
+        data:{
+            texto: texto
+        },
+        success: function(data){
+            $(".mensajeria_contactos").html(data);
+        }
+    });
+}

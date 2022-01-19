@@ -212,28 +212,16 @@ include "assets/php/main_admin.php";
 							<div class="col-xl-4">
 								<div class="mensajeria_busqueda m-3"> <input type="text" placeholder="Buscar ..."> <i class="material-icons">search</i> </div>
 								<div class="mensajeria_contactos p-3">
-									<div class="mensajeria_contacto">
-										<img src="assets/img/user.png" alt="">
-										<p>Nicolas Chavez Santoyo Santoyo</p>
-										<div class="mensajeria_fecha">2 Feb</div>
-										<div class="mensajeria_noti">2</div>
-									</div>
-									<div class="mensajeria_contacto">
-										<img src="assets/img/user.png" alt="">
-										<p>Nicolas Chavez</p>
-										<div class="mensajeria_fecha">2 Feb</div>
-										<div class="mensajeria_noti">5</div>
-									</div>
-						
+									
 								</div>
 							</div>
 							<div class="col-xl-8">
 								<div class="mensajeria_caja">
+									<div class="mensajeria_usuario">Nicolas Chavez santoyo</div>
 									<div class="mensajeria_chat">
 										<div class="mensajeria_mensaje">
 											<img src="assets/img/user.png" alt="">
 											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
 												<div class="mensajeria_hora">3:00 PM</div>
 											</div>
 										</div>
@@ -243,51 +231,11 @@ include "assets/php/main_admin.php";
 												<div class="mensajeria_hora">3:00 PM</div>
 											</div>
 										</div>
-										<div class="mensajeria_mensaje">
-											<img src="assets/img/user.png" alt="">
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje mio">
-											<div class="mensajeria_foto"><img src="assets/img/user.png" alt=""></div>
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje">
-											<img src="assets/img/user.png" alt="">
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje mio">
-											<div class="mensajeria_foto"><img src="assets/img/user.png" alt=""></div>
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje">
-											<img src="assets/img/user.png" alt="">
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje mio">
-											<div class="mensajeria_foto"><img src="assets/img/user.png" alt=""></div>
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												ing elit. Quam nesciunt possimus ipsam ex fugit id libero aliquid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
 									</div>
 									<div class="mensajeria_enviar">
 										<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
+										<i class="material-icons archivo">add</i>
+										<i class="material-icons enviar">send</i>
 									</div>
 								</div>
 							</div>

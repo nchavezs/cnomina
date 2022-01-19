@@ -77,6 +77,8 @@ if (validar_fecha($del) && validar_fecha($al)) {
 
     $consulta = mysqli_query($conexion, $sql);
 
+    echo mysqli_num_rows($consulta);
+
     while ($usuario = mysqli_fetch_array($consulta)) {
         $fecha_inicio = date("Y-m-d", strtotime(str_replace('/', '-', $usuario["fechaRelLab"])));
         if ($usuario["estado"] == 'alta') {

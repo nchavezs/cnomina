@@ -148,6 +148,7 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
+            alert(data);
             if (data != 0) {
                 Swal.fire({
                     title: 'Correcto',
