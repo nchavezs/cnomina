@@ -1,125 +1,75 @@
-// $(document).ready(function () {
-//     $.ajax({
-//         url: "assets/php/mensajes.php",
-//         success: function (html) {
-//             $(".msn-caja-chat").html(html);
-
-//             $(".msn-contenido").perfectScrollbar();
-
-//             $(document).on("click", ".mostrar-chat", function () {
-//                 var contenido = this.id.split("x");
-//                 if ($("#" + contenido[0] + "x").text() === "Mostrar") {
-//                     $("#" + contenido[0]).slideToggle();
-//                     $("#" + contenido[0] + "z").scrollTop($("#" + contenido[0] + "z")[0].scrollHeight);
-//                     $("#" + contenido[0] + "x").text("Ocultar");
-//                 } else {
-//                     $("#" + contenido[0]).slideToggle();
-//                     $("#" + contenido[0] + "z").scrollTop($("#" + contenido[0] + "z")[0].scrollHeight);
-//                     $("#" + contenido[0] + "x").text("Mostrar");
-//                 }
-//             });
-
-//             $(document).on("submit", ".msn-responder", function (e) {
-//                 e.preventDefault();
-//                 var contenido = this.id.split("y");
-//                 var datos = $(this).serialize()
-//                 $.ajax({
-//                     type: "POST",
-//                     url: "assets/php/nuevoMensaje.php",
-//                     data: datos,
-//                     success: function (html) {
-//                         if (html != 0) {
-//                             $("#" + contenido[0] + "z").append(html);
-//                             $("#" + contenido[0] + "z").scrollTop($("#" + contenido[0] + "z")[0].scrollHeight);
-//                             mensaje_enviado();
-//                         }
-//                         $("#" + contenido[0] + "y")[0].reset();
-//                         $(".msn-contenido").perfectScrollbar();
-//                     }
-//                 });
-
-//             });
-//         }
-//     });
-
-//     $(".dropdown-menu").perfectScrollbar();
-// });
-
-// function accion(id) {
-//     $("#barra").html('<div class="barra"><input class="busqueda-texto" type="text" placeholder="Busqueda . . ." onkeyup="buscar();"><div class="busqueda-icono"><i class="material-icons">search</i></div></div>');
-
-//     var contenido = id.split("-");
-//     $(".busqueda-texto").val(contenido[1]);
-
-//     $.ajax({
-//         type: "POST",
-//         url: "assets/php/buscar.php",
-//         data: {
-//             texto: contenido[0],
-//             condicion: 1
-//         },
-//         success: function (html) {
-//             if($(".msn-caja")){
-//                 $(".msn-caja").html(html);
-//             }else{
-//                 $(".msn-caja-chat").html(html);
-//             }
-            
-//             $.post("assets/php/vistos.php", {
-//                 chat: contenido[0]
-//             });
-
-//             $(".navbar-brand").html("Mensajes");
-//             $("#link1").removeClass("active");
-//             $("#link2").addClass("active");
-//             $("#msn-caja").removeClass("container-fluid");
-//             $("#" + contenido[0]).slideToggle();
-//             $("#" + contenido[0] + "z").scrollTop($("#" + contenido[0] + "z")[0].scrollHeight);
-//             $(".msn-contenido").perfectScrollbar();
-//         }
-//     });
-// }
-
-
-// function buscar() {
-//     var dato = $(".busqueda-texto").val();
-//     $.ajax({
-//         type: "POST",
-//         url: "assets/php/buscar.php",
-//         data: {
-//             texto: dato,
-//             condicion: 0
-//         },
-//         success: function (html) {
-//             if($(".msn-caja")){
-//                 $(".msn-caja").html(html);
-//             }else{
-//                 $(".msn-caja-chat").html(html);
-//             }
-//         }
-//     });
-// };
-
-
+var contacto_seleccionado = "";
+var chat_evento = null;
+var contactos_evento = null;
+var total_mensajes = -1;
+var total_nuevos = -1;
 
 $(document).ready(function(){
     $(".mensajeria_contactos").perfectScrollbar();
     $(".mensajeria_chat").perfectScrollbar();
-
     contactos("");
+    contactos_evento = setInterval("contactos('');", 1000);
+
+    $('.mensajeria textarea').on('keydown', function (e) {
+        if (e.which === 13 && !e.shiftKey) {
+           e.preventDefault();
+           enviar_mensaje();
+        }
+     });
+
+     $('.mensajeria input').on('input', function (e) {
+        total_nuevos = -1;
+        contactos(this.value);
+        clearTimeout(contactos_evento);
+        if(this.value == ""){
+            contactos_evento = setInterval("contactos('');", 1000);
+        }
+     });
+    
 });
 
+function limpiar_lista(){
+    $(".mensajeria_contacto").removeClass("activo");
+    let contacto = document.getElementById(contacto_seleccionado);
+    $(contacto).addClass("activo");
+    $(contacto).find(".mensajeria_noti").remove();
+}
 
-function chat(id, nombre){
+function mostrar_chat(id, nombre){
+    contacto_seleccionado = id;
+    $(".mensajeria_usuario span").html(nombre);
+
+    total_nuevos = -1;
+    contactos("");
+    limpiar_lista();
+    $("input").val("");
+
+    clearTimeout(contactos_evento);
+    contactos_evento = setInterval("contactos('');", 1000);
+
+    $(".mensajeria_vacio").removeClass("adp-hide");
+    ADP.show($(".mensajeria_caja")[0], 'fade');
+
+    chat(id);
+    clearTimeout(chat_evento);
+    chat_evento = setInterval("chat(contacto_seleccionado);", 1000);
+}
+
+function chat(id){
     $.ajax({
         url: "assets/php/chat_mensaje.php",
         type: "POST",
         data:{
             id: id
         },
-        success: function(data){
-            $(".mensajeria_chat").html(data);
-            $(".mensajeria_usuario").html(nombre);
+        success: function(datos){
+            let data = JSON.parse(datos);
+            if (data.total != total_mensajes) {
+                console.log("chat");
+                $(".mensajeria_chat").html(data.html);
+                $(".mensajeria_chat").scrollTop($(".mensajeria_chat")[0].scrollHeight);
+                total_mensajes = data.total;
+            }    
         }
     });
 }
@@ -131,8 +81,32 @@ function contactos(texto){
         data:{
             texto: texto
         },
+        success: function(datos){
+            let data = JSON.parse(datos);
+            if (data.total != total_nuevos) {
+                console.log("contacto");
+                $(".mensajeria_contactos").html(data.html);
+                total_nuevos = data.total;
+                limpiar_lista();
+            } 
+        }
+    });
+}
+
+function enviar_mensaje(){
+    $.ajax({
+        url: "assets/php/enviar_mensaje.php",
+        type: "POST",
+        data:{
+            mensaje: $(".mensajeria textarea").val(),
+            id: contacto_seleccionado
+        },
         success: function(data){
-            $(".mensajeria_contactos").html(data);
+            if(data != 0){
+                $(".mensajeria textarea").val("");
+                $(".mensajeria_chat").append(data);
+                $(".mensajeria_chat").scrollTop($(".mensajeria_chat")[0].scrollHeight);
+            }
         }
     });
 }

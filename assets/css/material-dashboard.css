@@ -1,22 +1,46 @@
 .mensajeria {
     background: rgba(255, 255, 255, 0.6);
-    box-shadow: 10px 10px 20px 20px rgba(73, 84, 97, 0.1);
-    padding: 10px 20px 20px 20px;
-    border-radius: 6px;
+    box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 2px;
+    height: 80vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    overflow: hidden;
+}
+
+.mensajeria_busqueda_caja{
+    background: #EDEDED;
+    padding: 10px 20px;
+}
+
+
+.mensajeria_panel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    /* box-shadow: 0px 5px 30px 30px rgb(0, 0, 0, .1); */
+    z-index: 1;
+    border-right: 1px solid #ddd;
 }
 
 .mensajeria_usuario{
     font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 30px;
-    color: #333650a2;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333650cc;
+    padding: 10px 20px;
+    background: #EDEDED;
+    /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
 }
 
 .mensajeria_caja {
     position: relative;
     height: 100%;
+    overflow: hidden;
+    width: 70%;
 }
 
 .mio {
@@ -24,9 +48,9 @@
 }
 
 .mio .mensajeria_contenido {
-    background: rgba(147, 159, 172, 0.15) !important;
+    background: white !important;
     color: #555;
-    border-radius: 20px 20px 0px 20px;
+    border-radius: 20px 20px 4px 20px;
 }
 
 .mio img {
@@ -40,24 +64,36 @@
     font-size: 11px;
 }
 
+.mensajeria_resultados{
+    font-size: 13px;
+    font-weight: 600;
+    color: #bbb;
+    text-align: center;
+    width: 100%;
+    padding: 30px;
+
+}
+
 .mensajeria_chat {
     width: 100%;
     height: 100%;
-    max-height: 70vh;
-    padding: 10px 20px 50px 0;
+    max-height: calc(80vh - 115px);
+    padding: 30px;
     overflow-y: scroll;
     position: relative;
+    background-image: radial-gradient(#d8cabb 2px, #E2DAD2 2px);
+    background-size: 40px 40px
 }
 
 .mensajeria_mensaje {
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     width: 100%;
 }
 
 .mensajeria_contenido {
     background: #5377DB;
-    border-radius: 0 20px 20px 20px;
+    border-radius: 4px 20px 20px 20px;
     padding: 10px 20px;
     position: relative;
     color: white;
@@ -66,11 +102,20 @@
     min-width: auto;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
+    box-shadow: 2px 3px 5px rgb(0, 0, 0, .1);
 }
 
 .mensajeria_mensaje img {
     width: 45x;
     height: 45px;
+    border-radius: 50px;
+    margin-right: 15px;
+    box-shadow: 2px 2px 2px rgb(0, 0, 0, .1);
+}
+
+.mensajeria_usuario img {
+    width: 35x;
+    height: 35px;
     border-radius: 50px;
     margin-right: 15px;
 }
@@ -81,15 +126,28 @@
     left: 0;
     width: 100%;
     display: flex;
+    background: #F0F0F0;
+    padding: 10px 20px;
+}
+
+.mensajeria_vacio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background: #F0F0F0;
+    padding: 30px;
 }
 
 .mensajeria_enviar i {
     padding: 10px;
-    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
+    /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
     background: white;
     justify-content: center;
-    border-radius: 6px;
-    color: #3dc950;
+    border-radius: 50px;
+    color: #49cf97;
     margin-left: 10px;
     cursor: pointer;
     transition: all 0.3s;
@@ -100,48 +158,55 @@
     width: 100%;
     padding: 10px 20px;
     font-size: 14px;
-    border-radius: 6px;
-    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
+    border-radius: 50px;
+    resize: none;
+    overflow: hidden;
+    /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
 }
 
 .mensajeria_contactos {
     position: relative;
-    height: 70vh;
+    height: 100%;
     overflow-y: scroll;
-    border-right: 1px solid #eee;
+    background: white;
+    
 }
 
 .mensajeria_contacto {
-    border-radius: 6px;
-    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
+    /* border-radius: 6px; */
+    border-bottom: 1px solid #eee;
+    /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
     width: 100%;
-    height: 70px;
+    height: 80px;
     display: flex;
     justify-content: left;
-    margin-bottom: 15px;
     background: white;
-    padding: 15px 20px;
-    font-weight: bold;
+    padding: 15px;
     position: relative;
-    font-size: 12px;
+    
     cursor: pointer;
     transition: all 0.3s;
-    font-family: 'Montserrat', sans-serif ;
-    font-weight: 600;
+    
 }
 
+.mensajeria_contacto div,
 .mensajeria_contacto p{
     width: 70%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin: 0;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-size: 13px;
+    font-weight: 600;
+    font-weight: bold;
 }
 
 .mensajeria_busqueda {
     overflow: hidden;
-    border-radius: 6px;
+    border-radius: 50px;
     background: white;
-    box-shadow: 2px 2px 5px rgb(0, 0, 0, .1);
+    /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
     display: flex;
 }
 
@@ -162,8 +227,12 @@
     /* color: white; */
     border-radius: 0 50px 50px 0;
 }
+.mensajeria_contacto.activo,
+.mensajeria_contacto:hover{
+    background: rgba(0, 0, 0, 0.06);
+}
 
-.mensajeria_contacto:hover,
+
 .mensajeria_enviar i:hover {
     transform: scale(0.95);
 }
@@ -171,24 +240,27 @@
 .mensajeria_fecha {
     right: 10px;
     font-size: 10px;
-    color: #aaa;
-    top: 5px;
+    font-weight: 600;
+    top: 8px;
     position: absolute;
 }
 
 .mensajeria_noti {
     font-size: 9px;
+    padding: 1px;
     width: 25px;
     height: 25px;
     position: absolute;
-    display: flex;
     right: 10px;
-    top: 30px;
-    background: #E94B4B;
+    top: 40px;
+    background: rgb(92, 157, 231);
     color: white;
     border-radius: 50px;
-    justify-content: center;
-    align-content: center;
+    text-align: center;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .mensajeria_contacto img {
@@ -11651,7 +11723,7 @@ a.text-dark:hover {
 
 .bmd-help,
 .text-muted {
-    color: #6c757d !important
+    color: #999 !important;
 }
 
 .text-hide {

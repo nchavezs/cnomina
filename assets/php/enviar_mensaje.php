@@ -3,12 +3,34 @@ session_start();
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
-$texto = $_POST['texto'];
+$mensaje = trim($_POST['mensaje']);
 $myid = $_SESSION['usuario'];
 
-$sql = "";
-$consulta = mysqli_query($conexion, $sql);
-
+if($id != "" && $mensaje != ""){
+    $sql = "INSERT INTO Mensaje(receptor, emisor, mensaje) VALUES(
+        '".$id."',
+        '".$myid."',
+        '".$mensaje."'
+    )";
+    $consulta = mysqli_query($conexion, $sql);
+    if($consulta){
+        $id_mensaje = mysqli_insert_id($conexion);
+        $sql = "SELECT * FROM Mensaje WHERE id_mensaje = ".$id_mensaje;
+        $consulta = mysqli_query($conexion, $sql);
+        $res = mysqli_fetch_array($consulta);
+        $hora = date("h:i A", strtotime($res["elaboracion"]));
+        echo '<div class="mensajeria_mensaje mio">
+                <div class="mensajeria_contenido">'.$mensaje.'
+                    <div class="mensajeria_hora">'.$hora.'</div>
+                </div>
+            </div>';
+    }else{
+        echo 0;
+    }
+    
+}else{
+    echo 0;
+}
 
 
 

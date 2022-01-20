@@ -19,6 +19,7 @@ include "assets/php/main_admin.php";
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -207,40 +208,24 @@ include "assets/php/main_admin.php";
 				</div> -->
 
 
-					<div class="mensajeria">
-						<div class="row">
-							<div class="col-xl-4">
-								<div class="mensajeria_busqueda m-3"> <input type="text" placeholder="Buscar ..."> <i class="material-icons">search</i> </div>
-								<div class="mensajeria_contactos p-3">
-									
-								</div>
-							</div>
-							<div class="col-xl-8">
-								<div class="mensajeria_caja">
-									<div class="mensajeria_usuario">Nicolas Chavez santoyo</div>
-									<div class="mensajeria_chat">
-										<div class="mensajeria_mensaje">
-											<img src="assets/img/user.png" alt="">
-											<div class="mensajeria_contenido">Lorem ipsum dolor, sit amet consectetur adipisic
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-										<div class="mensajeria_mensaje mio">
-											<div class="mensajeria_foto"><img src="assets/img/user.png" alt=""></div>
-											<div class="mensajeria_contenido">uid repellat modi vel!
-												<div class="mensajeria_hora">3:00 PM</div>
-											</div>
-										</div>
-									</div>
-									<div class="mensajeria_enviar">
-										<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
-										<i class="material-icons archivo">add</i>
-										<i class="material-icons enviar">send</i>
-									</div>
-								</div>
-							</div>
+				<div class="mensajeria">
+					<div class="mensajeria_panel">
+						<div class="mensajeria_busqueda_caja">
+							<div class="mensajeria_busqueda"> <input type="text" placeholder="Buscar usuario ..."> <i class="material-icons">search</i> </div>
+						</div>
+						<div class="mensajeria_contactos"></div>
+					</div>
+					<div class="mensajeria_vacio"></div>
+					<div class="mensajeria_caja adp-hide">
+						<div class="mensajeria_usuario"><img src="assets/img/user.png" alt=""><span></span></div>
+						<div class="mensajeria_chat"></div>
+						<div class="mensajeria_enviar">
+							<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
+							<i class="material-icons archivo">attach_file</i>
+							<i class="material-icons" onclick="enviar_mensaje();">send</i>
 						</div>
 					</div>
+				</div>
 			</div>
 			<footer class="footer"></footer>
 		</div>
@@ -252,6 +237,7 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/material-dashboard.js?v=3.2.0" type="text/javascript"></script>
 	<script src="assets/js/sesion.js?v=3.2.0"></script>
 	<script src="assets/js/mensajes.js?v=3.2.0"></script>

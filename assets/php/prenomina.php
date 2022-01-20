@@ -5,9 +5,6 @@ include "conexion.php";
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
-
 $conexion = conexion();
 $del_original = $_POST["del"];
 $al_original = $_POST["al"];
