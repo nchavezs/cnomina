@@ -266,6 +266,4 @@ function select_estilo_plazas() {
         search: false,
         width: "200px"
      });
- 
-    $(".dropdown-optgroup").perfectScrollbar();
  };

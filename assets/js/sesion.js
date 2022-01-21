@@ -212,7 +212,7 @@ function select_estilo() {
       placeholder: "SELECCIONA UNA OPCIÓN",
    });
 
-   $(".dropdown-optgroup").perfectScrollbar();
+   
 };
 
 function select_estilo_2() {
@@ -225,7 +225,7 @@ function select_estilo_2() {
       placeholder: "SELECCIONA UNA OPCIÓN"
    });
 
-   $(".dropdown-optgroup").perfectScrollbar();
+   
 };
 
 function select_estilo_3() {
@@ -237,7 +237,7 @@ function select_estilo_3() {
       width: "150px"
    });
 
-   $(".dropdown-optgroup").perfectScrollbar();
+   
 };
 
 function select_change() {

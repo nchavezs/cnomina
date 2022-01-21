@@ -1,3 +1,22 @@
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #666;
+border-radius: 50px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #444; 
+}
+
 .opciones_tabla{
     width: 100%;
     position: absolute;
@@ -357,13 +376,13 @@ select {
     box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
 }
 
-.dropdown-optgroup {
+/* .dropdown-optgroup {
     max-height: 350px !important;
 }
 
 .dropdown-inner {
     overflow: hidden !important;
-}
+} */
 
 .dropdown-search,
 .dropdown-inner {
