@@ -1,8 +1,11 @@
 <?php
    include("conexion.php");
    $conexion = conexion();
+   $estado = $_POST["estado"];
 
-   $sql = "SELECT RFC, nombre, puesto, departamento, estado, tipoTrabajador,id_usuario FROM Usuario WHERE categoria = 'user'";
+   $sql = "SELECT RFC, nombre, puesto, departamento, tipoTrabajador,id_usuario FROM Usuario WHERE 
+   categoria = 'user' AND 
+   estado = '".$estado."'";
    $resultado = mysqli_query($conexion, $sql);
 	if(mysqli_num_rows($resultado) == 0){
 		 echo '{"data":[]}';

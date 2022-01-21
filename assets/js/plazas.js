@@ -1,5 +1,10 @@
 $(document).ready(function () {
-    $('#tabla-plaza').DataTable.ext.pager.numbers_length = 5;
+    select_estilo_plazas();
+
+    $(".opciones_tabla select").change(function(){
+        $('#tabla-plaza').DataTable().ajax.reload();
+    });
+
     var tabla = $('#tabla-plaza').DataTable({
         "lengthChange": false,
         "pageLength": 5,
@@ -11,7 +16,11 @@ $(document).ready(function () {
         },
         "ajax": {
             "type": "POST",
-            "url": "assets/php/consulta-plaza.php"
+            "url": "assets/php/consulta-plaza.php",
+            "data": function(d){
+                d.id_puesto = $("#id_puesto").val();
+                d.estado = $("#estado").val();
+            }
         },
         "drawCallback": function (settings) {
             document.querySelector('.content').scrollTop = 1;
@@ -120,7 +129,6 @@ function nueva_plaza() {
         });
 
         $("#dias").on("keyup", function (event) {
-            console.log(1);
             if (this.value > dias_ano()) {
                 this.value = dias_ano();
             } else if (this.value < 1) {
@@ -241,3 +249,23 @@ function detalle_plaza(id) {
         }
     });
 }
+
+function select_estilo_plazas() {
+    tail.select("#id_puesto", {
+       locale: "es",
+       animate: true,
+       classNames: ["select_estilo"],
+       search: true,
+       width: "300px"
+    });
+
+    tail.select("#estado", {
+        locale: "es",
+        animate: true,
+        classNames: ["select_estilo"],
+        search: false,
+        width: "200px"
+     });
+ 
+    $(".dropdown-optgroup").perfectScrollbar();
+ };

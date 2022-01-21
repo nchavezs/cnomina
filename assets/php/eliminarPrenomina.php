@@ -12,7 +12,8 @@ if ($rol != 1) {
     $sql = "SELECT url FROM Prenomina WHERE id_prenomina = " . $id;
     $consulta = mysqli_query($conexion, $sql);
     $prenomina = mysqli_fetch_array($consulta);
-    $file = $_SERVER['DOCUMENT_ROOT'] ."/".$prenomina["url"];
+    $file = "../prenominas/".$prenomina["url"];
+    
     if (is_file($file)) {
         unlink($file);
     }

@@ -21,10 +21,11 @@ if (rol() != 1) {
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 	<link href="assets/css/select2.css?v=3.2.0" rel="stylesheet" />
-	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link href="assets/js/plugins/datatables/datatables.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -151,7 +152,7 @@ if ($varFoto != null) {
 				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
 					<div class="row">
-						<div class="col-xl-6">
+						<div class="col-xl-12 pagina_1">
 							<div class="card">
 								<div class="card-header text-center">
 								<h6 class="card-category text-gray">CATÁLOGO DE PUESTOS</h6>
@@ -165,20 +166,24 @@ if ($varFoto != null) {
 								</div>
 							</div>
 							<div class="table-responsive">
-										<table id="tabla-puesto" class="table table-striped" style="width:100%">
-											<thead class="text-primary">
-												<tr>
-													<th class="">#</th>
-													<th class="">Puesto</th>
-													<th class="">Plazas</th>
-													<th class="">Eliminar</th>
-												</tr>
-											</thead>
-										</table>
-									</div>
+								<div class="opciones_tabla">
+									<span class="pestana pestana_1 activo">Puestos</span>
+									<span class="pestana pestana_2">Departamentos</span>
+								</div>
+								<table id="tabla-puesto" class="table table-striped" style="width:100%">
+									<thead class="text-primary">
+										<tr>
+											<th class="">#</th>
+											<th class="">Puesto</th>
+											<th class="">Plazas</th>
+											<th class="">Eliminar</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
 						</div>
 
-						<div class="col-xl-6">
+						<div class="col-xl-12 pagina_2 adp-hide">
 							<div class="card">
 							<div class="card-header text-center">
 								<h6 class="card-category text-gray">CATÁLOGO DE DEPARTAMENTOS</h6>
@@ -192,16 +197,20 @@ if ($varFoto != null) {
 								</div>
 							</div>
 							<div class="table-responsive">
-										<table id="tabla-departamento" class="table table-striped" style="width:100%">
-											<thead class="text-primary">
-												<tr>
-													<th class="">#</th>
-													<th class="">Departamento</th>
-													<th class="">Eliminar</th>
-												</tr>
-											</thead>
-										</table>
-									</div>
+								<div class="opciones_tabla">
+									<span class="pestana pestana_1">Puestos</span>
+									<span class="pestana pestana_2 activo">Departamentos</span>
+								</div>
+								<table id="tabla-departamento" class="table table-striped" style="width:100%">
+									<thead class="text-primary">
+										<tr>
+											<th class="">#</th>
+											<th class="">Departamento</th>
+											<th class="">Eliminar</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -232,10 +241,10 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<script src="assets/js/material-dashboard.js?v=3.2.0" type="text/javascript"></script>
-	<script src="assets/js/jquery.dataTables.min.js"></script>
-	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
+	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/catalagos.js?v=3.2.0"></script>
 	<script src="assets/js/sesion.js?v=3.2.0"></script>

@@ -2,7 +2,22 @@
 include "conexion.php";
 $conexion = conexion();
 
-$sql = "SELECT * FROM Plaza";
+$id_puesto = $_POST["id_puesto"];
+$estado = $_POST["estado"];
+
+if($estado == 1){
+    $estado = "AND RFC IS NOT NULL";
+}else if($estado == 2){
+    $estado = "AND RFC IS NULL";
+}else{
+    $estado = "";
+}
+
+if($id_puesto == 0){
+    $id_puesto = "ANY(SELECT id_puesto FROM Puesto)";
+}
+
+$sql = "SELECT * FROM Plaza WHERE id_puesto = ".$id_puesto." ".$estado;
 $resultado = mysqli_query($conexion, $sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';

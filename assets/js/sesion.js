@@ -4,6 +4,9 @@ var total = -1;
 var numero_evento = null;
 
 $(document).ready( function () {
+
+      $('.dataTable').DataTable.ext.pager.numbers_length = 5;
+
       numero();
       numero_evento = setInterval(numero, 10000);
 
@@ -207,9 +210,6 @@ function select_estilo() {
       search: true,
       descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN",
-      // items: {
-      //     "": "SELECCIONA UNA OPCIÓN"
-      // }
    });
 
    $(".dropdown-optgroup").perfectScrollbar();
@@ -217,11 +217,24 @@ function select_estilo() {
 
 function select_estilo_2() {
    tail.select("select", {
+      locale: "es",
       animate: true,
       classNames: ["form-control"],
       width: "100%",
       search: false,
       placeholder: "SELECCIONA UNA OPCIÓN"
+   });
+
+   $(".dropdown-optgroup").perfectScrollbar();
+};
+
+function select_estilo_3() {
+   tail.select("select", {
+      locale: "es",
+      animate: true,
+      classNames: ["select_estilo"],
+      search: false,
+      width: "150px"
    });
 
    $(".dropdown-optgroup").perfectScrollbar();

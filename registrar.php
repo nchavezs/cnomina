@@ -15,15 +15,16 @@ include "./assets/php/comprobar_catalago.php";
         Consulta Nómina
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
-    <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <link href="assets/css/animate.css" rel="stylesheet" />
-    <link href="assets/css/datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans"/>
+    
+    <link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
+    <link rel="stylesheet" href="assets/css/material-dashboard.css?v=3.2.0"/>
+    <link rel="stylesheet" href="assets/css/animate.css"/>
+    <link rel="stylesheet" href="assets/css/datepicker.min.css"/>
     <link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-    <link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css?v=3.2.0"/>
 
 </head>
 
@@ -221,6 +222,12 @@ include "./assets/php/comprobar_catalago.php";
                         </div>
                     </div>
                     <div class="table-responsive">
+                        <div class="opciones_tabla">
+                            <select id="estado">
+                                <option value="alta">ALTA</option>
+                                <option value="baja">BAJA</option>
+                            </select>
+                        </div>
                         <table id="tabla-empleado" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
@@ -228,7 +235,7 @@ include "./assets/php/comprobar_catalago.php";
                                     <th class="">Nombre</th>
                                     <th class="oculto">RFC</th>
                                     <th class="oculto">Departamento</th>
-                                    <th class="oculto">Estado / Trabajador</th>
+                                    <th class="oculto">Trabajador</th>
                                     <th class="">Editar</th>
                                     <th class="">Eliminar</th>
                                 </tr>
@@ -263,15 +270,14 @@ include "./assets/php/comprobar_catalago.php";
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
     <script src="assets/js/material-dashboard.js?v=3.2.0" type="text/javascript"></script>
-    <script src="assets/js/jquery.dataTables.min.js"></script>
-    <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/js/plugins/datatables/datatables.min.js"></script>
     <script src="assets/js/datepicker.min.js"></script>
     <script src="assets/js/plugins/datepicker.es.js"></script>
     <script src="assets/js/block.js"></script>
     <script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
     <script src="assets/js/moment.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/animate/adp.js"></script>
+    <script src="assets/js/plugins/animate/adp.js"></script>
     <script src="assets/js/registrar.js?v=3.2.0"></script>
     <script src="assets/js/sesion.js?v=3.2.0"></script>
     <script src="assets/js/mensajes.js?v=3.2.0"></script>

@@ -1,6 +1,11 @@
 $(document).ready(function () {
-    $('#tabla-prenomina').DataTable.ext.pager.numbers_length = 5;
-    var tabla = $('#tabla-prenomina').DataTable({
+    select_estilo_3();
+
+    $(".opciones_tabla select").change(function(){
+        $('#tabla-prenomina').DataTable().ajax.reload();
+    });
+
+    $('#tabla-prenomina').DataTable({
         "lengthChange": false,
         "pageLength": 5,
         "order": [
@@ -11,18 +16,22 @@ $(document).ready(function () {
         },
         "ajax": {
             "type": "POST",
-            "url": "assets/php/consulta-prenomina.php"
+            "url": "assets/php/consulta-prenomina.php",
+            "data": function(d){
+                d.ano = $("#ano").val();
+                d.id_periodo = $("#id_periodo").val();
+            }
         },
         "drawCallback": function (settings) {
             document.querySelector('.content').scrollTop = 1;
         },
         "columnDefs": [{
                 "className": "oculto",
-                "targets": [2, 3]
+                "targets": [1, 2]
             },
             {
                 "orderable": false,
-                "targets": [4]
+                "targets": [3,4]
             }, {
                 "className": "font-weight-bold",
                 "targets": [0]
@@ -34,17 +43,12 @@ $(document).ready(function () {
                 }
             },
             {
-                "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.nombre + '</a>';
-                }
-            },
-            {
                 "data": "observacion"
             }, {
                 "data": "elaboracion"
             }, {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onclick="' + "descargar('" + row.url + "','Prenomina')" + ';">download</i>';
+                    return '<i class="material-icons btn1" onclick="' + "descargar('assets/prenominas/" + row.url + "','Prenomina')" + ';">download</i>';
                 }
             },
             {

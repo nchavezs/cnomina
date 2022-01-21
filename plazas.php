@@ -21,7 +21,7 @@ if (rol() != 1) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
     <link href="assets/css/select2.css?v=3.2.0" rel="stylesheet" />
-    <link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
@@ -170,6 +170,29 @@ if ($varFoto != null) {
                         </div>
                     </div>
                     <div class="table-responsive">
+                        <div class="opciones_tabla">
+                            <select id="id_puesto">
+                                <option value="0" selected>TODOS LOS PUESTOS</option>
+                                <?php
+                                    $conexion = conexion();
+                                    $sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
+                                    $consulta = mysqli_query($conexion, $sql);
+                                    if($consulta && (mysqli_num_rows($consulta)) > 0){
+                                        while($res = mysqli_fetch_row($consulta)){
+                                            echo '<option value="'.$res[0].'">'.$res[1].'</option>';
+                                        }	
+                                    }else{
+                                        echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
+                                    }
+                                    mysqli_close($conexion);
+                                ?>
+                            </select>
+                            <select id="estado">
+                                <option value="0">TODAS LAS PLAZAS</option>
+                                <option value="1">PLAZAS OCUPADAS</option>
+                                <option value="2">PLAZAS DISPONIBLES</option>
+                            </select>
+                        </div>
                         <table id="tabla-plaza" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
@@ -212,8 +235,7 @@ if ($varFoto != null) {
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
     <script src="assets/js/material-dashboard.js?v=3.2.0" type="text/javascript"></script>
-    <script src="assets/js/jquery.dataTables.min.js"></script>
-    <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/js/plugins/datatables/datatables.min.js"></script>
     <script src="assets/js/datepicker.min.js"></script>
     <script src="assets/js/plugins/datepicker.es.js"></script>
     <script src="assets/js/block.js"></script>

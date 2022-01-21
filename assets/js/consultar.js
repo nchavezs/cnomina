@@ -1,6 +1,11 @@
 $(document).ready(function () {
-    $('#consulta_tabla').DataTable.ext.pager.numbers_length = 5;
-    $('#consulta_tabla').DataTable({
+    select_estilo_3();
+
+    $(".opciones_tabla select").change(function(){
+        $('#tabla-nominas').DataTable().ajax.reload();
+    });
+
+    $('#tabla-nominas').DataTable({
         "lengthChange": false,
         "pageLength": 8,
         "language": {
@@ -8,7 +13,11 @@ $(document).ready(function () {
         },
         "ajax": {
             "type": "POST",
-            "url": "assets/php/consultar.php"
+            "url": "assets/php/consultar.php",
+            "data": function(d){
+                d.ano = $("#ano").val();
+                d.id_periodo = $("#id_periodo").val();
+            }
         },
         "columnDefs": [ {
             "targets": [3,4],
@@ -22,7 +31,7 @@ $(document).ready(function () {
                 
             },{
                 "render": function (data, type, row) {
-                    return '<span class="tipo">'+row.del+' - '+row.al+'</span>';
+                    return '<a class="">' + row.del + ' ➟ ' + row.al + '</a>';
                 }
             },
             {

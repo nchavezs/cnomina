@@ -20,7 +20,7 @@ if (rol() == 2) {
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
-	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
@@ -203,18 +203,30 @@ if (rol() == 2) {
 						<div class="msn-mostrar">
 							<?php
 							if (rol() != 2) {
-								echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Prenomina</button>';
+								echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva Prenomina</button>';
 							}
 							?>
 						</div>
 						</div>
 					</div>
+
 					<div class="table-responsive">
+						<div class="opciones_tabla">
+							<select id="ano">
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+							</select>
+							<select id="id_periodo">
+								<option value="1">CATORCENAL</option>
+								<option value="2">MENSUAL</option>
+							</select>
+						</div>
 						<table id="tabla-prenomina" class="table table-striped" style="width:100%">
 							<thead class="text-primary">
 								<tr>
 									<th class="">Periodo</th>
-									<th class="oculto">Tipo de periodo</th>
 									<th class="oculto">Observaciones</th>
 									<th class="oculto">Fecha de elaboración</th>
 									<th class="">Descargar</th>
@@ -254,8 +266,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/moment.js"></script>
 	<script src="assets/js/sesion.js?v=3.2.0"></script>
-	<script src="assets/js/jquery.dataTables.min.js"></script>
-	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/prenomina.js?v=3.2.0"></script>

@@ -957,9 +957,8 @@ if (validar_fecha($del) && validar_fecha($al)) {
 
     #------------------------------------------------------------------------------------------
 
-    $file = uniqid() . ".xlsx";
-    $ruta = $ruta . $file;
-    $url = 'assets/prenominas/' . $file;
+    $url = uniqid() . ".xlsx";
+    $ruta = $ruta . $url;
 
     $sql = "INSERT INTO Prenomina(del, al, id_periodo, observacion, url) VALUES(
         STR_TO_DATE('" . $del_original . "','%d/%m/%Y'),

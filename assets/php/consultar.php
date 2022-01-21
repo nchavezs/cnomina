@@ -2,14 +2,20 @@
    include("conexion.php");
    $conexion = conexion();
 
-   $sql = "SELECT * FROM Archivo";
+   $ano = $_POST["ano"];
+   $id_periodo = $_POST["id_periodo"];
+   
+   $sql = "SELECT * FROM Archivo WHERE 
+   YEAR(del) = ".$ano." AND 
+   id_periodo = ".$id_periodo." 
+   ORDER BY del DESC";
    $resultado = mysqli_query($conexion, $sql);
 	if(mysqli_num_rows($resultado) == 0){
 		 echo '{"data":[]}';
 	}else{
       while($res = mysqli_fetch_assoc($resultado)){
-         $res["del"] = date("d/m/Y", strtotime($res["del"]));
-         $res["al"] = date("d/m/Y", strtotime($res["al"]));
+         $res["del"] = date("d M", strtotime($res["del"]));
+         $res["al"] = date("d M", strtotime($res["al"]));
          $arreglo["data"][] = $res;
       }
       echo json_encode($arreglo);

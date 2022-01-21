@@ -181,7 +181,6 @@ if ($posinicio1 !== false) {
 
 $arraypago = explode("/", $pago);
 $nombreNomina = $id.implode("_", $arraypago).'.pdf';
-$url = 'assets/nominas/' . $nombreNomina;
 $nombre = str_replace('  ', ' ', $nombre);
 $arraynombre = explode(" ", $nombre);
 $apellidop = array_shift($arraynombre);
@@ -189,7 +188,7 @@ $apellidom = array_shift($arraynombre);
 $nombres = implode(" ", $arraynombre);
 $password = str_pad($id, 5, '0', STR_PAD_LEFT);
 
-$sql = "SELECT id_archivo FROM Archivo WHERE url = '" . $url . "'";
+$sql = "SELECT id_archivo FROM Archivo WHERE url = '" . $nombreNomina . "'";
 $consulta = mysqli_query($conexion, $sql);
 $total = mysqli_num_rows($consulta);
 
@@ -200,7 +199,7 @@ if ($total == 0) {
             STR_TO_DATE('" . $al . "','%d/%m/%Y'),
             STR_TO_DATE('" . $pago . "','%d/%m/%Y'),
             '" . $nombre . "',
-            '" . $url . "',
+            '" . $nombreNomina . "',
             '" . $rfc . "',
             '" . $puesto . "',
             '" . $depa . "',
@@ -228,7 +227,7 @@ if ($total == 0) {
                 if (mysqli_query($conexion, $sql)) {
                 }
             }
-            $target = $_SERVER['DOCUMENT_ROOT'] ."/".$url;
+            $target = "../nominas/".$nombreNomina;
             move_uploaded_file($archivo, $target);
 
             echo 1;

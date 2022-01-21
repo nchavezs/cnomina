@@ -1,5 +1,17 @@
 $(document).ready(function () {
-    $('#tabla-puesto').DataTable.ext.pager.numbers_length = 5;
+
+    $(".pestana_1").click(function(){
+        $(".pagina_2").addClass("adp-hide");
+        ADP.show($(".pagina_1")[0], 'slide-left');
+        $(".pagina_1").removeClass("adp-hide");
+    });
+
+    $(".pestana_2").click(function(){
+        $(".pagina_1").addClass("adp-hide");
+        ADP.show($(".pagina_2")[0], 'slide-right');
+        $(".pagina_2").removeClass("adp-hide");
+    });
+
     $('#tabla-puesto').DataTable({
         "lengthChange": false,
         "pageLength": 5,
@@ -48,7 +60,6 @@ $(document).ready(function () {
         ]
     });
 
-    $('#tabla-departamento').DataTable.ext.pager.numbers_length = 5;
     $('#tabla-departamento').DataTable({
         "lengthChange": false,
         "pageLength": 5,
@@ -338,3 +349,4 @@ function eliminar(id, categoria) {
         }
     })
 };
+

@@ -19,10 +19,13 @@ if (rol() == 2) {
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 	<link href="assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
-	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
 
 </head>
 
@@ -208,18 +211,30 @@ if (rol() == 2) {
 						</div>
 					</div>
 					<div class="table-responsive">
-								<table id="consulta_tabla" class="table table-striped" style="width:100%">
-									<thead class="text-primary">
-										<tr>
-											<th class="">Nombre</th>
-											<th class="">Periodo</th>
-											<th class="oculto">Dias de pago</th>
-											<th class="">Detalle</th>
-											<th class="">Eliminar</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
+						<div class="opciones_tabla">
+							<select id="ano">
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+							</select>
+							<select id="id_periodo">
+								<option value="1">CATORCENAL</option>
+								<option value="2">MENSUAL</option>
+							</select>
+						</div>
+						<table id="tabla-nominas" class="table table-striped" style="width:100%">
+							<thead class="text-primary">
+								<tr>
+									<th class="">Nombre</th>
+									<th class="">Periodo</th>
+									<th class="oculto">Dias de pago</th>
+									<th class="">Detalle</th>
+									<th class="">Eliminar</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 
@@ -240,37 +255,21 @@ if (rol() == 2) {
 			</footer>
 		</div>
 	</div>
-	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap-material-design.min.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.2.0" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-
-
-
-
-
-
-
-	<!-- Chartist JS -->
-
-	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="assets/js/material-dashboard.js" type="text/javascript"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
+	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+    <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/sesion.js?v=3.2.0"></script>
-	<script src="assets/js/jquery.dataTables.min.js"></script>
-	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
-	<script src="assets/js/consultar.js?v=3.2.0"></script>
 	<script src="assets/js/mensajes.js?v=3.2.0"></script>
+	<script src="assets/js/consultar.js?v=3.2.0"></script>
 
 </body>
 
