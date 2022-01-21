@@ -13,14 +13,13 @@ $sql = "SELECT * FROM Mensaje WHERE
     emisor = '".$id."' AND 
     receptor = '".$myid."'
 ";
-
 $consulta = mysqli_query($conexion, $sql);
 $total_nuevos = mysqli_num_rows($consulta);
 
 $sql = "SELECT * FROM Mensaje WHERE 
     emisor = '".$myid."' AND 
     receptor = '".$id."' OR 
-    emisor = '".$id."' AND   
+    emisor = '".$id."' AND 
     receptor = '".$myid."'
 ";
 

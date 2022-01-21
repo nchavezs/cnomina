@@ -50,6 +50,7 @@ function mostrar_chat(id, nombre){
     $(".mensajeria_vacio").removeClass("adp-hide");
     ADP.show($(".mensajeria_caja")[0], 'fade');
 
+    total_mensajes = -1;
     chat(id);
     clearTimeout(chat_evento);
     chat_evento = setInterval("chat(contacto_seleccionado);", 1000);
@@ -64,6 +65,7 @@ function chat(id){
         },
         success: function(datos){
             let data = JSON.parse(datos);
+            console.log(data.total);
             if (data.total != total_mensajes) {
                 console.log("chat");
                 $(".mensajeria_chat").html(data.html);
