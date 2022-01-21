@@ -8,7 +8,7 @@ $(document).ready(function(){
     $(".mensajeria_contactos").perfectScrollbar();
     $(".mensajeria_chat").perfectScrollbar();
     contactos("");
-    contactos_evento = setInterval("contactos('');", 1000);
+    contactos_evento = setInterval("contactos('');", 3000);
 
     $('.mensajeria textarea').on('keydown', function (e) {
         if (e.which === 13 && !e.shiftKey) {
@@ -22,7 +22,7 @@ $(document).ready(function(){
         contactos(this.value);
         clearTimeout(contactos_evento);
         if(this.value == ""){
-            contactos_evento = setInterval("contactos('');", 1000);
+            contactos_evento = setInterval("contactos('');", 3000);
         }
      });
     
@@ -45,7 +45,7 @@ function mostrar_chat(id, nombre){
     $("input").val("");
 
     clearTimeout(contactos_evento);
-    contactos_evento = setInterval("contactos('');", 1000);
+    contactos_evento = setInterval("contactos('');", 3000);
 
     $(".mensajeria_vacio").removeClass("adp-hide");
     ADP.show($(".mensajeria_caja")[0], 'fade');
@@ -53,7 +53,7 @@ function mostrar_chat(id, nombre){
     total_mensajes = -1;
     chat(id);
     clearTimeout(chat_evento);
-    chat_evento = setInterval("chat(contacto_seleccionado);", 1000);
+    chat_evento = setInterval("chat(contacto_seleccionado);", 3000);
 }
 
 function chat(id){
@@ -65,9 +65,7 @@ function chat(id){
         },
         success: function(datos){
             let data = JSON.parse(datos);
-            console.log(data.total);
             if (data.total != total_mensajes) {
-                console.log("chat");
                 $(".mensajeria_chat").html(data.html);
                 $(".mensajeria_chat").scrollTop($(".mensajeria_chat")[0].scrollHeight);
                 total_mensajes = data.total;
@@ -86,7 +84,6 @@ function contactos(texto){
         success: function(datos){
             let data = JSON.parse(datos);
             if (data.total != total_nuevos) {
-                console.log("contacto");
                 $(".mensajeria_contactos").html(data.html);
                 total_nuevos = data.total;
                 limpiar_lista();
