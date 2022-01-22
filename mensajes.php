@@ -219,7 +219,7 @@ include "assets/php/main_admin.php";
 						<img src="assets/img/chat.svg" alt="">
 						<h2 class="text-primary my-4 font-weight-bold">Inicia una conversación</h2>
 						<p>Puedes enviar y recibir mensajes en conversaciones con los usuarios.</p>
-						<p>Para iniciar haz click en uno de los usuarios.</p>
+						<p>Para iniciar selecciona uno de los usuarios.</p>
 					</div>
 					<div class="mensajeria_caja adp-hide">
 						<div class="mensajeria_usuario"><i class="material-icons regresar">keyboard_backspace</i> <img src="assets/img/user.png" alt=""><span></span></div>
