@@ -165,7 +165,7 @@ if ($varFoto != null) {
 										</div>
 								</div>
 							</div>
-							<div class="table-responsive">
+							<div class="table-responsive adp-hide">
 								<div class="opciones_tabla">
 									<span class="pestana pestana_1 activo">Puestos</span>
 									<span class="pestana pestana_2">Departamentos</span>

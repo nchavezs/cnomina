@@ -23,7 +23,8 @@ $(document).ready(function () {
             }
         },
         "drawCallback": function (settings) {
-            document.querySelector('.content').scrollTop = 1;
+            $('.main-panel .content').perfectScrollbar('update');
+            ADP.show($(".table-responsive")[0], 'slide-left');
         },
         "columnDefs": [{
                 "className": "oculto",
@@ -33,7 +34,7 @@ $(document).ready(function () {
                 "orderable": false,
                 "targets": [3,4]
             }, {
-                "className": "font-weight-bold",
+                "className": "text-center",
                 "targets": [0]
             }
         ],
@@ -116,6 +117,7 @@ function nueva_prenomina() {
 
         $("#form-prenomina").on("submit", function (e) {
             e.preventDefault();
+            $("#form-prenomina :submit").prop("disabled", true);
             prenomina();
         });
     });

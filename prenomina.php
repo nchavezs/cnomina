@@ -24,6 +24,7 @@ if (rol() == 2) {
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.2.1" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -210,7 +211,7 @@ if (rol() == 2) {
 						</div>
 					</div>
 
-					<div class="table-responsive">
+					<div class="table-responsive adp-hide">
 						<div class="opciones_tabla">
 							<select id="ano">
 								<option value="2022">2022</option>
@@ -269,6 +270,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/prenomina.js?v=3.2.1"></script>
 	<script src="assets/js/mensajes.js?v=3.2.1"></script>
 

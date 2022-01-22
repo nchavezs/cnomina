@@ -1,5 +1,11 @@
+.dropdown-inner{
+    position: relative !important;
+    padding: 0 !important;
+    max-height: 300px !important;
+}
+
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -14,7 +20,7 @@ border-radius: 50px;
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #444; 
+background: #555; 
 }
 
 .opciones_tabla{
@@ -26,6 +32,7 @@ background: #444;
 .opciones_tabla .pestana_1{
     border-radius: 50px 0 0 50px !important;
     margin-right: -3px;
+    
 }
 
 .opciones_tabla .pestana{
@@ -103,7 +110,7 @@ select {
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
-    height: 80vh;
+    height: 95%;
     width: 100%;
     position: relative;
     display: flex;
@@ -130,11 +137,24 @@ select {
 
 .mensajeria_usuario{
     font-weight: bold;
+    display: flex;
+    align-items: center;
     font-size: 14px;
     color: #333650cc;
     padding: 10px 20px;
     background: #EDEDED;
     /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
+}
+
+.mensajeria_usuario .regresar{
+    position: relative;
+    background: #ddd;
+    border-radius: 50px;
+    padding: 5px;
+    cursor: pointer;
+    left: -5px;
+    margin-right: 20px;
+    display: none;
 }
 
 .mensajeria_caja {
@@ -178,7 +198,7 @@ select {
 .mensajeria_chat {
     width: 100%;
     height: 100%;
-    max-height: calc(80vh - 115px);
+    max-height: calc(100% - 115px);
     padding: 30px;
     overflow-y: scroll;
     position: relative;
@@ -215,8 +235,8 @@ select {
 }
 
 .mensajeria_usuario img {
-    width: 35x;
-    height: 35px;
+    width: 34x;
+    height: 34px;
     border-radius: 50px;
     margin-right: 15px;
 }
@@ -233,13 +253,32 @@ select {
 
 .mensajeria_vacio {
     position: absolute;
+    right: 0;
     bottom: 0;
-    left: 0;
     height: 100%;
     width: 100%;
-    display: flex;
     background: #F0F0F0;
-    padding: 30px;
+    padding: 60px 20px;
+    width: 70%;
+    text-align: center;
+    border-bottom: 5px solid #699cee93;
+   
+}
+
+.mensajeria_vacio h2{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mensajeria_vacio p{
+    font-family: 'Roboto', sans-serif;
+    color: rgba(95, 101, 107, 0.733);
+    margin: 0;
+    font-size: 16px;
+}
+
+.mensajeria_vacio img{
+    width: 300px;
+    height: auto;
 }
 
 .mensajeria_enviar i {
@@ -376,13 +415,6 @@ select {
     box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
 }
 
-/* .dropdown-optgroup {
-    max-height: 350px !important;
-}
-
-.dropdown-inner {
-    overflow: hidden !important;
-} */
 
 .dropdown-search,
 .dropdown-inner {
@@ -2302,14 +2334,21 @@ div[data-notify=container] {
 }
 
 @media (max-width:768px) {
-    .main-panel>.content {
-        padding: 30px 10px 50px 10px !important;
+    .mensajeria_panel,
+    .mensajeria_caja{
+        width: 100%;
     }
 
-    .opciones_tabla{
-        position: relative !important;
-        top:0;
-        text-align: center;   
+    .mensajeria_usuario .regresar{
+        display: block;
+    }
+
+    .mensajeria{
+        height: 100%;
+    }
+
+    .main-panel>.content {
+        padding: 30px 10px 50px 10px !important;
     }
 
     .msn-mostrar {
@@ -2383,6 +2422,16 @@ div[data-notify=container] {
 }
 
 @media (max-width:992px) {
+    .opciones_tabla{
+        position: relative !important;
+        top:0;
+        text-align: center;   
+    }
+
+    .opciones_tabla .select_estilo{
+        width: 45% !important;
+    }
+
     .wizard_step:not(.wizard_step.activo) {
         display: none
     }
@@ -17964,12 +18013,13 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     overflow: hidden;
     margin-top: 70px;
     /* padding: 30px 10px 50px 10px; */
-    padding: 30px 5% 50px 5%;
+    padding: 30px 5% 0px 5%;
     height: calc(100vh - 70px)
 }
 
 .main-panel>.footer {
-    border-top: 1px solid #e7e7e7
+    border-top: 1px solid #e7e7e7;
+    display:none !important;
 }
 
 .main-panel>.navbar {
@@ -20977,7 +21027,7 @@ input[type=checkbox]:checked+label:after {
     width: 100% !important;
     padding: 0 !important;
     margin: 10px 20px 20px;
-    position: relative !important
+    position: relative !important;
 }
 
 .dataTables_filter label {

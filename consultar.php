@@ -25,6 +25,7 @@ if (rol() == 2) {
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link href="assets/css/sweetalert2.min.css?v=3.2.1" rel="stylesheet" />
 
 </head>
@@ -203,14 +204,15 @@ if (rol() == 2) {
 						<div class="msn-mostrar">
 									<?php
 									if (rol() != 2) {
+										echo '<button onclick="eliminar_periodo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button> ';
+
 										echo '<a href="./subir" class="btn-mostrar"><i class="material-icons">file_upload</i>Impotar CFDI</a>';
-										echo '<button onclick="eliminar_periodo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button>';
 									}
 									?>
 								</div>
 						</div>
 					</div>
-					<div class="table-responsive">
+					<div class="table-responsive adp-hide">
 						<div class="opciones_tabla">
 							<select id="ano">
 								<option value="2022">2022</option>
@@ -267,6 +269,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/sesion.js?v=3.2.1"></script>
 	<script src="assets/js/mensajes.js?v=3.2.1"></script>
 	<script src="assets/js/consultar.js?v=3.2.1"></script>

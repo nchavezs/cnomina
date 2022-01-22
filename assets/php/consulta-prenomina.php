@@ -1,4 +1,6 @@
 <?php
+setlocale(LC_ALL, "spanish");
+
 include "conexion.php";
 $conexion = conexion();
 $ano = $_POST["ano"];
@@ -15,9 +17,9 @@ if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';
 } else {
     while ($res = mysqli_fetch_array($resultado)) {
-        $res["elaboracion"] = date("d M h:i A", strtotime($res["elaboracion"]));
-        $res["del"] = date("d M", strtotime($res["del"]));
-        $res["al"] = date("d M", strtotime($res["al"]));
+        $res["elaboracion"] = strftime("%d %B %I:%M %p", strtotime($res["elaboracion"]));
+        $res["del"] = strftime("%d %b", strtotime($res["del"]));
+        $res["al"] = strftime("%d %b", strtotime($res["al"]));
         $arreglo["data"][] = $res;
     }
     echo json_encode($arreglo);

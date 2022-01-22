@@ -176,7 +176,8 @@ $(document).ready(function () {
             }
         },
         "drawCallback": function (settings) {
-            document.querySelector('.content').scrollTop = 1;
+            $('.main-panel .content').perfectScrollbar('update');
+            ADP.show($(".table-responsive")[0], 'slide-left');
         },
         "columnDefs": [{
                 "className": "oculto",

@@ -215,13 +215,18 @@ include "assets/php/main_admin.php";
 						</div>
 						<div class="mensajeria_contactos"></div>
 					</div>
-					<div class="mensajeria_vacio"></div>
+					<div class="mensajeria_vacio">
+						<img src="assets/img/chat.svg" alt="">
+						<h2 class="text-primary my-4 font-weight-bold">Inicia una conversación</h2>
+						<p>Puedes enviar y recibir mensajes en conversaciones con los usuarios.</p>
+						<p>Para iniciar haz click en uno de los usuarios.</p>
+					</div>
 					<div class="mensajeria_caja adp-hide">
-						<div class="mensajeria_usuario"><img src="assets/img/user.png" alt=""><span></span></div>
+						<div class="mensajeria_usuario"><i class="material-icons regresar">keyboard_backspace</i> <img src="assets/img/user.png" alt=""><span></span></div>
 						<div class="mensajeria_chat"></div>
 						<div class="mensajeria_enviar">
 							<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
-							<i class="material-icons archivo">attach_file</i>
+							<!-- <i class="material-icons archivo">attach_file</i> -->
 							<i class="material-icons" onclick="enviar_mensaje();">send</i>
 						</div>
 					</div>
@@ -237,7 +242,7 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/animate/adp.js"></script>
+	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/material-dashboard.js?v=3.2.1" type="text/javascript"></script>
 	<script src="assets/js/sesion.js?v=3.2.1"></script>
 	<script src="assets/js/mensajes.js?v=3.2.1"></script>

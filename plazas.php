@@ -24,6 +24,7 @@ if (rol() != 1) {
     <link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
 	<link href="assets/css/sweetalert2.min.css?v=3.2.1" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
@@ -169,7 +170,7 @@ if ($varFoto != null) {
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive adp-hide">
                         <div class="opciones_tabla">
                             <select id="id_puesto">
                                 <option value="0" selected>TODOS LOS PUESTOS</option>
@@ -200,7 +201,7 @@ if ($varFoto != null) {
 									<th class="oculto">Puesto / Departamento</th>
                                     <th class="">Trabajador</th>
                                     <th class="oculto">Días ocupados</th>
-                                    <th class="">Días vacantes</th>
+                                    <th class="oculto">Días vacantes</th>
 									<th class="">Eliminar</th>
                                 </tr>
                             </thead>
@@ -241,6 +242,7 @@ if ($varFoto != null) {
     <script src="assets/js/block.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+    <script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/moment.js"></script>
     <script src="assets/js/sesion.js?v=3.2.1"></script>
     <script src="assets/js/mensajes.js?v=3.2.1"></script>

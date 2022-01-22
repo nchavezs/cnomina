@@ -1,9 +1,19 @@
 $(document).ready(function () {
     select_estilo_plazas();
+    
+    $(".opciones_tabla .tail-select").mouseenter(function(){
+        $('.main-panel .content').perfectScrollbar('destroy');
+    });
+
+    $(".opciones_tabla .tail-select").mouseleave(function(){
+        $('.main-panel .content').perfectScrollbar();
+    });
 
     $(".opciones_tabla select").change(function(){
         $('#tabla-plaza').DataTable().ajax.reload();
     });
+
+  
 
     var tabla = $('#tabla-plaza').DataTable({
         "lengthChange": false,
@@ -23,15 +33,24 @@ $(document).ready(function () {
             }
         },
         "drawCallback": function (settings) {
-            document.querySelector('.content').scrollTop = 1;
+            $('.main-panel .content').perfectScrollbar('update');
+            ADP.show($(".table-responsive")[0], 'slide-left');
         },
         "columnDefs": [{
                 "className": "font-weight-bold",
-                "targets": [0, 1]
+                "targets": [0]
             },
             {
                 "orderable": false,
                 "targets": [3]
+            },
+            {
+                "className": "oculto",
+                "targets": [3,4]
+            },
+            {
+                "className": "oculto font-weight-bold",
+                "targets": [1]
             }
         ],
         "columns": [{
@@ -266,4 +285,7 @@ function select_estilo_plazas() {
         search: false,
         width: "200px"
      });
+
+    //  $(".dropdown-inner").perfectScrollbar();
+    
  };

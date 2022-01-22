@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $(".pestana_1").click(function(){
         $(".pagina_2").addClass("adp-hide");
         ADP.show($(".pagina_1")[0], 'slide-left');
@@ -26,7 +25,8 @@ $(document).ready(function () {
             "url": "assets/php/consulta-puesto.php"
         },
         "drawCallback": function( settings ) {
-            document.querySelector('.content').scrollTop = 1;
+            $('.main-panel .content').perfectScrollbar('update');
+            ADP.show($(".pagina_1 .table-responsive")[0], 'slide-left');
         },
         "columnDefs": [
             {
@@ -74,7 +74,7 @@ $(document).ready(function () {
             "url": "assets/php/consulta-departamento.php"
         },
         // "drawCallback": function( settings ) {
-        //     document.querySelector('.content').scrollTop = 1;
+        //     $('.main-panel .content').perfectScrollbar('update');
         // },
         "columnDefs": [
             {
@@ -118,6 +118,7 @@ $(document).ready(function () {
                 success: function (data) {
                     log_show(data);
                     $('#tabla-puesto').DataTable().ajax.reload();
+                    $('#tabla-departamento').DataTable().ajax.reload();
                     $("#importar-puestos").val("");
                 }
             });

@@ -1,7 +1,7 @@
 var ps2 = $('.sidebar-wrapper').perfectScrollbar({
     maxScrollbarLength: 250
 });
-var ps3 = $('.main-panel>.content').perfectScrollbar({
+var ps3 = $('.main-panel .content').perfectScrollbar({
     maxScrollbarLength: 250
 });
 

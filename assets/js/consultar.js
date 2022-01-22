@@ -19,6 +19,10 @@ $(document).ready(function () {
                 d.id_periodo = $("#id_periodo").val();
             }
         },
+        "drawCallback": function (settings) {
+            $('.main-panel .content').perfectScrollbar('update');
+            ADP.show($(".table-responsive")[0], 'slide-left');
+        },
         "columnDefs": [ {
             "targets": [3,4],
             "orderable": false 

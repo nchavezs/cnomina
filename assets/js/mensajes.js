@@ -10,6 +10,16 @@ $(document).ready(function(){
     contactos("");
     contactos_evento = setInterval("contactos('');", 3000);
 
+    if($(window).width() < 767){
+        $(document).on("click", ".mensajeria_contacto", function(){
+            ADP.hide($(".mensajeria_panel")[0], 'slide-left');
+        });
+    
+        $(document).on("click", ".mensajeria_usuario .regresar", function(){
+            ADP.show($(".mensajeria_panel")[0], 'slide-left');
+        });
+    }
+
     $('.mensajeria textarea').on('keydown', function (e) {
         if (e.which === 13 && !e.shiftKey) {
            e.preventDefault();

@@ -208,20 +208,20 @@ include "./assets/php/comprobar_catalago.php";
                                 if (rol() == 1) {
                                     echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>
 											<div class="">Nuevo empleado</div>
-												</button>
-												<input type="file" id="importar-empleado" accept=".xlsx" /><label
-													class="btn-mostrar" for="importar-empleado"><i
-														class="material-icons">file_upload</i>Importar</label>
-													<button onclick="generar_empleados();" class="btn-mostrar"><i
-													class="material-icons">file_download</i>
-												<div class="">Exportar</div>
-											</button>';
+                                        </button>
+										<input type="file" id="importar-empleado" accept=".xlsx" />
+                                        <label class="btn-mostrar" for="importar-empleado">
+                                            <i class="material-icons">file_upload</i>Importar
+                                        </label>
+                                        <button onclick="generar_empleados();" class="btn-mostrar">
+                                            <i class="material-icons">file_download</i>Exportar
+                                        </button>';
                                 }
                                 ?>
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive adp-hide">
                         <div class="opciones_tabla">
                             <select id="estado">
                                 <option value="alta">ALTA</option>
