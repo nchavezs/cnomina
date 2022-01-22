@@ -139,6 +139,9 @@ if (strpos($pdf, 'Catorcenal') !== false) {
    $periodo = 1;
 } else if(strpos($pdf, 'Mensual') !== false) {
     $periodo = 2;
+} else if(strpos($pdf, 'Periodicidad') !== false) {
+    $periodo = 3;
+    $dias = 0;
 }else{
     $periodo = "";
 }

@@ -26,7 +26,7 @@ echo '<div class="formulario row">
 								<div class="select">
 									<div class="select-etiqueta">Periodo</div>
 									<select id="periodo" class="">';
-									$sql = "SELECT * FROM Periodo";
+									$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
 									$consulta = mysqli_query($conexion,$sql);
 									while($res = mysqli_fetch_array($consulta)){
 										echo '<option value="'.$res["id_periodo"].'">'.$res["nombre"].'</option>';

@@ -234,7 +234,7 @@ function select_estilo_3() {
       animate: true,
       classNames: ["select_estilo"],
       search: false,
-      width: "150px"
+      width: "180px"
    });
 
    

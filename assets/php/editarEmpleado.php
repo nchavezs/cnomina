@@ -117,7 +117,7 @@ echo '<div class="formulario row">
 								<div class="select">
 									<div class="select-etiqueta">Tipo de periodo</div>
 									<select id="periodo">';
-									$sql = "SELECT * FROM Periodo ORDER BY nombre ASC";
+									$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
 									$consulta = mysqli_query($conexion, $sql);
 									if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 										while ($res2 = mysqli_fetch_row($consulta)) {

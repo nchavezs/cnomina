@@ -1,4 +1,4 @@
-.dropdown-inner{
+.dropdown-inner {
     position: relative !important;
     padding: 0 !important;
     max-height: 300px !important;
@@ -7,35 +7,36 @@
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
-background: transparent;
+    background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: #666;
-border-radius: 50px; 
+    background: #666;
+    border-radius: 50px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #555; 
+    background: #555;
 }
 
-.opciones_tabla{
+.opciones_tabla {
     width: 100%;
     position: absolute;
-    top:10px;
+    top: 10px;
 }
 
-.opciones_tabla .pestana_1{
+.opciones_tabla .pestana_1 {
     border-radius: 50px 0 0 50px !important;
     margin-right: -3px;
-    
+
 }
 
-.opciones_tabla .pestana{
+.opciones_tabla .pestana {
     width: auto;
     height: 30px;
     display: inline;
@@ -51,12 +52,12 @@ background: #555;
     z-index: 1;
 }
 
-.pestana.activo{
+.pestana.activo {
     background: #5377DB;
     color: #fff;
 }
 
-.opciones_tabla .pestana:hover{
+.opciones_tabla .pestana:hover {
     box-shadow: 5px 5px 5px rgb(0, 0, 0, .1);
 }
 
@@ -64,7 +65,7 @@ select {
     opacity: 0 !important;
 }
 
-.select_estilo .select-dropdown{
+.select_estilo .select-dropdown {
     margin-top: 10px !important;
     border-radius: 6px !important;
 }
@@ -74,7 +75,7 @@ select {
     font-weight: bold !important;
 }
 
-.select_estilo{
+.select_estilo {
     background: #fff;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0, .1); */
     border-radius: 50px !important;
@@ -82,11 +83,11 @@ select {
     height: 30px !important;
 }
 
-.select_estilo .select-label{
+.select_estilo .select-label {
     margin: 0 20px !important;
 }
 
-.select_estilo::after{
+.select_estilo::after {
     position: absolute;
     top: 13px;
     right: 7px;
@@ -100,7 +101,7 @@ select {
     pointer-events: none
 }
 
-.select_estilo .label-inner{
+.select_estilo .label-inner {
     font-weight: bold !important;
     color: #555 !important;
     font-size: 12px !important;
@@ -118,13 +119,13 @@ select {
     overflow: hidden;
 }
 
-.mensajeria_busqueda_caja{
+.mensajeria_busqueda_caja {
     background: #EDEDED;
     padding: 10px 20px;
 }
 
 
-.mensajeria_panel{
+.mensajeria_panel {
     position: absolute;
     top: 0;
     left: 0;
@@ -135,7 +136,7 @@ select {
     border-right: 1px solid #ddd;
 }
 
-.mensajeria_usuario{
+.mensajeria_usuario {
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -146,7 +147,7 @@ select {
     /* box-shadow: 2px 2px 5px rgb(0, 0, 0, .1); */
 }
 
-.mensajeria_usuario .regresar{
+.mensajeria_usuario .regresar {
     position: relative;
     background: #ddd;
     border-radius: 50px;
@@ -171,7 +172,6 @@ select {
 .mio .mensajeria_contenido {
     background: white !important;
     color: #555;
-    border-radius: 20px 20px 4px 20px;
 }
 
 .mio img {
@@ -185,7 +185,7 @@ select {
     font-size: 11px;
 }
 
-.mensajeria_resultados{
+.mensajeria_resultados {
     font-size: 13px;
     font-weight: 600;
     color: #bbb;
@@ -212,9 +212,38 @@ select {
     width: 100%;
 }
 
+.mio .mensajeria_contenido:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -10px !important;
+    left: auto !important;
+    bottom: 0px !important;
+    bottom: 0 !important;
+    border: 10px solid !important;
+    border-color: transparent transparent #fff transparent !important;
+}
+
+.mensajeria_contenido:not(.mio .mensajeria_contenido):after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -10px;
+    right: auto;
+    top: 0px;
+    bottom: auto;
+    border: 10px solid;
+    border-color: #5377DB transparent transparent transparent;
+
+
+}
+
 .mensajeria_contenido {
+    overflow-wrap: break-word;
     background: #5377DB;
-    border-radius: 4px 20px 20px 20px;
+    border-radius: 10px;
     padding: 10px 20px;
     position: relative;
     color: white;
@@ -262,21 +291,21 @@ select {
     width: 70%;
     text-align: center;
     border-bottom: 5px solid #699cee93;
-   
+
 }
 
-.mensajeria_vacio h2{
+.mensajeria_vacio h2 {
     font-family: 'Montserrat', sans-serif;
 }
 
-.mensajeria_vacio p{
+.mensajeria_vacio p {
     font-family: 'Roboto', sans-serif;
     color: rgba(95, 101, 107, 0.733);
     margin: 0;
     font-size: 16px;
 }
 
-.mensajeria_vacio img{
+.mensajeria_vacio img {
     width: 300px;
     height: auto;
 }
@@ -309,7 +338,7 @@ select {
     height: 100%;
     overflow-y: scroll;
     background: white;
-    
+
 }
 
 .mensajeria_contacto {
@@ -323,14 +352,14 @@ select {
     background: white;
     padding: 15px;
     position: relative;
-    
+
     cursor: pointer;
     transition: all 0.3s;
-    
+
 }
 
 .mensajeria_contacto div,
-.mensajeria_contacto p{
+.mensajeria_contacto p {
     width: 70%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -367,8 +396,9 @@ select {
     /* color: white; */
     border-radius: 0 50px 50px 0;
 }
+
 .mensajeria_contacto.activo,
-.mensajeria_contacto:hover{
+.mensajeria_contacto:hover {
     background: rgba(0, 0, 0, 0.06);
 }
 
@@ -2334,18 +2364,23 @@ div[data-notify=container] {
 }
 
 @media (max-width:768px) {
+
     .mensajeria_panel,
-    .mensajeria_caja{
+    .mensajeria_caja {
         width: 100%;
     }
 
-    .mensajeria_usuario .regresar{
+    .mensajeria_vacio{
+        display: none;
+    }
+
+    .mensajeria_usuario .regresar {
         display: block;
     }
 
-    .mensajeria{
+    /* .mensajeria {
         height: 100%;
-    }
+    } */
 
     .main-panel>.content {
         padding: 30px 10px 50px 10px !important;
@@ -2422,13 +2457,13 @@ div[data-notify=container] {
 }
 
 @media (max-width:992px) {
-    .opciones_tabla{
+    .opciones_tabla {
         position: relative !important;
-        top:0;
-        text-align: center;   
+        top: 0;
+        text-align: center;
     }
 
-    .opciones_tabla .select_estilo{
+    .opciones_tabla .select_estilo {
         width: 45% !important;
     }
 
@@ -18019,7 +18054,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .main-panel>.footer {
     border-top: 1px solid #e7e7e7;
-    display:none !important;
+    display: none !important;
 }
 
 .main-panel>.navbar {
@@ -21037,7 +21072,7 @@ input[type=checkbox]:checked+label:after {
     width: auto !important;
     height: 30px !important;
     padding: 0 !important;
-    margin:  0 !important;
+    margin: 0 !important;
     display: block;
     transition: all .3s;
     border-radius: 50px;

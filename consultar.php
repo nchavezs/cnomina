@@ -223,6 +223,7 @@ if (rol() == 2) {
 							<select id="id_periodo">
 								<option value="1">CATORCENAL</option>
 								<option value="2">MENSUAL</option>
+								<option value="3">OTRA PERIODICIDAD</option>
 							</select>
 						</div>
 						<table id="tabla-nominas" class="table table-striped" style="width:100%">
