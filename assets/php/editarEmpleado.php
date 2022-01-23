@@ -10,15 +10,16 @@ $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "' AND categoria = 'user'";
 $consulta = mysqli_query($conexion, $sql);
 $res = mysqli_fetch_array($consulta);
 
-echo '<div class="formulario row">
-		<div class="col-md-4 p-0">
+echo '<div class="formulario_caja">
+	<div class="row">
+		<div class="col-md-4 pr-0">
 			<div class="wallpaper">
 				<img src="assets/img/form.svg" alt="">
 			</div>
 		</div>
 
-		<div class="col-md-8 p-0">
-			<div class="card-body">
+		<div class="col-md-8 pl-0">
+			<div class="formulario">
 				<form id="form-empleado-1" class="pagina_1">
 					<div class="text-left p-2">
 						<h4 class="font-weight-bold text-primary">Editar información</h4>
@@ -27,33 +28,33 @@ echo '<div class="formulario row">
 					<div class="card">
 						<div class="row card-body">
 							<div class="col-md-12">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta">Nombre(s)</div>
-									<input id="nombres" type="text" placeholder="" class="form-control" value="'.$res["nombres"].'" required>
+									<input id="nombres" type="text" placeholder="" class="campo" value="'.$res["nombres"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">Apellido paterno</div>
-									<input id="apellidop" type="text" placeholder="" class="form-control" value="'.$res["apellidop"].'" required>
+									<input id="apellidop" type="text" placeholder="" class="campo" value="'.$res["apellidop"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">Apellido materno</div>
-									<input id="apellidom" type="text" placeholder="" class="form-control" value="'.$res["apellidom"].'" required>
+									<input id="apellidom" type="text" placeholder="" class="campo" value="'.$res["apellidom"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">RFC</div>
-									<input id="rfc" disabled type="text" class="form-control" value="'.$res["RFC"].'">
+									<input id="rfc" disabled type="text" class="campo" value="'.$res["RFC"].'">
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">CURP</div>
-									<input id="curp" type="text" class="form-control" maxlength=18 minlength=18 value="'.$res["CURP"].'" required>
+									<input id="curp" type="text" class="campo" maxlength=18 minlength=18 value="'.$res["CURP"].'" required>
 								</div>
 							</div>
 						</div>
@@ -62,17 +63,17 @@ echo '<div class="formulario row">
 					<div class="card">
 						<div class="row card-body">
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">Número de empleado</div>
-									<input id="numero" type="text" class="form-control" maxlength=5 value="'.$res["id_usuario"].'" required
+									<input id="numero" type="text" class="campo" maxlength=5 value="'.$res["id_usuario"].'" required
 										onkeypress="return isNumberKey(event)">
 								</div>
 							</div>
 
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">Fecha de ingreso</div>
-									<input id="ingreso" type="text" class="form-control" readonly value="'.$res["fechaRelLab"].'" />
+									<input id="ingreso" type="text" class="campo" readonly value="'.$res["fechaRelLab"].'" />
 								</div>
 							</div>
 						</div>
@@ -85,8 +86,9 @@ echo '<div class="formulario row">
 
 				<form id="form-empleado-2" class="pagina_2 adp-hide">
 					<div class="card">
-						<div class="row card-body">
-							<div class="col-md-6">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-6">
 								<div class="select">
 									<div class="select-etiqueta">Tipo de trabajador</div>
 									<select id="trabajador">';
@@ -133,22 +135,23 @@ echo '<div class="formulario row">
 									echo '</select>
 								</div>
 							</div>
+							</div>
 						</div>
 					</div>
 
 					<div class="card">
 						<div class="row card-body">
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta">Cuenta bancaria <cite class="text-danger"> opcional</cite></div>
-									<input id="banca" type="text" class="form-control" value="'.$res["banca"].'">
+									<input id="banca" type="text" class="campo" value="'.$res["banca"].'">
 								</div>
 							</div>
 
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">No. de afiliación <cite class="text-danger"> opcional</cite></div>
-									<input id="afiliacion" type="text" class="form-control" value="'.$res["afiliacion"].'">
+									<input id="afiliacion" type="text" class="campo" value="'.$res["afiliacion"].'">
 								</div>
 							</div>
 						</div>
@@ -161,6 +164,7 @@ echo '<div class="formulario row">
 				</form>
 			</div>
 		</div>
-	</div>';
+	</div>
+</div>';
 
 mysqli_close($conexion);

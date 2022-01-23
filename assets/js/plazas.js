@@ -140,7 +140,7 @@ function nueva_plaza() {
         $("#dias").val(dias_ano());
         $("#fecha").css("color", "green");
         
-        select_change();
+        depa_change();
 
         $("#form-plaza").on("submit", function (e) {
             e.preventDefault();
@@ -275,7 +275,8 @@ function select_estilo_plazas() {
        animate: true,
        classNames: ["select_estilo"],
        search: true,
-       width: "300px"
+       width: "300px",
+       descriptions: true,
     });
 
     tail.select("#estado", {

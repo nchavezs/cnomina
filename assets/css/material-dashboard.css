@@ -1,7 +1,51 @@
+.check_opciones{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.reportes .regresar{
+    position: absolute;
+    background: #eee;
+    border-radius: 50px;
+    padding: 5px;
+    cursor: pointer;
+    right: 15px;
+    top: 15px;
+}
+
+.reportes .formulario{
+    background: #fff !important;
+}
+
+.reportes .pagina_1 .card img{
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+.reportes .pagina_1 .card{
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 3px solid #fff;
+    font-size: 12px;
+}
+
+.reportes .pagina_1 .card:hover{
+    border: 3px solid rgba(92, 157, 231, 0.562);
+}
+
+.reportes .pagina_1 .card:hover img{
+    padding: 30px;
+}
+
 .dropdown-inner {
     position: relative !important;
     padding: 0 !important;
-    max-height: 300px !important;
+    max-height: 200px !important;
 }
 
 ::-webkit-scrollbar {
@@ -459,6 +503,10 @@ select {
     background: transparent !important;
 }
 
+.tail-select.disabled .select-label{
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
 
 .card .card-header-primary .card-icon,
 .card .card-header-primary .card-text,
@@ -470,37 +518,47 @@ select {
 }
 
 .formulario {
-    display: flex;
-    margin: -15px !important;
-    background: #F6F7FB !important;
+    text-align: left;
+    position: relative;
+    padding: 30px;
 }
 
-.formulario .form-control:focus {
+.formulario_caja {
+    margin: -20px !important;
+    background: #F6F7FB;
+    position: relative;
+    overflow: hidden !important;
+}
+
+.formulario .campo:focus {
     border: 1px solid #b1d8e2;
-}
-
-.formulario .select::after {
-    top: 45px;
 }
 
 .formulario .select-etiqueta {
     padding: 0 0 5px 5px !important;
 }
 
-.formulario .form-control {
+.formulario .campo {
     background: #f5f6f9b9 !important;
-    padding: 10px 10px !important;
+    padding: 8px 10px !important;
     border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
-.formulario .wallpaper {
+
+
+.formulario_caja .wallpaper {
     width: 100%;
     height: 100%;
     padding: 30px;
     background: #EAF2FB;
 }
 
-.formulario img {
+.formulario_caja img {
     width: 100%;
     height: 100%;
 }
@@ -20887,8 +20945,7 @@ input[type=checkbox]:checked+label:after {
 
 .select {
     width: 100%;
-    margin-top: 7px;
-    text-align: center
+    position: relative;
 }
 
 .select-etiqueta {
@@ -20901,8 +20958,8 @@ input[type=checkbox]:checked+label:after {
 
 .select:after {
     position: absolute;
-    top: 35px;
-    right: 20px;
+    right: 10px;
+    bottom: 14px;
     width: 0;
     height: 0;
     padding: 0;

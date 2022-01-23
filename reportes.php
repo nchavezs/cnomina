@@ -13,16 +13,16 @@ if (rol() != 1) {
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>
-		Consulta Nómina
-	</title>
+	<title>Consulta Nómina</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 	<link href="assets/css/material-dashboard.css?v=3.2.2" rel="stylesheet" />
-	<link href="assets/css/select2.css?v=3.2.2" rel="stylesheet" />
-	<link href="assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
+	<link href="assets/js/plugins/animate/adp.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
+	<link href="assets/css/sweetalert2.min.css?v=3.2.2" rel="stylesheet"/>
 
 </head>
 
@@ -145,280 +145,198 @@ if (rol() != 1) {
 			</nav>
 			<!-- End Navbar -->
 			<div class="content">
-				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
-					<div class="row">
-						<div class="col-md-12">
-						<div class="caja_magica">
-							<div class="caja-todos-empleado">
-								<div class="card card-stats">
-									<div class="card-header card-header-success card-header-icon carta-dos">
-										<div class="card-icon">
-											<i class="material-icons">people</i>
-										</div>
-
-									</div>
-
-									<div class="card-body estado-todos">
-										<div class="row">
-											<div class="col-6 reporte-texto">
-												<h5>Puesto<i class="material-icons">keyboard_arrow_right</i></h5>
-											</div>
-											<div class="col-6 reporte-texto">
-												<div id="filtro-puesto"></div>
-												<input id="puesto" type="input" class="input-reporte" />
-											</div>
-											<div class="col-6 reporte-texto">
-												<h5>Departamento <i class="material-icons">keyboard_arrow_right</i> </h5>
-											</div>
-											<div class="col-6 reporte-texto">
-												<div id="filtro-departamento"></div>
-												<input id="departamento" type="input" class="input-reporte" />
-											</div>
-										</div>
-									</div>
-									<div class="card-footer">
-										<div class="estado-caja">
-											<input id="todos_empleado" class="chk" checked type="checkbox" /><label for="todos_empleado">TODOS LOS EMPLEADOS</label>
+					<div class="reportes">
+						<div class="pagina pagina_1">
+							<div class="row">
+								<div class="col-xl-4">
+									<div class="card" onclick="pagina(2);">
+										<div class="card-body text-center">
+											<h3 class="text-primary">General</h3>
+											<img src="assets/img/reportes.svg" alt="">
+											<p class="text-muted">Reporte general de puestos y departamentos.</p>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="caja-por-empleado">
-								<div class="card card-stats">
-									<div class="card-header card-header-primary apagado2 card-header-icon carta-uno">
-										<div class="card-icon">
-											<i class="material-icons">person_pin</i>
-										</div>
-										<div id="nuevo-empleado" class="btn nuevo-empleado-apagado"><i class="material-icons">add</i>Seleccionar empleado </div>
-									</div>
-
-									<div class="card-body estado-empleado apagado2">
-										<table class="table table-hover">
-											<thead class="titulos">
-												<th></th>
-												<th></th>
-												<th></th>
-
-											</thead>
-											<tbody class="tabla-temporal">
-											</tbody>
-										</table>
-										<div class="chat-nuevo">
-											<i id="chat-icono" class="material-icons">error_outline</i>
-											<p>Sin elementos</p>
+								<div class="col-xl-4">
+									<div class="card" onclick="pagina(3);">
+										<div class="card-body text-center">
+											<h3 class="text-primary">Plazas</h3>
+											<img src="assets/img/plazas.svg" alt="">
+											<p class="text-muted">Consulta información sobre las plazas.</p>
 										</div>
 									</div>
-
-									<div class="card-footer">
-										<div class="estado-caja">
-											<input id="por_empleado" class="chk" type="checkbox" /><label for="por_empleado">POR EMPLEADO</label>
+								</div>
+								<div class="col-xl-4">
+									<div class="card" onclick="pagina(4);">
+										<div class="card-body text-center">
+											<h3 class="text-primary">Usuarios</h3>
+											<img src="assets/img/usuarios.svg" alt="">
+											<p class="text-muted">Realiza reportes de usuarios.</p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header">
-							<h4 class="card-title text-gray">PARÁMETROS</h4>
-							<p class="card-category">Selecciona los parámetros a mostrar</p>
-							</div>
-
-							<div class="card-body table-responsive p-0">
-							<table class="table">
-									<thead class="text-primary">
-										<th class="">Beneficiarios</th>
-										<th class="">Periodo</th>
-										<th class="">Fecha del</th>
-										<th class="">Fecha al</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="">
+						<div class="pagina pagina_2 adp-hide">
+							<div class="row">
+								<div class="col-md-7">
+									<div class="card formulario">
+										<div class="card-header">
+											<i class="material-icons regresar" onclick="pagina(1);">keyboard_backspace</i>
+										<h5 class="text-muted">Selecciona el periodo y alguno de los parámetros siguientes:</h5>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="select-etiqueta">Periodo</div>
+													<input id="al" type="text" class="campo" placeholder="DEL" required>
+												</div>
+												<div class="col-md-6">
+													<div class="select-etiqueta">Periodo</div>
+													<input id="del" type="text" class="campo" placeholder="AL" required>
+												</div>
+												<div class="col-md-12">
+												<div class="select">
+														<div class="select-etiqueta">Departamento</div>
+														<select id="departamento_multiple" multiple>
+															<?php
+																$conexion = conexion();
+																$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
+																$consulta = mysqli_query($conexion, $sql);
+																if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+																	while ($res2 = mysqli_fetch_row($consulta)) {
+																		echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
+																	}
+																} else {
+																}
+																mysqli_close($conexion);	
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="select">
+														<div class="select-etiqueta">Puesto</div>
+														<select id="puesto_multiple" multiple></select>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 text-right">
+												<button class="btn btn-sm btn-success"><i class="material-icons">download</i> Generar reporte</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="card formulario">
+										<div class="card-body">
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check6" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="">
+												<span class="text-muted ml-3">Beneficiarios</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check7" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class=""><input id="fecha11" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td class=""><input id="fecha12" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-									</tbody>
-								</table>
-
-								
-
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-body table-responsive p-0">
-								<table class="table table-hover">
-									<thead class="text-primary">
-										<th></th>
-										<th class="">Parámetro</th>
-										<th class="">Fecha del</th>
-										<th class="">Fecha al</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
+												<span class="text-muted ml-3">Pases sin goce de sueldo</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Movimientos</td>
-											<td><input id="fecha1" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha2" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-										<tr>
-											<td>
+												<span class="text-muted ml-3">Pases con goce de sueldo</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check2" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Descuentos</td>
-											<td><input id="fecha3" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha4" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-										<tr>
-											<td>
+												<span class="text-muted ml-3">Licencias</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check3" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Vacaciones</td>
-											<td><input id="fecha5" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha6" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-										<tr>
-											<td>
+												<span class="text-muted ml-3">Movimientos</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check4" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Permisos con goce</td>
-											<td><input id="fecha7" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha8" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-
-										<tr>
-											<td>
+												<span class="text-muted ml-3">Vacaciones</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check5" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Permisos sin goce</td>
-											<td><input id="fecha9" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha10" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-
-										<tr class="no_aplica">
-											<td>
+												<span class="text-muted ml-3">Descuentos</span>
+											</div>
+											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check8" type="checkbox" class="cb-value" />
+													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
-											</td>
-											<td class="titulo2">Altas</td>
-											<td><input id="fecha13" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha14" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-
-										<tr class="no_aplica">
-											<td>
-												<div class="toggle-btn">
-													<input id="check9" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-											</td>
-											<td class="titulo2">Bajas</td>
-											<td><input id="fecha15" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha16" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-
-										<tr>
-											<td>
-												<div class="toggle-btn">
-													<input id="check10" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-											</td>
-											<td class="titulo2">Pases</td>
-											<td><input id="fecha17" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-											<td><input id="fecha18" type='text' class="datepicker-here fecha-reporte input-reporte apagado titulo2" readonly /></td>
-										</tr>
-
-
-									</tbody>
-								</table>
+												<span class="text-muted ml-3">Gastos médicos</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
+						<div class="pagina pagina_3 adp-hide">
+							<h5>Selecciona el tipo de reporte</h5>
+						</div>
+						<div class="pagina pagina_4 adp-hide">
+							<h5>Selecciona los usuarios</h5>
+						</div>
+						<div class="pagina pagina_5 adp-hide">
+							<h5>Selecciona los parámetros</h5>
+						</div>
+						<div class="pagina pagina_6 adp-hide">
+							<h5>Selecciona las plaza</h5>
+						</div>
 					</div>
-					</div>
-
-					
 				</div>
 			</div>
 
-			<div class="p-5"></div>
+			<!-- <div class="p-5"></div>
 			<div class="boton_generar_reporte">
 				<div id="generar" class="btn btn-primary btn-sm regresar"><i class="material-icons">download</i> Generar reporte </div>
-			</div>
+			</div> -->
 
-			<footer class="footer">
-
-			</footer>
+			<footer class="footer"></footer>
 		</div>
 	</div>
-	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap-material-design.min.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.2.2" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-
-
-	<!-- Chartist JS -->
-
-	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="assets/js/material-dashboard.js?v=3.2.2" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.2.2"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/block.js"></script>
-	<script src="assets/js/reportes.js?v=3.2.2"></script>
-	<script src="assets/js/sesion.js?v=3.2.2"></script>
-	<script src="assets/js/mensajes.js?v=3.2.2"></script>
 	<script src="assets/js/datepicker.min.js"></script>
+	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+    <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+	<script src="assets/js/sesion.js?v=3.2.2"></script>			
+	<script src="assets/js/reportes.js?v=3.2.2"></script>
+	<script src="assets/js/mensajes.js?v=3.2.2"></script>
 
 </body>
 

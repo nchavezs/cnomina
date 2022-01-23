@@ -38,3 +38,5 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 } else {
     echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
 }
+
+mysqli_close($conexion);

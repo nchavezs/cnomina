@@ -6,15 +6,16 @@ $conexion = conexion();
 
 $hoy = date("d/m/Y");
 
-echo '<div class="formulario row">
-		<div class="col-md-4 p-0">
+echo '<div class="formulario_caja">
+<div class="row">
+		<div class="col-md-4 pr-0">
 			<div class="wallpaper">
 				<img src="assets/img/form.svg" alt="">
 			</div>
 		</div>
 
-		<div class="col-md-8 p-0">
-			<div class="card-body">
+		<div class="col-md-8 pl-0">
+			<div class="formulario">
 				<form id="form-prenomina">
 					<div class="text-left p-2">
 						<h4 class="font-weight-bold text-primary">Genera una nueva prenómina</h4>
@@ -35,22 +36,22 @@ echo '<div class="formulario row">
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta">Del</div>
-									<input id="del" type="text" readonly class="form-control" value="" required/>
+									<input id="del" type="text" readonly class="campo" value="" required/>
 								</div>
 							</div>
 
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta ">Al</div>
-									<input id="al" type="text" disabled readonly class="form-control" value="" required/> 
+									<input id="al" type="text" disabled readonly class="campo" value="" required/> 
 								</div>
 							</div>
 							<div class="col-md-12">
-								<div class="form-group">
+								<div class="">
 									<div class="select-etiqueta">Observaciones <cite class="text-danger">opcional</cite></div>
-									<textarea id="observacion" class="form-control"></textarea>
+									<textarea id="observacion" class="campo"></textarea>
 								</div>
 							</div>
 						</div>
@@ -79,6 +80,7 @@ echo '<div class="formulario row">
 				</form>
 			</div>
 		</div>
-	</div>';
+	</div>
+</div> ';
 
 mysqli_close($conexion);

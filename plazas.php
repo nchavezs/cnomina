@@ -176,11 +176,16 @@ if ($varFoto != null) {
                                 <option value="0" selected>TODOS LOS PUESTOS</option>
                                 <?php
                                     $conexion = conexion();
-                                    $sql = "SELECT * FROM Puesto ORDER BY nombre ASC";
+                                    $sql = "SELECT 
+                                    id_puesto, 
+                                    Puesto.nombre AS puesto,
+                                    Departamento.nombre AS departamento 
+                                    FROM Puesto LEFT JOIN Departamento ON Puesto.id_departamento = Departamento.id_departamento 
+                                    ORDER BY puesto ASC";
                                     $consulta = mysqli_query($conexion, $sql);
                                     if($consulta && (mysqli_num_rows($consulta)) > 0){
-                                        while($res = mysqli_fetch_row($consulta)){
-                                            echo '<option value="'.$res[0].'">'.$res[1].'</option>';
+                                        while($res = mysqli_fetch_array($consulta)){
+                                            echo '<option data-description="'.$res["departamento"].'" value="'.$res[0].'">'.$res[1].'</option>';
                                         }	
                                     }else{
                                         echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';

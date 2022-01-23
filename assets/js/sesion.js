@@ -205,27 +205,24 @@ function select_estilo() {
    tail.select("select", {
       locale: "es",
       animate: true,
-      classNames: ["form-control"],
+      classNames: ["campo"],
       width: "100%",
       search: true,
       descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN",
+      multiSelectAll:true
    });
-
-   
 };
 
 function select_estilo_2() {
    tail.select("select", {
       locale: "es",
       animate: true,
-      classNames: ["form-control"],
+      classNames: ["campo"],
       width: "100%",
       search: false,
       placeholder: "SELECCIONA UNA OPCIÓN"
    });
-
-   
 };
 
 function select_estilo_3() {
@@ -236,11 +233,9 @@ function select_estilo_3() {
       search: false,
       width: "180px"
    });
-
-   
 };
 
-function select_change() {
+function depa_change() {
    $("#departamento").on("change", function () {
       $.ajax({
          url: "assets/php/depa_change.php",
@@ -252,7 +247,7 @@ function select_change() {
             $("#puesto").html(data);
             tail.select("#puesto").reload();
             if(document.getElementById( "plaza")){
-               puesto_on_change();
+               puesto_change();
             }
          }
       });
@@ -261,7 +256,7 @@ function select_change() {
    $("#departamento").change();
 }
 
-function puesto_on_change() {
+function puesto_change() {
    $("#puesto").on("change", function () {
       $.ajax({
          url: "assets/php/puesto_change.php",

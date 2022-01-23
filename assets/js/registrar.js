@@ -80,7 +80,7 @@ $(document).ready(function () {
             });
 
             select_estilo();
-            select_change();
+            depa_change();
             $("#nombre").blur();
             var ingreso;
             var date = new Date();
@@ -1468,7 +1468,7 @@ function movimiento(id) {
                     });
 
                     select_estilo();
-                    select_change();
+                    depa_change();
 
                     $.post("assets/php/fechaInicio.php", {
                         "id": id
@@ -2740,7 +2740,7 @@ function diferencia_fecha(fecha1, fecha2) {
     $("#dias").val(diffDays);
 }
 
-// function select_change() {
+// function depa_change() {
 //     $("#departamento").on("change", function () {
 //         $.ajax({
 //             url: "assets/php/depa_change.php",
