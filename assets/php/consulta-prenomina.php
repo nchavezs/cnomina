@@ -17,7 +17,7 @@ if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';
 } else {
     while ($res = mysqli_fetch_array($resultado)) {
-        $res["elaboracion"] = strftime("%d %B %I:%M %p", strtotime($res["elaboracion"]));
+        $res["elaboracion"] = date("Y-m-d H:i:s", strtotime($res["elaboracion"]));
         $res["del"] = strftime("%d %b", strtotime($res["del"]));
         $res["al"] = strftime("%d %b", strtotime($res["al"]));
         $arreglo["data"][] = $res;

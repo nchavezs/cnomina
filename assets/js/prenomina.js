@@ -1,7 +1,7 @@
 $(document).ready(function () {
     select_estilo_3();
 
-    $(".opciones_tabla select").change(function(){
+    $(".opciones_tabla select").change(function () {
         $('#tabla-prenomina').DataTable().ajax.reload();
     });
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
         "lengthChange": false,
         "pageLength": 5,
         "order": [
-            [3, "desc"]
+            [2, "desc"]
         ],
         "language": {
             url: "assets/js/datatables/es.json"
@@ -17,7 +17,7 @@ $(document).ready(function () {
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-prenomina.php",
-            "data": function(d){
+            "data": function (d) {
                 d.ano = $("#ano").val();
                 d.id_periodo = $("#id_periodo").val();
             }
@@ -32,7 +32,7 @@ $(document).ready(function () {
             },
             {
                 "orderable": false,
-                "targets": [3,4]
+                "targets": [3, 4]
             }, {
                 "className": "text-center",
                 "targets": [0]
@@ -42,11 +42,12 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     return '<a class="">' + row.del + ' ➟ ' + row.al + '</a>';
                 }
-            },
-            {
+            },{
                 "data": "observacion"
             }, {
-                "data": "elaboracion"
+                "render": function (data, type, row) {
+                    return type === 'sort' ? row.elaboracion : moment(row.elaboracion).locale('es').format('MMM Do, h:mm a');
+                }
             }, {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1" onclick="' + "descargar('assets/prenominas/" + row.url + "','Prenomina')" + ';">download</i>';

@@ -1,8 +1,8 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-$departamento = $_POST["departamento"];
-$departamentos = implode(",", $departamento);
+$departamentos = $_POST["departamentos"];
+$departamentos = implode(",", $departamentos);
 
 $sql = "SELECT 
 id_puesto, 

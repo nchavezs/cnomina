@@ -168,7 +168,7 @@ if (rol() != 1) {
 									</div>
 								</div>
 								<div class="col-xl-4">
-									<div class="card" onclick="pagina(4);">
+									<div class="card" onclick="//pagina(4);">
 										<div class="card-body text-center">
 											<h3 class="text-primary">Usuarios</h3>
 											<img src="assets/img/usuarios.svg" alt="">
@@ -190,16 +190,16 @@ if (rol() != 1) {
 											<div class="row">
 												<div class="col-md-6">
 													<div class="select-etiqueta">Periodo</div>
-													<input id="al" type="text" class="campo" placeholder="DEL" required>
+													<input id="del" type="text" readonly class="campo" placeholder="DEL" required>
 												</div>
 												<div class="col-md-6">
 													<div class="select-etiqueta">Periodo</div>
-													<input id="del" type="text" class="campo" placeholder="AL" required>
+													<input id="al" type="text" readonly class="campo" placeholder="AL" required>
 												</div>
 												<div class="col-md-12">
 												<div class="select">
 														<div class="select-etiqueta">Departamento</div>
-														<select id="departamento_multiple" multiple>
+														<select id="departamentos" multiple>
 															<?php
 																$conexion = conexion();
 																$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
@@ -218,12 +218,12 @@ if (rol() != 1) {
 												<div class="col-md-12">
 													<div class="select">
 														<div class="select-etiqueta">Puesto</div>
-														<select id="puesto_multiple" multiple></select>
+														<select id="puestos" multiple></select>
 													</div>
 												</div>
 											</div>
-											<div class="mt-3 text-right">
-												<button class="btn btn-sm btn-success"><i class="material-icons">download</i> Generar reporte</button>
+											<div class="pie mt-3">
+												<button class="btn btn-sm btn-success" id="reporte"><i class="material-icons">download</i> Generar reporte</button>
 											</div>
 										</div>
 									</div>
@@ -231,61 +231,75 @@ if (rol() != 1) {
 								<div class="col-md-5">
 									<div class="card">
 										<div class="card-body">
-											<div class="check_opciones">
+											<!-- <div class="check_opciones">
 												<div class="toggle-btn">
 													<input id="check1" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Beneficiarios</span>
-											</div>
+											</div> -->
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check2" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Pases sin goce de sueldo</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check3" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Pases con goce de sueldo</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check4" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Licencias</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check5" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Movimientos</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check6" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Vacaciones</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check7" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Descuentos</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="check1" type="checkbox" class="cb-value"/>
+													<input id="check8" type="checkbox" class="cb-value"/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Gastos médicos</span>
+											</div>
+											<div class="check_opciones">
+												<div class="toggle-btn">
+													<input id="check9" type="checkbox" class="cb-value"/>
+													<span class="round-btn"></span>
+												</div>
+												<span class="text-muted ml-3">Altas</span>
+											</div>
+											<div class="check_opciones">
+												<div class="toggle-btn">
+													<input id="check10" type="checkbox" class="cb-value"/>
+													<span class="round-btn"></span>
+												</div>
+												<span class="text-muted ml-3">Bajas</span>
 											</div>
 										</div>
 									</div>

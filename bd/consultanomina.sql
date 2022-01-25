@@ -276,6 +276,7 @@ CREATE TABLE Plaza(
 	RFC VARCHAR(13),
 	dias INT NOT NULL,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	estado INT DEFAULT 1,
 	FOREIGN KEY(id_puesto) REFERENCES Puesto(id_puesto)
 );
 

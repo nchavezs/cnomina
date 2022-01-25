@@ -234,7 +234,7 @@ include "./assets/php/comprobar_catalago.php";
                         <table id="tabla-empleado" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
-                                    <th class="">ID</th>
+                                    <th class=""># Empleado</th>
                                     <th class="">Nombre</th>
                                     <th class="oculto">RFC</th>
                                     <th class="oculto">Departamento</th>

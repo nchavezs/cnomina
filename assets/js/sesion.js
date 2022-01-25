@@ -7,67 +7,67 @@ $(document).ready( function () {
 
       $('.dataTable').DataTable.ext.pager.numbers_length = 5;
 
-      numero();
-      numero_evento = setInterval(numero, 10000);
+      // numero();
+      // numero_evento = setInterval(numero, 10000);
 
       $(document).on("click", "#salir", function () {
          Swal.close();
       });
 
-      $("#navbarDropdownMenuLink").on("click", function () {
-         notificaciones();
-      });
+      // $("#navbarDropdownMenuLink").on("click", function () {
+      //    notificaciones();
+      // });
 
-      $(".chat_cuerpo").perfectScrollbar();
+      // $(".chat_cuerpo").perfectScrollbar();
 
-      $(".chat_enviar").on("click", function (e) {
-         e.preventDefault();
-         let mensaje = $("#chat-input").val().trim();
-         if (mensaje != "") {
-            send_mail(mensaje);
-         }
-      });
+      // $(".chat_enviar").on("click", function (e) {
+      //    e.preventDefault();
+      //    let mensaje = $("#chat-input").val().trim();
+      //    if (mensaje != "") {
+      //       send_mail(mensaje);
+      //    }
+      // });
 
-      $(".chat_fondo").on("click", function () {
-         $(".chat_cerrar").click();
-      });
+      // $(".chat_fondo").on("click", function () {
+      //    $(".chat_cerrar").click();
+      // });
 
-      $(".chat").on("click", function () {
-         cargar_mensajes();
+      // $(".chat").on("click", function () {
+      //    cargar_mensajes();
 
-         timer = setInterval(function () {
-            cargar_mensajes()
-         }, 8000);
+      //    timer = setInterval(function () {
+      //       cargar_mensajes()
+      //    }, 8000);
 
-         $(".chat").css("opacity", 0);
-         $(".chat_caja").css("bottom", "20px");
-         $(".chat_caja").css("opacity", 1);
-         $(".chat_caja").css("pointer-events", "all");
-         $(".chat_fondo").css("opacity", 1);
-         $(".chat_fondo").css("pointer-events", "all");
-      });
-      $(".chat_cerrar").on("click", function () {
-         clearTimeout(timer);
-         $(".chat").css("opacity", 1);
-         $(".chat_caja").css("bottom", "60px");
-         $(".chat_caja").css("opacity", 0);
-         $(".chat_caja").css("pointer-events", "none");
-         $(".chat_fondo").css("opacity", 0);
-         $(".chat_fondo").css("pointer-events", "none");
-      });
-      $('.chat_input textarea').on('keydown', function (e) {
-         if (e.which === 13 && !e.shiftKey) {
-            e.preventDefault();
-            $(".chat_enviar").click();
-         }
-         var el = this;
-         setTimeout(function () {
-            el.style.cssText = 'height:auto; padding:0';
-            el.style.cssText = '-moz-box-sizing:content-box';
-            el.style.cssText = 'height:' + el.scrollHeight + 'px';
-            $(".chat_cuerpo").css("height", "calc(90% - " + el.scrollHeight + 'px)');
-         }, 0);
-      });
+      //    $(".chat").css("opacity", 0);
+      //    $(".chat_caja").css("bottom", "20px");
+      //    $(".chat_caja").css("opacity", 1);
+      //    $(".chat_caja").css("pointer-events", "all");
+      //    $(".chat_fondo").css("opacity", 1);
+      //    $(".chat_fondo").css("pointer-events", "all");
+      // });
+      // $(".chat_cerrar").on("click", function () {
+      //    clearTimeout(timer);
+      //    $(".chat").css("opacity", 1);
+      //    $(".chat_caja").css("bottom", "60px");
+      //    $(".chat_caja").css("opacity", 0);
+      //    $(".chat_caja").css("pointer-events", "none");
+      //    $(".chat_fondo").css("opacity", 0);
+      //    $(".chat_fondo").css("pointer-events", "none");
+      // });
+      // $('.chat_input textarea').on('keydown', function (e) {
+      //    if (e.which === 13 && !e.shiftKey) {
+      //       e.preventDefault();
+      //       $(".chat_enviar").click();
+      //    }
+      //    var el = this;
+      //    setTimeout(function () {
+      //       el.style.cssText = 'height:auto; padding:0';
+      //       el.style.cssText = '-moz-box-sizing:content-box';
+      //       el.style.cssText = 'height:' + el.scrollHeight + 'px';
+      //       $(".chat_cuerpo").css("height", "calc(90% - " + el.scrollHeight + 'px)');
+      //    }, 0);
+      // });
 
 
       $('#cerrar').click(function () {
