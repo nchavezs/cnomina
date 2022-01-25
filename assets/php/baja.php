@@ -6,11 +6,12 @@ $fecha = $_POST['fecha'];
 $razon = $_POST['razon'];
 $condicion = $_POST['condicion'];
 
-$sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "' AND estado = 'alta'";
+$sql = "SELECT * FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $RFC . "' AND estado = 'alta'";
+
 $consulta = mysqli_query($conexion, $sql);
 if ($consulta && mysqli_num_rows($consulta) == 1) {
-    $resultado = mysqli_fetch_array($consulta);
-    $inicio = trim($resultado['fechaRelLab']);
+    $usuario = mysqli_fetch_array($consulta);
+    $inicio = trim($usuario['fechaRelLab']);
 
     $array = explode("/", $inicio);
     if (sizeof($array) == 3) {

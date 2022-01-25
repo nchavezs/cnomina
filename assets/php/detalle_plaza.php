@@ -29,7 +29,7 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
             $fecha2 = new DateTime($hoy);
         }
         $diff = $fecha2->diff($fecha1);
-        $ocupados = $diff->format('%a');
+        $ocupados = $diff->format('%a') + 1;
 
         if($historial["fecha_fin"] == null){
             $historial["fecha_fin"] = " - ";

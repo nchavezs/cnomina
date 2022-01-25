@@ -359,8 +359,6 @@ function baja_prenomina(fechaBaja, id, razon) {
         showCancelButton: true,
         confirmButtonText: 'Si',
         cancelButtonText: 'No',
-
-
     }).then(function (result) {
         if (result.value) {
             baja_empleado(fechaBaja, id, razon, 1);
@@ -381,6 +379,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
             "condicion": condicion
         },
         success: function (html) {
+            alert(html);
             if (html == 1) {
                 Swal.fire({
                     title: 'Correcto',

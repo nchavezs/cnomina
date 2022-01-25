@@ -9,7 +9,7 @@ function diferencia($fecha1, $fecha2)
     $fecha1 = new DateTime($fecha1);
     $fecha2 = new DateTime($fecha2);
     $diff = $fecha2->diff($fecha1);
-    return $diff->format('%a');
+    return $diff->format('%a') ;
 }
 
 if ($estado == 1) {
@@ -30,7 +30,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';
 } else {
     $ano = date("Y");
-    $hoy = "2022-12-3";
+    $hoy = date("Y-m-d");
     while ($res = mysqli_fetch_array($resultado)) {
         // ------------------------------------------------------------------------------------------------------
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $res["RFC"] . "'";
@@ -72,7 +72,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
                     $fecha2 = $hoy;
                 }
                 $ocupados = diferencia($fecha1, $fecha2);
-                $ocupados_total = $ocupados_total + $ocupados;
+                $ocupados_total = $ocupados_total + $ocupados + 1;
             }
             // $vacantes = $res["dias"] - $ocupados_total;
         }
