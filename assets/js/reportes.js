@@ -1,17 +1,15 @@
 $(document).ready(function () {
    select_estilo();
-   depa_change_multiple();
 
-   $("#reporte").click(function (e) {
+   $("#reporte_general").click(function (e) {
       e.preventDefault();
-      var puestos = $("#puestos").val();
-      var departamentos = $("#departamentos").val();
-      var del = $("#del").val();
-      var al = $("#al").val();
-      // var beneficiarios = 0;
+      var puestos = $("#puestos_1").val();
+      var departamentos = $("#departamentos_1").val();
+      var del = $("#del_1").val();
+      var al = $("#al_1").val();
       var sin_goce = 0;
       var con_goce = 0;
-      var licencias = 0;
+      var pases = 0;
       var movimientos = 0;
       var vacaciones = 0;
       var descuentos = 0;
@@ -19,8 +17,8 @@ $(document).ready(function () {
       var altas = 0;
       var bajas = 0;
 
-      let puestos_size = document.getElementById("puestos").selectedOptions.length;
-      let depa_size = document.getElementById("departamentos").selectedOptions.length;
+      let puestos_size = document.getElementById("puestos_1").selectedOptions.length;
+      let depa_size = document.getElementById("departamentos_1").selectedOptions.length;
 
       if (del == "" || al == "" || puestos_size < 1 || depa_size < 0) {
          md.showNotification("top", "right", "Completa todos los campos.");
@@ -28,36 +26,15 @@ $(document).ready(function () {
          $(this).prop("disabled", true);
          mensaje_cargar();
 
-         // if ($("#check1").is(':checked'))
-         //    beneficiarios = 1;
-
-         if ($("#check2").is(':checked'))
-            sin_goce = 1;
-
-         if ($("#check3").is(':checked'))
-            con_goce = 1;
-
-         if ($("#check4").is(':checked'))
-            licencias = 1;
-
-         if ($("#check5").is(':checked'))
-            movimientos = 1;
-
-         if ($("#check6").is(':checked'))
-            vacaciones = 1;
-
-         if ($("#check7").is(':checked'))
-            descuentos = 1;
-
-         if ($("#check8").is(':checked'))
-            medicos = 1;
-
-         if ($("#check9").is(':checked'))
-            altas = 1;
-
-         if ($("#check10").is(':checked'))
-            bajas = 1;
-
+         sin_goce = $("#sin_goce").is(':checked') ? 1 : 0;
+         con_goce = $("#con_goce").is(':checked') ? 1 : 0;
+         permisos = $("#permisos").is(':checked') ? 1 : 0;
+         movimientos = $("#movimientos").is(':checked') ? 1 : 0;
+         vacaciones = $("#vacaciones").is(':checked') ? 1 : 0;
+         descuentos = $("#descuentos").is(':checked') ? 1 : 0;
+         altas = $("#altas").is(':checked') ? 1 : 0;
+         bajas = $("#bajas").is(':checked') ? 1 : 0;
+         medicos = $("#medicos").is(':checked') ? 1 : 0;
 
          $.ajax({
             url: "assets/php/reporte_general.php",
@@ -67,10 +44,9 @@ $(document).ready(function () {
                "al": al,
                "puestos": puestos,
                "departamentos": departamentos,
-               // "beneficiarios": beneficiarios,
                "sin_goce": sin_goce,
                "con_goce": con_goce,
-               "licencias": licencias,
+               "pases": pases,
                "movimientos": movimientos,
                "vacaciones": vacaciones,
                "descuentos": descuentos,
@@ -79,15 +55,15 @@ $(document).ready(function () {
                "bajas": bajas
             },
             success: function (data) {
-               let verificar = data.includes("assets/archivos/"); 
-               
-               if(verificar){
+               let verificar = data.includes("assets/archivos/");
+
+               if (verificar) {
                   window.open(data, '_blank');
-               }else{
+               } else {
                   md.showNotification("top", "right", data);
                }
-            
-               $("#reporte").prop("disabled", false);
+
+               $("#reporte_general").prop("disabled", false);
                Swal.close();
             }
          });
@@ -106,45 +82,49 @@ $(document).ready(function () {
 function pagina(pagina) {
    $(".reportes .pagina").addClass("adp-hide");
    ADP.show($(".reportes .pagina_" + pagina)[0], 'fade');
+   $(".reportes .pagina_"+pagina).removeClass("adp-hide");
+   depa_change_multiple(pagina);
 }
 
-function depa_change_multiple() {
-   $("#departamentos").on("change", function () {
-      let items = document.getElementById("departamentos").selectedOptions.length;
+function depa_change_multiple(pagina) {
+   pagina--;
+   $("#departamentos_" + pagina).on("change", function () {
+      let items = document.getElementById("departamentos_" + pagina).selectedOptions.length;
       if (items > 0) {
          $.ajax({
             url: "assets/php/depa_change_multiple.php",
             type: "POST",
             data: {
-               departamentos: $("#departamentos").val(),
+               departamentos: $("#departamentos_" + pagina).val(),
             },
             success: function (data) {
-               $("#puestos").html(data);
-               tail.select("#puestos").reload();
-               if (document.getElementById("plazas")) {
-                  puesto_change_multiple();
+               $("#puestos_" + pagina).html(data);
+               tail.select("#puestos_" + pagina).reload();
+               if (document.getElementById("plazas_" + pagina)) {
+                  puesto_change_multiple(pagina);
                }
             }
          });
       }
    });
-   $("#departamentos").change();
+   $("#departamentos_" + pagina).change();
 }
 
-function puesto_change_multiple() {
-   $("#puestos").on("change", function () {
+function puesto_change_multiple(pagina) {
+   pagina--;
+   $("#puestos_"+pagina).on("change", function () {
       $.ajax({
          url: "assets/php/puesto_change.php",
          type: "POST",
          data: {
-            puesto: $("#puestos").val(),
+            puesto: $("#puestos_"+pagina).val(),
          },
          success: function (data) {
-            $("#plazas").html(data);
-            tail.select("#plazas").reload();
+            $("#plazas_"+pagina).html(data);
+            tail.select("#plazas_"+pagina).reload();
          }
       });
    });
 
-   $("#puestos").change();
+   $("#puestos_"+pagina).change();
 }

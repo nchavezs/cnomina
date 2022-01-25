@@ -19,10 +19,9 @@ $conexion = conexion();
 $hoy = date('d/m/Y', time());
 
 $bandera = false;
-// $beneficiarios = $_POST["beneficiarios"];
 $sin_goce = $_POST["sin_goce"];
 $con_goce = $_POST["con_goce"];
-$licencias = $_POST["licencias"];
+$pases = $_POST["pases"];
 $movimientos = $_POST["movimientos"];
 $vacaciones = $_POST["vacaciones"];
 $descuentos = $_POST["descuentos"];
@@ -296,11 +295,10 @@ if ($del == "" || $al == "") {
         Empleado.fechaRelLab,
         (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
         (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
-        FROM Permiso LEFT JOIN Empleado ON Permiso.RFC = Empleado.RFC WHERE
-        al >= '" . $date1 . "' AND
-        al <= '" . $date2 . "' AND
+        FROM Permiso LEFT JOIN Empleado ON Permiso.RFC = Empleado.RFC WHERE 
+        (del BETWEEN '".$date1."' AND '".$date2."' OR al BETWEEN '".$date1."' AND '".$date2."') AND
         Permiso.categoria = 0
-        " . $extra . "
+        " . $extra . " 
         ORDER BY Permiso.RFC";
         $consulta = mysqli_query($conexion, $sql);
 
@@ -323,12 +321,12 @@ if ($del == "" || $al == "") {
         $sheet->setCellValue('G2', 'FECHA DE INGRESO');
         $sheet->setCellValue('H2', 'PUESTO');
         $sheet->setCellValue('I2', 'DEPARTAMENTO');
-        $sheet->setCellValue('J2', 'PERIODO DEL');
-        $sheet->setCellValue('K2', 'PERIODO AL');
-        $sheet->setCellValue('L2', 'FECHA DE REGISTRO');
-        $sheet->setCellValue('M2', 'DIAS DE PERMISO');
-        $sheet->setCellValue('N2', 'MATERNIDAD');
-        $sheet->setCellValue('O2', 'OBSERVACIONES');
+        $sheet->setCellValue('J2', 'PERMISO DEL');
+        $sheet->setCellValue('K2', 'PERMISO AL');
+        $sheet->setCellValue('L2', 'DIAS DE PERMISO');
+        $sheet->setCellValue('M2', 'MATERNIDAD');
+        $sheet->setCellValue('N2', 'OBSERVACIONES');
+        $sheet->setCellValue('O2', 'FECHA DE REGISTRO');
 
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             $bandera = true;
@@ -351,10 +349,10 @@ if ($del == "" || $al == "") {
                 $sheet->setCellValue('I' . $i, $resultado['departamento']);
                 $sheet->setCellValue('J' . $i, date("d/m/Y", strtotime($resultado['del'])));
                 $sheet->setCellValue('K' . $i, date("d/m/Y", strtotime($resultado['al'])));
-                $sheet->setCellValue('L' . $i, date("d/m/Y H:i", strtotime($resultado["elaboracion"])));
-                $sheet->setCellValue('M' . $i, $resultado['dias']);
-                $sheet->setCellValue('N' . $i, $materno);
-                $sheet->setCellValue('O' . $i, $resultado['descripcion']);
+                $sheet->setCellValue('L' . $i, $resultado['dias']);
+                $sheet->setCellValue('M' . $i, $materno);
+                $sheet->setCellValue('N' . $i, $resultado['descripcion']);
+                $sheet->setCellValue('O' . $i, date("d/m/Y H:i", strtotime($resultado["elaboracion"])));
 
                 $i++;
             }
@@ -379,10 +377,9 @@ if ($del == "" || $al == "") {
         (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
         (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
         FROM Permiso LEFT JOIN Empleado ON Permiso.RFC = Empleado.RFC WHERE
-        al >= '" . $date1 . "' AND
-        al <= '" . $date2 . "' AND
+        (del BETWEEN '".$date1."' AND '".$date2."' OR al BETWEEN '".$date1."' AND '".$date2."') AND
         Permiso.categoria = 1
-        " . $extra . "
+        " . $extra . " 
         ORDER BY Permiso.RFC";
         $consulta = mysqli_query($conexion, $sql);
 
@@ -405,11 +402,11 @@ if ($del == "" || $al == "") {
         $sheet->setCellValue('G2', 'FECHA DE INGRESO');
         $sheet->setCellValue('H2', 'PUESTO');
         $sheet->setCellValue('I2', 'DEPARTAMENTO');
-        $sheet->setCellValue('J2', 'PERIODO DEL');
-        $sheet->setCellValue('K2', 'PERIODO AL');
-        $sheet->setCellValue('L2', 'FECHA DE REGISTRO');
-        $sheet->setCellValue('M2', 'DIAS DE PERMISO');
-        $sheet->setCellValue('N2', 'OBSERVACIONES');
+        $sheet->setCellValue('J2', 'PERMISO DEL');
+        $sheet->setCellValue('K2', 'PERMISO AL');
+        $sheet->setCellValue('L2', 'DIAS DE PERMISO');
+        $sheet->setCellValue('M2', 'OBSERVACIONES');
+        $sheet->setCellValue('N2', 'FECHA DE REGISTRO');
 
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             $bandera = true;
@@ -427,9 +424,9 @@ if ($del == "" || $al == "") {
                 $sheet->setCellValue('I' . $i, $resultado['departamento']);
                 $sheet->setCellValue('J' . $i, date("d/m/Y", strtotime($resultado['del'])));
                 $sheet->setCellValue('K' . $i, date("d/m/Y", strtotime($resultado['al'])));
-                $sheet->setCellValue('L' . $i, date("d/m/Y H:i", strtotime($resultado["elaboracion"])));
-                $sheet->setCellValue('M' . $i, $resultado['dias']);
-                $sheet->setCellValue('N' . $i, $resultado['descripcion']);
+                $sheet->setCellValue('L' . $i, $resultado['dias']);
+                $sheet->setCellValue('M' . $i, $resultado['descripcion']);
+                $sheet->setCellValue('N' . $i, date("d/m/Y H:i", strtotime($resultado["elaboracion"])));
                 $i++;
             }
 
@@ -620,7 +617,7 @@ if ($del == "" || $al == "") {
     // }
 
 // ----------------- PASES --------------------
-    if ($licencias == 1) {
+    if ($pases == 1) {
         $sql = "SELECT
         Pase.*,
         Empleado.id_empleado,
