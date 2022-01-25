@@ -15,7 +15,7 @@ include "assets/php/main_user.php";
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="assets/css/material-dashboard.css?v=3.2.2" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.2.3" rel="stylesheet" />
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 
@@ -172,7 +172,7 @@ include "assets/php/main_user.php";
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.2.2" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.2.3" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 
@@ -190,10 +190,10 @@ include "assets/php/main_user.php";
 	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="assets/js/material-dashboard.js?v=3.2.2" type="text/javascript"></script>
-	<script src="assets/js/sesion.js?v=3.2.2"></script>
+	<script src="assets/js/material-dashboard.js?v=3.2.3" type="text/javascript"></script>
+	<script src="assets/js/sesion.js?v=3.2.3"></script>
 	<script src="assets/js/block.js"></script>
-	<script src="assets/js/mensajes-user.js?v=3.2.2"></script>
+	<script src="assets/js/mensajes-user.js?v=3.2.3"></script>
 
 </body>
 
