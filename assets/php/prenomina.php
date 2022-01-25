@@ -67,7 +67,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $diff = $fecha1->diff($fecha2);
     $dias_pago = $diff->format('%a') + 1;
 
-    $sql = "SELECT * FROM Usuario WHERE 
+    $sql = "SELECT * FROM Empleado WHERE 
     categoria = 'user' AND 
     id_periodo = ".$periodo." AND 
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";

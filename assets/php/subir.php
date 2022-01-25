@@ -5,8 +5,7 @@ require_once "../../vendor/autoload.php";
 use Spatie\PdfToText\Pdf;
 
 $registrar_usuario = $_POST['registrar_usuario'];
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 $conexion = conexion();
 
 $ruta_nominas = "../nominas/";
@@ -76,7 +75,7 @@ $pdf = str_replace("<br>\r<br>", "<br>", $pdf);
 $posid1 = strpos($pdf, ' - ');
 if ($posid1 !== false) {
     $posid2 = strpos($pdf, ' - ');
-    $posid1 = strrpos($pdf, "<br>", - (strlen($pdf) - $posid2)) + 4;
+    $posid1 = strrpos($pdf, "<br>", -(strlen($pdf) - $posid2)) + 4;
     $id = substr($pdf, $posid1, $posid2 - $posid1);
 } else {
     $id = 0;
@@ -102,7 +101,7 @@ if ($posrfc1 !== false) {
 
 $poscurp1 = strpos($pdf, 'CURP:');
 if ($poscurp1 !== false) {
-    $poscurp1 = strpos($pdf, "<br>", $poscurp1) + 4;;
+    $poscurp1 = strpos($pdf, "<br>", $poscurp1) + 4;
     $poscurp2 = strpos($pdf, '<br>', $poscurp1);
     $curp = trim(substr($pdf, $poscurp1, $poscurp2 - $poscurp1));
 } else {
@@ -119,11 +118,11 @@ if ($pospuesto1 !== false) {
 
 $posdepa1 = strpos($pdf, 'Depto:');
 if ($posdepa1 !== false) {
-    $posdepa1 =  strpos($pdf, "<br>", $posdepa1) + 4;
+    $posdepa1 = strpos($pdf, "<br>", $posdepa1) + 4;
     $posdepa2 = strpos($pdf, '<br>', $posdepa1);
-    $depa = utf8_encode(trim(substr($pdf, $posdepa1, $posdepa2 - $posdepa1)));
+    $departamento = utf8_encode(trim(substr($pdf, $posdepa1, $posdepa2 - $posdepa1)));
 } else {
-    $depa = "";
+    $departamento = "";
 }
 
 $posdias1 = strpos($pdf, 'as de Pago:');
@@ -136,19 +135,19 @@ if ($posdias1 !== false) {
 }
 
 if (strpos($pdf, 'Catorcenal') !== false) {
-   $periodo = 1;
-} else if(strpos($pdf, 'Mensual') !== false) {
+    $periodo = 1;
+} else if (strpos($pdf, 'Mensual') !== false) {
     $periodo = 2;
-} else if(strpos($pdf, 'Periodicidad') !== false) {
+} else if (strpos($pdf, 'Periodicidad') !== false) {
     $periodo = 3;
     $dias = 0;
-}else{
+} else {
     $periodo = "";
 }
 
 $posdel1 = strpos($pdf, 'Periodo');
 if ($posdel1 !== false) {
-    $posdel2 =  strpos($pdf, " - ", $posdel1);
+    $posdel2 = strpos($pdf, " - ", $posdel1);
     $posdel1 = $posdel2 - 11;
     $del = trim(substr($pdf, $posdel1, $posdel2 - $posdel1));
     $del = fecha($del);
@@ -183,7 +182,7 @@ if ($posinicio1 !== false) {
 }
 
 $arraypago = explode("/", $pago);
-$nombreNomina = $id.implode("_", $arraypago).'.pdf';
+$nombreNomina = $id . implode("_", $arraypago) . '.pdf';
 $nombre = str_replace('  ', ' ', $nombre);
 $arraynombre = explode(" ", $nombre);
 $apellidop = array_shift($arraynombre);
@@ -205,34 +204,69 @@ if ($total == 0) {
             '" . $nombreNomina . "',
             '" . $rfc . "',
             '" . $puesto . "',
-            '" . $depa . "',
+            '" . $departamento . "',
             " . (int) $dias . ",
-            ".$periodo."
+            " . $periodo . "
         )";
 
         if (mysqli_query($conexion, $sql)) {
             if ($registrar_usuario == 1) {
-                $sql = "INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, RFC, CURP, fechaRelLab, 
-                puesto, departamento, apellidop, apellidom, nombres, id_periodo) VALUES(
-                    " . $id . ",
-                    'user',
-                    '" . $password . "', 
-                    '" . $nombre . "',
-                    '" . $rfc . "',
-                    '" . $curp . "',
-                    '" . $inicio . "',
-                    '" . $puesto . "',
-                    '" . $depa . "', 
-                    '" . $apellidop . "',
-                    '" . $apellidom . "',
-                    '" . $nombres . "',
-                    ".$periodo.")";
-                if (mysqli_query($conexion, $sql)) {
+                if ($periodo == 3) {
+                    $periodo = 1;
+                }
+
+                $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
+                $consulta = mysqli_query($conexion, $sql);
+                $total = mysqli_num_rows($consulta);
+                if ($consulta && $total == 0) {
+                    $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
+                    if (mysqli_query($conexion, $sql)) {
+                        $id_depa = mysqli_insert_id($conexion);
+                    }
+                } elseif ($consulta && $total > 0) {
+                    $res = mysqli_fetch_row($consulta);
+                    $id_depa = $res[0];
+                }
+
+                $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = " . $id_depa;
+                $consulta = mysqli_query($conexion, $sql);
+                $total = mysqli_num_rows($consulta);
+
+                if ($consulta && $total == 0) {
+                    $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
+                    if (mysqli_query($conexion, $sql)) {
+                        $id_puesto = mysqli_insert_id($conexion);
+                        
+                        $sql = "INSERT INTO Usuario(categoria, contrasenia, nombre, RFC) VALUES(
+                            'user',
+                            '" . $password . "',
+                            '" . $nombre . "',
+                            '" . $rfc . "'
+                        )";
+
+                        if (mysqli_query($conexion, $sql)) {
+
+                            $sql = "INSERT INTO Empleado(id_empleado, RFC, CURP, fechaRelLab,
+                            id_puesto, apellidop, apellidom, nombres, id_periodo) VALUES(
+                                " . $id . ",
+                                '" . $rfc . "',
+                                '" . $curp . "',
+                                '" . $inicio . "',
+                                " . $id_puesto . ",
+                                '" . $apellidop . "',
+                                '" . $apellidom . "',
+                                '" . $nombres . "',
+                                " . $periodo . ")";
+                            if (mysqli_query($conexion, $sql)) {
+
+                            }
+                        }
+                    }
                 }
             }
-            $target = "../nominas/".$nombreNomina;
-            move_uploaded_file($archivo, $target);
 
+            $target = "../nominas/" . $nombreNomina;
+            move_uploaded_file($archivo, $target);
             echo 1;
         } else {
             echo 0;
@@ -259,7 +293,7 @@ if ($total == 0) {
 // echo "\n";
 // echo $puesto;
 // echo "\n";
-// echo $depa;
+// echo $departamento;
 // echo "\n";
 // echo $dias;
 // echo "\n";

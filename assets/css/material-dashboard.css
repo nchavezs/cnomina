@@ -1,3 +1,10 @@
+.btn{
+    font-family: "Montserrat" !important;
+    border-radius: 20px !important;
+    font-weight: 500 !important;
+    font-size: 10px !important;
+}
+
 .check_opciones{
     display: flex;
     align-items: center;
@@ -16,7 +23,7 @@
 }
 
 .reportes .formulario{
-    background: #fff !important;
+    padding: 0 15px !important;
 }
 
 .reportes .pagina_1 .card img{
@@ -331,7 +338,7 @@ select {
     height: 100%;
     width: 100%;
     background: #F0F0F0;
-    padding: 60px 20px;
+    padding: 60px 30px;
     width: 70%;
     text-align: center;
     border-bottom: 5px solid #699cee93;
@@ -346,7 +353,7 @@ select {
     font-family: 'Roboto', sans-serif;
     color: rgba(95, 101, 107, 0.733);
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .mensajeria_vacio img {
@@ -530,16 +537,26 @@ select {
     overflow: hidden !important;
 }
 
-.formulario .campo:focus {
+.campo:focus {
     border: 1px solid #b1d8e2;
 }
 
-.formulario .select-etiqueta {
+.select-etiqueta {
     padding: 0 0 5px 5px !important;
 }
 
-.formulario .campo {
-    background: #f5f6f9b9 !important;
+.card-icono{
+    position: absolute !important;
+    top: 10px;
+    right: 10px;
+    border-radius: 50px !important;
+    padding: 7px 3px !important;
+}
+
+.campo {
+    color: #444;
+    font-size: 13px !important;
+    background: #f5f6f9b9;
     padding: 8px 10px !important;
     border: 1px solid transparent;
     display: flex;
@@ -549,10 +566,16 @@ select {
     width: 100%;
 }
 
+.campo:disabled{
+    cursor: not-allowed;
+}
 
+.pie{
+    text-align: right;
+}
 
 .formulario_caja .wallpaper {
-    width: 100%;
+    width: calc(100% + 30px);
     height: 100%;
     padding: 30px;
     background: #EAF2FB;
@@ -2422,6 +2445,9 @@ div[data-notify=container] {
 }
 
 @media (max-width:768px) {
+    .formulario_caja .wallpaper {
+        width: 100%;
+    }
 
     .mensajeria_panel,
     .mensajeria_caja {
@@ -20857,6 +20883,7 @@ label {
     cursor: pointer
 }
 
+
 .toggle-btn.active {
     background-color: #49CF97
 }
@@ -20959,7 +20986,7 @@ input[type=checkbox]:checked+label:after {
 .select:after {
     position: absolute;
     right: 10px;
-    bottom: 14px;
+    top: 37px;
     width: 0;
     height: 0;
     padding: 0;

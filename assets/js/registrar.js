@@ -1,10 +1,10 @@
 $(document).ready(function () {
     select_estilo_3();
 
-    $(".opciones_tabla select").change(function(){
+    $(".opciones_tabla select").change(function () {
         $('#tabla-empleado').DataTable().ajax.reload();
     });
-    
+
     $("#importar-empleado").change(function () {
         if ($(this).val() !== "") {
             mensaje_cargar();
@@ -122,8 +122,7 @@ $(document).ready(function () {
                             "nombre": $("#nombre").val(),
                             "rfc": $("#rfc").val(),
                             "curp": $("#curp").val(),
-                            "puesto": $("#puesto option:selected").text(),
-                            "departamento": $("#departamento option:selected").text(),
+                            "puesto": $("#puesto").val(),
                             "plaza": $("#plaza").val(),
                             "banca": $("#banca").val(),
                             "afiliacion": $("#afiliacion").val(),
@@ -133,7 +132,6 @@ $(document).ready(function () {
                             "apellidom": $("#apellidom").val(),
                             "plaza": $("#plaza").val(),
                             "periodo": $("#periodo").val()
-                            // "archivo": $("#archivo").val()
                         },
                         success: function (data) {
                             $('#tabla-empleado').DataTable().ajax.reload();
@@ -171,7 +169,7 @@ $(document).ready(function () {
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-empleado.php",
-            "data": function(d){
+            "data": function (d) {
                 d.estado = $("#estado").val();
             }
         },
@@ -194,7 +192,7 @@ $(document).ready(function () {
         ],
         "columns": [{
                 "render": function (data, type, row) {
-                    return '<div><i class="material-icons mr-1">fingerprint</i>' + row.id_usuario + '</div>';
+                    return '<div><i class="material-icons mr-1">fingerprint</i>' + row.id_empleado + '</div>';
                 }
             },
             {
@@ -541,11 +539,15 @@ function permiso(id) {
                     Swal.getContent().innerHTML = html;
                     select_estilo_2();
 
-                    $(".sources").change(function () {
-                        if ($(this).val() == 1)
-                            $(".materno").addClass("hide");
+                    $("#categoria").change(function () {
+                        if ($(this).val() == 1){
+                            if($("#materno").is(":checked")){
+                                $("#materno").click();
+                            }
+                            $("#materno").prop("disabled", true);
+                        }
                         else
-                            $(".materno").removeClass("hide");
+                            $("#materno").prop("disabled", false);
 
                     });
 
@@ -617,18 +619,18 @@ function permiso(id) {
                                 $("#advertencia").addClass("advertencia");
                             } else {
                                 var materno = 0;
-                                if ($("#materno").is(':checked') && $("#sources").val() == 0)
+                                if ($("#materno").is(':checked') && $("#categoria").val() == 0)
                                     materno = 1;
 
                                 $.ajax({
                                     type: "POST",
                                     url: "assets/php/agregarPermiso.php",
                                     data: {
-                                        "fecha1": $("#fecha1").val(),
+                                        // "fecha1": $("#fecha1").val(),
                                         "fecha2": $("#fecha2").val(),
                                         "fecha3": $("#fecha3").val(),
                                         "id": id,
-                                        "categoria": $("#sources").val(),
+                                        "categoria": $("#categoria").val(),
                                         "dias": $("#dias").val(),
                                         "descripcion": $("#descripcion").val(),
                                         "materno": materno
@@ -1435,10 +1437,8 @@ function verMovimientos(id) {
                 allowOutsideClick: true,
                 showCloseButton: true,
                 showConfirmButton: false,
-
             });
             select_estilo_2();
-
             tablas_movimientos(id);
             $(".sources").change(function () {
                 tablas_movimientos(id);
@@ -1465,6 +1465,7 @@ function movimiento(id) {
                         allowOutsideClick: true,
                         showCloseButton: true,
                         showConfirmButton: false,
+                        width: "60em"
                     });
 
                     select_estilo();
@@ -1494,20 +1495,19 @@ function movimiento(id) {
 
 
                     $("#form-movimiento").click(function () {
-                        var fecha = $("#fecha1").val();
-                        var puesto = $("#puesto option:selected").text();
-                        var departamento = $("#departamento option:selected").text();
-                        var observacion = $("#observacion").val();
-                        var trabajador = $("#trabajador").val();
-                        var plaza = $("#plaza").val();
+                        let puesto = $("#puesto").val();
+                        let departamento = $("#departamento").val();
+                        let observacion = $("#observacion").val();
+                        let trabajador = $("#trabajador").val();
+                        let plaza = $("#plaza").val();
+                        let fecha = $("#fecha").val();
 
-                        if ($("#puesto").val() == "" || $("#departamento").val() == "" || $("#trabajador").val() == "" || $("#plaza").val() == "") {
-                            $("#advertencia").removeClass("hide");
-                            $("#advertencia").addClass("advertencia");
+                        if (puesto == "" || departamento == "" || trabajador == "" || plaza == "") {
+                            md.showNotification("top", "right", "Completa todos los campos.");
                         } else {
                             Swal.fire({
                                 title: 'Confirmar movimiento',
-                                html: puesto + "<p class='negrita2'>Nuevo puesto</p>" + departamento + "<p class='negrita2'>Nuevo departamento</p>",
+                                html: $("#puesto :selected").text() + "<p class='negrita2'>Nuevo puesto</p>" + $("#departamento :selected").text() + "<p class='negrita2'>Nuevo departamento</p>",
                                 type: 'warning',
                                 showCancelButton: true,
                                 confirmButtonText: 'Si, continuar',
@@ -1527,7 +1527,6 @@ function movimiento(id) {
                                             "plaza": plaza
                                         },
                                         success: function (data) {
-                                            // var idUsuario = id.split("-");
                                             if (data != 0) {
                                                 formato_movimiento(data);
                                                 Swal.fire({
@@ -1555,8 +1554,6 @@ function movimiento(id) {
                                 }
                             });
                         }
-
-
                     });
                 }
             });
@@ -1575,11 +1572,9 @@ function detalle_movimiento(id) {
         Swal.fire({
             position: 'center',
             html: html,
-
             allowOutsideClick: true,
             showCloseButton: true,
-            showConfirmButton: false,
-
+            showConfirmButton: false
         });
     });
 };
@@ -1611,8 +1606,6 @@ function borrar_movimiento(id) {
                 text: "Solo puedes eliminar el último movimiento realizado",
                 type: 'warning',
                 confirmButtonText: 'Aceptar',
-
-
             }).then(function () {
                 verMovimientos(array.usuario);
             });
@@ -1624,8 +1617,6 @@ function borrar_movimiento(id) {
                 showCancelButton: true,
                 confirmButtonText: 'Si, continuar',
                 cancelButtonText: 'No',
-
-
             }).then(function (result) {
                 if (result.value) {
                     $.ajax({
@@ -2370,7 +2361,7 @@ function editar_usuario(id, event) {
                             valor1 = formattedDate;
                     }
                 });
-                
+
                 $("#form-empleado-1").submit(function (e) {
                     e.preventDefault();
                     $(".pagina_1").addClass("adp-hide");

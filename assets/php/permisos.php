@@ -6,47 +6,17 @@ $id = $_POST['id'];
 $sql = "SELECT * FROM Permiso WHERE RFC = '" . $id."'";
 $resultado = mysqli_query($conexion, $sql);
 
-// $ano = date("Y");
-// $ano1 = 2018;
-// $ano2 = 2019;
-// $ano3 = 2020;
-// $ano4 = 2021;
-
-// if ($ano1 == $ano) {
-//     $ano1 = 'selected="true"';
-// } else {
-//     $ano1 = '';
-// }
-
-// if ($ano2 == $ano) {
-//     $ano2 = 'selected="true"';
-// } else {
-//     $ano2 = '';
-// }
-
-// if ($ano3 == $ano) {
-//     $ano3 = 'selected="true"';
-// } else {
-//     $ano3 = '';
-// }
-
-// if ($ano4 == $ano) {
-//     $ano4 = 'selected="true"';
-// } else {
-//     $ano4 = '';
-// }
-
 if (mysqli_num_rows($resultado) == 0) {
     echo '<div class="vacia">
                <i class="material-icons btn2">sms_failed</i>
                <h1>Nada registrado</h1>
 					<div class="chat-nuevo">
 						<i id="chat-icono" class="material-icons">add</i>
-						<p id="' . $id . '-" onclick="permiso(this.id);">Nueva licencia</p>
+						<p onclick="permiso(\''.$id.'\');">Nueva licencia</p>
 					</div>
 				</div>';
 
-    echo '<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
+    echo '<div class="btn btn-secondary btn-sm" onclick="ver(\''.$id.'\', 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
 } else {
     echo '<div class="row">
 					<div class="col-md-3">
@@ -73,10 +43,10 @@ if (mysqli_num_rows($resultado) == 0) {
 
     echo '<div class="row">
 				<div class="col-6">
-					<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>
+					<div class="btn btn-secondary btn-sm" onclick="ver(\''.$id.'\', 1);"><i class="material-icons">arrow_back</i> Regresar </div>
 				</div>
 				<div class="col-6">
-					<div class="btn btn-secondary btn-sm regresar " id="' . $id . '-" onclick="permiso(this.id);"><i class="material-icons">add</i> Nuevo </div>
+					<div class="btn btn-secondary btn-sm"  onclick="permiso(\''.$id.'\');"><i class="material-icons">add</i> Nuevo </div>
 				</div>
 			</div>';
 }

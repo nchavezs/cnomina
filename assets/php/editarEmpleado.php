@@ -1,24 +1,24 @@
 <?php
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
-$sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "' AND categoria = 'user'";
+$sql = "SELECT * FROM Empleado WHERE RFC = '" . $id . "'";
+
 $consulta = mysqli_query($conexion, $sql);
 $res = mysqli_fetch_array($consulta);
 
 echo '<div class="formulario_caja">
 	<div class="row">
-		<div class="col-md-4 pr-0">
+		<div class="col-md-4">
 			<div class="wallpaper">
 				<img src="assets/img/form.svg" alt="">
 			</div>
 		</div>
 
-		<div class="col-md-8 pl-0">
+		<div class="col-md-8">
 			<div class="formulario">
 				<form id="form-empleado-1" class="pagina_1">
 					<div class="text-left p-2">
@@ -65,7 +65,7 @@ echo '<div class="formulario_caja">
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">Número de empleado</div>
-									<input id="numero" type="text" class="campo" maxlength=5 value="'.$res["id_usuario"].'" required
+									<input id="numero" type="text" class="campo" maxlength=5 value="'.$res["id_empleado"].'" required
 										onkeypress="return isNumberKey(event)">
 								</div>
 							</div>
@@ -78,7 +78,7 @@ echo '<div class="formulario_caja">
 							</div>
 						</div>
 					</div>
-					<div class="text-right p-3">
+					<div class="pie">
 						<div class="btn btn-secondary btn-sm" id="salir">Cancelar </div>
 						<button type="submit" class="btn btn-primary pagina_1_boton btn-sm">Siguiente<i class="material-icons">navigate_next</i></button>
 					</div>
@@ -95,15 +95,15 @@ echo '<div class="formulario_caja">
 									$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
 									$consulta = mysqli_query($conexion, $sql);
 									if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-										$sql2 = "SELECT * FROM Trabajador WHERE nombre = '" . $res['tipoTrabajador'] . "'";
+										$sql2 = "SELECT * FROM Trabajador WHERE id_trabajador = '" . $res['id_trabajador'] . "'";
 										$consulta2 = mysqli_query($conexion, $sql2);
 										if (mysqli_num_rows($consulta2) == 0) {
 											echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
 										}
 
 										while ($res2 = mysqli_fetch_row($consulta)) {
-											echo '<option value="' . $res2[1] . '" ';
-											if ($res['tipoTrabajador'] === $res2[1]) {
+											echo '<option value="' . $res2[0] . '" ';
+											if ($res['id_trabajador'] == $res2[0]) {
 												echo 'selected';
 											}
 
@@ -157,9 +157,9 @@ echo '<div class="formulario_caja">
 						</div>
 					</div>
 
-					<div class="text-right p-3 pagina_2_opciones">
-						<div class="btn btn-secondary pagina_2_boton btn-sm"><i class="material-icons">keyboard_backspace</i> Anterior </div>
-						<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Actualizar información </button>
+					<div class="pie pagina_2_opciones">
+						<div class="btn btn-secondary pagina_2_boton btn-sm"><i class="material-icons">chevron_left</i> Anterior </div>
+						<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
 					</div>
 				</form>
 			</div>

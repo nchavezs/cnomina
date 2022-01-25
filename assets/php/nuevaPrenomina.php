@@ -1,6 +1,5 @@
 <?php
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 include "conexion.php";
 $conexion = conexion();
 
@@ -8,13 +7,13 @@ $hoy = date("d/m/Y");
 
 echo '<div class="formulario_caja">
 <div class="row">
-		<div class="col-md-4 pr-0">
+		<div class="col-md-4">
 			<div class="wallpaper">
 				<img src="assets/img/form.svg" alt="">
 			</div>
 		</div>
 
-		<div class="col-md-8 pl-0">
+		<div class="col-md-8">
 			<div class="formulario">
 				<form id="form-prenomina">
 					<div class="text-left p-2">

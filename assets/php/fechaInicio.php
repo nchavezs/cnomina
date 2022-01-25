@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = explode("-",$_POST['id']);
 $id = $id[0];
 
-$sql = "SELECT fechaRelLab FROM Usuario WHERE RFC = '".$id."'";
+$sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
 $consulta = mysqli_query($conexion, $sql);
 $fecha = mysqli_fetch_row($consulta);
 
@@ -14,8 +14,7 @@ if(sizeof($fecha) == 3){
     $datos["mes"] = $fecha[1] - 1;
     $datos["ano"] = $fecha[2];
 }else{
-    date_default_timezone_set('America/Mexico_City');
-	setlocale(LC_TIME, 'es_CO.UTF-8');
+    setlocale(LC_ALL, "spanish");
     $hoy = date('d/m/Y');
     $fecha = explode("/",$hoy);
     $datos["dia"] = $fecha[0];

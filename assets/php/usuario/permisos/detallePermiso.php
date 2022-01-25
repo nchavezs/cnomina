@@ -3,8 +3,7 @@
 	$id = $elemento[0];
 	include("../../conexion.php");
     $conexion = conexion();
-	date_default_timezone_set('America/Mexico_City');
-	setlocale(LC_TIME, 'es_CO.UTF-8');
+	setlocale(LC_ALL, "spanish");
 	$sql2 = "SELECT * FROM Permiso WHERE id_permiso = ".$id;
 	$consulta2 = mysqli_query($conexion, $sql2);
 	$permiso = mysqli_fetch_array($consulta2);

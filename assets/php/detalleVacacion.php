@@ -3,8 +3,7 @@
 	$id = $elemento[0];
 	include("conexion.php");
     $conexion = conexion();
-	date_default_timezone_set('America/Mexico_City');
-	setlocale(LC_TIME, 'es_CO.UTF-8');
+	setlocale(LC_ALL, "spanish");
 	$sql1 = "SELECT nombre FROM Usuario WHERE RFC = (SELECT RFC FROM Vacacion WHERE id_vacacion = ".$id.") LIMIT 1";
 	$consulta1 = mysqli_query($conexion, $sql1);
 	$usuario = mysqli_fetch_array($consulta1);

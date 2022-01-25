@@ -1,29 +1,36 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-
 $id_puesto = $_POST["id_puesto"];
 $estado = $_POST["estado"];
 
-if($estado == 1){
+function diferencia($fecha1, $fecha2)
+{
+    $fecha1 = new DateTime($fecha1);
+    $fecha2 = new DateTime($fecha2);
+    $diff = $fecha2->diff($fecha1);
+    return $diff->format('%a');
+}
+
+if ($estado == 1) {
     $estado = "AND RFC IS NOT NULL";
-}else if($estado == 2){
+} else if ($estado == 2) {
     $estado = "AND RFC IS NULL";
-}else{
+} else {
     $estado = "";
 }
 
-if($id_puesto == 0){
+if ($id_puesto == 0) {
     $id_puesto = "ANY(SELECT id_puesto FROM Puesto)";
 }
 
-$sql = "SELECT * FROM Plaza WHERE id_puesto = ".$id_puesto." ".$estado;
+$sql = "SELECT * FROM Plaza WHERE id_puesto = " . $id_puesto . " " . $estado;
 $resultado = mysqli_query($conexion, $sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';
 } else {
     $ano = date("Y");
-    $hoy = date("Y-m-d");
+    $hoy = "2022-12-3";
     while ($res = mysqli_fetch_array($resultado)) {
         // ------------------------------------------------------------------------------------------------------
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $res["RFC"] . "'";
@@ -44,28 +51,32 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
 
         $ocupados = 0;
         $ocupados_total = 0;
-        $vacantes = $res["dias"];
+
+        $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
+        // $fecha_presupuesto = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
+        // $desocupados = 0;
+
+        $vacantes = diferencia($fin_ano, $hoy);
+        if ($vacantes >= $res["dias"]) {
+            $vacantes = $res["dias"];
+        }
 
         $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
         $consulta = mysqli_query($conexion, $sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             while ($historial = mysqli_fetch_array($consulta)) {
-                $fecha1 = new DateTime($historial["fecha_inicio"]);
+                $fecha1 = $historial["fecha_inicio"];
                 if ($historial["fecha_fin"] != null) {
-                    $fecha2 = new DateTime($historial["fecha_fin"]);
-                }else{
-                    $fecha2 = new DateTime($hoy);
+                    $fecha2 = $historial["fecha_fin"];
+                } else {
+                    $fecha2 = $hoy;
                 }
-                $diff = $fecha2->diff($fecha1);
-                $ocupados = $diff->format('%a');
+                $ocupados = diferencia($fecha1, $fecha2);
                 $ocupados_total = $ocupados_total + $ocupados;
             }
-            $vacantes = $res["dias"] - $ocupados_total;
+            // $vacantes = $res["dias"] - $ocupados_total;
         }
-        // if($res["RFC"] == null){
-        //     $ocupados = 0;
-        // }
-
+        $desocupados = $res["dias"] - $vacantes - $ocupados_total;
         // ------------------------------------------------------------------------------------------------------
 
         $res['usuario'] = $usuario[0];
@@ -73,6 +84,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         $res['departamento'] = $departamento[0];
         $res['vacantes'] = $vacantes;
         $res["ocupados"] = $ocupados_total;
+        $res["desocupados"] = $desocupados;
         $arreglo["data"][] = $res;
     }
     echo json_encode($arreglo);

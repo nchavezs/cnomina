@@ -687,7 +687,6 @@ function depa_change_multiple() {
              departamento: departamentos,
           },
           success: function (data) {
-              alert(data);
              $("#puesto_multiple").html(data);
              tail.select("#puesto_multiple").reload();
              if(document.getElementById( "plaza")){

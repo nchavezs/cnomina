@@ -18,65 +18,75 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
     $reingreso = '<h5>' . date("d/m/Y", strtotime($resultado['inicio'])) . '</h5>';
 }
 
-$consulta = "SELECT id_usuario, nombre, RFC, CURP, fechaRelLab, puesto, departamento, email, telefono, urlFoto, estado, banca, afiliacion, tipoTrabajador FROM Usuario WHERE RFC = '" . $id . "'";
+$sql = "SELECT
+   Empleado.*,
+   nombre,
+   urlFoto,
+   email,
+   telefono,
+   estado,
+   (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
+   (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
+   (SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador  
+   FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $id . "'";
 
-if ($resultado = mysqli_query($conexion, $consulta)) {
+if ($resultado = mysqli_query($conexion, $sql)) {
     $res = mysqli_fetch_array($resultado);
-    if (is_null($res[9])) {
+    if (is_null($res["urlFoto"])) {
         $imagen = "assets/img/user.svg";
     } else {
-        $imagen = $res[9];
+        $imagen = $res["urlFoto"];
     }
 
-    if (is_null($res[8])) {
+    if (is_null($res["telefono"])) {
         $tel = "Sin número";
     } else {
-        $tel = $res[8];
+        $tel = $res["telefono"];
     }
 
-    if (is_null($res[7])) {
+    if (is_null($res["email"])) {
         $correo = "Sin correo electrónico";
     } else {
-        $correo = $res[7];
+        $correo = $res["email"];
     }
 
-    if (is_null($res[11]) || trim($res[11]) === "") {
+    if (is_null($res["banca"]) || trim($res["banca"]) === "") {
         $banca = "N/A";
     } else {
-        $banca = $res[11];
+        $banca = $res["banca"];
     }
 
-    if (is_null($res[12]) || trim($res[12]) === "") {
+    if (is_null($res["afiliacion"]) || trim($res["afiliacion"]) === "") {
         $afiliacion = "N/A";
     } else {
-        $afiliacion = $res[12];
+        $afiliacion = $res["afiliacion"];
     }
 
-    if (is_null($res[4]) || trim($res[4]) === "") {
+    if (is_null($res["fechaRelLab"]) || trim($res["fechaRelLab"]) === "") {
         $inicio = "-";
     } else {
-        $inicio = $res[4];
+        $inicio = $res["fechaRelLab"];
     }
 
-    if (is_null($res[0]) || trim($res[0]) === "") {
+    if (is_null($res["id_empleado"]) || trim($res["id_empleado"]) === "") {
         $numero = "-";
     } else {
-        $numero = str_pad($res[0], 5, '0', STR_PAD_LEFT);
+        $numero = str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT);
     }
 
-    if (is_null($res[3]) || trim($res[3]) === "") {
+    if (is_null($res["CURP"]) || trim($res["CURP"]) === "") {
         $curp = "-";
     } else {
-        $curp = $res[3];
+        $curp = $res["CURP"];
     }
 
-    if (is_null($res[13]) || trim($res[13]) === "") {
+    if (is_null($res["tipoTrabajador"]) || trim($res["tipoTrabajador"]) === "") {
         $trabajador = "N/A";
     } else {
-        $trabajador = $res[13];
+        $trabajador = $res["tipoTrabajador"];
     }
 
-    if ($res[10] === 'baja') {
+    if ($res["estado"] === 'baja') {
         $sql1 = "SELECT * FROM Baja WHERE RFC = '" . $id . "' ORDER BY id_baja DESC LIMIT 1";
         $consulta1 = mysqli_query($conexion, $sql1);
         if ($consulta1 && mysqli_num_rows($consulta1) == 1) {
@@ -102,9 +112,9 @@ if ($resultado = mysqli_query($conexion, $consulta)) {
 						</div>
 						<div class="perfil-contenido">
 							<div class="perfil-contenido1">
-								<h3>' . $res[1] . '</h3>
-								<h5>' . $res[5] . '</h5>
-								<h6>' . $res[6] . '</h6>
+								<h3>' . $res["nombre"] . '</h3>
+								<h5>' . $res["puesto"] . '</h5>
+								<h6>' . $res["departamento"] . '</h6>
 							</div>
 
 
@@ -160,7 +170,7 @@ if ($resultado = mysqli_query($conexion, $consulta)) {
 									<div class="col-3">
 										<div class="icono-caja">
 											<i class="material-icons">assignment_ind</i>
-											<h5>' . ucfirst($res[10]) . '</h5>
+											<h5>' . ucfirst($res["estado"]) . '</h5>
 										</div>
 									</div>
 								</div>

@@ -1,21 +1,19 @@
 <?php
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 include "conexion.php";
 $conexion = conexion();
 
 
-
 echo '<div class="formulario_caja">
 		<div class="row">
-			<div class="col-md-4 p-0">
+			<div class="col-md-4">
 				<div class="wallpaper">
 					<img src="assets/img/form.svg" alt="">
 				</div>
 			</div>
 
-			<div class="col-md-8 p-0">
+			<div class="col-md-8">
 				<div class="formulario">
 					<form id="form-empleado-1" class="pagina_1">
 						<div class="p-2">
@@ -70,8 +68,7 @@ echo '<div class="formulario_caja">
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Fecha de ingreso</div>
-										<input id="ingreso" type="text" class="campo datepicker-here"
-											value="' . $hoy . '" readonly />
+										<input id="ingreso" type="text" class="campo" value="' . $hoy . '" readonly />
 									</div>
 								</div>
 							</div>
@@ -92,7 +89,7 @@ echo '<div class="formulario_caja">
 										$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
 										$consulta = mysqli_query($conexion, $sql);
 										while ($res2 = mysqli_fetch_row($consulta)) {
-											echo '<option value="' . $res2[1] . '">' . $res2[1] . '</option>';
+											echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
 										}
 										echo '</select>
 									</div>
@@ -162,7 +159,7 @@ echo '<div class="formulario_caja">
 						</div>
 
 						<div class="text-right p-3 pagina_2_opciones">
-							<div class="btn btn-secondary pagina_2_boton btn-sm"><i class="material-icons">keyboard_backspace</i> Anterior </div>
+							<div class="btn btn-secondary pagina_2_boton btn-sm"><i class="material-icons">chevron_left</i> Anterior </div>
 							<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
 						</div>
 					</form>

@@ -1,16 +1,21 @@
 <?php
 session_start();
+setlocale(LC_ALL, "spanish");
 include "conexion.php";
 $conexion = conexion();
 $texto = trim($_POST['texto']);
 $myid = $_SESSION['usuario'];
 
-$sql = "SELECT nombre, RFC, puesto, 
-(SELECT elaboracion FROM Mensaje WHERE receptor = '" . $myid . "' AND emisor = Usuario.RFC ORDER BY elaboracion DESC LIMIT 1) AS ultimo 
-FROM Usuario WHERE 
-categoria = 'user' AND 
-nombre LIKE '%" . $texto . "%' 
-ORDER BY ultimo DESC";
+$sql = "SELECT 
+    Usuario.RFC AS RFC, 
+    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto, 
+    (SELECT elaboracion FROM Mensaje WHERE receptor = '" . $myid . "' AND emisor = Usuario.RFC ORDER BY Mensaje.elaboracion DESC LIMIT 1) AS ultimo,
+    nombre
+    FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE 
+    nombre LIKE '%" . $texto . "%' AND 
+    Usuario.RFC <> '".$myid."' 
+    ORDER BY ultimo DESC
+";
 
 $datos["total"] = 0;
 $datos["html"] = "";
@@ -38,7 +43,7 @@ if ($consulta && $total > 0) {
         $fecha = "";
         if ($consulta3 && mysqli_num_rows($consulta3) > 0) {
             $mensaje = mysqli_fetch_array($consulta3);
-            $fecha = date("d-M", strtotime($mensaje["elaboracion"]));
+            $fecha = strftime("%d %b", strtotime($mensaje["elaboracion"]));
         }
 
         $funcion_chat = "mostrar_chat('" . $usuario["RFC"] . "', '" . $usuario["nombre"] . "')";

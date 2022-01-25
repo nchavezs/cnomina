@@ -1,10 +1,11 @@
 DROP TABLE IF EXISTS Usuario;
 
+DROP TABLE IF EXISTS Empleado;
+
 DROP TABLE IF EXISTS Archivo;
 
 DROP TABLE IF EXISTS Mensaje;
 
--- DROP TABLE IF EXISTS Chat;
 
 DROP TABLE IF EXISTS Beneficiario;
 
@@ -51,10 +52,6 @@ CREATE TABLE Periodo(
 	nombre VARCHAR(50) NOT NULL
 );
 
-INSERT INTO Periodo(nombre) VALUES("CATORCENAL");
-INSERT INTO Periodo(nombre) VALUES("MENSUAL");
-INSERT INTO Periodo(nombre) VALUES("OTRA PERIODICIDAD");
-
 CREATE TABLE Prenomina(
 	id_prenomina INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	del DATE NOT NULL,
@@ -71,8 +68,6 @@ CREATE TABLE Configuracion(
 	nombre VARCHAR(100)
 );
 
-INSERT INTO Configuracion(logo,nombre) VALUES("logo.png", "COMONFORT");
-
 CREATE TABLE Correos(
 	id_correo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	receptor VARCHAR(13) NOT NULL,
@@ -87,10 +82,6 @@ CREATE TABLE Roles(
 	RFC VARCHAR(13) NOT NULL PRIMARY KEY,
 	descripcion VARCHAR(50) NOT NULL
 );
-
-INSERT INTO Roles(rol,RFC, descripcion) VALUES('1', 'admin', 'administrador principal');
-INSERT INTO Roles(rol,RFC, descripcion) VALUES('3', 'admin2', 'carga las nominas');
-INSERT INTO Roles(rol,RFC, descripcion) VALUES('2', 'admin3', 'carga archivos del expediente');
 
 CREATE TABLE Gastos(
 	id_gastos INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -124,7 +115,7 @@ CREATE TABLE Reingreso(
 );
 
 CREATE TABLE Usuario(
-	id_usuario INT NOT NULL,
+	RFC VARCHAR(13) PRIMARY KEY NOT NULL,
 	categoria VARCHAR(10) NOT NULL,
 	contrasenia VARCHAR(30) NOT NULL,
 	email VARCHAR(50),
@@ -132,20 +123,23 @@ CREATE TABLE Usuario(
 	urlFoto VARCHAR(100),
 	nombre VARCHAR(100),
 	estado VARCHAR(5) DEFAULT 'alta',
-	RFC VARCHAR(13) PRIMARY KEY NOT NULL,
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Empleado(
+	id_empleado INT,
+	RFC VARCHAR(13),
 	CURP VARCHAR(18),
 	fechaRelLab VARCHAR(10),
-	puesto VARCHAR(100),
-	departamento VARCHAR(100),
 	banca VARCHAR(18),
 	afiliacion VARCHAR(20),
 	apellidop VARCHAR(50),
 	apellidom VARCHAR(50),
 	nombres VARCHAR(50),
-	archivo VARCHAR(100),
-	tipoTrabajador VARCHAR(30),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	id_periodo INT
+	id_trabajador INT,
+	id_periodo INT,
+	id_puesto INT,
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Archivo(
@@ -225,10 +219,13 @@ CREATE TABLE Movimiento(
 	fecha DATE NOT NULL,
 	puesto VARCHAR(100) NOT NULL,
 	departamento VARCHAR(100) NOT NULL,
+	plaza INT NOT NULL,
+	tipoTrabajador VARCHAR(100) NOT NULL,
 	url VARCHAR(50),
 	puestoAnterior VARCHAR(100) NOT NULL,
 	departamentoAnterior VARCHAR(100) NOT NULL,
 	tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
+	plazaAnterior INT NOT NULL,
 	observacion VARCHAR(100),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -293,7 +290,11 @@ CREATE TABLE Historial_Plaza(
 );
 
 
-INSERT INTO Usuario(id_usuario, categoria, contrasenia, nombre, RFC) VALUES ('0', 'admin', 'admin', 'Administrador', 'admin');
+
+
+
+INSERT INTO Usuario(categoria, contrasenia, nombre, RFC, email) VALUES ('admin', 'admin', 'Administrador', 'admin','admin@admin.com');
+INSERT INTO Usuario(categoria, contrasenia, nombre, RFC, email) VALUES ('admin', 'nomina', 'Consulta Nomina', 'nomina','admin@admiin.com');
 
 INSERT INTO Trabajador(nombre) VALUES('BASE');
 
@@ -304,3 +305,14 @@ INSERT INTO Trabajador(nombre) VALUES('HONORARIOS');
 INSERT INTO Trabajador(nombre) VALUES('EVENTUAL');
 
 INSERT INTO Trabajador(nombre) VALUES('SINDICALIZADO');
+
+INSERT INTO Configuracion(logo,nombre) VALUES("logo.png", "COMONFORT");
+
+INSERT INTO Periodo(nombre) VALUES("CATORCENAL");
+INSERT INTO Periodo(nombre) VALUES("MENSUAL");
+INSERT INTO Periodo(nombre) VALUES("OTRA PERIODICIDAD");
+
+INSERT INTO Roles(rol,RFC, descripcion) VALUES('1', 'admin', 'administrador principal');
+INSERT INTO Roles(rol,RFC, descripcion) VALUES('1', 'nomina', 'administrador principal');
+INSERT INTO Roles(rol,RFC, descripcion) VALUES('3', 'admin2', 'carga las nominas');
+INSERT INTO Roles(rol,RFC, descripcion) VALUES('2', 'admin3', 'carga archivos del expediente');

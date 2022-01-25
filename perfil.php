@@ -218,40 +218,33 @@ if ($resultadoUsuario) {
                            </div>
                            <input type="file" id="archivo" accept=".jpg, .png, .jpeg" style="display:none">
                         </div>
-                        <form id="form-user">
-                           <div class="card-body px-5">
-                              <h6 class="card-category text-gray">Mi perfil</h6>
+                        <form  class="text-left px-3" id="form-user">
+                           <div class="card-body">
+                              <h6 class="card-category text-gray text-center">Mi perfil</h6>
                               <div class="row">
-
                                     <div class="col-md-12">
-                                       <div class="form-group">
-                                          <label class="bmd-label-floating">Nombre</label>
-                                          <input id="nombre" type="text" name="nombre" required class="form-control" value="<?php echo $nombre ?>">
-                                       </div>
+                                    <label class="select-etiqueta">Nombre</label>
+                                          <input id="nombre" type="text" name="nombre" required class="campo" value="<?php echo $nombre ?>">
                                     </div>
 
                                  </div>
                                  <div class="row">
                                     <div class="col-md-12">
-                                       <div class="form-group">
-                                          <label class="bmd-label-floating">Correo</label>
-                                          <input id="email" type="email" class="form-control" required name="email" value="<?php echo $email ?>">
-                                       </div>
+                                    <label class="select-etiqueta">Correo</label>
+                                          <input id="email" type="email" class="campo" required name="email" value="<?php echo $email ?>">
                                     </div>
 
                                  </div>
                                  <div class="row">
                                     <div class="col-md-12">
-                                       <div class="form-group">
-                                          <label class="bmd-label-floating">Teléfono</label>
-                                          <input id="telefono" class="form-control" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 required name="telefono" value="<?php echo $telefono ?>">
-                                       </div>
+                                    <label class="select-etiqueta">Teléfono</label>
+                                          <input id="telefono" class="campo" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 required name="telefono" value="<?php echo $telefono ?>">
                                     </div>
 
                                  </div>
                            </div>
-                           <div class="card-footer">
-                           <button type="submit" id="editar" class="btn btn-primary btn-sm regresar"><i class="material-icons">save</i> Actualizar información </button>
+                           <div class="card-footer text-center">
+                           <button type="submit" id="editar" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
                            </div>
                         </form>
                      </div>
@@ -264,38 +257,28 @@ if ($resultadoUsuario) {
                               <img id="foto" class="img" src="assets/img/search.svg" />
                            </div>
                         </div>
-                        <form id="form-cambiar">
-                           <div class="card-body px-5">
+                        <form class="text-left px-3" id="form-cambiar">
+                           <div class="card-body">
                               
-                           <h6 class="card-category text-gray">Cambiar contraseña</h6>
+                           <h6 class="card-category text-gray text-center">Cambiar contraseña</h6>
                               <div class="row">
                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Contraseña actual</label>
-                                          <input type="password" name="pass" id="pass" class="form-control" required autocomplete="off">
-                                      
-                                    </div>
+                                 <label class="select-etiqueta">Contraseña actual</label>
+                                          <input type="password" name="pass" id="pass" class="campo" required autocomplete="off">
                                  </div>
                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                    <label class="bmd-label-floating">Nueva contraseña</label>
-                                          <input type="password" name="newPass" id="newPass" class="form-control" required autocomplete="off">
-                                     
-                                    </div>
+                                 <label class="select-etiqueta">Nueva contraseña</label>
+                                          <input type="password" name="newPass" id="newPass" class="campo" required autocomplete="off">
                                  </div>
                                  <div class="col-md-12">
-                                    <div class="form-group">
-                                    <label class="bmd-label-floating">Confirmar contraseña</label>
-                                          <input type="password" name="confirmacion" id="confirmacion" class="form-control" required autocomplete="off">
-                                     
-                                    </div>
+                                 <label class="select-etiqueta">Confirmar contraseña</label>
+                                          <input type="password" name="confirmacion" id="confirmacion" class="campo" required autocomplete="off">
                                  </div>
                               </div>
                              
                            </div>
-                           <div class="card-footer">
-                             <button type="submit" class="btn btn-primary btn-sm regresar  btn-sm"><i class="material-icons">save</i>
-                                 Actualizar información </button>
+                           <div class="card-footer text-center">
+                             <button type="submit" class="btn btn-success btn-sm btn-sm"><i class="material-icons">save</i> Guardar</button>
                              </div>
                         </form>
                      </div>
@@ -304,7 +287,7 @@ if ($resultadoUsuario) {
                   <div class="col-xl-4">
                      <div class="row">
                         <div class="col-md 12">
-                           <div class="card">
+                           <!-- <div class="card">
                               <div class="card-body">
                                  <h5>Eliminar <a href="consultar" class="text-info">archivos CFDI</a>.</h5>
                                  <p>Eliminar todos los archivos CFDI de la base de datos. Esto no eliminará la
@@ -317,14 +300,23 @@ if ($resultadoUsuario) {
                                  }
                                  ?>
                               </div>
+                           </div> -->
+                           <div class="card">
+                              <div class="card-body">
+                                 <h5>Manual de usuario.</span></h5>
+                                 <p>Descarga el manual usuario.</p>
+                                 <div class="text-right w-100">
+                                    <a href="./documentos/usuario.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
+                                 </div> 
+                              </div>
                            </div>
                            <div class="card">
                               <div class="card-body">
-                                 <h5>Manuales.</span></h5>
-                                 <p>Descarga el manual de administrador y el manual de usuario.</p>
-                                 <a href="./documentos/usuario.pdf" download class="btn btn-secondary regresar btn-sm px-3"><i class="material-icons">download</i> Usuario</a>
-                                 <a href="./documentos/administrador.pdf" download class="btn btn-secondary regresar btn-sm px-3"><i class="material-icons">download</i> Administrador</a>
-
+                                 <h5>Manual de administrador.</span></h5>
+                                 <p>Descarga el manual de administrador.</p>
+                                 <div class="text-right w-100">
+                                    <a href="./documentos/administrador.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -389,7 +381,6 @@ if ($resultadoUsuario) {
    <script src="assets/js/material-dashboard.js?v=3.2.2" type="text/javascript"></script>
    <script src="assets/js/sesion.js?v=3.2.2"></script>
    <script src="assets/js/perfil.js?v=3.2.2"></script>
-   <script src="assets/js/mensajes.js?v=3.2.2"></script>
    <script src="assets/js/block.js"></script>
 
 </body>

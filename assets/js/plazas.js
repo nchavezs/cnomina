@@ -72,6 +72,11 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
+                    return '<a class="tipo">' + row.desocupados + '</a>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
                     return '<a class="tipo">' + row.vacantes + '</a>';
                 }
             },
@@ -104,9 +109,13 @@ $(document).ready(function () {
                 processData: false,
                 cache: false,
                 success: function (data) {
-                    log_show(data);
-                    $('#tabla-plaza').DataTable().ajax.reload();
-                    $("#importar-plazas").val("");
+                    if(data == 0){
+                        md.showNotification("top", "right", "Contenido de archivo no válido.");
+                    }else{
+                        log_show(data);
+                        $('#tabla-plaza').DataTable().ajax.reload();
+                        $("#importar-plazas").val("");
+                    }
                 }
             });
         }
@@ -138,7 +147,7 @@ function nueva_plaza() {
         select_estilo();
         document.getElementById("dias").max = "" + dias_ano();
         $("#dias").val(dias_ano());
-        $("#fecha").css("color", "green");
+        $("#fecha").css("color", "#49CF97");
         
         depa_change();
 
@@ -151,9 +160,9 @@ function nueva_plaza() {
             if (this.value > dias_ano()) {
                 this.value = dias_ano();
             } else if (this.value < 1) {
-                $("#fecha").css("color", "red");
+                $("#fecha").css("color", "#ED7E7E");
             }else{
-                $("#fecha").css("color", "green");
+                $("#fecha").css("color", "#49CF97");
             }
             $("#fecha").val(fecha_presupuesto(this.value));
         });
@@ -286,7 +295,4 @@ function select_estilo_plazas() {
         search: false,
         width: "200px"
      });
-
-    //  $(".dropdown-inner").perfectScrollbar();
-    
  };

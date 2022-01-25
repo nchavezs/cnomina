@@ -3,19 +3,34 @@ include "assets/php/main_user.php";
 
 $conexion = conexion();
 $consulta = "SELECT * FROM Usuario WHERE RFC = '" . $varUser . "'";
-$resultado = mysqli_query($conexion, $consulta);
+
+$sql = "SELECT
+Empleado.RFC AS RFC,
+nombre,
+CRUP,
+fechaRelLab,
+email,
+telefono,
+estado,
+(SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
+(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador  
+FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
+RFC = '" . $varUser . "'";
+
+$resultado = mysqli_query($conexion, $sql);
 
 if ($resultado) {
     $res = mysqli_fetch_array($resultado);
-    $nombre = $res[6];
-    $CURP = $res[9];
-    $RFC = $res[8];
-    $fechaRelLab = $res[10];
-    $puesto = $res[11];
-    $departamento = $res[12];
-    $email = $res[3];
-    $telefono = $res[4];
-    $estado = $res[7];
+    $nombre = $res["nombre"];
+    $CURP = $res["CURP"];
+    $RFC = $res["RFC"];
+    $fechaRelLab = $res["fechaRelLab"];
+    $puesto = $res["puesto"];
+    $departamento = $res["departamento"];
+    $email = $res["email"];
+    $telefono = $res["telefono"];
+    $estado = $res["estado"];
 }
 ?>
 
@@ -256,7 +271,7 @@ if ($resultado) {
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" id="editar" class="btn btn-primary btn-sm regresar"><i
-                                                class="material-icons">save</i> Actualizar información </button>
+                                                class="material-icons">save</i> Guardar </button>
                                     </div>
                                 </form>
                             </div>
@@ -302,7 +317,7 @@ if ($resultado) {
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-sm regresar"><i
-                                                class="material-icons">save</i> Actualizar información </button>
+                                                class="material-icons">save</i> Guardar </button>
 
                                     </div>
                                 </form>

@@ -206,6 +206,7 @@ if ($varFoto != null) {
 									<th class="oculto">Puesto / Departamento</th>
                                     <th class="">Trabajador</th>
                                     <th class="oculto">Días ocupados</th>
+                                    <th class="oculto">Días desocupados</th>
                                     <th class="oculto">Días vacantes</th>
 									<th class="">Eliminar</th>
                                 </tr>
@@ -250,7 +251,6 @@ if ($varFoto != null) {
     <script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/moment.js"></script>
     <script src="assets/js/sesion.js?v=3.2.2"></script>
-    <script src="assets/js/mensajes.js?v=3.2.2"></script>
     <script src="assets/js/plazas.js?v=3.2.2"></script>
 
 </body>

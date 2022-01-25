@@ -4,8 +4,7 @@ include "municipio.php";
 $conexion = conexion();
 require_once "../../vendor/autoload.php";
 $css = file_get_contents("../css/reporte.css");
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 $hoy = date('d/m/Y', time());
 
 $fecha1 = $_POST["fecha1"];

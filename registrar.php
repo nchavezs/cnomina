@@ -202,7 +202,10 @@ include "./assets/php/comprobar_catalago.php";
                 <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-header text-center">
+                            <h6 class="card-category text-gray">Empleados</h6>
+                        </div>
+                        <div class="card-body p-1">
                             <div class="msn-mostrar">
                                 <?php
                                 if (rol() == 1) {
@@ -280,7 +283,6 @@ include "./assets/php/comprobar_catalago.php";
     <script src="assets/js/plugins/animate/adp.js"></script>
     <script src="assets/js/registrar.js?v=3.2.2"></script>
     <script src="assets/js/sesion.js?v=3.2.2"></script>
-    <script src="assets/js/mensajes.js?v=3.2.2"></script>
 
 </body>
 

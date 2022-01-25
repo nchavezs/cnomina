@@ -2,34 +2,28 @@
 include "conexion.php";
 $conexion = conexion();
 
-echo '<form id="form-plaza">
-			<div class="card">
-				<div class="card-header card-header-primary">
-					<h4 class="card-title ">Nueva Plaza</h4>
-					<p class="card-category"> - - - </span></p>
-				</div>
-				<div class="card-body">
-					<div class="row">
-
-						<div class="col-md-6">
-							<div class="form-group">
-							<div class="select-etiqueta">Días presupuestados</div>
-							  <input id="dias" type="text" maxlength="3" min="1" class="form-control" required onkeydown="return isNumberKey(event)"/>
-							</div>
-						</div>
+echo '<div class="formulario_caja">
+        <form class="formulario" id="form-plaza">
+            <div class="p-2">
+                <h4 class="font-weight-bold text-primary">Registrar nueva plaza</h4>
+                <small class="text-muted">Completa el siguiente formulario.</small>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-md-6">
-							<div class="form-group">
-							<div class="select-etiqueta">Fecha</div>
-							  <input id="fecha" type="text" class="form-control datepicker-here" readonly value="01/01/'.date("Y").'"/>
-							</div>
-						</div>
+                            <div class="select-etiqueta">Días presupuestados</div>
+                            <input id="dias" type="text" maxlength="3" min="1" class="campo" required onkeydown="return isNumberKey(event)"/>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="select-etiqueta">Fecha aprobación presupuesto</div>
+                            <input id="fecha" type="text" class="campo" disabled value="01/01/'.date("Y").'"/>
+                        </div>
 
                         <div class="col-md-12">
-							<div class="form-group">
-							<div class="select-etiqueta">Cantidad de plazas</div>
-							  <input id="cantidad" step="1" type="number" min="1" max="999" class="form-control" value="1" required/>
-							</div>
-						</div>
+                            <div class="select-etiqueta">Cantidad de plazas</div>
+                            <input id="cantidad" step="1" type="number" min="1" max="999" class="campo" value="1" required/>
+                        </div>
 
                         <div class="col-md-12">
                             <div class="select">
@@ -56,18 +50,14 @@ echo '<form id="form-plaza">
                                 </select>
                             </div>
                         </div>
-					</div>
-				</div>
-			</div>';
-
-echo '<div class="row">
-        <div class="col-6">
-            <div id="salir" class="btn btn-secondary btn-sm regresar "><i class="material-icons">arrow_back</i> Regresar </div>
+                    </div>
+                </div>
             </div>
-        <div class="col-6">
-            <button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">thumb_down_alt</i> Guardar </button>
-        </div>
-    </div>
-</form>';
+            <div class="pie">
+                <div id="salir" class="btn btn-secondary btn-sm">Regresar </div>
+                <button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
+            </div>
+        </form>
+    </div>';  
 
 mysqli_close($conexion);

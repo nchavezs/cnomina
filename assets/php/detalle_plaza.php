@@ -6,12 +6,12 @@ $id = $_POST["id"];
 $ano = date("Y");
 $hoy = date("Y-m-d");
 
-$html = '<div class="row formulario p-4">
-<div class="col-md-12">
-<div class="text-left p-2">
-						<h4 class="font-weight-bold text-primary">Historial de vacantes</h4>
-						<small class="text-muted">Usuarios que han estado registrados en esta plaza en el año en curso.</small>
-					</div>
+$html = '<div class="row formulario_caja p-4">
+<div class="col-md-12 formulario">
+    <div class="text-left p-2">
+        <h4 class="font-weight-bold text-primary">Historial de vacantes</h4>
+        <small class="text-muted">Usuarios registrados en esta plaza en el año '.$ano.'.</small>
+    </div>
 </div>';
 
 $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $id . " AND YEAR(fecha_inicio) = " . $ano;

@@ -1,8 +1,7 @@
 <?php
 include "../../conexion.php";
 $conexion = conexion();
-date_default_timezone_set('America/Mexico_City');
-setlocale(LC_TIME, 'es_CO.UTF-8');
+setlocale(LC_ALL, "spanish");
 $elemento = explode("-", $_POST['id']);
 $id = $elemento[0];
 

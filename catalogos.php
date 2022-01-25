@@ -248,7 +248,6 @@ if ($varFoto != null) {
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/catalagos.js?v=3.2.2"></script>
 	<script src="assets/js/sesion.js?v=3.2.2"></script>
-	<script src="assets/js/mensajes.js?v=3.2.2"></script>
 
 </body>
 

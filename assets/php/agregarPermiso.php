@@ -1,9 +1,9 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-$id = explode("-", $_POST["id"]);
-$id = $id[0];
-$fecha1 = $_POST["fecha1"];
+$id = $_POST["id"];
+// $fecha1 = $_POST["fecha1"];
+$fecha1 = date("d/m/Y");
 $fecha2 = $_POST["fecha2"];
 $fecha3 = $_POST["fecha3"];
 $categoria = $_POST["categoria"];

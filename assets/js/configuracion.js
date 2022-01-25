@@ -87,10 +87,12 @@ Dropzone.options.dropzonePlantilla = {
         myDropzone = this;
 
         this.on("success", function (file, data) {
-            if (file.accepted) {
+            if (file.accepted && data != 0) {
                 log_show(data);    
-                // Dropzone.forElement("#dropzone-plantilla").removeAllFiles(true);
+                Dropzone.forElement("#dropzone-plantilla").removeAllFiles(true);
                 $(".wizard_step_importar").addClass("terminado");
+            }else{
+                md.showNotification("top", "right", "Contenido de archivo no válido.");
             }
         });
 

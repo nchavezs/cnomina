@@ -3,8 +3,7 @@
 	$id = $elemento[0];
 	include("../../conexion.php");
     $conexion = conexion();
-	date_default_timezone_set('America/Mexico_City');
-	setlocale(LC_TIME, 'es_CO.UTF-8');
+	setlocale(LC_ALL, "spanish");
 
 	$sql2 = "SELECT * FROM Descuento WHERE id_descuento = ".$id;
 	$consulta2 = mysqli_query($conexion, $sql2);

@@ -182,9 +182,9 @@ if (rol() != 1) {
 							<div class="row">
 								<div class="col-md-7">
 									<div class="card formulario">
-										<div class="card-header">
+										<div class="card-header py-4">
 											<i class="material-icons regresar" onclick="pagina(1);">keyboard_backspace</i>
-										<h5 class="text-muted">Selecciona el periodo y alguno de los parámetros siguientes:</h5>
+											<h5 class="text-muted">Selecciona el periodo y alguno de los parámetros siguientes:</h5>
 										</div>
 										<div class="card-body">
 											<div class="row">
@@ -229,7 +229,7 @@ if (rol() != 1) {
 									</div>
 								</div>
 								<div class="col-md-5">
-									<div class="card formulario">
+									<div class="card">
 										<div class="card-body">
 											<div class="check_opciones">
 												<div class="toggle-btn">
@@ -336,7 +336,6 @@ if (rol() != 1) {
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/sesion.js?v=3.2.2"></script>			
 	<script src="assets/js/reportes.js?v=3.2.2"></script>
-	<script src="assets/js/mensajes.js?v=3.2.2"></script>
 
 </body>
 

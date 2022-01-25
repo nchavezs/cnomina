@@ -272,7 +272,6 @@ if (rol() == 2) {
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/prenomina.js?v=3.2.2"></script>
-	<script src="assets/js/mensajes.js?v=3.2.2"></script>
 
 </body>
 
