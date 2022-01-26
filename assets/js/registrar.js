@@ -483,14 +483,12 @@ function reingreso(id) {
                                 "id": id,
                                 "observaciones": observaciones
                             },
-                            success: function (html) {
-                                if (html == 1) {
+                            success: function (data) {
+                                if (data == 1) {
                                     Swal.fire({
                                         title: 'Correcto',
                                         text: 'Empleado dado de alta',
                                         type: 'success',
-
-
                                     }).then((result) => {
                                         $('#tabla-empleado').DataTable().ajax.reload();
                                         ver(id, 1);
@@ -2678,6 +2676,7 @@ function formato_movimiento(id) {
             "id": id
         },
         success: function (url) {
+            console.log(url);
             descargar(url, "Movimiento");
         }
     });

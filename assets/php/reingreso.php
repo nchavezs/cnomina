@@ -13,7 +13,7 @@
 			<div class="card">
 				<div class="card-header card-header-primary">
 					<h4 class="card-title ">Reingreso de empleado</h4>
-					<p class="card-category">Empleado: <span id="nombre">'.$resultado1[6].'</span></p>
+					<p class="card-category">Empleado: <span id="nombre">'.$resultado1["nombre"].'</span></p>
 					
 				</div>
 				<div class="card-body">
@@ -39,10 +39,10 @@
 
 	echo '<div class="row">
 				<div class="col-6">
-					<div class="btn btn-secondary btn-sm regresar " id="'.$id.'" onclick="ver(this.id,1);"><i class="material-icons">arrow_back</i> Regresar </div>
+					<div class="btn btn-secondary btn-sm" id="'.$id.'" onclick="ver(this.id,1);"><i class="material-icons">arrow_back</i> Regresar </div>
 					</div>
 				<div class="col-6">
-					<button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">thumb_up_alt</i> Continuar </button>
+					<button type="submit" class="btn btn-secondary btn-sm " ><i class="material-icons">thumb_up_alt</i> Continuar </button>
 				</div>
 			</div>
 		</form>';

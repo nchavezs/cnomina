@@ -121,7 +121,7 @@
 
 								echo '<div class="col-md-12">
 											<div class="select-etiqueta">Observacion <cite class="text-danger">opcional</cite></div>
-											<textarea id="observacion" class="campo" rows="2"></textarea>
+											<textarea id="observacion" class="campo" maxlength="300" rows="2"></textarea>
 									</div>';
 							
 							echo '</div>

@@ -17,7 +17,7 @@ function logo($sheet)
 }
 
 function diferencia($fecha1, $fecha2)
-{   
+{
     $fecha1 = new DateTime($fecha1);
     $fecha2 = new DateTime($fecha2);
     $diff = $fecha1->diff($fecha2);
@@ -27,9 +27,9 @@ function diferencia($fecha1, $fecha2)
 $del = $_POST["del"];
 $al = $_POST["al"];
 
-if ($del != "" || $al != "" || isset($_POST["puestos"])) {
+if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     $conexion = conexion();
-    $puestos = implode(",", $_POST["puestos"]);
+    $plazas = implode(",", $_POST["plazas"]);
     $hoy = date('Y-m-d');
     $del_explode = explode("/", $del);
     $ano = array_pop($del_explode);
@@ -61,16 +61,17 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         ],
     ];
 // ----------------- PLAZA --------------------
-    $sql = "SELECT Plaza.*,
-    (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
-    (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE Plaza.id_puesto IN (" . $puestos . ") AND 
-    Plaza.elaboracion BETWEEN '".$date1."' AND '".$date2."'";
+    $sql = "SELECT Historial_Plaza.*,
+    (SELECT nombre FROM Usuario WHERE RFC = Historial_Plaza.RFC) AS nombre,
+    (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza)) AS puesto,
+    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza))) AS departamento 
+    FROM Historial_Plaza WHERE 
+    Historial_Plaza.id_plaza IN (" . $plazas . ") AND 
+    Historial_Plaza.elaboracion BETWEEN '" . $date1 . "' AND '" . $date2 . "'";
 
     $consulta = mysqli_query($conexion, $sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "I";
+        $ultimo = "H";
         $bandera = true;
         $i = 3;
 
@@ -80,7 +81,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:' . $ultimo . '1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', "PLAZAS DEL ".$del." AL ".$al);
+        $sheet->setCellValue('C1', "HISTORIAL DE PLAZAS DEL " . $del . " AL " . $al);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:' . $ultimo . '2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:' . $ultimo . '2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -89,53 +90,30 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->setCellValue('C2', 'PUESTO');
         $sheet->setCellValue('D2', 'DEPARTAMENTO');
         $sheet->setCellValue('E2', 'DIAS OCUPADOS');
-        $sheet->setCellValue('F2', 'DIAS DESOCUPADOS');
-        $sheet->setCellValue('G2', 'DIAS VACANTES');
-        $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
-        $sheet->setCellValue('I2', 'ELABORACION');
+        $sheet->setCellValue('F2', 'FECHA DE INICIO');
+        $sheet->setCellValue('G2', 'FECHA DE TERMINO');
+        $sheet->setCellValue('H2', 'ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
-            $presupuestados = $resultado["dias"];
-            $ocupados = 0;
-            $ocupados_total = 0;
-            $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
-            $vacantes = diferencia($fin_ano, $hoy);
-            if ($vacantes >= $presupuestados) {
-                $vacantes = $presupuestados;
+            $fecha1 = new DateTime($resultado["fecha_inicio"]);
+            if ($resultado["fecha_fin"] != "") {
+                $fecha2 = new DateTime($resultado["fecha_fin"]);
+                $fecha_termino=date("d/m/Y", strtotime($resultado['fecha_fin']));
+            } else {
+                $fecha2 = new DateTime($hoy);
+                $fecha_termino = "";
             }
-            if (is_null($resultado["RFC"])) {
-                $resultado["nombre"] = "VACANTE";
-            }
-
-            $sql = "SELECT * FROM Historial_Plaza WHERE
-            id_plaza = " . $resultado["id_plaza"] . " AND
-            YEAR(fecha_inicio) = " . $ano;
-
-            $consulta2 = mysqli_query($conexion, $sql);
-            if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
-                while ($historial = mysqli_fetch_array($consulta2)) {
-                    $fecha1 = $historial["fecha_inicio"];
-                    if ($historial["fecha_fin"] != null) {
-                        $fecha2 = $historial["fecha_fin"];
-                    } else {
-                        $fecha2 = $hoy;
-                    }
-                    $ocupados = diferencia($fecha1, $fecha2);
-                    $ocupados_total = $ocupados_total + $ocupados + 1;
-                }
-            }
-
-            $desocupados = $presupuestados - $vacantes - $ocupados_total;
+            $diff = $fecha2->diff($fecha1);
+            $ocupados = $diff->format('%a') + 1;
 
             $sheet->setCellValue('A' . $i, $resultado["id_plaza"]);
             $sheet->setCellValue('B' . $i, mb_strtoupper($resultado['nombre']));
             $sheet->setCellValue('C' . $i, mb_strtoupper($resultado['puesto']));
             $sheet->setCellValue('D' . $i, mb_strtoupper($resultado['departamento']));
-            $sheet->setCellValue('E' . $i, $ocupados_total);
-            $sheet->setCellValue('F' . $i, $desocupados);
-            $sheet->setCellValue('G' . $i, $vacantes);
-            $sheet->setCellValue('H' . $i, $presupuestados);
-            $sheet->setCellValue('I' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
+            $sheet->setCellValue('E' . $i, $ocupados);
+            $sheet->setCellValue('F' . $i, date("d/m/Y", strtotime($resultado['fecha_inicio'])));
+            $sheet->setCellValue('G' . $i, $fecha_termino);
+            $sheet->setCellValue('H' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }

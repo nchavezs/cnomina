@@ -185,8 +185,8 @@ if (rol() != 1) {
 										<div class="card-header py-4">
 											<i class="material-icons regresar"
 												onclick="pagina(1);">keyboard_backspace</i>
-											<h5 class="text-muted">Selecciona el periodo y alguno de los parámetros
-												siguientes:
+											<h5 class="text-muted">Selecciona el periodo y almenos uno de los parámetros
+												siguientes.
 											</h5>
 										</div>
 										<div class="card-body">
@@ -307,12 +307,12 @@ if (rol() != 1) {
 						</div>
 						<div class="pagina pagina_3 adp-hide">
 							<div class="row">
-								<div class="col-md-7">
+								<div class="col-xl-8">
 									<div class="card formulario">
 										<div class="card-header py-4">
 											<i class="material-icons regresar"
 												onclick="pagina(1);">keyboard_backspace</i>
-											<h5 class="text-muted">Selecciona el periodo y el tipo de reporte de plaza:
+											<h5 class="text-muted">Selecciona el periodo de elaboración y el tipo de reporte de plaza.
 											</h5>
 										</div>
 										<div class="card-body">
@@ -367,7 +367,7 @@ if (rol() != 1) {
 										</div>
 									</div>
 								</div>
-								<div class="col-md-5">
+								<div class="col-xl-4">
 									<div class="card">
 										<div class="card-body">
 											<div class="check_opciones">

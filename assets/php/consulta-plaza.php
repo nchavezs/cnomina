@@ -9,7 +9,7 @@ function diferencia($fecha1, $fecha2)
     $fecha1 = new DateTime($fecha1);
     $fecha2 = new DateTime($fecha2);
     $diff = $fecha2->diff($fecha1);
-    return $diff->format('%a') ;
+    return $diff->format('%a');
 }
 
 if ($estado == 1) {
@@ -53,8 +53,6 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         $ocupados_total = 0;
 
         $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
-        // $fecha_presupuesto = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
-        // $desocupados = 0;
 
         $vacantes = diferencia($fin_ano, $hoy);
         if ($vacantes >= $res["dias"]) {

@@ -27,13 +27,10 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
             $fecha2 = new DateTime($historial["fecha_fin"]);
         } else {
             $fecha2 = new DateTime($hoy);
+            $historial["fecha_fin"] = " - ";
         }
         $diff = $fecha2->diff($fecha1);
         $ocupados = $diff->format('%a') + 1;
-
-        if($historial["fecha_fin"] == null){
-            $historial["fecha_fin"] = " - ";
-        }
 
         $html=$html. '<div class="col-md-6">
                         <div class="card overflow-hidden">

@@ -222,9 +222,10 @@ if ($del == "" || $al == "") {
         Empleado.fechaRelLab,
         (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
         (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
-        FROM Vacacion LEFT JOIN Empleado ON Vacacion.RFC = Empleado.RFC WHERE
-        al >= '" . $date1 . "' AND
-        al <= '" . $date2 . "'
+        FROM Vacacion LEFT JOIN Empleado ON Vacacion.RFC = Empleado.RFC WHERE 
+        -- al >= '" . $date1 . "' AND
+        -- al <= '" . $date2 . "'
+        (del BETWEEN '".$date1."' AND '".$date2."' OR al BETWEEN '".$date1."' AND '".$date2."') 
         " . $extra . " ORDER BY Vacacion.RFC";
 
         $consulta = mysqli_query($conexion, $sql);

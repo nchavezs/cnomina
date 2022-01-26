@@ -26,9 +26,9 @@ $(document).ready(function () {
          $("#historial_plaza").click();
       }
 
-      if($(this).is(":checked")){
+      if ($(this).is(":checked")) {
          ADP.show($("#plazas_2").parent()[0], 'flip-down');
-      }else{
+      } else {
          ADP.hide($("#plazas_2").parent()[0], 'flip-up');
       }
    });
@@ -42,13 +42,17 @@ $(document).ready(function () {
       let al = $("#al_2").val();
       let puestos_size = document.getElementById("puestos_2").selectedOptions.length;
       let depa_size = document.getElementById("departamentos_2").selectedOptions.length;
-      let plaza_size = document.getElementById("plazas_2").selectedOptions.length;
 
-      if ($("#descripcion_plaza").is(':checked')) {
-         reporte_descripcion(del,al,puestos,departamentos,this);
-      } else if ($("#historial_plaza").is(':checked')) {
-         reporte_historial(del,al,puestos,departamentos,plazas,this);
+      if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
+         md.showNotification("top", "right", "Completa todos los campos.");
+      } else {
+         if ($("#descripcion_plaza").is(':checked')) {
+            reporte_descripcion(del, al, puestos, departamentos, this);
+         } else if ($("#historial_plaza").is(':checked')) {
+            reporte_historial(del, al, puestos, departamentos, plazas, this);
+         }
       }
+
    });
 
    $("#reporte_general").click(function (e) {
@@ -128,8 +132,10 @@ $(document).ready(function () {
    });
 });
 
-function reporte_historial(del, al, puestos, departamentos,plazas, boton){
-   if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
+function reporte_historial(del, al, puestos, departamentos, plazas, boton) {
+   let plaza_size = document.getElementById("plazas_2").selectedOptions.length;
+
+   if (plaza_size < 1) {
       md.showNotification("top", "right", "Completa todos los campos.");
    } else {
       $(boton).prop("disabled", true);
@@ -143,7 +149,6 @@ function reporte_historial(del, al, puestos, departamentos,plazas, boton){
             "plazas": plazas
          },
          success: function (data) {
-            console.log(data);
             let verificar = data.includes("assets/archivos/");
 
             if (verificar) {
@@ -159,35 +164,32 @@ function reporte_historial(del, al, puestos, departamentos,plazas, boton){
    }
 }
 
-function reporte_descripcion(del, al, puestos, departamentos, boton){
-   if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
-      md.showNotification("top", "right", "Completa todos los campos.");
-   } else {
-      $(boton).prop("disabled", true);
-      mensaje_cargar();
-      $.ajax({
-         url: "assets/php/reporte_descripcion_plazas.php",
-         type: "POST",
-         data: {
-            "del": del,
-            "al": al,
-            "puestos": puestos
-         },
-         success: function (data) {
-            console.log(data);
-            let verificar = data.includes("assets/archivos/");
+function reporte_descripcion(del, al, puestos, departamentos, boton) {
 
-            if (verificar) {
-               window.open(data, '_blank');
-            } else {
-               md.showNotification("top", "right", data);
-            }
+   $(boton).prop("disabled", true);
+   mensaje_cargar();
+   $.ajax({
+      url: "assets/php/reporte_descripcion_plazas.php",
+      type: "POST",
+      data: {
+         "del": del,
+         "al": al,
+         "puestos": puestos
+      },
+      success: function (data) {
+         let verificar = data.includes("assets/archivos/");
 
-            $(boton).prop("disabled", false);
-            Swal.close();
+         if (verificar) {
+            window.open(data, '_blank');
+         } else {
+            md.showNotification("top", "right", data);
          }
-      });
-   }
+
+         $(boton).prop("disabled", false);
+         Swal.close();
+      }
+   });
+
 }
 
 
@@ -210,7 +212,6 @@ function depa_change_multiple() {
             departamentos: elemento.val()
          },
          success: function (data) {
-            console.log(data);
 
             $("#" + select_puesto).html(data);
             tail.select("#" + select_puesto).reload();
@@ -237,7 +238,6 @@ function puestos_change_multiple() {
             puestos: elemento.val(),
          },
          success: function (data) {
-            console.log("puestos");
             if (document.getElementById(select_plaza)) {
                $("#" + select_plaza).html(data);
                tail.select("#" + select_plaza).reload();

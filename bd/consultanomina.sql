@@ -226,7 +226,7 @@ CREATE TABLE Movimiento(
 	departamentoAnterior VARCHAR(100) NOT NULL,
 	tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
 	plazaAnterior INT NOT NULL,
-	observacion VARCHAR(100),
+	observacion VARCHAR(300),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

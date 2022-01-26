@@ -8,13 +8,23 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load("../docs/movimiento.xlsx");
 
+$sql = "SELECT * FROM Configuracion";
+$consulta = mysqli_query($conexion, $sql);
+$configuracion = mysqli_fetch_array($consulta);
+
 $sql = "SELECT * FROM Movimiento WHERE id_movimiento = " . $id;
 $consulta = mysqli_query($conexion, $sql);
-$res = mysqli_fetch_row($consulta);
+$movimiento = mysqli_fetch_array($consulta);
 
-$sql1 = "SELECT * FROM Usuario WHERE RFC = '" . $res[1]."'";
-$consulta1 = mysqli_query($conexion, $sql1);
-$res1 = mysqli_fetch_row($consulta1);
+$sql = "SELECT 
+Usuario.*,
+Usuario.RFC AS RFC,
+Empleado.fechaRelLab,
+Empleado.CURP,
+(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto 
+FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $movimiento["RFC"]."'";
+$consulta = mysqli_query($conexion, $sql);
+$usuario = mysqli_fetch_array($consulta);
 
 $contenido = [
     'alignment' => [
@@ -22,7 +32,7 @@ $contenido = [
     ],
 ];
 
-$letra = substr($res1[9], 10, -7);
+$letra = substr($usuario["CURP"], 10, -7);
 if (strtoupper($letra) === "H") {
     $sexo = "M  ( x )       F  (   )";
 } else if (strtoupper($letra) === "M") {
@@ -32,15 +42,16 @@ if (strtoupper($letra) === "H") {
 }
 
 $sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('A23', mb_strtoupper($res1[6]));
-$sheet->setCellValue('D23', mb_strtoupper($res1[8]));
-$sheet->setCellValue('B8', mb_strtoupper($res1[11]));
+$sheet->setCellValue('A23', mb_strtoupper($usuario["nombre"]));
+$sheet->setCellValue('D23', mb_strtoupper($usuario["RFC"]));
+$sheet->setCellValue('B8', mb_strtoupper($usuario["puesto"]));
 $sheet->setCellValue('D25', "38200");
-$sheet->setCellValue('E25', "COMONFORT");
+$sheet->setCellValue('E25', $configuracion["nombre"]);
 $sheet->setCellValue('G25', "GUANAJUATO");
-$sheet->setCellValue('G8', $res1[10]);
-$sheet->setCellValue('G4', str_pad($res[0], 5, '0', STR_PAD_LEFT));
+$sheet->setCellValue('G8', $usuario["fechaRelLab"]);
+$sheet->setCellValue('G4', str_pad($movimiento["id_movimiento"], 5, '0', STR_PAD_LEFT));
 $sheet->setCellValue('F23', $sexo);
+$sheet->setCellValue('F30', $movimiento["observacion"]);
 
 $sheet->getStyle('A23')->applyFromArray($contenido);
 $sheet->getStyle('D23')->applyFromArray($contenido);
@@ -51,6 +62,7 @@ $sheet->getStyle('G25')->applyFromArray($contenido);
 $sheet->getStyle('G8')->applyFromArray($contenido);
 $sheet->getStyle('G4')->applyFromArray($contenido);
 $sheet->getStyle('F23')->applyFromArray($contenido);
+$sheet->getStyle('F30')->applyFromArray($contenido);
 
 mysqli_close($conexion);
 $writer = new Xlsx($spreadsheet);
