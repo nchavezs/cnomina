@@ -210,7 +210,9 @@ function select_estilo() {
       search: true,
       descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN",
-      multiSelectAll:true
+      multiSelectAll:true,
+      multiContainer: true,
+      multiShowCount: false,
    });
 };
 

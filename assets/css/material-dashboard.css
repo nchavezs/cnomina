@@ -1,18 +1,81 @@
-.btn{
+.btn {
     font-family: "Montserrat" !important;
     border-radius: 20px !important;
     font-weight: 500 !important;
     font-size: 10px !important;
 }
 
-.check_opciones{
+.tail-select.multiple .tail-select-container {
+    width: calc(100% + 9px);
+    overflow: hidden;
+}
+
+.tail-select.multiple .label-inner {
+    padding-top: 3px !important;
+}
+
+.tail-select button.tail-none:hover {
+    background: #E94B4B !important;
+    color: #fff !important;
+    transform: scale(1.01);
+}
+
+.tail-select button.tail-all:hover {
+    transform: scale(1.01);
+    background: #49CF97 !important;
+    color: #fff !important;
+}
+
+.tail-select button {
+    cursor: pointer !important;
+    border:none !important;
+    background: #ffffff !important;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0, .3) !important;
+}
+
+
+.tail-select.multiple .select-label {
+    display: block !important;
+    overflow: auto !important;
+    max-height: 80px !important;
+}
+
+.tail-select.multiple {
+    min-height: 35px !important;
+    height: auto !important;
+    max-height: 80px !important;
+    padding: 0 10px !important;
+}
+
+.tail-select-container .select-handle {
+    font-family: sans-serif;
+    font-size: 9px !important;
+    max-width: 100px !important;
+    padding: 0 6px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 50px !important;
+    border: none !important;
+    background: #5377DB !important;
+    color: #fff !important;
+    vertical-align: initial !important;
+    font-weight: normal !important;
+}
+
+.tail-select-container .select-handle:hover {
+    background: rgb(63, 91, 170) !important;
+    box-shadow: 1px 1px 4px rgb(0, 0, 0, .1);
+}
+
+.check_opciones {
     display: flex;
     align-items: center;
     padding: 10px;
     width: 100%;
 }
 
-.reportes .regresar{
+.reportes .regresar {
     position: absolute;
     background: #eee;
     border-radius: 50px;
@@ -22,11 +85,11 @@
     top: 15px;
 }
 
-.reportes .formulario{
+.reportes .formulario {
     padding: 0 15px !important;
 }
 
-.reportes .pagina_1 .card img{
+.reportes .pagina_1 .card img {
     width: 100%;
     height: auto;
     min-height: 250px;
@@ -35,7 +98,7 @@
     transition: all 0.3s;
 }
 
-.reportes .pagina_1 .card{
+.reportes .pagina_1 .card {
     cursor: pointer;
     transition: all 0.3s;
     border: 3px solid #fff;
@@ -43,38 +106,38 @@
     height: 60vh;
 }
 
-.reportes .pagina_1 .card:hover{
+.reportes .pagina_1 .card:hover {
     border: 3px solid rgba(92, 157, 231, 0.562);
 }
 
-.reportes .pagina_1 .card:hover img{
+.reportes .pagina_1 .card:hover img {
     padding: 30px;
 }
 
 .dropdown-inner {
     position: relative !important;
     padding: 0 !important;
-    max-height: 200px !important;
+    max-height: 300px !important;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
+    height: 7px;
 }
 
-/* Track */
+::-webkit-scrollbar-thumb {
+    background: #ababab;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border: 0;
+}
+
 ::-webkit-scrollbar-track {
     background: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #666;
-    border-radius: 50px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }
 
 .opciones_tabla {
@@ -142,15 +205,15 @@ select {
 
 .select_estilo::after {
     position: absolute;
-    top: 13px;
-    right: 7px;
+    right: 12px;
+    top: 14px;
     width: 0;
     height: 0;
     padding: 0;
     content: '';
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid rgba(0, 0, 0, .068);
+    border-top: 6px solid rgba(0, 0, 0, .15);
     pointer-events: none
 }
 
@@ -512,7 +575,7 @@ select {
     background: transparent !important;
 }
 
-.tail-select.disabled .select-label{
+.tail-select.disabled .select-label {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
 }
@@ -547,7 +610,7 @@ select {
     padding: 0 0 5px 5px !important;
 }
 
-.card-icono{
+.card-icono {
     position: absolute !important;
     top: 10px;
     right: 10px;
@@ -568,11 +631,11 @@ select {
     width: 100%;
 }
 
-.campo:disabled{
+.campo:disabled {
     cursor: not-allowed;
 }
 
-.pie{
+.pie {
     text-align: right;
 }
 
@@ -2456,7 +2519,7 @@ div[data-notify=container] {
         width: 100%;
     }
 
-    .mensajeria_vacio{
+    .mensajeria_vacio {
         display: none;
     }
 
@@ -20987,15 +21050,15 @@ input[type=checkbox]:checked+label:after {
 
 .select:after {
     position: absolute;
-    right: 10px;
-    bottom: 27px;
+    right: 12px;
+    bottom: 26px;
     width: 0;
     height: 0;
     padding: 0;
     content: '';
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid rgba(0, 0, 0, .068);
+    border-top: 6px solid rgba(0, 0, 0, .15);
     pointer-events: none
 }
 

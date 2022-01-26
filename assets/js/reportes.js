@@ -1,5 +1,55 @@
+// $(document).on("mouseenter",".tail-select", function(){
+//    let id = $(this).prev().prop("id");
+//    tail.select("#"+id).open();
+// });
+
+$(document).on("mouseleave", ".tail-select", function () {
+   let id = $(this).prev().prop("id");
+   tail.select("#" + id).close();
+});
+
 $(document).ready(function () {
    select_estilo();
+   depa_change_multiple();
+   puestos_change_multiple();
+
+   $("#descripcion_plaza").change(function () {
+      if ($("#historial_plaza").is(":checked")) {
+         $("#historial_plaza").click();
+         $("#descripcion_plaza").click();
+      }
+   });
+
+   $("#historial_plaza").change(function () {
+      if ($("#descripcion_plaza").is(":checked")) {
+         $("#descripcion_plaza").click();
+         $("#historial_plaza").click();
+      }
+
+      if($(this).is(":checked")){
+         ADP.show($("#plazas_2").parent()[0], 'flip-down');
+      }else{
+         ADP.hide($("#plazas_2").parent()[0], 'flip-up');
+      }
+   });
+
+   $("#reporte_plazas").click(function (e) {
+      e.preventDefault();
+      let puestos = $("#puestos_2").val();
+      let departamentos = $("#departamentos_2").val();
+      let plazas = $("#plazas_2").val();
+      let del = $("#del_2").val();
+      let al = $("#al_2").val();
+      let puestos_size = document.getElementById("puestos_2").selectedOptions.length;
+      let depa_size = document.getElementById("departamentos_2").selectedOptions.length;
+      let plaza_size = document.getElementById("plazas_2").selectedOptions.length;
+
+      if ($("#descripcion_plaza").is(':checked')) {
+         reporte_descripcion(del,al,puestos,departamentos,this);
+      } else if ($("#historial_plaza").is(':checked')) {
+         reporte_historial(del,al,puestos,departamentos,plazas,this);
+      }
+   });
 
    $("#reporte_general").click(function (e) {
       e.preventDefault();
@@ -20,7 +70,7 @@ $(document).ready(function () {
       let puestos_size = document.getElementById("puestos_1").selectedOptions.length;
       let depa_size = document.getElementById("departamentos_1").selectedOptions.length;
 
-      if (del == "" || al == "" || puestos_size < 1 || depa_size < 0) {
+      if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
          md.showNotification("top", "right", "Completa todos los campos.");
       } else {
          $(this).prop("disabled", true);
@@ -70,7 +120,6 @@ $(document).ready(function () {
       }
    });
 
-
    $('.reportes input[type="text"].campo').datepicker({
       language: 'es',
       maxDate: new Date(),
@@ -79,52 +128,121 @@ $(document).ready(function () {
    });
 });
 
-function pagina(pagina) {
-   $(".reportes .pagina").addClass("adp-hide");
-   ADP.show($(".reportes .pagina_" + pagina)[0], 'fade');
-   $(".reportes .pagina_"+pagina).removeClass("adp-hide");
-   depa_change_multiple(pagina);
-}
-
-function depa_change_multiple(pagina) {
-   pagina--;
-   $("#departamentos_" + pagina).on("change", function () {
-      let items = document.getElementById("departamentos_" + pagina).selectedOptions.length;
-      if (items > 0) {
-         $.ajax({
-            url: "assets/php/depa_change_multiple.php",
-            type: "POST",
-            data: {
-               departamentos: $("#departamentos_" + pagina).val(),
-            },
-            success: function (data) {
-               $("#puestos_" + pagina).html(data);
-               tail.select("#puestos_" + pagina).reload();
-               if (document.getElementById("plazas_" + pagina)) {
-                  puesto_change_multiple(pagina);
-               }
-            }
-         });
-      }
-   });
-   $("#departamentos_" + pagina).change();
-}
-
-function puesto_change_multiple(pagina) {
-   pagina--;
-   $("#puestos_"+pagina).on("change", function () {
+function reporte_historial(del, al, puestos, departamentos,plazas, boton){
+   if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
+      md.showNotification("top", "right", "Completa todos los campos.");
+   } else {
+      $(boton).prop("disabled", true);
+      mensaje_cargar();
       $.ajax({
-         url: "assets/php/puesto_change.php",
+         url: "assets/php/reporte_historial_plazas.php",
          type: "POST",
          data: {
-            puesto: $("#puestos_"+pagina).val(),
+            "del": del,
+            "al": al,
+            "plazas": plazas
          },
          success: function (data) {
-            $("#plazas_"+pagina).html(data);
-            tail.select("#plazas_"+pagina).reload();
+            console.log(data);
+            let verificar = data.includes("assets/archivos/");
+
+            if (verificar) {
+               window.open(data, '_blank');
+            } else {
+               md.showNotification("top", "right", data);
+            }
+
+            $(boton).prop("disabled", false);
+            Swal.close();
+         }
+      });
+   }
+}
+
+function reporte_descripcion(del, al, puestos, departamentos, boton){
+   if (del == "" || al == "" || puestos_size < 1 || depa_size < 1) {
+      md.showNotification("top", "right", "Completa todos los campos.");
+   } else {
+      $(boton).prop("disabled", true);
+      mensaje_cargar();
+      $.ajax({
+         url: "assets/php/reporte_descripcion_plazas.php",
+         type: "POST",
+         data: {
+            "del": del,
+            "al": al,
+            "puestos": puestos
+         },
+         success: function (data) {
+            console.log(data);
+            let verificar = data.includes("assets/archivos/");
+
+            if (verificar) {
+               window.open(data, '_blank');
+            } else {
+               md.showNotification("top", "right", data);
+            }
+
+            $(boton).prop("disabled", false);
+            Swal.close();
+         }
+      });
+   }
+}
+
+
+function pagina(page) {
+   $(".reportes .pagina").addClass("adp-hide");
+   ADP.show($(".reportes .pagina_" + page)[0], 'fade');
+   $(".reportes .pagina_" + page).removeClass("adp-hide");
+}
+
+
+function depa_change_multiple() {
+   $(".departamentos").change(function () {
+      let select_puesto = $(this).closest(".pagina").find(".puestos").prop("id");
+      let select_plaza = $(this).closest(".pagina").find(".plazas").prop("id");
+      let elemento = $(this);
+      $.ajax({
+         url: "assets/php/depa_change_multiple.php",
+         type: "POST",
+         data: {
+            departamentos: elemento.val()
+         },
+         success: function (data) {
+            console.log(data);
+
+            $("#" + select_puesto).html(data);
+            tail.select("#" + select_puesto).reload();
+            $("#" + select_puesto).change();
+
+            if (document.getElementById(select_plaza)) {
+               $("#" + select_plaza).html(data);
+               tail.select("#" + select_plaza).reload();
+            }
+         }
+      });
+
+   });
+}
+
+function puestos_change_multiple() {
+   $(".puestos").change(function () {
+      let elemento = $(this);
+      let select_plaza = elemento.closest(".pagina").find(".plazas").prop("id");
+      $.ajax({
+         url: "assets/php/puesto_change_multiple.php",
+         type: "POST",
+         data: {
+            puestos: elemento.val(),
+         },
+         success: function (data) {
+            console.log("puestos");
+            if (document.getElementById(select_plaza)) {
+               $("#" + select_plaza).html(data);
+               tail.select("#" + select_plaza).reload();
+            }
          }
       });
    });
-
-   $("#puestos_"+pagina).change();
 }

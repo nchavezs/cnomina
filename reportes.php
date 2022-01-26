@@ -204,7 +204,7 @@ if (rol() != 1) {
 												<div class="col-md-12">
 													<div class="select">
 														<div class="select-etiqueta">Departamento</div>
-														<select id="departamentos_1" multiple>
+														<select id="departamentos_1" multiple class="departamentos">
 															<?php
 																$conexion = conexion();
 																$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
@@ -223,7 +223,7 @@ if (rol() != 1) {
 												<div class="col-md-12">
 													<div class="select">
 														<div class="select-etiqueta">Puesto</div>
-														<select id="puestos_1" multiple></select>
+														<select id="puestos_1" multiple class="puestos"></select>
 													</div>
 												</div>
 											</div>
@@ -330,7 +330,7 @@ if (rol() != 1) {
 												<div class="col-md-12">
 													<div class="select">
 														<div class="select-etiqueta">Departamento</div>
-														<select id="departamentos_2" multiple>
+														<select id="departamentos_2" multiple class="departamentos">
 															<?php
 															$conexion = conexion();
 															$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
@@ -349,13 +349,13 @@ if (rol() != 1) {
 												<div class="col-md-12">
 													<div class="select">
 														<div class="select-etiqueta">Puesto</div>
-														<select id="puestos_2" multiple></select>
+														<select id="puestos_2" multiple class="puestos"></select>
 													</div>
 												</div>
 												<div class="col-md-12">
-													<div class="select">
+													<div class="select adp-hide">
 														<div class="select-etiqueta">Plazas</div>
-														<select id="plazas_2" multiple></select>
+														<select id="plazas_2" multiple class="plazas"></select>
 													</div>
 												</div>
 											</div>
@@ -371,15 +371,15 @@ if (rol() != 1) {
 									<div class="card">
 										<div class="card-body">
 											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="descripcion_plaza" type="checkbox" class="cb-value" />
+												<div class="toggle-btn active">
+													<input id="descripcion_plaza" type="checkbox" class="cb-value" checked/>
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Descripción de plazas</span>
 											</div>
 											<div class="check_opciones">
 												<div class="toggle-btn">
-													<input id="hsitorial_plaza" type="checkbox" class="cb-value" />
+													<input id="historial_plaza" type="checkbox" class="cb-value" />
 													<span class="round-btn"></span>
 												</div>
 												<span class="text-muted ml-3">Historial de plaza</span>

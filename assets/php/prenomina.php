@@ -604,7 +604,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
             $sheet->setCellValue('F' . $i, $res["departamento"]);
             $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
             $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-            $sheet->setCellValue('I' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["al"])) . strftime(" AL %d DE %B DE %G", strtotime($res["del"]))));
+            $sheet->setCellValue('I' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
             $sheet->setCellValue('J' . $i, $res["dias"]);
             $sheet->setCellValue('K' . $i, mb_strtoupper($res["descripcion"]));
             $i++;
