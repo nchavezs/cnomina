@@ -247,7 +247,7 @@ $html = "<div class='formulario_caja'>
                 <p class='text-primary pt-3'> " . $total . " de un total de " . $highestRow . "</p>";
 if (count($errores) > 0) {
     $html = $html . "<div class='log'>
-    <h5 class='text-muted'>La siguiente lista muesta los RFC no actualizados. </h5>";
+    <h5 class='text-muted'>La siguiente lista muesta los errores encontrados. </h5>";
 
     foreach ($errores as $error) {
         $html = $html . "<h6 class='text-muted'>" . $error . "<h6>";
