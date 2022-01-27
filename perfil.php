@@ -30,7 +30,7 @@ if ($resultadoUsuario) {
    </title>
    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <link href="assets/css/material-dashboard.css?v=3.2.4" rel="stylesheet" />
+   <link href="assets/css/material-dashboard.css?v=3.2.5" rel="stylesheet" />
    <link href="assets/css/animate.css" rel="stylesheet" />
 </head>
 
@@ -352,7 +352,7 @@ if ($resultadoUsuario) {
    <!-- Plugin for the momentJs  -->
    <script src="assets/js/plugins/moment.min.js"></script>
    <!--  Plugin for Sweet Alert -->
-   <link href="assets/css/sweetalert2.min.css?v=3.2.4" rel="stylesheet" />
+   <link href="assets/css/sweetalert2.min.css?v=3.2.5" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
    <script src="assets/js/plugins/sweetalert2.min.js"></script>
    <!-- Forms Validations Plugin -->
@@ -378,9 +378,9 @@ if ($resultadoUsuario) {
    <!--  Notifications Plugin    -->
    <script src="assets/js/plugins/bootstrap-notify.js"></script>
    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-   <script src="assets/js/material-dashboard.js?v=3.2.4" type="text/javascript"></script>
-   <script src="assets/js/sesion.js?v=3.2.4"></script>
-   <script src="assets/js/perfil.js?v=3.2.4"></script>
+   <script src="assets/js/material-dashboard.js?v=3.2.5" type="text/javascript"></script>
+   <script src="assets/js/sesion.js?v=3.2.5"></script>
+   <script src="assets/js/perfil.js?v=3.2.5"></script>
    <script src="assets/js/block.js"></script>
 
 </body>
