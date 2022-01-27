@@ -134,24 +134,18 @@ $(document).ready(function () {
                             "periodo": $("#periodo").val()
                         },
                         success: function (data) {
-                            $('#tabla-empleado').DataTable().ajax.reload();
-                            if (data == 0) {
+                            if (data == 1) {
                                 Swal.fire({
                                     title: 'Correcto',
                                     text: 'Empleado registrado',
                                     type: 'success',
                                 });
-
+                                $('#tabla-empleado').DataTable().ajax.reload();
                             } else if (data == 2) {
                                 md.showNotification("top", "right", "Este RFC ya se encuentra registrado.");
 
                             } else {
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: 'El empleado no fue registrado',
-                                    type: 'error',
-                                });
-
+                                md.showNotification("top", "right", "Error el empleado no fue registrado.");
                             }
                         }
                     });
@@ -379,7 +373,6 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
             "condicion": condicion
         },
         success: function (html) {
-            alert(html);
             if (html == 1) {
                 Swal.fire({
                     title: 'Correcto',
@@ -433,19 +426,18 @@ function reingreso(id) {
                 showCloseButton: true,
                 position: 'center',
                 html: html,
-
                 showConfirmButton: false,
-
+                width: "60em"
             });
+            select_estilo();
+            depa_change();
+            puesto_change();
 
-            $.post("assets/php/fechaInicio.php", {
+            $.post("assets/php/fecha_baja.php", {
                 "id": id
-            }, function (datos) {
-                var date = new Date();
-                var data = JSON.parse(datos);
-                date.setFullYear(data.ano, data.mes, data.dia);
-                $('#fecha1').datepicker({
-                    minDate: date,
+            }, function (data) {
+                $('#fecha').datepicker({
+                    minDate: new Date(moment(data, 'YYYY/MM/DD')),
                     maxDate: new Date(),
                     language: 'es',
                     autoClose: 'true',
@@ -453,65 +445,65 @@ function reingreso(id) {
                     todayButton: new Date(),
                     onSelect(formattedDate, date, inst) {
                         if (date == '')
-                            $('#fecha1').val(valor1);
+                            $('#fecha').val(valor1);
                         else
                             valor1 = formattedDate;
                     }
                 });
             });
 
-            $("#form-reingreso").submit(function (e) {
+            $("#form-reingreso").click(function (e) {
                 e.preventDefault();
-                var fechaReingreso = $("#fecha1").val();
-                var observaciones = $("#observaciones").val();
-                Swal.fire({
-                    title: 'Confirmar reingreso de usuario',
-                    html: "<p>¿Desea volver a dar de alta a " + $("#nombre").text() + "?</p>",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, continuar',
-                    cancelButtonText: 'No',
+                $("#form-reingreso").prop("disabled", true);
+                var fechaReingreso = $("#fecha").val();
+                var observacion = $("#observacion").val();
+                var plaza = $("#plaza").val();
+                var trabajador = $("#trabajador").val();
 
-
-                }).then(function (result) {
-                    if (result.value) {
-                        $.ajax({
-                            type: "POST",
-                            url: "assets/php/alta.php",
-                            data: {
-                                "fecha": fechaReingreso,
-                                "id": id,
-                                "observaciones": observaciones
-                            },
-                            success: function (data) {
-                                if (data == 1) {
-                                    Swal.fire({
-                                        title: 'Correcto',
-                                        text: 'Empleado dado de alta',
-                                        type: 'success',
-                                    }).then((result) => {
-                                        $('#tabla-empleado').DataTable().ajax.reload();
-                                        ver(id, 1);
-                                    })
-                                } else {
-                                    Swal.fire({
-                                        title: 'Error',
-                                        text: 'No fue posible dar de alta al empleado',
-                                        type: 'error',
-
-
-                                    }).then((result) => {
-                                        $('#tabla-empleado').DataTable().ajax.reload();
-                                        reingreso(id);
-                                    })
+                if (plaza != "" ) {
+                    Swal.fire({
+                        title: 'Confirmar reingreso de usuario',
+                        html: "<p>¿Desea dar de alta a " + $("#nombre").val() + "?</p>",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si, continuar',
+                        cancelButtonText: 'No',
+                    }).then(function (result) {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: "assets/php/alta.php",
+                                data: {
+                                    "fecha": fechaReingreso,
+                                    "id": id,
+                                    "observacion": observacion,
+                                    "plaza": plaza,
+                                    "trabajador": trabajador
+                                },
+                                success: function (data) {
+                                    $("#form-reingreso").prop("disabled", false);
+                                    if (data == 1) {
+                                        Swal.fire({
+                                            title: 'Correcto',
+                                            text: 'Empleado dado de alta',
+                                            type: 'success',
+                                        }).then((result) => {
+                                            $('#tabla-empleado').DataTable().ajax.reload();
+                                            ver(id, 1);
+                                        })
+                                    } else {
+                                        md.showNotification("top", "right", "No fue posible dar de alta a este empleado.");
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-                    } else if (result.dismiss == 'cancel') {
-                        reingreso(id);
-                    }
-                });
+                        } else if (result.dismiss == 'cancel') {
+                            reingreso(id);
+                        }
+                    });
+                } else {
+                    md.showNotification("top", "right", "Completa todos los campos.");
+                }
             });
         }
     });
@@ -537,13 +529,12 @@ function permiso(id) {
                     select_estilo_2();
 
                     $("#categoria").change(function () {
-                        if ($(this).val() == 1){
-                            if($("#materno").is(":checked")){
+                        if ($(this).val() == 1) {
+                            if ($("#materno").is(":checked")) {
                                 $("#materno").click();
                             }
                             $("#materno").prop("disabled", true);
-                        }
-                        else
+                        } else
                             $("#materno").prop("disabled", false);
 
                     });
@@ -1474,7 +1465,7 @@ function movimiento(id) {
                         var date = new Date();
                         var data = JSON.parse(datos);
                         date.setFullYear(data.ano, data.mes, data.dia);
-                        $('#fecha1').datepicker({
+                        $('#fecha').datepicker({
                             minDate: date,
                             maxDate: new Date(),
                             language: 'es',
@@ -1483,7 +1474,7 @@ function movimiento(id) {
                             todayButton: new Date(),
                             onSelect(formattedDate, date, inst) {
                                 if (date == '')
-                                    $('#fecha1').val(valor1);
+                                    $('#fecha').val(valor1);
                                 else
                                     valor1 = formattedDate;
                             }
@@ -2676,7 +2667,7 @@ function formato_movimiento(id) {
             "id": id
         },
         success: function (url) {
-            console.log(url);
+            console.log(url)
             descargar(url, "Movimiento");
         }
     });

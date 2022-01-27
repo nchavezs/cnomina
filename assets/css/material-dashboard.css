@@ -599,7 +599,7 @@ select {
     margin: -20px !important;
     background: #F6F7FB;
     position: relative;
-    overflow: hidden !important;
+    /* overflow: hidden !important; */
 }
 
 .campo:focus {

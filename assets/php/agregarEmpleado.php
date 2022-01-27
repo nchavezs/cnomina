@@ -1,6 +1,5 @@
 <?php
 include "conexion.php";
-$conexion = conexion();
 
 $id_empleado = trim($_POST["numero"]);
 $RFC = mb_strtoupper(trim($_POST["rfc"]));
@@ -18,59 +17,74 @@ $password = str_pad($id_empleado, 5, '0', STR_PAD_LEFT);
 $plaza = $_POST["plaza"];
 $periodo = $_POST["periodo"];
 
-$sql = "SELECT RFC FROM Usuario WHERE RFC = '" . $RFC . "'";
-$consulta = mysqli_query($conexion, $sql);
-if (mysqli_num_rows($consulta) == 0) {
-    $sql = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
-        'user',
-        '" . $password . "',
-        '" . $nombreEmpleado . "',
-        '" . $RFC . "'
-    )";
+$conexion = conexion();
+mysqli_autocommit($conexion, false);
+$errors = [];
 
-    if (mysqli_query($conexion, $sql)) {
+$sql1 = "SELECT RFC FROM Usuario WHERE RFC = '" . $RFC . "'";
 
-        $sql = "INSERT INTO Empleado(
-            id_empleado,
-            RFC,
-            CURP,
-            fechaRelLab,
-            id_puesto,
-            banca,
-            afiliacion,
-            apellidop,
-            apellidom,
-            nombres,
-            id_trabajador,
-            id_periodo) VALUES(
-            " . $id_empleado . ",
-            '" . $RFC . "',
-            '" . $CURP . "',
-            '" . $fechaRelLab . "',
-            " . $puesto . ",
-            NULLIF('" . $banca . "', ''),
-            NULLIF('" . $afiliacion . "',''),
-            '" . $apellidop . "' ,
-            '" . $apellidom . "',
-            '" . $nombres . "',
-            " . $trabajador . ",
-            " . $periodo . "
-        )";
+$sql2 = "INSERT INTO Empleado(
+    id_empleado,
+    RFC,
+    CURP,
+    fechaRelLab,
+    id_puesto,
+    banca,
+    afiliacion,
+    apellidop,
+    apellidom,
+    nombres,
+    id_trabajador,
+    id_periodo) VALUES(
+    " . $id_empleado . ",
+    '" . $RFC . "',
+    '" . $CURP . "',
+    '" . $fechaRelLab . "',
+    " . $puesto . ",
+    NULLIF('" . $banca . "', ''),
+    NULLIF('" . $afiliacion . "',''),
+    '" . $apellidop . "' ,
+    '" . $apellidom . "',
+    '" . $nombres . "',
+    " . $trabajador . ",
+    " . $periodo . "
+)";
 
-        mysqli_query($conexion, $sql);
+$sql3 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
+    'user',
+    '" . $password . "',
+    '" . $nombreEmpleado . "',
+    '" . $RFC . "'
+)";
 
-        $sql = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
-        $consulta = mysqli_query($conexion, $sql);
-        $sql = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
-        VALUES(" . $plaza . ", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '" . $RFC . "')";
-        $consulta = mysqli_query($conexion, $sql);
+$sql4 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
 
-        echo 0;
-    } else {
-        echo 1;
-    }
+$sql5 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
+VALUES(" . $plaza . ", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '" . $RFC . "')";
+
+if (!$conexion->query($sql1)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql2)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql3)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql4)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql5)) {
+    $errors[] = $conexion->error;
+}
+
+if (count($errors) === 0) {
+    $conexion->commit();
+    echo 1;
 } else {
-    echo 2;
+    $conexion->rollback();
+    echo 0;
+    // print_r($errors);
 }
 
 mysqli_close($conexion);

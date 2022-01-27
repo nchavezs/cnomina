@@ -30,9 +30,6 @@ $al = $_POST["al"];
 if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     $conexion = conexion();
     $plazas = implode(",", $_POST["plazas"]);
-    $hoy = date('Y-m-d');
-    $del_explode = explode("/", $del);
-    $ano = array_pop($del_explode);
     $bandera = false;
 
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
@@ -67,7 +64,7 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza))) AS departamento 
     FROM Historial_Plaza WHERE 
     Historial_Plaza.id_plaza IN (" . $plazas . ") AND 
-    Historial_Plaza.elaboracion BETWEEN '" . $date1 . "' AND '" . $date2 . "'";
+    Historial_Plaza.fecha_inicio BETWEEN '" . $date1 . "' AND '" . $date2 . "'";
 
     $consulta = mysqli_query($conexion, $sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
@@ -100,8 +97,8 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
                 $fecha2 = new DateTime($resultado["fecha_fin"]);
                 $fecha_termino=date("d/m/Y", strtotime($resultado['fecha_fin']));
             } else {
-                $fecha2 = new DateTime($hoy);
-                $fecha_termino = "";
+                $fecha2 = new DateTime($date2);
+                $fecha_termino = "ACTIVO";
             }
             $diff = $fecha2->diff($fecha1);
             $ocupados = $diff->format('%a') + 1;

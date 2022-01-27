@@ -1,14 +1,16 @@
 <?php
 include "conexion.php";
-$conexion = conexion();
 $RFC = $_POST['id'];
 $fecha = $_POST['fecha'];
 $razon = $_POST['razon'];
 $condicion = $_POST['condicion'];
 
+$conexion = conexion();
+
 $sql = "SELECT * FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $RFC . "' AND estado = 'alta'";
 
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
+
 if ($consulta && mysqli_num_rows($consulta) == 1) {
     $usuario = mysqli_fetch_array($consulta);
     $inicio = trim($usuario['fechaRelLab']);
@@ -21,21 +23,30 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
         $dias = $diff->format('%a') + 1;
 
         if ($dias >= 1) {
+            $sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
+            $consulta = $conexion->query($sql);
+            $plaza = mysqli_fetch_array($consulta);
+
             $sql = "UPDATE Usuario SET estado = 'baja' WHERE RFC = '" . $RFC . "'";
-            if (mysqli_query($conexion, $sql)) {
-                $sql = "INSERT INTO Baja(RFC, fecha, razon, dias) VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), '" . $razon . "', " . $condicion . ")";
-                if (mysqli_query($conexion, $sql)) {
+            if ($conexion->query($sql)) {
+                $sql = "INSERT INTO Baja(RFC, fecha, razon, dias,id_plaza) VALUES(
+                    '" . $RFC . "', 
+                    STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), 
+                    '" . $razon . "', 
+                    " . $condicion . ",
+                    ".$plaza["id_plaza"].")";
+                if ($conexion->query($sql)) {
 
                     // -----------------------------------------------------------------------
                     $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC."'";
-                    $consulta = mysqli_query($conexion, $sql);
+                    $consulta = $conexion->query($sql);
 
                     $sql = "SELECT * FROM Historial_Plaza WHERE RFC = '" . $RFC . "' ORDER BY elaboracion desc LIMIT 1";
-                    $consulta = mysqli_query($conexion, $sql);
+                    $consulta = $conexion->query($sql);
                     $historial = mysqli_fetch_row($consulta);
 
                     $sql = "UPDATE Historial_Plaza SET fecha_fin = STR_TO_DATE('" . $fecha . "','%d/%m/%Y') WHERE id_historial_plaza = " . $historial[0];
-                    $consulta = mysqli_query($conexion, $sql);
+                    $consulta = $conexion->query($sql);
 
                     // -----------------------------------------------------------------------
 

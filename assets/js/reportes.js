@@ -6,6 +6,7 @@
 $(document).on("mouseleave", ".tail-select", function () {
    let id = $(this).prev().prop("id");
    tail.select("#" + id).close();
+   $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
 });
 
 $(document).ready(function () {
@@ -28,8 +29,11 @@ $(document).ready(function () {
 
       if ($(this).is(":checked")) {
          ADP.show($("#plazas_2").parent()[0], 'flip-down');
+         $("#del_2").prop("disabled", false);
       } else {
          ADP.hide($("#plazas_2").parent()[0], 'flip-up');
+         $("#del_2").prop("disabled", true);
+         $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
       }
    });
 

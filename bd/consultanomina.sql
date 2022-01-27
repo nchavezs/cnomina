@@ -110,7 +110,8 @@ CREATE TABLE Reingreso(
 	RFC VARCHAR(13) NOT NULL,
 	fecha DATE NOT NULL,
 	inicio DATE NOT NULL,
-	observaciones VARCHAR(500),
+	id_plaza INT,
+	observacion VARCHAR(500),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -127,15 +128,15 @@ CREATE TABLE Usuario(
 );
 
 CREATE TABLE Empleado(
-	id_empleado INT,
-	RFC VARCHAR(13),
-	CURP VARCHAR(18),
+	id_empleado INT NOT NULL,
+	RFC VARCHAR(13) PRIMARY KEY NOT NULL,
+	CURP VARCHAR(18) NOT NULL,
 	fechaRelLab VARCHAR(10),
 	banca VARCHAR(18),
 	afiliacion VARCHAR(20),
-	apellidop VARCHAR(50),
-	apellidom VARCHAR(50),
-	nombres VARCHAR(50),
+	apellidop VARCHAR(50) NOT NULL,
+	apellidom VARCHAR(50) NOT NULL,
+	nombres VARCHAR(50) NOT NULL,
 	id_trabajador INT,
 	id_periodo INT,
 	id_puesto INT,
@@ -226,7 +227,7 @@ CREATE TABLE Movimiento(
 	departamentoAnterior VARCHAR(100) NOT NULL,
 	tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
 	plazaAnterior INT NOT NULL,
-	observacion VARCHAR(300),
+	observacion VARCHAR(500),
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -235,6 +236,7 @@ CREATE TABLE Baja(
 	RFC VARCHAR(13) NOT NULL,
 	fecha DATE NOT NULL,
 	razon VARCHAR(100) NOT NULL,
+	id_plaza INT,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	dias INT DEFAULT 0
 );

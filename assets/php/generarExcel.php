@@ -1,64 +1,85 @@
 <?php
-   include("conexion.php");
-   $conexion = conexion();
-	require '../../vendor/autoload.php';
-	use PhpOffice\PhpSpreadsheet\Spreadsheet;
-	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+include "conexion.php";
+$conexion = conexion();
+require '../../vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-	$ruta = '../archivos/';
-	if (!file_exists($ruta)) {
-		mkdir($ruta, 0777, true);
-	}
+$ruta = '../archivos/';
+if (!file_exists($ruta)) {
+    mkdir($ruta, 0777, true);
+}
 
-	$spreadsheet = new Spreadsheet();
-	$sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
-	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-	$spreadsheet->getActiveSheet()->getStyle('A1:L1')->getFont()->getColor()->setRGB('FFFFFF');
-	
-	$sheet->setCellValue('A1', 'ID');
-	$sheet->setCellValue('B1', 'NOMBRE(S)');
-	$sheet->setCellValue('C1', 'APELLIDO PATERNO');
-	$sheet->setCellValue('D1', 'APELLIDO MATERNO');
-	$sheet->setCellValue('E1', 'FECHA DE INGRESO');
-	$sheet->setCellValue('F1', 'CURP');
-	$sheet->setCellValue('G1', 'RFC');
-	$sheet->setCellValue('H1', 'PUESTO');
-	$sheet->setCellValue('I1', 'DEPARTAMENTO');
-	$sheet->setCellValue('J1', 'CUENTA BANCARIA');
-	$sheet->setCellValue('K1', 'NO. AFILIACIÓN');
-	$sheet->setCellValue('L1', 'TIPO DE TRABAJADOR');
+$contenido = [
+	'font' => [
+		'size' => 10,
+	],
+	'alignment' => [
+		'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+		'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+	],
+];
 
+$sql = "SELECT
+	Empleado.*,
+	(SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
+	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
+	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
+	(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS trabajador
+	FROM Empleado";
 
-	$sql = "SELECT * FROM Usuario WHERE categoria = 'user'";
-	$consulta = mysqli_query($conexion, $sql);
-	if($consulta && (mysqli_num_rows($consulta) > 0)){
-			$i = 2;
-			while($res = mysqli_fetch_array($consulta)){
-				$spreadsheet->getActiveSheet()->getCell('A'.$i)->setValueExplicit(str_pad($res[0], 5, '0', STR_PAD_LEFT),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('B'.$i)->setValueExplicit(mb_strtoupper($res[17]),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('C'.$i)->setValueExplicit(mb_strtoupper($res[15]),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('D'.$i)->setValueExplicit(mb_strtoupper($res[16]),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('E'.$i)->setValueExplicit($res[10],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('F'.$i)->setValueExplicit($res[9],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('G'.$i)->setValueExplicit($res[8],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('H'.$i)->setValueExplicit($res[11],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('I'.$i)->setValueExplicit($res[12],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('J'.$i)->setValueExplicit($res[13],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('K'.$i)->setValueExplicit($res[14],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$spreadsheet->getActiveSheet()->getCell('L'.$i)->setValueExplicit($res[19],\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-				$i++;
-			}
-		
-			foreach(range('A','L') as $columnID) {
-				$sheet->getColumnDimension($columnID)->setAutoSize(true);
-			}
-			$spreadsheet->getActiveSheet()->setAutoFilter('A1:L1');
-	}
+$consulta = mysqli_query($conexion, $sql);
 
-	mysqli_close($conexion);
+$ultimo = "M";
+$spreadsheet = new Spreadsheet();
+$sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
+$sheet->getStyle('A1:'.$ultimo.'1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
+$sheet->getStyle('A1:'.$ultimo.'1')->getFont()->getColor()->setRGB('FFFFFF');
+$sheet->setCellValue('A1', '# EMPLEADO');
+$sheet->setCellValue('B1', 'NOMBRE(S)');
+$sheet->setCellValue('C1', 'APELLIDO PATERNO');
+$sheet->setCellValue('D1', 'APELLIDO MATERNO');
+$sheet->setCellValue('E1', '# PLAZA');
+$sheet->setCellValue('F1', 'FECHA DE INGRESO');
+$sheet->setCellValue('G1', 'CURP');
+$sheet->setCellValue('H1', 'RFC');
+$sheet->setCellValue('I1', 'PUESTO');
+$sheet->setCellValue('J1', 'DEPARTAMENTO');
+$sheet->setCellValue('K1', 'TIPO DE TRABAJADOR');
+$sheet->setCellValue('L1', 'CUENTA BANCARIA');
+$sheet->setCellValue('M1', '# DE AFILIACIÓN');
 
-	$writer = new Xlsx($spreadsheet);
-	$writer->save('../archivos/empleados.xlsx');								
-	echo "assets/archivos/empleados.xlsx";
-	exit();
-?>
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    $i = 2;
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombres"]));
+        $sheet->setCellValue('C' . $i, mb_strtoupper($res["apellidom"]));
+        $sheet->setCellValue('D' . $i, mb_strtoupper($res["apellidop"]));
+		$sheet->setCellValue('E' . $i, $res["plaza"]);
+        $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+        $sheet->setCellValue('G' . $i, $res["CURP"]);
+		$sheet->setCellValue('H' . $i, $res["CURP"]);
+        $sheet->setCellValue('I' . $i, $res["puesto"]);
+        $sheet->setCellValue('J' . $i, $res["departamento"]);
+		$sheet->setCellValue('K' . $i, $res["trabajador"]);
+        $sheet->setCellValue('L' . $i, $res["banca"]);
+        $sheet->setCellValue('M' . $i, $res["afiliacion"]);
+        $i++;
+    }
+
+    $sheet->setAutoFilter('A1:'.$ultimo.'1');
+	// $sheet->getStyle("C1")->applyFromArray($titulos);
+	$sheet->getStyle('A1:'.$ultimo.'' . $i)->applyFromArray($contenido);
+
+    foreach (range('A', $ultimo) as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
+}
+
+mysqli_close($conexion);
+
+$writer = new Xlsx($spreadsheet);
+$writer->save('../archivos/empleados.xlsx');
+echo "assets/archivos/empleados.xlsx";
+exit();

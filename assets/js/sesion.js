@@ -223,6 +223,7 @@ function select_estilo_2() {
       classNames: ["campo"],
       width: "100%",
       search: false,
+      descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN"
    });
 };
@@ -248,8 +249,9 @@ function depa_change() {
          success: function (data) {
             $("#puesto").html(data);
             tail.select("#puesto").reload();
+            $("#puesto").change();
             if(document.getElementById( "plaza")){
-               puesto_change();
+               tail.select("#plaza").reload();
             }
          }
       });
@@ -272,8 +274,6 @@ function puesto_change() {
          }
       });
    });
-
-   $("#puesto").change();
 }
 
 function isNumberKey(evt) {

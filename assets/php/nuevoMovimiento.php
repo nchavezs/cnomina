@@ -9,7 +9,8 @@
 
 	$sql = "SELECT
 	Empleado.RFC AS RFC,
-	nombre,
+	Usuario.nombre,
+	Empleado.id_trabajador,
 	(SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador 
@@ -17,17 +18,15 @@
 	$consulta = mysqli_query($conexion, $sql);
 	$usuario = mysqli_fetch_array($consulta);
 
-	$sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
-	$consulta = mysqli_query($conexion, $sql);
+	// $sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
+	// $consulta = mysqli_query($conexion, $sql);
 	
-	$plaza = "";
-	if($consulta && mysqli_num_rows($consulta) > 0){
-		$plaza = mysqli_fetch_array($consulta);
-		$plaza = "PLAZA #".$plaza[0];
-	}
+	// $plaza = "";
+	// if($consulta && mysqli_num_rows($consulta) > 0){
+	// 	$plaza = mysqli_fetch_array($consulta);
+	// 	$plaza = "PLAZA #".$plaza[0];
+	// }
 
-
-		
 	echo '<div class="formulario_caja">
 			<div class="row">
 				<div class="col-md-3">
@@ -45,36 +44,40 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row">';
-								// echo '<div class="col-md-6">
-								// 		<div class="select-etiqueta">Fecha de movimiento</div>
-								// 		<input id="fecha" type="text" class="campo datepicker-here" readonly value="'.$hoy.'"/> 
-								// 	</div>';
+								echo '<div class="col-md-6">
+										<div class="select-etiqueta">Fecha de movimiento</div>
+										<input id="fecha" type="text" class="campo" readonly value="'.$hoy.'"/> 
+									</div>';
 								// echo '<div class="col-md-6"></div>';
 								
 
-								echo '<div class="col-md-6">
-										<div class="select-etiqueta">Tipo de trabajador actual</div>
-										<input type="text" class="campo" disabled value="'.$usuario["tipoTrabajador"].'"/> 
-									</div>';
+								// echo '<div class="col-md-6">
+								// 		<div class="select-etiqueta">Tipo de trabajador actual</div>
+								// 		<input type="text" class="campo" disabled value="'.$usuario["tipoTrabajador"].'"/> 
+								// 	</div>';
 
 								echo '<div class="col-md-6">
 										<div class="select">
-											<div class="select-etiqueta">Tipo de trabajador</div>
+											<div class="select-etiqueta">Tipo de trabajador nuevo</div>
 											<select id="trabajador">';
 												$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
 												$consulta = mysqli_query($conexion, $sql);
-												while($trabajador = mysqli_fetch_row($consulta)){
-													echo '<option value="'.$trabajador[0].'">'.$trabajador[1].'</option>';
+												while($trabajador = mysqli_fetch_array($consulta)){
+													if($usuario["id_trabajador"] == $trabajador["id_trabajador"]){
+														echo '<option data-description="ASIGNADO ACTUALMENTE" selected value="'.$trabajador[0].'">'.$trabajador[1].'</option>';
+													}else{
+														echo '<option value="'.$trabajador[0].'">'.$trabajador[1].'</option>';
+													}
 												}	
 												echo '
 											</select>
 										</div>
 									</div>';
 
-								echo '<div class="col-md-6">
-											<div class="select-etiqueta">Departamento actual</div>
-											<input type="text" class="campo" disabled value="'.$usuario["departamento"].'"/> 
-										</div>';
+								// echo '<div class="col-md-6">
+								// 			<div class="select-etiqueta">Departamento actual</div>
+								// 			<input type="text" class="campo" disabled value="'.$usuario["departamento"].'"/> 
+								// 		</div>';
 
 								echo '<div class="col-md-6">
 										<div class="select">
@@ -95,10 +98,10 @@
 											</div>
 										</div>';
 
-								echo '<div class="col-md-6">
-											<div class="select-etiqueta">Puesto actual</div>
-											<input type="text" class="campo" disabled value="'.$usuario["puesto"].'"/> 
-										</div>';
+								// echo '<div class="col-md-6">
+								// 			<div class="select-etiqueta">Puesto actual</div>
+								// 			<input type="text" class="campo" disabled value="'.$usuario["puesto"].'"/> 
+								// 		</div>';
 
 								echo '<div class="col-md-6">
 										<div class="select">
@@ -107,10 +110,10 @@
 										</div>
 									</div>';
 
-								echo '<div class="col-md-6">
-										<div class="select-etiqueta">Plaza actual</div>
-										<input type="text" class="campo" disabled value="'.$plaza.'"/> 
-									</div>';
+								// echo '<div class="col-md-6">
+								// 		<div class="select-etiqueta">Plaza actual</div>
+								// 		<input type="text" class="campo" disabled value="'.$plaza.'"/> 
+								// 	</div>';
 
 								echo '<div class="col-md-6">
 										<div class="select">
@@ -134,10 +137,6 @@
 					</div>
 				</div>
 			</div>
-		</div>';
-
-	echo '<div class="row">
-
 		</div>';
 
 	mysqli_close($conexion);

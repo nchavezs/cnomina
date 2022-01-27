@@ -30,14 +30,13 @@ $al = $_POST["al"];
 if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     $conexion = conexion();
     $puestos = implode(",", $_POST["puestos"]);
-    $hoy = date('Y-m-d');
+    // $hoy = date('Y-m-d');
     $del_explode = explode("/", $del);
     $ano = array_pop($del_explode);
     $bandera = false;
-
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-
+    $hoy = $date2;
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
 
@@ -65,12 +64,11 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE Plaza.id_puesto IN (" . $puestos . ") AND 
-    Plaza.elaboracion BETWEEN '".$date1."' AND '".$date2."'";
+    FROM Plaza WHERE Plaza.id_puesto IN (" . $puestos . ")";
 
     $consulta = mysqli_query($conexion, $sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "I";
+        $ultimo = "J";
         $bandera = true;
         $i = 3;
 
@@ -80,7 +78,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:' . $ultimo . '1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', "PLAZAS DEL ".$del." AL ".$al);
+        $sheet->setCellValue('C1', "PLAZAS AL ".$al);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:' . $ultimo . '2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:' . $ultimo . '2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -92,10 +90,12 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->setCellValue('F2', 'DIAS DESOCUPADOS');
         $sheet->setCellValue('G2', 'DIAS VACANTES');
         $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
-        $sheet->setCellValue('I2', 'ELABORACION');
+        $sheet->setCellValue('I2', 'ESTADO');
+        $sheet->setCellValue('J2', 'ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
             $presupuestados = $resultado["dias"];
+            $estado = "ALTA";
             $ocupados = 0;
             $ocupados_total = 0;
             $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
@@ -105,6 +105,10 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             }
             if (is_null($resultado["RFC"])) {
                 $resultado["nombre"] = "VACANTE";
+            }
+
+            if ($resultado["estado"] == 0) {
+               $estado = "BAJA";
             }
 
             $sql = "SELECT * FROM Historial_Plaza WHERE
@@ -135,7 +139,8 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             $sheet->setCellValue('F' . $i, $desocupados);
             $sheet->setCellValue('G' . $i, $vacantes);
             $sheet->setCellValue('H' . $i, $presupuestados);
-            $sheet->setCellValue('I' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
+            $sheet->setCellValue('I' . $i, $estado);
+            $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }

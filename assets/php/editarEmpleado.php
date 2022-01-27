@@ -30,19 +30,19 @@ echo '<div class="formulario_caja">
 							<div class="col-md-12">
 								<div class="">
 									<div class="select-etiqueta">Nombre(s)</div>
-									<input id="nombres" type="text" placeholder="" class="campo" value="'.$res["nombres"].'" required>
+									<input id="nombres" type="text" placeholder="" maxlength="50" class="campo" value="'.$res["nombres"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">Apellido paterno</div>
-									<input id="apellidop" type="text" placeholder="" class="campo" value="'.$res["apellidop"].'" required>
+									<input id="apellidop" type="text" placeholder="" maxlength="50" class="campo" value="'.$res["apellidop"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">Apellido materno</div>
-									<input id="apellidom" type="text" placeholder="" class="campo" value="'.$res["apellidom"].'" required>
+									<input id="apellidom" type="text" placeholder="" maxlength="50" class="campo" value="'.$res["apellidom"].'" required>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -54,7 +54,7 @@ echo '<div class="formulario_caja">
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">CURP</div>
-									<input id="curp" type="text" class="campo" maxlength=18 minlength=18 value="'.$res["CURP"].'" required>
+									<input id="curp" type="text" class="campo" maxlength="18" minlength="18" value="'.$res["CURP"].'" required>
 								</div>
 							</div>
 						</div>
@@ -144,14 +144,14 @@ echo '<div class="formulario_caja">
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta">Cuenta bancaria <cite class="text-danger"> opcional</cite></div>
-									<input id="banca" type="text" class="campo" value="'.$res["banca"].'">
+									<input id="banca" maxlength="18" type="text" class="campo" value="'.$res["banca"].'">
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">No. de afiliación <cite class="text-danger"> opcional</cite></div>
-									<input id="afiliacion" type="text" class="campo" value="'.$res["afiliacion"].'">
+									<input id="afiliacion" maxlength="20" type="text" class="campo" value="'.$res["afiliacion"].'">
 								</div>
 							</div>
 						</div>

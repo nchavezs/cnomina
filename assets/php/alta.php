@@ -1,41 +1,68 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-$id = $_POST['id'];
+$RFC = $_POST['id'];
 $fecha = $_POST['fecha'];
-$observaciones = trim($_POST['observaciones']);
+$observacion = trim($_POST['observacion']);
+$id_plaza = $_POST['plaza'];
+$id_trabajador = $_POST['trabajador'];
 
-$sql = "SELECT
-Usuario.estado,
-Empleado.fechaRelLab,
-Empleado.RFC AS RFC
-FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $id . "' AND Usuario.estado = 'baja'";
+$sql = "SELECT * FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $RFC . "'";
+$consulta = $conexion->query($sql);
+$resultado = mysqli_fetch_array($consulta);
+$fechaRelLab = $resultado['fechaRelLab'];
 
-if (($consulta = mysqli_query($conexion, $sql)) && (mysqli_num_rows($consulta) == 1)) {
-    $resultado = mysqli_fetch_array($consulta);
-    $inicio = $resultado['fechaRelLab'];
-    $sql = "UPDATE Usuario SET estado = 'alta' WHERE RFC = '" . $id . "'";
-    if (mysqli_query($conexion, $sql)) {
-        $sql = "UPDATE Empleado SET fechaRelLab = '" . $fecha . "' WHERE RFC = '" . $id . "'";
-        if (mysqli_query($conexion, $sql)) {
-            $sql = "INSERT INTO Reingreso(RFC, fecha, inicio, observaciones)
-            VALUES('" . $id . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), STR_TO_DATE('" . $inicio . "','%d/%m/%Y'), '" . $observaciones . "')";
-            if (mysqli_query($conexion, $sql)) {
-                
-                // $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC."'";
-                // $consulta = mysqli_query($conexion, $sql);
+$sql = "SELECT id_puesto FROM Plaza WHERE id_plaza = ".$id_plaza;
+$consulta = $conexion->query($sql);
+$resultado = mysqli_fetch_array($consulta);
+$id_puesto = $resultado['id_puesto'];
 
-                // $sql = "SELECT * FROM Historial_Plaza WHERE RFC = '" . $RFC . "' ORDER BY elaboracion desc LIMIT 1";
-                // $consulta = mysqli_query($conexion, $sql);
-                // $historial = mysqli_fetch_row($consulta);
+$conexion = conexion();
+mysqli_autocommit($conexion, false);
+$errors = [];
 
-                // $sql = "UPDATE Historial_Plaza SET fecha_fin = STR_TO_DATE('" . $fecha . "','%d/%m/%Y') WHERE id_historial_plaza = " . $historial[0];
-                // $consulta = mysqli_query($conexion, $sql);
+$sql1 = "UPDATE Usuario SET estado = 'alta' WHERE RFC = '" . $RFC . "'";
 
-                echo 1;
-            } 
-        } 
-    } 
+$sql2 = "UPDATE Empleado SET 
+fechaRelLab = '" . $fechaRelLab . "',
+id_puesto = ".$id_puesto.",
+id_trabajador = ".$id_trabajador." 
+WHERE RFC = '" . $RFC . "'";
+
+$sql3 = "INSERT INTO Reingreso(RFC, fecha, inicio, observaciones,id_plaza) VALUES(
+'" . $RFC . "',
+STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),
+STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),
+'" . $observacion . "',
+" . $id_plaza . ")";
+
+$sql4 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $id_plaza;
+
+$sql5 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
+VALUES(" . $id_plaza . ", STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), '" . $RFC . "')";
+
+if (!$conexion->query($sql1)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql2)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql3)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql4)) {
+    $errors[] = $conexion->error;
+}
+if (!$conexion->query($sql5)) {
+    $errors[] = $conexion->error;
+}
+
+if (count($errors) === 0) {
+    $conexion->commit();
+    echo 1;
+} else {
+    $conexion->rollback();
+    echo 0;
 }
 
 mysqli_close($conexion);

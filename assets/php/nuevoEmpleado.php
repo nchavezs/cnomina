@@ -25,31 +25,31 @@ echo '<div class="formulario_caja">
 								<div class="col-md-12">
 									<div class="">
 										<div class="select-etiqueta">Nombre(s)</div>
-										<input id="nombres" type="text" placeholder="" class="campo" required>
+										<input id="nombres" type="text" maxlength="50" placeholder="" class="campo" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Apellido paterno</div>
-										<input id="apellidop" type="text" placeholder="" class="campo" required>
+										<input id="apellidop" type="text" placeholder="" maxlength="50" class="campo" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Apellido materno</div>
-										<input id="apellidom" type="text" placeholder="" class="campo" required>
+										<input id="apellidom" type="text" placeholder="" maxlength="50" class="campo" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">RFC</div>
-										<input id="rfc" type="text" class="campo" minlength=13 maxlength=13 required>
+										<input id="rfc" type="text" class="campo" minlength="11" maxlength="13" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">CURP</div>
-										<input id="curp" type="text" class="campo" maxlength=18 minlength=18 required>
+										<input id="curp" type="text" class="campo" maxlength="18" minlength="18" required>
 									</div>
 								</div>
 							</div>
@@ -145,14 +145,14 @@ echo '<div class="formulario_caja">
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta">Cuenta bancaria <cite class="text-danger"> opcional</cite></div>
-										<input id="banca" type="text" class="campo">
+										<input id="banca" maxlength="18" type="text" class="campo">
 									</div>
 								</div>
 
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">No. de afiliación <cite class="text-danger"> opcional</cite></div>
-										<input id="afiliacion" type="text" class="campo">
+										<input id="afiliacion" maxlength="20" type="text" class="campo">
 									</div>
 								</div>
 							</div>

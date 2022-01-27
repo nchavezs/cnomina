@@ -312,14 +312,14 @@ if (rol() != 1) {
 										<div class="card-header py-4">
 											<i class="material-icons regresar"
 												onclick="pagina(1);">keyboard_backspace</i>
-											<h5 class="text-muted">Selecciona el periodo de elaboración y el tipo de reporte de plaza.
+											<h5 class="text-muted">Selecciona el periodo y el tipo de reporte de plaza.
 											</h5>
 										</div>
 										<div class="card-body">
 											<div class="row">
 												<div class="col-md-6">
 													<div class="select-etiqueta">Periodo</div>
-													<input id="del_2" type="text" readonly class="campo" placeholder="DEL"
+													<input id="del_2" disabled type="text" readonly class="campo" placeholder="DEL"
 														required>
 												</div>
 												<div class="col-md-6">
@@ -410,6 +410,7 @@ if (rol() != 1) {
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/block.js"></script>
+	<script src="assets/js/moment.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
