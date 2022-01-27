@@ -145,11 +145,10 @@ function nueva_plaza() {
             showConfirmButton: false
         });
         select_estilo();
+        depa_change();
         document.getElementById("dias").max = "" + dias_ano();
         $("#dias").val(dias_ano());
         $("#fecha").css("color", "#49CF97");
-        
-        depa_change();
 
         $("#form-plaza").on("submit", function (e) {
             e.preventDefault();

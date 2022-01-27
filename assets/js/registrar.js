@@ -81,6 +81,7 @@ $(document).ready(function () {
 
             select_estilo();
             depa_change();
+            puesto_change();
             $("#nombre").blur();
             var ingreso;
             var date = new Date();
