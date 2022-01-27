@@ -216,6 +216,9 @@ include "./assets/php/comprobar_catalago.php";
                                         <label class="btn-mostrar" for="importar-empleado">
                                             <i class="material-icons">file_upload</i>Importar
                                         </label>
+                                        <a href="assets/docs/empleado.xlsx" download class="btn-mostrar">
+                                            <i class="material-icons">line_style</i>Plantilla
+                                        </a>
                                         <button onclick="generar_empleados();" class="btn-mostrar">
                                             <i class="material-icons">file_download</i>Exportar
                                         </button>';

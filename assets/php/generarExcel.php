@@ -22,23 +22,24 @@ $contenido = [
 
 $sql = "SELECT
 	Empleado.*,
-	(SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
+    (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
+	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
-	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
-	(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS trabajador
+	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
+	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador
 	FROM Empleado";
 
 $consulta = mysqli_query($conexion, $sql);
 
-$ultimo = "M";
+$ultimo = "N";
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet()->setTitle("Empleados");
 $sheet->getStyle('A1:'.$ultimo.'1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
 $sheet->getStyle('A1:'.$ultimo.'1')->getFont()->getColor()->setRGB('FFFFFF');
 $sheet->setCellValue('A1', '# EMPLEADO');
 $sheet->setCellValue('B1', 'NOMBRE(S)');
-$sheet->setCellValue('C1', 'APELLIDO PATERNO');
-$sheet->setCellValue('D1', 'APELLIDO MATERNO');
+$sheet->setCellValue('C1', 'APELLIDO MATERNO');
+$sheet->setCellValue('D1', 'APELLIDO PATERNO');
 $sheet->setCellValue('E1', '# PLAZA');
 $sheet->setCellValue('F1', 'FECHA DE INGRESO');
 $sheet->setCellValue('G1', 'CURP');
@@ -48,14 +49,15 @@ $sheet->setCellValue('J1', 'DEPARTAMENTO');
 $sheet->setCellValue('K1', 'TIPO DE TRABAJADOR');
 $sheet->setCellValue('L1', 'CUENTA BANCARIA');
 $sheet->setCellValue('M1', '# DE AFILIACIÓN');
+$sheet->setCellValue('N1', 'PERIODO');
 
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $i = 2;
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombres"]));
-        $sheet->setCellValue('C' . $i, mb_strtoupper($res["apellidom"]));
-        $sheet->setCellValue('D' . $i, mb_strtoupper($res["apellidop"]));
+        $sheet->setCellValue('C' . $i, mb_strtoupper($res["apellidop"]));
+        $sheet->setCellValue('D' . $i, mb_strtoupper($res["apellidom"]));
 		$sheet->setCellValue('E' . $i, $res["plaza"]);
         $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
         $sheet->setCellValue('G' . $i, $res["CURP"]);
@@ -65,6 +67,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 		$sheet->setCellValue('K' . $i, $res["trabajador"]);
         $sheet->setCellValue('L' . $i, $res["banca"]);
         $sheet->setCellValue('M' . $i, $res["afiliacion"]);
+        $sheet->setCellValue('N' . $i, $res["periodo"]);
         $i++;
     }
 

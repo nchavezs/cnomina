@@ -1423,23 +1423,26 @@ button:hover .button-text {
 .log {
     text-align: left;
     border-bottom: 1px solid rgba(161, 159, 159, .267);
-    margin-bottom: 10px;
-    line-height: 10px !important
+    /* line-height: 10px !important; */
+    padding: 20px 30px;
 }
 
 .log-contenido h5 {
-    font-size: 14px;
-    color: #777
+    /* font-size: 14px;
+    color: #777 */
 }
 
-.log-contenido {
-    max-height: 300px;
+.log {
+    max-height: 350px;
     overflow: hidden;
     position: relative;
-    text-align: center
+    text-align: left;
+    font-size: 20px !important;
+    border-top: 2px solid #ddd;
+    padding: 20px;
 }
 
-.log h4 {
+/* .log h4 {
     line-height: 14px !important;
     font-size: 22px;
     font-weight: 400;
@@ -1450,11 +1453,11 @@ button:hover .button-text {
     font-size: 14px;
     font-weight: 400 !important;
     color: #777
-}
+} */
 
-.log h5 span {
+/* .log h5 span {
     font-weight: 100 !important
-}
+} */
 
 .informacion_archivos {
     border-bottom: 1px solid rgba(0, 0, 0, .1);

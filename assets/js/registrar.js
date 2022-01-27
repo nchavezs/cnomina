@@ -14,47 +14,23 @@ $(document).ready(function () {
             formData.append("file", files);
 
             $.ajax({
-                url: "assets/php/subirExcel.php",
-                type: "post",
+                url: "assets/php/importar_empleados.php",
+                type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
                 cache: false,
-                success: function (dato) {
-                    if (dato == 1) {
-                        $.post("assets/php/leerExcel.php", function (html) {
-                            swal.close();
-                            if (html != 0) {
-                                Swal.fire({
-                                    position: 'center',
-                                    html: html,
-                                    type: "warning",
-                                    confirmButtonText: "Aceptar",
-                                    allowOutsideClick: true,
-                                    showConfirmButton: true,
+                success: function (datos) {
+                    var data = JSON.parse(datos);
+                    Swal.fire({
+                        position: 'center',
+                        html: data.html,
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                    });
+                    $(".log").perfectScrollbar();
+                    $('#tabla-empleado').DataTable().ajax.reload();
 
-
-                                });
-                                $(".log-contenido").perfectScrollbar();
-                                $('#tabla-empleado').DataTable().ajax.reload();
-                            } else {
-                                Swal.fire({
-                                    title: 'Error de archivo',
-                                    text: 'El formato del archivo no es el correcto',
-                                    type: 'error'
-                                })
-                            }
-
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error de archivo',
-                            text: 'El formato del archivo no es el correcto',
-                            type: 'error',
-
-
-                        })
-                    }
                     $("#importar-empleado").val("");
                 }
             });
@@ -461,7 +437,7 @@ function reingreso(id) {
                 var plaza = $("#plaza").val();
                 var trabajador = $("#trabajador").val();
 
-                if (plaza != "" ) {
+                if (plaza != "") {
                     Swal.fire({
                         title: 'Confirmar reingreso de usuario',
                         html: "<p>¿Desea dar de alta a " + $("#nombre").val() + "?</p>",
