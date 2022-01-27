@@ -78,168 +78,180 @@ $highestRow = $sheet->getHighestRow();
 $highestColumn = "N";
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
-for ($row = 2; $row <= $highestRow; ++$row) {
-    $datos = [];
-    $types = [];
-    $errors = [];
-
-    for ($col = 1; $col <= $highestColumnIndex; ++$col) {
-        $type = $sheet->getCellByColumnAndRow($col, $row)->getDataType();
-        $valor = $sheet->getCellByColumnAndRow($col, $row)->getValue();
-        array_push($datos, $valor);
-        array_push($types, $type);
-    }
-
-    $fechaRelLab = trim($datos[5]);
-
-    if ($types[5] == "n") {
-        $fechaRelLab = gmdate("d/m/Y", \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($datos[5]));
-    }
-
-    $id_empleado = $datos[0];
-    $nombres = trim(ucwords(mb_strtolower($datos[1])));
-    $apellidom = trim(ucfirst(mb_strtolower($datos[2])));
-    $apellidop = trim(ucfirst(mb_strtolower($datos[3])));
-    $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
-    $plaza = $datos[4];
-    $CURP = eliminar_simbolos(mb_strtoupper($datos[6]));
-    $RFC = eliminar_simbolos(mb_strtoupper($datos[7]));
-    $trabajador = eliminar_simbolos(mb_strtoupper($datos[8]));
-    $banca = eliminar_simbolos($datos[9]);
-    $afiliacion = eliminar_simbolos($datos[10]);
-    $periodo = eliminar_simbolos(mb_strtoupper($datos[11]));
-    $password = str_pad($datos[0], 5, '0', STR_PAD_LEFT);
-
-    mysqli_autocommit($conexion, true);
-
-    $sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "'";
-    $consulta = $conexion->query($sql);
-
-    if ($consulta && mysqli_num_rows($consulta) == 0) {
-        if (validar_fecha($fechaRelLab)) {
-            $sql = "SELECT * FROM Plaza WHERE id_plaza = " . $plaza;
-            $consulta = $conexion->query($sql);
-
-            if ($consulta && mysqli_num_rows($consulta) > 0) {
-                $res = mysqli_fetch_array($consulta);
-
-                if ($res["RFC"] == null) {
-                    $puesto = $res["id_puesto"];
-                    $sql = "SELECT id_trabajador FROM Trabajador WHERE nombre = '" . $trabajador . "'";
-                    $consulta = $conexion->query($sql);
-                    if ($consulta && mysqli_num_rows($consulta) > 0) {
-                        $res = mysqli_fetch_row($consulta);
-                        $trabajador = $res[0];
-                    }
-
-                    $sql = "SELECT id_periodo FROM Periodo WHERE nombre = '" . $periodo . "'";
-                    $consulta = $conexion->query($sql);
-                    if ($consulta && mysqli_num_rows($consulta) > 0) {
-                        $res = mysqli_fetch_row($consulta);
-                        $periodo = $res[0];
-                    }
-                    // -------------------------------------------------------------------------------------
-                    mysqli_autocommit($conexion, false);
-
-                    $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
-                    'user',
-                    '" . $password . "',
-                    '" . $nombreEmpleado . "',
-                    '" . $RFC . "')";
-
-                    $sql2 = "INSERT INTO Empleado(
-                    id_empleado,
-                    RFC,
-                    CURP,
-                    fechaRelLab,
-                    id_puesto,
-                    banca,
-                    afiliacion,
-                    apellidop,
-                    apellidom,
-                    nombres,
-                    id_trabajador,
-                    id_periodo) VALUES(
-                    " . $id_empleado . ",
-                    '" . $RFC . "',
-                    '" . $CURP . "',
-                    '" . $fechaRelLab . "',
-                    " . $puesto . ",
-                    NULLIF('" . $banca . "', ''),
-                    NULLIF('" . $afiliacion . "',''),
-                    '" . $apellidop . "' ,
-                    '" . $apellidom . "',
-                    '" . $nombres . "',
-                    " . $trabajador . ",
-                    " . $periodo . ")";
-
-                    // -------------------------------------------------------------------------------------
-                    $ano_actual = date("Y");
-                    $ano_fecha = date("Y", strtotime(str_replace("/", "-", $fechaRelLab)));
-
-                    if ($ano_actual == $ano_fecha) {
-                        $fecha_inicio = $fechaRelLab;
-                    } else {
-                        $fecha_inicio = "01/01/" . $ano_actual;
-                    }
-                    // -------------------------------------------------------------------------------------
-
-                    $sql3 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
-
-                    $sql4 = "INSERT INTO Historial_Plaza(
-                    id_plaza,
-                    fecha_inicio,
-                    RFC) VALUES(
-                    " . $plaza . ",
-                    STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
-                    '" . $RFC . "')";
-
-                    if (!$conexion->query($sql1)) {
-                        $errors[] = $conexion->error;
-                        foreach ($errors as $error) {
-                            array_push($errores, $error);
-                        }
-                    }
-                    if (!$conexion->query($sql2)) {
-                        $errors[] = $conexion->error;
-                        foreach ($errors as $error) {
-                            array_push($errores, $error);
-                        }
-                    }
-                    if (!$conexion->query($sql3)) {
-                        $errors[] = $conexion->error;
-                        foreach ($errors as $error) {
-                            array_push($errores, $error);
-                        }
-                    }
-                    if (!$conexion->query($sql4)) {
-                        $errors[] = $conexion->error;
-                        foreach ($errors as $error) {
-                            array_push($errores, $error);
-                        }
-                    }
-
-                    if (count($errors) === 0) {
-                        $conexion->commit();
-                        $total++;
-                    } else {
-                        $conexion->rollback();
-                    }
-                } else {
-                    array_push($errores, 'FILA ' . $row . ': plaza ocupada');
-                }
-            } else {
-                array_push($errores, 'FILA ' . $row . ': plaza no encontrada');
-            }
-        } else {
-            array_push($errores, 'FILA ' . $row . ': fecha inválida');
-        }
-    } else {
-        array_push($errores, 'FILA ' . $row . ': ya existe ese rfc');
-    }
+$formato = false;
+$datos = [];
+for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+    $valor = $sheet->getCellByColumnAndRow($col, 1)->getValue();
+    array_push($datos, $valor);
+}
+if ($datos[11] == "PERIODO") {
+    $formato = true;
 }
 
-mysqli_close($conexion);
+if ($formato) {
+    for ($row = 2; $row <= $highestRow; ++$row) {
+        $datos = [];
+        $types = [];
+        $errors = [];
+
+        for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+            $type = $sheet->getCellByColumnAndRow($col, $row)->getDataType();
+            $valor = $sheet->getCellByColumnAndRow($col, $row)->getValue();
+            array_push($datos, $valor);
+            array_push($types, $type);
+        }
+
+        $id_empleado = $datos[0];
+        $nombres = trim(ucwords(mb_strtolower($datos[1])));
+        $apellidom = trim(ucfirst(mb_strtolower($datos[2])));
+        $apellidop = trim(ucfirst(mb_strtolower($datos[3])));
+        $plaza = $datos[4];
+        $fechaRelLab = trim($datos[5]);
+        $CURP = eliminar_simbolos(mb_strtoupper($datos[6]));
+        $RFC = eliminar_simbolos(mb_strtoupper($datos[7]));
+        $trabajador = eliminar_simbolos(mb_strtoupper($datos[8]));
+        $banca = eliminar_simbolos($datos[9]);
+        $afiliacion = eliminar_simbolos($datos[10]);
+        $periodo = eliminar_simbolos(mb_strtoupper($datos[11]));
+        $password = str_pad($datos[0], 5, '0', STR_PAD_LEFT);
+
+        $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
+        if ($types[5] == "n") {
+            $fechaRelLab = gmdate("d/m/Y", \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($datos[5]));
+        }
+
+        mysqli_autocommit($conexion, true);
+
+        $sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "'";
+        $consulta = $conexion->query($sql);
+
+        if ($consulta && mysqli_num_rows($consulta) == 0) {
+            if (validar_fecha($fechaRelLab)) {
+                $sql = "SELECT * FROM Plaza WHERE id_plaza = " . $plaza;
+                $consulta = $conexion->query($sql);
+
+                if ($consulta && mysqli_num_rows($consulta) > 0) {
+                    $res = mysqli_fetch_array($consulta);
+
+                    if ($res["RFC"] == null) {
+                        $puesto = $res["id_puesto"];
+                        $sql = "SELECT id_trabajador FROM Trabajador WHERE nombre = '" . $trabajador . "'";
+                        $consulta = $conexion->query($sql);
+                        if ($consulta && mysqli_num_rows($consulta) > 0) {
+                            $res = mysqli_fetch_row($consulta);
+                            $trabajador = $res[0];
+                        }
+
+                        $sql = "SELECT id_periodo FROM Periodo WHERE nombre = '" . $periodo . "'";
+                        $consulta = $conexion->query($sql);
+                        if ($consulta && mysqli_num_rows($consulta) > 0) {
+                            $res = mysqli_fetch_row($consulta);
+                            $periodo = $res[0];
+                        }
+                        // -------------------------------------------------------------------------------------
+                        mysqli_autocommit($conexion, false);
+
+                        $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
+                        'user',
+                        '" . $password . "',
+                        '" . $nombreEmpleado . "',
+                        '" . $RFC . "')";
+
+                        $sql2 = "INSERT INTO Empleado(
+                        id_empleado,
+                        RFC,
+                        CURP,
+                        fechaRelLab,
+                        id_puesto,
+                        banca,
+                        afiliacion,
+                        apellidop,
+                        apellidom,
+                        nombres,
+                        id_trabajador,
+                        id_periodo) VALUES(
+                        " . $id_empleado . ",
+                        '" . $RFC . "',
+                        '" . $CURP . "',
+                        '" . $fechaRelLab . "',
+                        " . $puesto . ",
+                        NULLIF('" . $banca . "', ''),
+                        NULLIF('" . $afiliacion . "',''),
+                        '" . $apellidop . "' ,
+                        '" . $apellidom . "',
+                        '" . $nombres . "',
+                        " . $trabajador . ",
+                        " . $periodo . ")";
+
+                        // -------------------------------------------------------------------------------------
+                        $ano_actual = date("Y");
+                        $ano_fecha = date("Y", strtotime(str_replace("/", "-", $fechaRelLab)));
+
+                        if ($ano_actual == $ano_fecha) {
+                            $fecha_inicio = $fechaRelLab;
+                        } else {
+                            $fecha_inicio = "01/01/" . $ano_actual;
+                        }
+                        // -------------------------------------------------------------------------------------
+
+                        $sql3 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
+
+                        $sql4 = "INSERT INTO Historial_Plaza(
+                        id_plaza,
+                        fecha_inicio,
+                        RFC) VALUES(
+                        " . $plaza . ",
+                        STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
+                        '" . $RFC . "')";
+
+                        if (!$conexion->query($sql1)) {
+                            $errors[] = $conexion->error;
+                            foreach ($errors as $error) {
+                                array_push($errores, $error);
+                            }
+                        }
+                        if (!$conexion->query($sql2)) {
+                            $errors[] = $conexion->error;
+                            foreach ($errors as $error) {
+                                array_push($errores, $error);
+                            }
+                        }
+                        if (!$conexion->query($sql3)) {
+                            $errors[] = $conexion->error;
+                            foreach ($errors as $error) {
+                                array_push($errores, $error);
+                            }
+                        }
+                        if (!$conexion->query($sql4)) {
+                            $errors[] = $conexion->error;
+                            foreach ($errors as $error) {
+                                array_push($errores, $error);
+                            }
+                        }
+
+                        if (count($errors) === 0) {
+                            $conexion->commit();
+                            $total++;
+                        } else {
+                            $conexion->rollback();
+                        }
+                    } else {
+                        array_push($errores, 'FILA ' . $row . ': plaza ocupada');
+                    }
+                } else {
+                    array_push($errores, 'FILA ' . $row . ': plaza no encontrada');
+                }
+            } else {
+                array_push($errores, 'FILA ' . $row . ': formato de fecha inválida');
+            }
+        } else {
+            array_push($errores, 'FILA ' . $row . ': ya existe un empleado con este RFC');
+        }
+    }
+
+    mysqli_close($conexion);
+
+}
 
 $html = "<div class='formulario_caja'>
             <div class='formulario text-center'>
@@ -254,8 +266,9 @@ if (count($errores) > 0) {
     }
     $html = $html . "</div>";
 }
-$html = $html."</div></div></div>";
+$html = $html . "</div></div></div>";
 
+$datos["formato"] = $formato;
 $datos["html"] = $html;
 
 echo json_encode($datos);

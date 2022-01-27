@@ -22,6 +22,7 @@ $(document).ready(function () {
                 cache: false,
                 success: function (datos) {
                     var data = JSON.parse(datos);
+                    alert(data.formato);
                     if (data.formato == true) {
                         Swal.fire({
                             position: 'center',
