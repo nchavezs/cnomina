@@ -155,13 +155,13 @@ if ($varFoto != null) {
                 <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">
-                        <div class="card-header text-center">
+                        <!-- <div class="card-header text-center">
                             <h6 class="card-category text-gray">PLAZAS</h6>
-                        </div>
-                        <div class="card-body p-1">
+                        </div> -->
+                        <div class="card-body">
                             <div class="msn-mostrar">
                                 <label onclick="nueva_plaza();" class="btn-mostrar"><i
-                                        class="material-icons">add_circle_outline</i>Nuevo</label>
+                                        class="material-icons">add_circle_outline</i>Nueva plaza</label>
                                 <input type="file" id="importar-plazas" accept=".xlsx" /><label class="btn-mostrar"
                                     for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
                                 <!-- <label onclick="exportar_plazas();" class="btn-mostrar"><i

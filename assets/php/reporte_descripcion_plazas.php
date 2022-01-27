@@ -30,13 +30,11 @@ $al = $_POST["al"];
 if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     $conexion = conexion();
     $puestos = implode(",", $_POST["puestos"]);
-    // $hoy = date('Y-m-d');
     $del_explode = explode("/", $del);
     $ano = array_pop($del_explode);
     $bandera = false;
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-    $hoy = $date2;
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
 
@@ -99,11 +97,11 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             $ocupados = 0;
             $ocupados_total = 0;
             $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
-            $vacantes = diferencia($fin_ano, $hoy);
+            $vacantes = diferencia($fin_ano, $date2);
             if ($vacantes >= $presupuestados) {
                 $vacantes = $presupuestados;
             }
-            if (is_null($resultado["RFC"])) {
+            if ($resultado["RFC"] == null) {
                 $resultado["nombre"] = "VACANTE";
             }
 
@@ -112,7 +110,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             }
 
             $sql = "SELECT * FROM Historial_Plaza WHERE
-            id_plaza = " . $resultado["id_plaza"] . " AND
+            id_plaza = " . $resultado["id_plaza"] . " AND 
             YEAR(fecha_inicio) = " . $ano;
 
             $consulta2 = mysqli_query($conexion, $sql);
@@ -122,7 +120,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
                     if ($historial["fecha_fin"] != null) {
                         $fecha2 = $historial["fecha_fin"];
                     } else {
-                        $fecha2 = $hoy;
+                        $fecha2 = $date2;
                     }
                     $ocupados = diferencia($fecha1, $fecha2);
                     $ocupados_total = $ocupados_total + $ocupados + 1;

@@ -141,7 +141,13 @@ for ($row = 2; $row <= $highestRow; ++$row) {
                     // -------------------------------------------------------------------------------------
                     mysqli_autocommit($conexion, false);
 
-                    $sql1 = "INSERT INTO Empleado(
+                    $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
+                    'user',
+                    '" . $password . "',
+                    '" . $nombreEmpleado . "',
+                    '" . $RFC . "')";
+
+                    $sql2 = "INSERT INTO Empleado(
                     id_empleado,
                     RFC,
                     CURP,
@@ -167,11 +173,6 @@ for ($row = 2; $row <= $highestRow; ++$row) {
                     " . $trabajador . ",
                     " . $periodo . ")";
 
-                    $sql2 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
-                    'user',
-                    '" . $password . "',
-                    '" . $nombreEmpleado . "',
-                    '" . $RFC . "')";
                     // -------------------------------------------------------------------------------------
                     $ano_actual = date("Y");
                     $ano_fecha = date("Y", strtotime(str_replace("/", "-", $fechaRelLab)));
@@ -240,11 +241,10 @@ for ($row = 2; $row <= $highestRow; ++$row) {
 
 mysqli_close($conexion);
 
-$highestRow--;
 $html = "<div class='formulario_caja'>
             <div class='formulario text-center'>
                 <h2 class='font-weight-bold text-primary'>Información de registro</h2>
-                <p class='text-primary pt-3'> " . $total . " de un total de " . $highestRow . "</p>";
+                <p class='text-primary pt-3'> " . $total . " de un total de " . --$highestRow . "</p>";
 if (count($errores) > 0) {
     $html = $html . "<div class='log'>
     <h5 class='text-muted'>La siguiente lista muesta los errores encontrados. </h5>";

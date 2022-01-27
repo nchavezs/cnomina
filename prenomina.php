@@ -197,17 +197,19 @@ if (rol() == 2) {
 			</nav>
 			<!-- End Navbar -->
 			<div class="content">
-				<div id="barra"></div>
 				<div id="msn-caja" class="container-fluid msn-caja">
 					<div class="card">
+						<!-- <div class="card-header">
+                            <h6 class="card-category text-gray">Prenomina</h6>
+                        </div> -->
 						<div class="card-body">
-						<div class="msn-mostrar">
-							<?php
-							if (rol() != 2) {
-								echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva Prenomina</button>';
-							}
-							?>
-						</div>
+							<div class="msn-mostrar">
+								<?php
+								if (rol() != 2) {
+									echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva Prenomina</button>';
+								}
+								?>
+							</div>
 						</div>
 					</div>
 

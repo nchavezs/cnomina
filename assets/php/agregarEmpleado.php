@@ -25,7 +25,15 @@ $consulta = $conexion->query($sql);
 
 if ($consulta && mysqli_num_rows($consulta) == 0) {
     mysqli_autocommit($conexion, false);
-    $sql1 = "INSERT INTO Empleado(
+
+    $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
+        'user',
+        '" . $password . "',
+        '" . $nombreEmpleado . "',
+        '" . $RFC . "'
+    )";
+
+    $sql2 = "INSERT INTO Empleado(
         id_empleado,
         RFC,
         CURP,
@@ -50,13 +58,6 @@ if ($consulta && mysqli_num_rows($consulta) == 0) {
         '" . $nombres . "',
         " . $trabajador . ",
         " . $periodo . "
-    )";
-
-    $sql2 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
-        'user',
-        '" . $password . "',
-        '" . $nombreEmpleado . "',
-        '" . $RFC . "'
     )";
 
     $sql3 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;

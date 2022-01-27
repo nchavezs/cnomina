@@ -198,30 +198,44 @@ include "./assets/php/comprobar_catalago.php";
             </nav>
             <!-- End Navbar -->
             <div class="content">
-
-                <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">
-                        <div class="card-header text-center">
+                        <!-- <div class="card-header text-center">
                             <h6 class="card-category text-gray">Empleados</h6>
-                        </div>
-                        <div class="card-body p-1">
+                        </div> -->
+                        <div class="card-body">
                             <div class="msn-mostrar">
                                 <?php
                                 if (rol() == 1) {
                                     echo '<button id="nuevo-empleado" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>
 											<div class="">Nuevo empleado</div>
                                         </button>
-										<input type="file" id="importar-empleado" accept=".xlsx" />
-                                        <label class="btn-mostrar" for="importar-empleado">
-                                            <i class="material-icons">file_upload</i>Importar
-                                        </label>
-                                        <a href="assets/docs/empleado.xlsx" download class="btn-mostrar">
-                                            <i class="material-icons">line_style</i>Plantilla
-                                        </a>
-                                        <button onclick="generar_empleados();" class="btn-mostrar">
+                                        <label onclick="generar_empleados();" class="btn-mostrar">
                                             <i class="material-icons">file_download</i>Exportar
-                                        </button>';
+                                        </label>
+
+                                        <input type="file" id="importar-empleado" accept=".xlsx" />
+                                        <input type="file" id="importar-empleado-puesto" accept=".xlsx" />
+                                        
+                                        <span class="dropdown">
+                                            <div class="btn-mostrar" data-toggle="dropdown">
+                                                <i class="material-icons">upload</i>Importar
+                                            </div>
+                                            <div class="dropdown-menu">
+                                                <label class="dropdown-item" for="importar-empleado"> <i class="material-icons">check</i> Por # de plaza</label>
+                                                <label class="dropdown-item" for="importar-empleado-puesto">  <i class="material-icons">check</i> Por puesto y departamento</label>
+                                            </div>
+                                        </span>
+                                        <span class="dropdown">
+                                            <div class="btn-mostrar" data-toggle="dropdown">
+                                                <i class="material-icons">line_style</i>Plantilla
+                                            </div>
+                                            <div class="dropdown-menu">
+                                                <a href="assets/docs/empleado/importar/empleado.xlsx" class="dropdown-item"> <i class="material-icons" >check</i>Por # de plaza</a>
+                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx" class="dropdown-item"> <i class="material-icons" >check</i>Por puesto y departamento</a>
+                                            </div>
+                                        </span>
+                                    ';
                                 }
                                 ?>
                             </div>

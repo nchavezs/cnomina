@@ -10,7 +10,7 @@ $(document).ready(function () {
             mensaje_cargar();
 
             var formData = new FormData();
-            var files = $("#importar-empleado")[0].files[0];
+            var files = $(this)[0].files[0];
             formData.append("file", files);
 
             $.ajax({
@@ -22,16 +22,56 @@ $(document).ready(function () {
                 cache: false,
                 success: function (datos) {
                     var data = JSON.parse(datos);
-                    Swal.fire({
-                        position: 'center',
-                        html: data.html,
-                        showCloseButton: true,
-                        showConfirmButton: false,
-                    });
-                    $(".log").perfectScrollbar();
-                    $('#tabla-empleado').DataTable().ajax.reload();
-
+                    if (data.formato == true) {
+                        Swal.fire({
+                            position: 'center',
+                            html: data.html,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                        });
+                        $(".log").perfectScrollbar();
+                        $('#tabla-empleado').DataTable().ajax.reload();
+                    } else {
+                        Swal.close();
+                        md.showNotification("top", "right", "Formato de archivo incorrecto.");
+                    }
                     $("#importar-empleado").val("");
+                }
+            });
+        }
+    });
+
+    $("#importar-empleado-puesto").change(function () {
+        if ($(this).val() !== "") {
+            mensaje_cargar();
+
+            var formData = new FormData();
+            var files = $(this)[0].files[0];
+            formData.append("file", files);
+
+            $.ajax({
+                url: "assets/php/importar_empleados_puesto.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (datos) {
+                    var data = JSON.parse(datos);
+                    if (data.formato == true) {
+                        Swal.fire({
+                            position: 'center',
+                            html: data.html,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                        });
+                        $(".log").perfectScrollbar();
+                        $('#tabla-empleado').DataTable().ajax.reload();
+                    } else {
+                        Swal.close();
+                        md.showNotification("top", "right", "Formato de archivo incorrecto.");
+                    }
+                    $("#importar-empleado-puesto").val("");
                 }
             });
         }
@@ -197,7 +237,7 @@ $(document).ready(function () {
         ]
     });
 
-    $(document).on("click", "#tabla-empleado tr", function (e) {
+    $(document).on("click", "#tabla-empleado tbody tr", function (e) {
         var data = table.row(this).data();
         ver(data[0], 0);
     });

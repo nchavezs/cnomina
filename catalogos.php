@@ -154,12 +154,12 @@ if ($varFoto != null) {
 					<div class="row">
 						<div class="col-xl-12 pagina_1">
 							<div class="card">
-								<div class="card-header text-center">
+								<!-- <div class="card-header text-center">
 								<h6 class="card-category text-gray">CATÁLOGO DE PUESTOS</h6>
-								</div>
-								<div class="card-body p-1">
+								</div> -->
+								<div class="card-body">
 								<div class="msn-mostrar">
-											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo</button>
+											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo puesto</button>
 											<input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
 											<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>
 										</div>
@@ -185,12 +185,12 @@ if ($varFoto != null) {
 
 						<div class="col-xl-12 pagina_2 adp-hide">
 							<div class="card">
-							<div class="card-header text-center">
+							<!-- <div class="card-header text-center">
 								<h6 class="card-category text-gray">CATÁLOGO DE DEPARTAMENTOS</h6>
-								</div>
-								<div class="card-body p-1">
+								</div> -->
+								<div class="card-body">
 								<div class="msn-mostrar">
-											<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo</button>
+											<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo departamento</button>
 											<input type="file" id="importar-departamentos" accept=".xlsx" /><label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">file_upload</i>Importar</label>
 											<button onclick="exportar_depa();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>
 										</div>
