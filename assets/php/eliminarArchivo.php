@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = $_POST['id'];
 $tabla = $_POST['tabla'];
 
-$sql = "UPDATE " . $tabla . " SET url = NULL WHERE id_" . strtolower($tabla) . " = " . $id;
+$sql = "UPDATE " . $tabla . " SET url = NULL WHERE id_" . mb_strtolower($tabla) . " = " . $id;
 if (mysqli_query($conexion, $sql)) {
     echo 1;
 } else {

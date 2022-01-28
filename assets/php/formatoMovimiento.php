@@ -33,9 +33,9 @@ $contenido = [
 ];
 
 $letra = substr($usuario["CURP"], 10, -7);
-if (strtoupper($letra) === "H") {
+if (mb_strtoupper($letra) === "H") {
     $sexo = "M  ( x )       F  (   )";
-} else if (strtoupper($letra) === "M") {
+} else if (mb_strtoupper($letra) === "M") {
     $sexo = "M  (   )       F  ( x )";
 } else {
     $sexo = "M  (   )       F  (   )";

@@ -39,7 +39,7 @@ if (mysqli_num_rows($resultado1) == 0) {
 							<img class="chat-foto" src="' . $dir[0] . '">
 						</div>
 						<div class="col-6">
-							<h5>' . ucfirst(strtolower($res1[2])) . '</h5>
+							<h5>' . ucfirst(mb_strtolower($res1[2])) . '</h5>
 							<h7><i class="material-icons">account_box</i>' . $nombre[0] . '</h7>
 							<h7><i class="material-icons">date_range</i>' . $res1[3] . '</h7>
 						</div>

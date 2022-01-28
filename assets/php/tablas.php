@@ -64,7 +64,7 @@ for ($i = 1; $i <= 12; $i++) {
         echo '<div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">' . $m . '</h4>
-                    <p class="card-category"> Nóminas para el mes de ' . strtolower($m) . '</p>
+                    <p class="card-category"> Nóminas para el mes de ' . mb_strtolower($m) . '</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

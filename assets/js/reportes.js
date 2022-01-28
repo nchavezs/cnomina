@@ -41,8 +41,8 @@ $(document).ready(function () {
    $("#reporte_usuario").click(function (e) {
       e.preventDefault();
       var usuarios = $("#usuario_3").val();
-      var del = $("#del_1").val();
-      var al = $("#al_1").val();
+      var del = $("#del_3").val();
+      var al = $("#al_3").val();
 
       let usuario_size = document.getElementById("usuario_3").selectedOptions.length;
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
          md.showNotification("top", "right", "Completa todos los campos.");
       } else {
          $(this).prop("disabled", true);
-         mensaje_cargar();;
+         // mensaje_cargar();;
 
          $.ajax({
             url: "assets/php/reporte_usuario.php",
@@ -61,13 +61,14 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-               let verificar = data.includes("assets/archivos/");
+               console.log(data);
+               // let verificar = data.includes("assets/archivos/");
 
-               if (verificar) {
+               // if (verificar) {
                   window.open(data, '_blank');
-               } else {
-                  md.showNotification("top", "right", data);
-               }
+               // } else {
+               //    md.showNotification("top", "right", data);
+               // }
 
                $("#reporte_usuario").prop("disabled", false);
                Swal.close();

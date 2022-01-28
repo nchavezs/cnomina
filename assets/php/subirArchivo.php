@@ -3,7 +3,7 @@
 	$tabla = $_POST['tabla'];
 	$usuario = $_POST['usuario'];
 
-	$ruta = './../'.strtolower($tabla).'/'.$id.'_'.$usuario;
+	$ruta = './../'.mb_strtolower($tabla).'/'.$id.'_'.$usuario;
 	if (!file_exists($ruta))
    	mkdir($ruta, 0777, true);
 	$archivo = $_FILES['file']['name'];
@@ -11,7 +11,7 @@
 	$ruta = $ruta.'/archivo.'.$ext;
 	move_uploaded_file($_FILES['file'][ 'tmp_name'], $ruta);
 
-	$ruta = 'assets/'.strtolower($tabla).'/'.$id.'_'.$usuario.'/archivo.'.$ext;
+	$ruta = 'assets/'.mb_strtolower($tabla).'/'.$id.'_'.$usuario.'/archivo.'.$ext;
 
 	echo $ruta;
 ?>

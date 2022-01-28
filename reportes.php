@@ -16,12 +16,12 @@ if (rol() != 1) {
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.2.6" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.2.5" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/js/plugins/animate/adp.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-	<link href="assets/css/sweetalert2.min.css?v=3.2.6" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.2.5" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -391,25 +391,24 @@ if (rol() != 1) {
 						</div>
 						<div class="pagina pagina_4 adp-hide">
 						<div class="row">
-								<div class="col-md-7">
+								<div class="col-md-12">
 									<div class="card formulario">
 										<div class="card-header py-4">
 											<i class="material-icons regresar"
 												onclick="pagina(1);">keyboard_backspace</i>
-											<h5 class="text-muted">Selecciona el periodo y almenos uno de los parámetros
-												siguientes.
+											<h5 class="text-muted">Selecciona el periodo para generar el reporte de registro de información de usuario.
 											</h5>
 										</div>
 										<div class="card-body">
 											<div class="row">
 												<div class="col-md-6">
 													<div class="select-etiqueta">Periodo</div>
-													<input id="del_1" type="text" readonly class="campo" placeholder="DEL"
+													<input id="del_3" type="text" readonly class="campo" placeholder="DEL"
 														required>
 												</div>
 												<div class="col-md-6">
 													<div class="select-etiqueta">Periodo</div>
-													<input id="al_1" type="text" readonly class="campo" placeholder="AL"
+													<input id="al_3" type="text" readonly class="campo" placeholder="AL"
 														required>
 												</div>
 												<div class="col-md-12">
@@ -439,75 +438,6 @@ if (rol() != 1) {
 										</div>
 									</div>
 								</div>
-								<div class="col-md-5">
-									<div class="card">
-										<div class="card-body">
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="sin_goce" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Permiso sin goce de sueldo</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="con_goce" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Permiso con goce de sueldo</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="pases" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Pases</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="movimientos" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Movimientos</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="vacaciones" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Vacaciones</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="descuentos" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Descuentos</span>
-											</div>
-											<!-- <div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="gastos" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Gastos médicos</span>
-											</div> -->
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="altas" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Altas</span>
-											</div>
-											<div class="check_opciones">
-												<div class="toggle-btn">
-													<input id="bajas" type="checkbox" class="cb-value" />
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Bajas</span>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -522,7 +452,7 @@ if (rol() != 1) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.2.6"></script>
+	<script src="assets/js/material-dashboard.js?v=3.2.5"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
@@ -535,8 +465,8 @@ if (rol() != 1) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
 	<script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
-	<script src="assets/js/sesion.js?v=3.2.6"></script>
-	<script src="assets/js/reportes.js?v=3.2.6"></script>
+	<script src="assets/js/sesion.js?v=3.2.5"></script>
+	<script src="assets/js/reportes.js?v=3.2.5"></script>
 
 </body>
 

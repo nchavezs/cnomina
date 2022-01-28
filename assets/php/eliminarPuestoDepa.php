@@ -10,7 +10,7 @@ if ($rol != 1) {
     $categoria = $_POST['categoria'];
     $id = $_POST['id'];
 
-    $sql = "DELETE FROM " . $categoria . " WHERE id_" . strtolower($categoria) . " = " . $id;
+    $sql = "DELETE FROM " . $categoria . " WHERE id_" . mb_strtolower($categoria) . " = " . $id;
 
     if (mysqli_query($conexion, $sql)) {
         echo 1;

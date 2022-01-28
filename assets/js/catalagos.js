@@ -51,7 +51,12 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     return '<a class="tipo">' + row.plazas + '</a>';
                 }
-            },
+            },  
+            // {
+            //     "render": function (data, type, row) {
+            //         return '<i class="material-icons btn1" onclick="editar_puesto(' + row.id_puesto + ');" >editar</i>';
+            //     }
+            // },
             {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_puesto + ', \'Puesto\');">delete</i>';
@@ -92,12 +97,16 @@ $(document).ready(function () {
             {
                 "data": "nombre"
             },
+            // {
+            //     "render": function (data, type, row) {
+            //         return '<i class="material-icons btn1" onclick="editar_departamento(' + row.id_departamento + ');" >editar</i>';
+            //     }
+            // },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
+                    return '<i class="material-icons btn1-danger" onclick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
                 }
-            }
-        ]
+            }        ]
     });
 
     $("#importar-puestos").change(function () {
@@ -328,9 +337,7 @@ function eliminar(id, categoria) {
                         Swal.fire({
                             title: 'Correcto',
                             text: 'Eliminado correctamente',
-                            type: 'success',
-
-
+                            type: 'success'
                         })
                     } else if (html == 2) {
                         no_pasar();
@@ -338,9 +345,7 @@ function eliminar(id, categoria) {
                         Swal.fire({
                             title: 'Error',
                             text: 'Elemento no eliminado',
-                            type: 'error',
-
-
+                            type: 'error'
                         })
                     }
                     $('#tabla-puesto').DataTable().ajax.reload();
@@ -350,4 +355,38 @@ function eliminar(id, categoria) {
         }
     })
 };
+
+function editar_puesto(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/editar_puesto.php",
+        data: {
+            "id": id
+        },
+        success: function (html) {
+           
+        }
+    });
+};
+
+function editar_departamento(id) {
+    let titulo = "puesto";
+    $.ajax({
+        type: "POST",
+        url: "assets/php/form.php",
+        data: {
+            "titulo": titulo,
+            "nombre": nombre
+        },
+        success: function (html) {
+            Swal.fire({
+                html: html,
+                showCancelButton: false,
+                showConfirmButton: false,
+                width: "30em"
+            })
+        }
+    });
+};
+
 

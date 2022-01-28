@@ -36,7 +36,7 @@ if (mysqli_num_rows($resultado) == 0) {
         echo '<tr>
 				<td>' . $i . '</td>
 				<td>' . ucwords($res[2]) . '</td>
-				<td>' . ucfirst(strtolower($res[3])) . '</td>
+				<td>' . ucfirst(mb_strtolower($res[3])) . '</td>
 				<td> <a class="material-icons btn1" onclick="archivo2(\'' . $res[5] . '\',\'' . $res[1] . '\')">attachment</a></td>
 			</tr>';
     }

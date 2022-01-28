@@ -1,7 +1,7 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
-$nombre = trim(strtoupper($_POST['nombre']));
+$nombre = trim(mb_strtoupper($_POST['nombre']));
 $departamento = $_POST['departamento'];
 // $cantidad = $_POST['cantidad'];
 

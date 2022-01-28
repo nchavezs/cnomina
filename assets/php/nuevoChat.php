@@ -219,7 +219,7 @@ if ($titulo == null || $titulo == "" || $mensaje == null || $mensaje == "") {
 									</div>
 									<div class="row">
 										<div class="col-8">
-											<h4>' . ucfirst(strtolower($res1[2])) . '</h4>
+											<h4>' . ucfirst(mb_strtolower($res1[2])) . '</h4>
 											<h7><i class="material-icons">date_range</i>' . $res1[3] . '</h7>
 										</div>
 										<div class="col-4 msn-mostrar">

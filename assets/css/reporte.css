@@ -21,7 +21,7 @@ body {
 	color: #444;
 	background: #FFFFFF;
 	font-family: sans-serif;
-	font-size: 11px;
+	font-size: 10px;
 }
 
 header {
@@ -144,7 +144,7 @@ table {
 
 
 table th {
-	padding: 5px 10px;
+	padding: 5px;
 	color: #5D6975;
 	border-bottom: 1px solid #C1CED9;
 	white-space: nowrap;

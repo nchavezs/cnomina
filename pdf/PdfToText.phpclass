@@ -404,7 +404,7 @@ abstract class  PdfObjectBase		// extends  Object
 		if  ( ! $status )
 			return ( self::PDF_TEXT_ENCODING ) ;
 
-		switch ( strtolower ( $match [ 'encoding' ] ) )
+		switch ( mb_strtolower ( $match [ 'encoding' ] ) )
 		    {
 		    	case 	'asciihexdecode' 	:  
 			case	'ahx'			:  return ( self::PDF_ASCIIHEX_ENCODING  ) ;
@@ -6389,7 +6389,7 @@ class  PdfToText 	extends PdfObjectBase
 
 				$value		=   $this -> __convert_utf16 ( $this -> __extract_chars_from_block ( $value ) ) ;
 
-				switch ( strtolower ( $keyword ) ) 
+				switch ( mb_strtolower ( $keyword ) ) 
 				   {
 					case  'author'		:  $this -> Author			=  $value ; break ;
 					case  'creator'		:  $this -> CreatorApplication		=  $value ; break ;
@@ -6895,7 +6895,7 @@ class  PdfTexterFont		extends PdfObjectBase
 		   {
 			preg_match ( '#/BaseFont \s* / ([\w]+ \+)? (?P<font> [^\s\[</]+)#ix', $font_data, $match ) ;
 			$font_name	=  $match [ 'font' ] ;
-			$lc_font_name	=  strtolower ( $font_name ) ;
+			$lc_font_name	=  mb_strtolower ( $font_name ) ;
 
 			// Do that only if a font metrics file exists...
 			if  ( isset ( PdfToText::$AdobeStandardFontMetrics [ $lc_font_name ] ) )
@@ -7559,7 +7559,7 @@ class  PdfTexterEncodingMap 	extends  PdfTexterCharacterMap
 		if ( ! isset ( $encoding_match [ 'encoding' ] ) )
 			$encoding_match [ 'encoding' ]	=  'WinAnsiEncoding' ;
 
-		switch ( strtolower ( $encoding_match [ 'encoding' ] ) )
+		switch ( mb_strtolower ( $encoding_match [ 'encoding' ] ) )
 		   {
 		   	case 	'pdfdocencoding' 	:  $this -> Encoding	=  self::PDF_DOC_ENCODING 	; break ;
 		   	case 	'macromanencoding' 	:  $this -> Encoding 	=  self::PDF_MAC_ROMAN_ENCODING ; break ;
@@ -9510,7 +9510,7 @@ class  PdfInlinedImage		extends  PdfImage
 		$color_space_name	=  $match [ 'value' ] ;
 
 		// Check that we are able to handle the specified color space
-		switch ( strtolower ( $color_space_name ) )
+		switch ( mb_strtolower ( $color_space_name ) )
 		   {
 			case	'devicergb' :
 				$color_space	=  self::COLOR_SCHEME_RGB ;
@@ -9990,7 +9990,7 @@ class  PdfEncryptionData		extends  PdfObjectBase
 		if  ( ! preg_match ( '#/Filter \s* / (?P<mode> \w+)#ix', $object_data, $object_data_match ) )
 			return  (false ) ;
 
-		switch ( strtolower ( $object_data_match [ 'mode' ] ) )
+		switch ( mb_strtolower ( $object_data_match [ 'mode' ] ) )
 		   {
 			case	'standard' :
 				$mode		=  self::PDFMODE_STANDARD ;
@@ -10247,7 +10247,7 @@ class  PdftoTextFormDefinitions		// extends		Object
 		// Get the attribute values of the <forms> tag
 		foreach  ( $xml -> attributes ( )  as  $attribute_name => $attribute_value )
 		   {
-			switch  ( strtolower ( $attribute_name ) )
+			switch  ( mb_strtolower ( $attribute_name ) )
 			   {
 				case	'class' :
 					$class_name	=  ( string ) $attribute_value ;
@@ -10274,7 +10274,7 @@ class  PdftoTextFormDefinitions		// extends		Object
 		   {
 			$child_name	=  $child -> getName ( ) ;
 
-			switch ( strtolower ( $child_name ) )
+			switch ( mb_strtolower ( $child_name ) )
 			   {
 				case	'form' :
 					$definitions []		=  new PdfToTextFormDefinition ( $class_name, $child, $this -> PdfDefinitions ) ;
@@ -10313,7 +10313,7 @@ class  PdftoTextFormDefinitions		// extends		Object
 
 			foreach  ( $xml_field -> attributes ( )  as  $attribute_name => $attribute_value )
 			   {
-				switch  ( strtolower ( $attribute_name ) )
+				switch  ( mb_strtolower ( $attribute_name ) )
 				   {
 					case	'name' :
 						$field_name		=  ( string ) $attribute_value ;
@@ -10432,7 +10432,7 @@ class  PdfToTextFormDefinition		// extends  Object
 		// Get <form> tag attributes
 		foreach  ( $form_definition -> attributes ( )  as  $attribute_name => $attribute_value )
 		   {
-			switch ( strtolower ( $attribute_name ) ) 
+			switch ( mb_strtolower ( $attribute_name ) ) 
 			   {
 				case	'version' :
 					$this -> Version	=  ( string ) $attribute_value ;
@@ -10449,7 +10449,7 @@ class  PdfToTextFormDefinition		// extends  Object
 			$tag_name	=  $child -> getName ( ) ;
 
 			// Check subtags
-			switch  ( strtolower ( $tag_name ) )
+			switch  ( mb_strtolower ( $tag_name ) )
 			   {
 				// <group> :
 				//	A group is used to create a property that is the concatenation of several existing properties.
@@ -10865,7 +10865,7 @@ class  PdfToTextFormFieldDefinition	// extends  Object
 		// Loop through attributes
 		foreach  ( $field_node -> attributes ( )  as  $attribute_name => $attribute_value )
 		   {
-			switch  ( strtolower ( $attribute_name ) )
+			switch  ( mb_strtolower ( $attribute_name ) )
 			   {
 				// "name" attribute :
 				//	Specifies the field name as it will appear in the output class. Must be a valid PHP name.
@@ -10886,7 +10886,7 @@ class  PdfToTextFormFieldDefinition	// extends  Object
 				//	- "choice" :
 				//		The field value has one of the values defined by the <case> or <default> subtags.
 				case	'type' :
-					switch ( strtolower ( ( string ) $attribute_value ) )
+					switch ( mb_strtolower ( ( string ) $attribute_value ) )
 					   {
 						case	'string' :
 							$this -> Type	=  self::TYPE_STRING ;
@@ -10915,7 +10915,7 @@ class  PdfToTextFormFieldDefinition	// extends  Object
 			foreach  ( $field_node -> children ( )  as  $child )
 			   {
 				$tag_name	=  $child -> getName ( ) ;
-				$lcname		=  strtolower ( $tag_name ) ;
+				$lcname		=  mb_strtolower ( $tag_name ) ;
 				$is_default	=  false ;
 
 				switch ( $lcname )
@@ -10933,7 +10933,7 @@ class  PdfToTextFormFieldDefinition	// extends  Object
 						// Retrieve attributes
 						foreach  ( $child -> attributes ( )  as  $attribute_name => $attribute_value )
 						   {
-							switch  ( strtolower ( $attribute_name ) )
+							switch  ( mb_strtolower ( $attribute_name ) )
 							   {
 								// "value" attribute :
 								//	PDF form field value.
@@ -11192,7 +11192,7 @@ class  PdfToTextCaptureDefinitions	// extends		Object
 		   {
 			$tag_name		=  $child -> getName ( ) ;
 
-			switch  ( strtolower ( $tag_name ) )
+			switch  ( mb_strtolower ( $tag_name ) )
 			   {
 				// <rectangle> :
 				//	An rectangle whose dimensions are given in the <page> subtags.
@@ -11336,7 +11336,7 @@ class  PdfToTextCaptureDefinitions	// extends		Object
 		// Loop through node attributes
 		foreach  ( $node -> attributes ( )  as  $attribute_name => $attribute_value )
 		   {
-			$attribute_name		=  strtolower ( $attribute_name ) ;
+			$attribute_name		=  mb_strtolower ( $attribute_name ) ;
 
 			// Check that the attributes exists ; if yes, add it to the resulting array
 			if  ( isset ( $attributes [ $attribute_name ] ) )
@@ -11384,7 +11384,7 @@ class  PdfToTextCaptureDefinitions	// extends		Object
 	 *-------------------------------------------------------------------------------------------------------------*/
 	public static function  GetBooleanAttribute ( $value )
 	   {
-		$lcvalue	=  strtolower ( $value ) ;
+		$lcvalue	=  mb_strtolower ( $value ) ;
 
 		if  ( $lcvalue  ===  'true'  ||  $lcvalue  ===  'on'  ||  $lcvalue  === 'yes'  ||  $lcvalue  ===  '1'  ||  $value  ===  true )
 			return ( true ) ;
@@ -11568,7 +11568,7 @@ class	PdfToTextCaptureRectangleDefinition		extends  PdfToTextCaptureShapeDefinit
 		   {
 			$tag_name	=  $child -> getName ( ) ;
 
-			switch  ( strtolower ( $tag_name ) )
+			switch  ( mb_strtolower ( $tag_name ) )
 			   {
 				// <page> tag : applicable page(s)
 				case	'page' :
@@ -11725,7 +11725,7 @@ class	PdfToTextCaptureLinesDefinition		extends  PdfToTextCaptureShapeDefinition
 		   {
 			$tag_name	=  $child -> getName ( ) ;
 
-			switch  ( strtolower ( $tag_name ) )
+			switch  ( mb_strtolower ( $tag_name ) )
 			   {
 				// <page> tag 
 				case	'page' :
