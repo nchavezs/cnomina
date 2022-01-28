@@ -20,8 +20,7 @@ $contenido = [
 	],
 ];
 
-$sql = "SELECT
-	Empleado.*,
+$sql = "SELECT *,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,

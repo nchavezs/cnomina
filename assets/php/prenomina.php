@@ -76,8 +76,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $diff = $fecha1->diff($fecha2);
     $dias_pago = $diff->format('%a') + 1;
 
-    $sql = "SELECT
-    Empleado.*,
+    $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
@@ -418,8 +417,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('H2', 'DIAS A PAGAR');
     $sheet->setCellValue('I2', 'OBSERVACIONES');
 
-    $sql = "SELECT
-    Empleado.*,
+    $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
@@ -725,8 +723,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('J2', 'ESTADO DEL EMPLEADO');
     $sheet->setCellValue('K2', 'OBSERVACIONES');
 
-    $sql = "SELECT
-    Empleado.*,
+    $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
@@ -847,8 +844,7 @@ if (validar_fecha($del) && validar_fecha($al)) {
     $sheet->setCellValue('J2', 'ESTADO DEL EMPLEADO');
     $sheet->setCellValue('K2', 'OBSERVACIONES');
 
-    $sql = "SELECT
-    Empleado.*,
+    $sql = "SELECT *,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,

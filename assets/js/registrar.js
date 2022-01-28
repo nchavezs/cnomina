@@ -127,7 +127,7 @@ $(document).ready(function () {
 
             $("#form-empleado-2").submit(function (e) {
                 e.preventDefault();
-                if ($("#puesto").val() == "" || $("#departamento").val() == "" || $("#trabajador").val() == "" || $("#plaza").val() == "") {
+                if ($("#trabajador").val() == null || $("#plaza").val() == null) {
                     md.showNotification("top", "right", "Completa todos los campos.");
                 } else {
                     $.ajax({
@@ -477,7 +477,7 @@ function reingreso(id) {
                 var plaza = $("#plaza").val();
                 var trabajador = $("#trabajador").val();
 
-                if (plaza != "") {
+                if (trabajador != null && plaza != null) {
                     Swal.fire({
                         title: 'Confirmar reingreso de usuario',
                         html: "<p>¿Desea dar de alta a " + $("#nombre").val() + "?</p>",
@@ -498,6 +498,7 @@ function reingreso(id) {
                                     "trabajador": trabajador
                                 },
                                 success: function (data) {
+                                    alert(data);
                                     $("#form-reingreso").prop("disabled", false);
                                     if (data == 1) {
                                         Swal.fire({
@@ -510,6 +511,7 @@ function reingreso(id) {
                                         })
                                     } else {
                                         md.showNotification("top", "right", "No fue posible dar de alta a este empleado.");
+                                        reingreso(id);
                                     }
                                 }
                             });
@@ -1507,8 +1509,7 @@ function movimiento(id) {
                         let trabajador = $("#trabajador").val();
                         let plaza = $("#plaza").val();
                         let fecha = $("#fecha").val();
-
-                        if (puesto == "" || departamento == "" || trabajador == "" || plaza == "") {
+                        if (trabajador == null || plaza == null) {
                             md.showNotification("top", "right", "Completa todos los campos.");
                         } else {
                             Swal.fire({

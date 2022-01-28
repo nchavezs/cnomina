@@ -29,7 +29,7 @@ id_puesto = ".$id_puesto.",
 id_trabajador = ".$id_trabajador." 
 WHERE RFC = '" . $RFC . "'";
 
-$sql3 = "INSERT INTO Reingreso(RFC, fecha, inicio, observaciones,id_plaza) VALUES(
+$sql3 = "INSERT INTO Reingreso(RFC, fecha, inicio, observacion,id_plaza) VALUES(
 '" . $RFC . "',
 STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),
 STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),

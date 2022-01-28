@@ -16,13 +16,11 @@ $sql = "SELECT * FROM Movimiento WHERE id_movimiento = " . $id;
 $consulta = mysqli_query($conexion, $sql);
 $movimiento = mysqli_fetch_array($consulta);
 
-$sql = "SELECT 
-Usuario.*,
-Usuario.RFC AS RFC,
-Empleado.fechaRelLab,
-Empleado.CURP,
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador,
 (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto 
-FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $movimiento["RFC"]."'";
+FROM Empleado WHERE RFC = '" . $movimiento["RFC"]."'";
 $consulta = mysqli_query($conexion, $sql);
 $usuario = mysqli_fetch_array($consulta);
 
@@ -52,6 +50,7 @@ $sheet->setCellValue('G8', $usuario["fechaRelLab"]);
 $sheet->setCellValue('G4', str_pad($movimiento["id_movimiento"], 5, '0', STR_PAD_LEFT));
 $sheet->setCellValue('F23', $sexo);
 $sheet->setCellValue('F30', $movimiento["observacion"]);
+$sheet->setCellValue('A7', $usuario["trabajador"]);
 
 $sheet->getStyle('A23')->applyFromArray($contenido);
 $sheet->getStyle('D23')->applyFromArray($contenido);
@@ -63,6 +62,7 @@ $sheet->getStyle('G8')->applyFromArray($contenido);
 $sheet->getStyle('G4')->applyFromArray($contenido);
 $sheet->getStyle('F23')->applyFromArray($contenido);
 $sheet->getStyle('F30')->applyFromArray($contenido);
+$sheet->getStyle('A7')->applyFromArray($contenido);
 
 mysqli_close($conexion);
 $writer = new Xlsx($spreadsheet);

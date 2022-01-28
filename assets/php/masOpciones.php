@@ -7,17 +7,11 @@ $conexion = conexion();
 $id = $_POST['id'];
 
 
-$sql = "SELECT
-   Empleado.*,
-   nombre,
-   urlFoto,
-   email,
-   telefono,
-   estado,
+$sql = "SELECT *,
    (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
    (SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador  
-   FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $id . "'";
+   FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $id . "'";
 
 if ($resultado = mysqli_query($conexion, $sql)) {
     while ($res = mysqli_fetch_array($resultado)) {

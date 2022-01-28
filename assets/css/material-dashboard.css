@@ -5,6 +5,10 @@
     font-size: 10px !important;
 }
 
+#navbarDropdownMenuLink{
+    display: none !important;
+}
+
 
 .logo_titulo{
     margin: 15px 10px;

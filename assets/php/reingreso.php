@@ -4,9 +4,8 @@
 	$hoy = date("d/m/Y");
     $RFC = $_POST['id'];
 
-	$sql = "SELECT
-	Empleado.*,
-	Usuario.nombre 
+	$sql = "SELECT *,
+	(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre  
 	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $RFC . "'";
 
 	$consulta = mysqli_query($conexion, $sql);

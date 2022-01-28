@@ -6,15 +6,15 @@ $conexion = conexion();
 $texto = trim($_POST['texto']);
 $myid = $_SESSION['usuario'];
 
-$sql = "SELECT *,
+$sql = "SELECT *, 
     Usuario.RFC AS RFC,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto, 
     (SELECT elaboracion FROM Mensaje WHERE receptor = '" . $myid . "' AND emisor = Usuario.RFC ORDER BY Mensaje.elaboracion DESC LIMIT 1) AS ultimo 
     FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE 
     nombre LIKE '%" . $texto . "%' AND 
-    Usuario.RFC <> '".$myid."' 
-    ORDER BY ultimo DESC
-";
+    categoria = 'admin' AND 
+    Usuario.RFC NOT IN('".$myid."', 'nomina')
+    ORDER BY ultimo DESC";
 
 $datos["total"] = 0;
 $datos["html"] = "";

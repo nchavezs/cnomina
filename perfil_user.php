@@ -2,35 +2,25 @@
 include "assets/php/main_user.php";
 
 $conexion = conexion();
-$consulta = "SELECT * FROM Usuario WHERE RFC = '" . $varUser . "'";
-
-$sql = "SELECT
-Empleado.RFC AS RFC,
-nombre,
-CRUP,
-fechaRelLab,
-email,
-telefono,
-estado,
+$sql = "SELECT *,
+Usuario.RFC AS RFC,
 (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
-(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador  
-FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
-RFC = '" . $varUser . "'";
-
-$resultado = mysqli_query($conexion, $sql);
-
-if ($resultado) {
-    $res = mysqli_fetch_array($resultado);
-    $nombre = $res["nombre"];
-    $CURP = $res["CURP"];
-    $RFC = $res["RFC"];
-    $fechaRelLab = $res["fechaRelLab"];
-    $puesto = $res["puesto"];
-    $departamento = $res["departamento"];
-    $email = $res["email"];
-    $telefono = $res["telefono"];
-    $estado = $res["estado"];
+(SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador 
+FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $varUser . "'";
+$consulta = $conexion->query($sql);
+if ($conexion->query($sql)) {
+    $usuario = mysqli_fetch_array($consulta);
+    $nombre = $usuario["nombre"];
+    $CURP = $usuario["CURP"];
+    $RFC = $usuario["RFC"];
+    $fechaRelLab = $usuario["fechaRelLab"];
+    $puesto = $usuario["puesto"];
+    $departamento = $usuario["departamento"];
+    $email = $usuario["email"];
+    $telefono = $usuario["telefono"];
+    $estado = $usuario["estado"];
+    echo mysqli_error($conexion);
 }
 ?>
 
@@ -45,13 +35,14 @@ if ($resultado) {
     <title>
         Consulta Nómina
     </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="assets/css/material-dashboard.css?v=3.2.6" rel="stylesheet" />
+    <link href="assets/css/material-dashboard.css?v=3.2.7" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
-    <link href="assets/css/select2.css?v=3.2.6" rel="stylesheet" />
+    <link href="assets/css/select2.css?v=3.2.7" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
+    <link href="assets/css/sweetalert2.min.css?v=3.2.7" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -182,170 +173,133 @@ if ($resultado) {
             </nav>
             <!-- End Navbar -->
             <div class="content">
-                <div id="barra"></div>
                 <div id="msn-caja" class="container-fluid msn-caja mt-5">
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card card-profile">
-                                <div class="card-avatar">
-                                    <div id="subir">
-                                        <img id="foto" class="img" src="assets/img/user.svg" />
-                                    </div>
-                                    <input type="file" id="archivo" accept=".jpg, .png, .jpeg" style="display:none">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="card card-profile">
+                            <div class="card-avatar">
+                                <div id="subir">
+                                    <img id="foto" class="img" src="assets/img/user.svg" />
                                 </div>
-
-                                <form id="form-user" action="./assets/php/datosUsuario.php" method="post">
-                                    <div class="card-body px-5">
-                                        <h6 class="card-category text-gray">Mi perfil</h6>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Nombre</label>
-                                                    <input id="nombre" type="text" class="form-control" disabled
-                                                        value="<?php echo $nombre ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Correo</label>
-                                                    <input id="email" type="email" class="form-control" name="email"
-                                                        required value="<?php echo $email ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">CURP</label>
-                                                    <input type="text" class="form-control" disabled
-                                                        value="<?php echo $CURP ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">RFC</label>
-                                                    <input type="text" class="form-control" disabled
-                                                        value="<?php echo $RFC ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Puesto</label>
-                                                    <input type="text" class="form-control" disabled
-                                                        value="<?php echo $puesto ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Departamento</label>
-                                                    <input type="text" class="form-control" disabled
-                                                        value="<?php echo $departamento ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Teléfono</label>
-                                                    <input id="telefono" class="form-control"
-                                                        pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 required
-                                                        name="telefono" required value="<?php echo $telefono ?>">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Estado</label>
-                                                    <input id="perfil-estado" type="text" class="form-control
-                                                        <?php if ($estado === 'alta') {
-                                                            echo ' text-success';
-                                                        } else {
-                                                            echo ' text-danger';
-                                                        }
-                                                        ?>" disabled value="<?php echo mb_strtoupper($estado) ?>">
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Fecha de inicio</label>
-                                                    <input type="text" class="form-control" disabled
-                                                        value="<?php echo $fechaRelLab ?>">
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" id="editar" class="btn btn-primary btn-sm regresar"><i
-                                                class="material-icons">save</i> Guardar </button>
-                                    </div>
-                                </form>
+                                <input type="file" id="archivo" accept=".jpg, .png, .jpeg" style="display:none">
                             </div>
-                        </div>
 
-                        <div class="col-xl-4">
-                            <div class="card card-profile">
-                                <div class="card-avatar">
-                                    <div id="subir">
-                                        <img id="foto" class="img" src="assets/img/search.svg" />
-                                    </div>
-                                </div>
-                                <form id="form-cambiar">
-                                    <div class="card-body px-5">
-                                        <h6 class="card-category text-gray">Cambiar contraseña</h6>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Contraseña actual</label>
-                                                    <input type="password" name="pass" id="pass" class="form-control"
-                                                        required autocomplete="off">
+                            <form id="form-user" action="./assets/php/datosUsuario.php" method="post">
+                                <div class="card-body p-5">
+                                    <h6 class="card-category text-gray">Mi perfil</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Nombre</label>
+                                            <input id="nombre" type="text" class="campo" disabled value="<?php echo $nombre ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Correo</label>
+                                            <input id="email" type="email" class="campo" name="email" required
+                                                value="<?php echo $email ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">CURP</label>
+                                            <input type="text" class="campo" disabled value="<?php echo $CURP ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">RFC</label>
+                                            <input type="text" class="campo" disabled value="<?php echo $RFC ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Puesto</label>
+                                            <input type="text" class="campo" disabled value="<?php echo $puesto ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Departamento</label>
+                                            <input type="text" class="campo" disabled value="<?php echo $departamento ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Teléfono</label>
+                                            <input id="telefono" class="campo" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14
+                                                required name="telefono" required value="<?php echo $telefono ?>">
+                                        </div>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Nueva contraseña</label>
-                                                    <input type="password" name="newPass" id="newPass"
-                                                        class="form-control" required autocomplete="off">
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="bmd-label-floating">Confirmar contraseña</label>
-                                                    <input type="password" name="confirmacion" id="confirmacion"
-                                                        class="form-control" required autocomplete="off">
-
-                                                </div>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label class="bmd-label-floating">Estado</label>
+                                            <input id="perfil-estado" type="text" class="campo
+                                                                    <?php if ($estado === 'alta') {
+                                                                        echo ' text-success';
+                                                                    } else {
+                                                                        echo ' text-danger';
+                                                                    }
+                                                                    ?>" disabled value="<?php echo mb_strtoupper($estado) ?>">
                                         </div>
 
                                     </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-sm regresar"><i
-                                                class="material-icons">save</i> Guardar </button>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" id="editar" class="btn btn-primary btn-sm regresar"><i
+                                            class="material-icons">save</i> Guardar </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
-                                    </div>
-                                </form>
+                    <div class="col-xl-4">
+                        <div class="card card-profile">
+                            <div class="card-avatar">
+                                <div id="subir">
+                                    <img id="foto" class="img" src="assets/img/search.svg" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xl-2">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <a href="./documentos/usuario.pdf" download class="manual"><i
-                                                    class="material-icons">download</i>Manual</i></a>
+                            <form id="form-cambiar">
+                                <div class="card-body px-5">
+                                    <h6 class="card-category text-gray">Cambiar contraseña</h6>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="bmd-label-floating">Contraseña actual</label>
+                                            <input type="password" name="pass" id="pass" class="campo" required autocomplete="off">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="bmd-label-floating">Nueva contraseña</label>
+                                            <input type="password" name="newPass" id="newPass" class="campo" required
+                                                autocomplete="off">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="bmd-label-floating">Confirmar contraseña</label>
+                                            <input type="password" name="confirmacion" id="confirmacion" class="campo" required
+                                                autocomplete="off">
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="col-12">
-                                    <div class="card mt-0">
-                                        <div class="card-body">
-                                            <a href="#" id="expediente" class="manual"><i
-                                                    class="material-icons">content_paste</i>Expediente</i></a>
-                                        </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm regresar"><i class="material-icons">save</i>
+                                        Guardar </button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <a href="./documentos/usuario.pdf" download class="manual"><i
+                                                class="material-icons">download</i>Manual</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card mt-0">
+                                    <div class="card-body">
+                                        <a href="#" id="expediente" class="manual"><i
+                                                class="material-icons">content_paste</i>Expediente</i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+            </div>
             </div>
 
             <footer class="footer">
@@ -355,34 +309,19 @@ if ($resultado) {
             </footer>
         </div>
     </div>
-    <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js"></script>
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap-material-design.min.js"></script>
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-    <!--  Plugin for Sweet Alert -->
-    <link href="assets/css/sweetalert2.min.css?v=3.2.6" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-    <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-
-    <!-- Chartist JS -->
-
-    <!--  Notifications Plugin    -->
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assets/js/material-dashboard.js?v=3.2.6" type="text/javascript"></script>
-    <script src="assets/js/sesion.js?v=3.2.6"></script>
+    <script src="assets/js/material-dashboard.js?v=3.2.7" type="text/javascript"></script>
+    <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="assets/js/sesion.js?v=3.2.7"></script>
     <script src="assets/js/block.js"></script>
-    <script src="assets/js/perfil.js?v=3.2.6"></script>
-    <script src="assets/js/mensajes-user.js?v=3.2.6"></script>
+    <script src="assets/js/perfil.js?v=3.2.7"></script>
+    <script src="assets/js/mensajes-user.js?v=3.2.7"></script>
     <script src="assets/js/select.js"></script>
-    <script src="assets/js/datepicker.min.js"></script>
-    <script src="assets/js/plugins/datepicker.es.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 </body>
 
