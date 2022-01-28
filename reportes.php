@@ -27,7 +27,7 @@ if (rol() != 1) {
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="purple" data-background-color="white">
-			<div class="municipio">Consulta Nómina <small><?php echo get_municipio() ?><small></div>
+			<div class="municipio">Consulta Nómina</div>
 			<div class="avatar">
 				<?php
 				$foto = "assets/img/user.png";
@@ -37,6 +37,7 @@ if (rol() != 1) {
 
 				?>
 				<a href="./perfil"><img src="<?php echo $foto ?>"></a>
+                <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p>
 				<p><?php echo $varName ?></p>
 				<a href="mailto:"><?php echo $varEmail ?></a>
 			</div>
