@@ -13,6 +13,7 @@ $(document).ready(function () {
    select_estilo();
    depa_change_multiple();
    puestos_change_multiple();
+   $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
 
    $("#descripcion_plaza").change(function () {
       if ($("#historial_plaza").is(":checked")) {
@@ -34,6 +35,44 @@ $(document).ready(function () {
          ADP.hide($("#plazas_2").parent()[0], 'flip-up');
          $("#del_2").prop("disabled", true);
          $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
+      }
+   });
+
+   $("#reporte_usuario").click(function (e) {
+      e.preventDefault();
+      var usuarios = $("#usuario_3").val();
+      var del = $("#del_1").val();
+      var al = $("#al_1").val();
+
+      let usuario_size = document.getElementById("usuario_3").selectedOptions.length;
+
+      if (usuario_size < 1) {
+         md.showNotification("top", "right", "Completa todos los campos.");
+      } else {
+         $(this).prop("disabled", true);
+         mensaje_cargar();;
+
+         $.ajax({
+            url: "assets/php/reporte_usuario.php",
+            type: "POST",
+            data: {
+               "del": del,
+               "al": al,
+               "usuarios": usuarios
+            },
+            success: function (data) {
+               let verificar = data.includes("assets/archivos/");
+
+               if (verificar) {
+                  window.open(data, '_blank');
+               } else {
+                  md.showNotification("top", "right", data);
+               }
+
+               $("#reporte_usuario").prop("disabled", false);
+               Swal.close();
+            }
+         });
       }
    });
 
@@ -202,7 +241,6 @@ function pagina(page) {
    ADP.show($(".reportes .pagina_" + page)[0], 'fade');
    $(".reportes .pagina_" + page).removeClass("adp-hide");
 }
-
 
 function depa_change_multiple() {
    $(".departamentos").change(function () {

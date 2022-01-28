@@ -42,11 +42,11 @@ $(document).ready(function () {
             },
             {
                 "orderable": false,
-                "targets": [3]
+                "targets": [6]
             },
             {
                 "className": "oculto",
-                "targets": [3,4]
+                "targets": [3,4,5]
             },
             {
                 "className": "oculto font-weight-bold",

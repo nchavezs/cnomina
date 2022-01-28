@@ -251,6 +251,11 @@ select {
     font-size: 12px !important;
 }
 
+
+.select_estilo .select-label .label-inner {
+    max-width: 85%;
+}
+
 .mensajeria {
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.08);
@@ -479,8 +484,8 @@ select {
 
 .mensajeria_contactos {
     position: relative;
-    height: 100%;
-    overflow-y: scroll;
+    height: calc(100% - 55px);
+    overflow: hidden;
     background: white;
 
 }
@@ -740,7 +745,12 @@ select {
     padding: 5%;
 } */
 
+.dataTable td{
+    max-width: 250px !important;
+}
+
 .dataTable thead {
+    white-space: nowrap !important;
     background: #5377DB !important;
     color: rgba(255, 255, 255, 0.938) !important;
 }
