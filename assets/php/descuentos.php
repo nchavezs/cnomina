@@ -9,7 +9,7 @@ $consulta = mysqli_query($conexion, $sql);
 $sql1 = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
 $consulta1 = mysqli_query($conexion, $sql1);
 $resultado1 = mysqli_fetch_array($consulta1);
-$nombre = $resultado1[6];
+$nombre = $resultado1["nombre"];
 
 // $ano = date("Y");
 // $ano1 = 2018;
@@ -133,10 +133,10 @@ if (mysqli_num_rows($consulta) == 0) {
                <h1>Nada registrado</h1>
 					<div class="chat-nuevo">
 						<i id="chat-icono" class="material-icons">add</i>
-						<p id="' . $id . '-" onclick="descuento(this.id);">Nuevo descuento</p>
+						<p onclick="descuento(\''.$id.'\');">Nuevo descuento</p>
 					</div>
 				</div>';
-    echo '<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
+    echo '<div class="btn btn-secondary btn-sm" onclick="ver(\''.$id.'\', 1);"><i class="material-icons">arrow_back</i> Regresar </div>';
 } else {
     echo '<div class="row">
 					<div class="col-3">
@@ -180,10 +180,10 @@ if (mysqli_num_rows($consulta) == 0) {
 
     echo '<div class="row">
 					<div class="col-6">
-						<div class="btn btn-secondary btn-sm regresar" id="' . $id . '" onclick="ver(this.id, 1)"><i class="material-icons">arrow_back</i> Regresar </div>
+						<div class="btn btn-secondary btn-sm"  onclick="ver(\''.$id.'\', 1)"><i class="material-icons">arrow_back</i> Regresar </div>
 						</div>
 					<div class="col-6">
-						<div class="btn btn-secondary btn-sm regresar" id="' . $id . '-" onclick="descuento(this.id)"><i class="material-icons">add</i> Nuevo </div>
+						<div class="btn btn-secondary btn-sm"  onclick="descuento(\''.$id.'\')"><i class="material-icons">add</i> Nuevo </div>
 						</div>
 					</div>
 				</div>';

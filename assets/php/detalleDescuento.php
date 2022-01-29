@@ -30,7 +30,7 @@
 										$fechas = explode(",",$descuento[4]);
 										foreach($fechas as $fecha){
 											$date = date("Y-m-d", strtotime(str_replace('/', '-', $fecha)));
-											$datos["html"] =  $datos["html"].'<h5>• '.strftime("%A, %d de %B de %G", strtotime($date)).'</h5>';
+											$datos["html"] =  $datos["html"].'<h5>• '.strftime("%d de %B de %G", strtotime($date)).'</h5>';
 										}
 										$datos["html"] =  $datos["html"].'<p class="card-category">Descripción:</p>
 												<h5>'.$descuento[5].'</h5>
