@@ -60,7 +60,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 		$sheet->setCellValue('E' . $i, $res["plaza"]);
         $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
         $sheet->setCellValue('G' . $i, $res["CURP"]);
-		$sheet->setCellValue('H' . $i, $res["CURP"]);
+		$sheet->setCellValue('H' . $i, $res["RFC"]);
         $sheet->setCellValue('I' . $i, $res["puesto"]);
         $sheet->setCellValue('J' . $i, $res["departamento"]);
 		$sheet->setCellValue('K' . $i, $res["trabajador"]);

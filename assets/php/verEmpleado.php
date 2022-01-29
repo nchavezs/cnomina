@@ -19,6 +19,7 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
 }
 
 $sql = "SELECT *,
+	Usuario.RFC AS RFC,
    (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
    (SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador  
@@ -128,7 +129,7 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 									</div>
 									<div class="col-7">
 										
-										<h5>' . $res[2] . '</h5>
+										<h5>' . $res["RFC"] . '</h5>
 										<h5>' . $curp . '</h5>
 										<h5>' . $trabajador . '</h5>
 										<h5>' . $inicio . '</h5>
