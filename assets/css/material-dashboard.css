@@ -749,7 +749,7 @@ select {
 
 .dataTable {
     border-collapse: separate !important;
-    border-spacing: 0 15px !important;
+    border-spacing: 0 10px !important;
     /* padding: 0 15px !important; */
 }
 
@@ -758,7 +758,7 @@ select {
 } */
 
 .dataTable td{
-    max-width: 250px !important;
+    max-width: 300px !important;
 }
 
 .dataTable thead {
@@ -770,6 +770,7 @@ select {
 .dataTable tr:not(.dataTable thead tr) {
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
+    transition: all 0.2s;
 }
 
 .dataTable tbody tr:hover {
@@ -18420,8 +18421,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .dataTable>tfoot>tr>th,
 .dataTable>thead>tr>td,
 .dataTable>thead>tr>th {
-    padding: 5px 10px !important;
-    font-size: 13px
+    padding: 4px 8px !important;
+    font-size: 13px;
 }
 
 .dataTable>tbody>tr>td:first-child,

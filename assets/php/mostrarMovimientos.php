@@ -17,12 +17,12 @@ if (mysqli_num_rows($consulta) > 0) {
 					<th class="titulo">Archivo</th>
 				</thead>
 				<tbody>';
-    while ($res = mysqli_fetch_row($consulta)) {
+    while ($res = mysqli_fetch_array($consulta)) {
         echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res[2])) . '</td>
 				<td> <a class="material-icons btn1" onclick="detalle_movimiento('.$res[0].')">visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="formato_movimiento(' . $res[0] . ')">play_for_work</a></td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[5] . '\',\'' . $res[1] . '\',\'Movimiento\',0)">attachment</a></td>
+				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $id . '\',\'Movimiento\',0)">attachment</a></td>
 			</tr>';
     }
     echo '</tbody>

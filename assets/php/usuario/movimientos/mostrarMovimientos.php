@@ -19,13 +19,13 @@ if (mysqli_num_rows($consulta) > 0) {
 					<th class="titulo">Detalle</th>
 				</thead>
 				<tbody>';
-    while ($res = mysqli_fetch_row($consulta)) {
+    while ($res = mysqli_fetch_array($consulta)) {
         echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res[2])) . '</td>
-				<td class="col-puesto">' . $res[3] . '</td>
-				<td class="col-puesto">' . $res[4] . '</td>
-				<td> <a class="material-icons btn1" id="' . $res[5] . '" onclick="archivo(this.id)">attachment</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '" onclick="detalle_movimiento(this.id)" >visibility</a></td>
+				<td class="col-puesto">' . $res["puesto"] . '</td>
+				<td class="col-puesto">' . $res["departamento"] . '</td>
+				<td> <a class="material-icons btn1" onclick="archivo(\''.$res["url"].'\')">attachment</a></td>
+				<td> <a class="material-icons btn1" onclick="detalle_movimiento('.$res["id_movimiento"].')" >visibility</a></td>
 			</tr>';
     }
     echo '</tbody>
