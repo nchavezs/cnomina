@@ -15,10 +15,10 @@ include "assets/php/main_admin.php";
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="assets/css/material-dashboard.css?v=3.2.7" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.2.8" rel="stylesheet" />
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.2.7" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.2.8" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -221,7 +221,7 @@ include "assets/php/main_admin.php";
 						<h2 class="text-primary my-4 font-weight-bold">Inicia una conversación</h2>
 						<p>Puedes enviar y recibir mensajes en conversaciones con los usuarios.</p>
 						<hr>
-						<p>No dudes en ponerte en contacto con nosotros diréctamente desde <span class="text-warning" onclick="soporte();">aquí</span> en caso de que tengas alguna duda o sugerencias o envianos un correo a <a class="text-primary" href="mailto:info@consultanominacomonfort.com">info@consultanominacomonfort.com</a> .</p>
+						<p>No dudes en ponerte en contacto con nosotros diréctamente desde <span class="text-warning soporte" onclick="soporte();">aquí</span> en caso de que tengas alguna duda o sugerencias o envianos un correo a <a class="text-primary" href="mailto:info@consultanominacomonfort.com">info@consultanominacomonfort.com</a> .</p>
 					</div>
 					<div class="mensajeria_caja adp-hide">
 						<div class="mensajeria_usuario"><i class="material-icons regresar">keyboard_backspace</i> <img src="assets/img/user.png" alt=""><span></span></div>
@@ -245,9 +245,9 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.2.7" type="text/javascript"></script>
-	<script src="assets/js/sesion.js?v=3.2.7"></script>
-	<script src="assets/js/mensajes.js?v=3.2.7"></script>
+	<script src="assets/js/material-dashboard.js?v=3.2.8" type="text/javascript"></script>
+	<script src="assets/js/sesion.js?v=3.2.8"></script>
+	<script src="assets/js/mensajes.js?v=3.2.8"></script>
 </body>
 
 </html>

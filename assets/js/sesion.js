@@ -309,3 +309,7 @@ $(document).on("click", '.cb-value', function () {
        $(mainParent).removeClass('active');
    }
 });
+
+function soporte(){
+   $("#nomina").click();
+}

@@ -103,8 +103,8 @@ if ($formato) {
 
         $id_empleado = $datos[0];
         $nombres = trim(ucwords(mb_strtolower($datos[1])));
-        $apellidom = trim(ucfirst(mb_strtolower($datos[2])));
-        $apellidop = trim(ucfirst(mb_strtolower($datos[3])));
+        $apellidop = trim(ucfirst(mb_strtolower($datos[2])));
+        $apellidom = trim(ucfirst(mb_strtolower($datos[3])));
         $departamento = eliminar_simbolos(mb_strtoupper($datos[4]));
         $puesto = eliminar_simbolos(mb_strtoupper($datos[5]));
         $fechaRelLab = trim($datos[6]);
