@@ -37,8 +37,8 @@ $sheet->getStyle('A1:'.$ultimo.'1')->getFill()->setFillType(\PhpOffice\PhpSpread
 $sheet->getStyle('A1:'.$ultimo.'1')->getFont()->getColor()->setRGB('FFFFFF');
 $sheet->setCellValue('A1', '# EMPLEADO');
 $sheet->setCellValue('B1', 'NOMBRE(S)');
-$sheet->setCellValue('C1', 'APELLIDO MATERNO');
-$sheet->setCellValue('D1', 'APELLIDO PATERNO');
+$sheet->setCellValue('C1', 'APELLIDO PATERNO');
+$sheet->setCellValue('D1', 'APELLIDO mATERNO');
 $sheet->setCellValue('E1', '# PLAZA');
 $sheet->setCellValue('F1', 'FECHA DE INGRESO');
 $sheet->setCellValue('G1', 'CURP');
