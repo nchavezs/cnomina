@@ -38,7 +38,7 @@ $(document).ready(function () {
   });
 
   $(".login").click(function () {
-    $(".panel").css("right", "0");
+    $(".panel").addClass("mostrar");
     $(".fondo").css("display", "block");
   });
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
 });
 
 function cerrar() {
-  $(".panel").css("right", "-400px");
+  $(".panel").removeClass("mostrar");
   $(".fondo").css("display", "none");
 }
 

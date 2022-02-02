@@ -2204,7 +2204,6 @@ hr {
     transition: all 0.3s;
     height: 100%;
     background: rgb(253, 253, 253);
-    box-shadow: -10px -10px 50px 50px rgba(0, 0, 0, 0.2);
 }
 
 form {
@@ -2282,3 +2281,39 @@ input{
 body{
     overflow: hidden;
 }
+
+.mostrar{
+    right: 0;
+    box-shadow: -10px -10px 50px 50px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slidein {
+    0% {
+        transform: translatex(0px) translatey(0px);
+        height: 50px;
+    }
+    50% {
+        transform: translatex(100px) translatey(200px);
+        height: 10px;
+    }
+    100% {
+        transform: translatex(0px) translatey(0px);
+        height: 50px;
+    }
+  }
+
+  
+  .shape_1 {
+    animation: 150s infinite ;
+    animation-name: slidein;
+  }
+
+  .shape_2 {
+    animation: 200s infinite ;
+    animation-name: slidein;
+  }
+
+  .shape_3 {
+    animation: 50s infinite ;
+    animation-name: slidein;
+  }
