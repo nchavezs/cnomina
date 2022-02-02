@@ -26,7 +26,7 @@ if (rol() == 2) {
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="purple" data-background-color="white">
-		<div class="municipio">Consulta Nómina</div>
+		 <div class="municipio">MUNICIPIO DE <?php echo get_municipio() ?></div>
             <div class="avatar">
                 <?php
 				$foto = "assets/img/user.png";
@@ -36,7 +36,7 @@ if (rol() == 2) {
 
 				?>
                 <a href="./perfil"><img src="<?php echo $foto ?>"></a>
-                <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p>
+                <!-- <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p> -->
                 <p><?php echo $varName ?></p>
                 <a href="mailto:"><?php echo $varEmail ?></a>
             </div>
@@ -180,7 +180,8 @@ if (rol() == 2) {
 										</div>
 										<div class="col-10">
 											<h5>Registrar trabajadores al subir <a href="consultar" class="text-info">archivos CFDI</a>.</h5>
-											<p>Los datos del trabajador ya registrados no serán sobreescritos.</p>
+											<p class="my-0">Los datos del empleado ya registrados no serán sobreescritos.</p>
+											<p class="my-0">No se registrarán plazas ni fecha de inicio laboral (en caso de no aparecer en el CFDI).</p>
 										</div>
 									</div>
 								</div>

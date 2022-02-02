@@ -670,7 +670,7 @@ select {
 .campo {
     color: #444;
     font-size: 13px !important;
-    background: #f5f6f9b9;
+    background: #f5f6f9;
     padding: 8px 10px !important;
     border: 1px solid transparent;
     display: flex;
@@ -817,12 +817,17 @@ select {
 }
 
 .municipio {
-    padding: 30px 5px;
+    margin: 10px;
+    padding: 10px 0;
     font-weight: bold;
-    font-size: 16px !important;
-    color: rgb(255, 255, 255) !important;
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.918) !important;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    font-family: "Montserrat";
+    background: rgba(255, 255, 255, 0.048);
+    border-radius: 10px;
+    /* border-bottom: 1px solid rgba(238, 238, 238, 0.075); */
 }
 
 .sidebar {
@@ -2217,7 +2222,7 @@ label.btn-mostrar {
 .btn-mostrar {
     background-color: transparent;
     height: 25px !important;
-    color: #2b395fbe !important;
+    color: #2b395fd0 !important;
     font-weight: bold;
     border: none;
     padding: 5px 15px;
@@ -2705,7 +2710,7 @@ label.btn-mostrar {
 }
 
 #foto:hover {
-    cursor: pointer
+    cursor: pointer;
 }
 
 .modal-archivo {
@@ -2731,7 +2736,7 @@ label.btn-mostrar {
 
 .sidebar .avatar {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
     font-size: 12px;
     font-weight: bold;
 }

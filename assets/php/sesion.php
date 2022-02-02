@@ -6,10 +6,11 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
     $user = mysqli_real_escape_string($conexion, trim($_POST['usuario']));
     $password = mysqli_real_escape_string($conexion, $_POST['contrasenia']);
     $sql = "SELECT * FROM Usuario WHERE RFC = '" . $user . "' AND contrasenia = '" . $password . "'";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 1) {
         $res = mysqli_fetch_array($consulta);
+        
         session_start();
         $_SESSION['usuario'] = $res["RFC"];
         $_SESSION['categoria'] = $res["categoria"];
@@ -18,16 +19,16 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
         $_SESSION['foto'] = $res["urlFoto"];
 
         if ($res["categoria"] === 'user') {
-            header('location:../../tablas');
+            echo './tablas';
         } else if ($res["categoria"] === 'admin') {
-            header('location:../../registrar');
+            echo './registrar';
         } else {
             echo 0;
         }
     } else {
-        header("location: /");
+        echo 0;
     }
     mysqli_close($conexion);
 } else {
-    header("location: /");
+    echo 0;
 }

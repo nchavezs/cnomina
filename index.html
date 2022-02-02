@@ -1,69 +1,121 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="assets/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/login.css?v=1.1">
-    <script src="assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <script src="assets/js/modernizr.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Consulta Nómina Comonfort</title>
+    <meta charset="utf-8">
+    <title>Consulta Nomina Comonfort</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png" />
+
+    <link rel="stylesheet" href="assets/js/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/js/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="assets/js/plugins/aos/aos.css">
+    <link rel="stylesheet" href="assets/js/plugins/izitoast/css/iziToast.css">
+
+    <link href="assets/css/login.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="se-pre-con"></div>
-    <div class="wrapper">
-        <div class="container">
-            <h1 id="titulo" class="animated fadeInUp slow">CONSULTA NOMINA COMONFORT</h1>
-            <br><br><br>
-            <form class="form" method="post" action="./assets/php/validarSession.php">
+<body class="body-wrapper" data-spy="scroll" data-target=".privacy-nav">
+    <div class="fondo"></div>
 
-                <div class="caja-input">
-                    <i class="material-icons">person_pin</i>
-                    <input type="text" name="usuario" placeholder="Identificador" required autocomplete="off">
+    <div class="panel">
+        <div onclick= "cerrar();" class="cerrar"><i class="ti-close font-weight-bold"></i></div>  
+        <div class="user-login">
+            <div class="content text-center w-100 p-5">
+                <div class="logo p-4">
+                    <a href="#"><img src="assets/img/logo.svg" alt=""></a>
                 </div>
-
-                <div class="caja-input">
-                    <i class="material-icons">lock_open</i>
-                    <input type="password" name="contrasenia" placeholder="Contraseña" required autocomplete="off">
+                <div class="title-text mt-5">
+                    <h5 class="text-secondary font-weight-bold">Inicio de sesión</h5>
+                    <p class="text-muted">Para continuar ingresa tus credenciales.</p>
                 </div>
-
-                <button type="submit" id="login-button"><i class="material-icons">
-						exit_to_app</i> INICIAR SESION</button>
-            </form>
+                <br>
+                <form autocomplete="off" id="login">
+                    <div class="campo"><i class="ti-user"></i> <input name="usuario" type="text" placeholder="RFC" required></div>
+                    <div class="campo"><i class="ti-lock"></i> <input name="contrasenia" type="password" placeholder="Contraseña" required></div>
+                    <button type="submit" class="btn btn-main-sm w-100 p-2 mt-4"> <i class="ti-mouse pr-3"></i> Ingresar </button>
+                </form>
+                <!-- <div class="new-acount">
+                    <a href="contact.html">Forget your password?</a>
+                    <p>Don't Have an account? <a href="sign-up.html"> SIGN UP</a></p>
+                </div> -->
+            </div>
         </div>
-
-        <ul class="bg-bubbles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-
-        </ul>
     </div>
-</body>
+    
+    <section class="section gradient-banner">
+        <div class="shapes-container">
+            <div class="shape" data-aos="fade-down-left" data-aos-duration="1500" data-aos-delay="100"></div>
+            <div class="shape" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100"></div>
+            <div class="shape" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="200"></div>
+            <div class="shape" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"></div>
+            <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+            <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+            <div class="shape" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300"></div>
+            <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="200"></div>
+            <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="100"></div>
+            <div class="shape" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="500"></div>
+            <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="200"></div>
+            <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="100"></div>
+            <div class="shape" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0"></div>
+            <div class="shape" data-aos="fade-down" data-aos-duration="500" data-aos-delay="0"></div>
+            <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="100"></div>
+            <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="0"></div>
+        </div>
+        <div class="container">
 
-<script>
-    $('#login-button').submit(function(event) {
-        event.preventDefault();
-        $("body").fadeIn(3000);
-    });
-    $(window).load(function() {
-        // Animate loader off screen
-        $(".se-pre-con").fadeOut("slow");;
-    });
-</script>
+            <div class="row align-items-center">
+                <div class="col-md-8 order-2 order-md-1 text-center text-md-left">
+                    <h1 class="titulo text-white font-weight-bold mb-4">CONSULTA NOMINA</h1>
+                    <p class="mb-5 subtitulo">Municipio de Comonfort, Gto.</p>
+                    <a href="#" class="btn btn-main-md login">Iniciar Sesión</a>
+                </div>
+                
+                <div class="col-md-4 text-center order-1 order-md-2">
+                    <!-- <img class="img-fluid " src="assets/img/mobile.png" alt="screenshot"> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section data-aos="fade-up-left" data-aos-duration="1000" class="section pt-0 position-relative pull-top">
+        <div class="container">
+            <div class="rounded shadow p-5 bg-white">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mt-5 mt-md-0 text-center">
+                        <i class="ti-alarm-clock text-primary h1"></i>
+                        <h3 class="mt-4 text-capitalize h5 ">Ahorra tiempo</h3>
+                        <p class="regular text-muted">Solicita permisos, licencias mediante la mensajería.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-5 mt-md-0 text-center">
+                        <i class="ti-new-window text-primary h1"></i>
+                        <h3 class="mt-4 text-capitalize h5 ">Accesible</h3>
+                        <p class="regular text-muted">Consulta tu información de manera rápida en cualquier momento.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
+                        <i class="ti-receipt text-primary h1"></i>
+                        <h3 class="mt-4 text-capitalize h5 ">Fácil uso</h3>
+                        <p class="regular text-muted">Visualiza o imprime tus CFDI desde el navegador.</p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="scroll-top-to">
+        <i class="ti-angle-up"></i>
+    </div>
+
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/aos/aos.js"></script>
+    <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
+    <script src="assets/js/login.js"></script>
+
+</body>
 
 </html>
