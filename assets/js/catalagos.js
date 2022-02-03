@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $(".pestana_1").click(function(){
+    $(".pestana_1").click(function () {
         $(".pagina_2").addClass("adp-hide");
         ADP.show($(".pagina_1")[0], 'slide-left');
         $(".pagina_1").removeClass("adp-hide");
     });
 
-    $(".pestana_2").click(function(){
+    $(".pestana_2").click(function () {
         $(".pagina_1").addClass("adp-hide");
         ADP.show($(".pagina_2")[0], 'slide-right');
         $(".pagina_2").removeClass("adp-hide");
@@ -24,14 +24,13 @@ $(document).ready(function () {
             "type": "POST",
             "url": "assets/php/consulta-puesto.php"
         },
-        "drawCallback": function( settings ) {
+        "drawCallback": function (settings) {
             $('.main-panel .content').perfectScrollbar('update');
             ADP.show($(".pagina_1 .table-responsive")[0], 'slide-left');
         },
-        "columnDefs": [
-            {
+        "columnDefs": [{
                 "className": "font-weight-bold",
-                "targets": [0,1]
+                "targets": [0, 1]
             },
             {
                 "orderable": false,
@@ -51,12 +50,12 @@ $(document).ready(function () {
                 "render": function (data, type, row) {
                     return '<a class="tipo">' + row.plazas + '</a>';
                 }
-            },  
-            // {
-            //     "render": function (data, type, row) {
-            //         return '<i class="material-icons btn1" onclick="editar_puesto(' + row.id_puesto + ');" >editar</i>';
-            //     }
-            // },
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<i class="material-icons btn1" onclick="editar_puesto(' + row.id_puesto + ');" >editar</i>';
+                }
+            },
             {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_puesto + ', \'Puesto\');">delete</i>';
@@ -81,8 +80,7 @@ $(document).ready(function () {
         // "drawCallback": function( settings ) {
         //     $('.main-panel .content').perfectScrollbar('update');
         // },
-        "columnDefs": [
-            {
+        "columnDefs": [{
                 "className": "font-weight-bold",
                 "targets": [0]
             },
@@ -97,16 +95,17 @@ $(document).ready(function () {
             {
                 "data": "nombre"
             },
-            // {
-            //     "render": function (data, type, row) {
-            //         return '<i class="material-icons btn1" onclick="editar_departamento(' + row.id_departamento + ');" >editar</i>';
-            //     }
-            // },
+            {
+                "render": function (data, type, row) {
+                    return '<i class="material-icons btn1" onclick="editar_departamento(' + row.id_departamento + ');" >editar</i>';
+                }
+            },
             {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1-danger" onclick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
                 }
-            }        ]
+            }
+        ]
     });
 
     $("#importar-puestos").change(function () {
@@ -356,27 +355,12 @@ function eliminar(id, categoria) {
     })
 };
 
-function editar_puesto(id) {
-    $.ajax({
-        type: "POST",
-        url: "assets/php/editar_puesto.php",
-        data: {
-            "id": id
-        },
-        success: function (html) {
-           
-        }
-    });
-};
-
 function editar_departamento(id) {
-    let titulo = "puesto";
     $.ajax({
         type: "POST",
-        url: "assets/php/form.php",
+        url: "assets/php/editar_departamento.php",
         data: {
-            "titulo": titulo,
-            "nombre": nombre
+            "id": id,
         },
         success: function (html) {
             Swal.fire({
@@ -384,9 +368,78 @@ function editar_departamento(id) {
                 showCancelButton: false,
                 showConfirmButton: false,
                 width: "30em"
+            });
+
+            $("#form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "assets/php/actualizar_departamento.php",
+                    data: {
+                        id: id,
+                        nombre: $("#nombre").val()
+                    },
+                    success: function (data) {
+                        alert(data);
+                        if (data == 1) {
+                            md.showNotification("top", "right", "Departamento actualizado.");
+                            $('#tabla-puesto').DataTable().ajax.reload();
+                            $('#tabla-departamento').DataTable().ajax.reload();
+                            Swal.close();
+                        } else if (data == 2) {
+                            md.showNotification("top", "right", "Ya existe un departamento con este nombre.");
+                        } else {
+                            md.showNotification("top", "right", "Ocurrio un error.");
+
+                        }
+                    }
+                });
             })
         }
     });
 };
 
+function editar_puesto(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/editar_puesto.php",
+        data: {
+            "id": id,
+        },
+        success: function (html) {
+            Swal.fire({
+                html: html,
+                showCancelButton: false,
+                showConfirmButton: false,
+                width: "30em"
+            });
 
+            select_estilo();
+    
+            $("#form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "assets/php/actualizar_puesto.php",
+                    data: {
+                        id: id,
+                        nombre: $("#nombre").val(),
+                        departamento: $("#departamento").val()
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            md.showNotification("top", "right", "Puesto actualizado.");
+                            $('#tabla-puesto').DataTable().ajax.reload();
+                            $('#tabla-departamento').DataTable().ajax.reload();
+                            Swal.close();
+                        } else if (data == 2) {
+                            md.showNotification("top", "right", "Ya existe un puesto con este nombre.");
+                        } else {
+                            md.showNotification("top", "right", "Ocurrio un error.");
+                        }
+                    }
+                });
+            })
+        }
+    });
+};

@@ -26,6 +26,7 @@ if (rol() != 1) {
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.2.8" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
+	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -177,7 +178,7 @@ if ($varFoto != null) {
 											<th class="">#</th>
 											<th class="">Puesto</th>
 											<th class="">Plazas</th>
-											<!-- <th class="">Editar</th> -->
+											<th class="">Editar</th>
 											<th class="">Eliminar</th>
 										</tr>
 									</thead>
@@ -208,7 +209,7 @@ if ($varFoto != null) {
 										<tr>
 											<th class="">#</th>
 											<th class="">Departamento</th>
-											<!-- <th class="">Editar</th> -->
+											<th class="">Editar</th>
 											<th class="">Eliminar</th>
 										</tr>
 									</thead>
@@ -249,6 +250,8 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/block.js"></script>
+	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
+    <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/catalagos.js?v=3.2.8"></script>
 	<script src="assets/js/sesion.js?v=3.2.8"></script>
 
