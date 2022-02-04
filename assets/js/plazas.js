@@ -50,7 +50,7 @@ $(document).ready(function () {
             },
             {
                 "className": "oculto font-weight-bold",
-                "targets": [1]
+                "targets": [2]
             }
         ],
         "columns": [{
