@@ -498,7 +498,6 @@ function reingreso(id) {
                                     "trabajador": trabajador
                                 },
                                 success: function (data) {
-                                    alert(data);
                                     $("#form-reingreso").prop("disabled", false);
                                     if (data == 1) {
                                         Swal.fire({

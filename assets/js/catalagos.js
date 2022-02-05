@@ -380,7 +380,6 @@ function editar_departamento(id) {
                         nombre: $("#nombre").val()
                     },
                     success: function (data) {
-                        alert(data);
                         if (data == 1) {
                             md.showNotification("top", "right", "Departamento actualizado.");
                             $('#tabla-puesto').DataTable().ajax.reload();
