@@ -142,7 +142,7 @@
 .dropdown-inner {
     position: relative !important;
     padding: 0 !important;
-    max-height: 300px !important
+    max-height: 250px !important
 }
 
 ::-webkit-scrollbar {
@@ -574,17 +574,20 @@ select {
 }
 
 @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    .blurred-container {
-      background-color: rgba(255, 255, 255, .8);
+    .select-dropdown,
+    .boton_generar_reporte{
+        background: rgba(255, 255, 255, 0.95) !important;
     }
-  }
+}
 
 .select-dropdown {
-    background: rgba(250, 250, 250, .6) !important;
+    position: relative;
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: saturate(180%) blur(15px);
     -webkit-backdrop-filter: saturate(180%) blur(15px);
-    box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important
+    box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
 }
+
 
 .dropdown-inner,
 .dropdown-search {
@@ -1384,7 +1387,7 @@ button:hover .button-text {
 .boton-flotante.boton-info {
     width: 130px;
     top: 80px;
-    background: #6d7993b4;
+    background: #6d7993bd;
     box-shadow: 1px 1px 10px rgb(0, 0, 0, .1);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px)
