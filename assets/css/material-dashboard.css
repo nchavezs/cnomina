@@ -574,8 +574,9 @@ select {
 }
 
 .select-dropdown {
-    background: rgba(255, 255, 255, 0.95) !important;
-    /* backdrop-filter: saturate(180%) blur(15px);
+    /* position: relative;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: saturate(180%) blur(15px);
     -webkit-backdrop-filter: saturate(180%) blur(15px); */
     box-shadow: 1px 3px 5px rgb(0, 0, 0, .15) !important;
 }
@@ -769,7 +770,7 @@ select {
     overflow: hidden;
     width: 290px !important;
     z-index: 4;
-    padding-bottom: 200px
+    padding-bottom: 100px
 }
 
 .sidebar .nav li .dropdown-menu a:focus,

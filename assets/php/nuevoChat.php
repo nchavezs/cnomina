@@ -10,8 +10,7 @@ if ($titulo == null || $titulo == "" || $mensaje == null || $mensaje == "") {
     $conexion = conexion();
     session_start();
     $id = $_SESSION['usuario'];
-    date_default_timezone_set("America/Mexico_City");
-	setlocale(LC_ALL, "spanish");
+    setlocale(LC_ALL, "spanish");
     $fecha = date('d/m/Y h:i a', time());
     $sql = "INSERT INTO Chat(RFC,titulo,fecha) VALUES('" . $id . "','" . $titulo . "','" . $fecha . "')";
 

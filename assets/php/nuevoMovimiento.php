@@ -4,7 +4,6 @@
     $id = explode("-", $_POST['id']);
 	$RFC = $id[0];
 
-	date_default_timezone_set("America/Mexico_City");
 	setlocale(LC_ALL, "spanish");
 	$hoy = date("d/m/Y");
 

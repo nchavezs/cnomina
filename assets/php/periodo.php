@@ -1,6 +1,5 @@
 <?php
-date_default_timezone_set("America/Mexico_City");
-	setlocale(LC_ALL, "spanish");
+setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 
 echo '<div class="formulario_caja">

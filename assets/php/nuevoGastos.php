@@ -6,7 +6,6 @@
 	$sql1 = "SELECT * FROM Usuario WHERE RFC = '".$id[0]."'";
 	$consulta = mysqli_query($conexion, $sql1);
 	$resultado1 = mysqli_fetch_array($consulta);
-	date_default_timezone_set("America/Mexico_City");
 	setlocale(LC_ALL, "spanish");
 	$hoy = date("d/m/Y");
 

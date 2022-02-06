@@ -5,8 +5,7 @@ session_start();
 $id = $_SESSION["usuario"];
 $ano = $_POST["ano"];
 $mes = $_POST["mes"];
-date_default_timezone_set("America/Mexico_City");
-	setlocale(LC_ALL, "spanish");
+setlocale(LC_ALL, "spanish");
 
 $sql = "SELECT * FROM Descuento WHERE fechas LIKE '%" . $mes . "/" . $ano . "%' AND RFC = '" . $id . "'";
 $consulta = mysqli_query($conexion, $sql);

@@ -14,8 +14,7 @@ if(sizeof($fecha) == 3){
     $datos["mes"] = $fecha[1] - 1;
     $datos["ano"] = $fecha[2];
 }else{
-    date_default_timezone_set("America/Mexico_City");
-	setlocale(LC_ALL, "spanish");
+    setlocale(LC_ALL, "spanish");
     $hoy = date('d/m/Y');
     $fecha = explode("/",$hoy);
     $datos["dia"] = $fecha[0];
