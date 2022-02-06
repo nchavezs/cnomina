@@ -3,7 +3,8 @@ include "conexion.php";
 require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 
 function logo($sheet)
 {

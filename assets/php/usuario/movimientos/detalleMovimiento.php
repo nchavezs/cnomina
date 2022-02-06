@@ -13,6 +13,7 @@
 	else
 		$obs = $resultado1["observacion"];
 
+	date_default_timezone_set("America/Mexico_City");
 	setlocale(LC_ALL, "spanish");
 	$fecha = date("d/m/Y", strtotime($resultado1["fecha"]));
 			

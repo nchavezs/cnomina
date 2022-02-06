@@ -2,7 +2,8 @@
 session_start();
 include "conexion.php";
 $conexion = conexion();
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 $id = $_SESSION['usuario'];
 $ano = $_POST['ano'];
 $mes = $_POST['mes'];

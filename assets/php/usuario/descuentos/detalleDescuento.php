@@ -2,7 +2,8 @@
 $id = $_POST['id'];
 include "../../conexion.php";
 $conexion = conexion();
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 
 $sql = "SELECT * FROM Descuento WHERE id_descuento = " . $id;
 $consulta = $conexion->query($sql);

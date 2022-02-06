@@ -6,7 +6,8 @@ require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 $hoy = date('d/m/Y', time());
 
 $bandera = false;

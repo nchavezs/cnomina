@@ -2,7 +2,8 @@
    include("conexion.php");
    $conexion = conexion();
 	$categoria = $_POST["categoria"];
-   setlocale(LC_ALL, "spanish");
+   date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 	$hoy = date('d_m_Y_H_i_s');
 	
 

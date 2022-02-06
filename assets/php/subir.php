@@ -5,7 +5,8 @@ require_once "../../vendor/autoload.php";
 use Spatie\PdfToText\Pdf;
 
 $registrar_usuario = $_POST['registrar_usuario'];
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 $conexion = conexion();
 
 $ruta_nominas = "../nominas/";

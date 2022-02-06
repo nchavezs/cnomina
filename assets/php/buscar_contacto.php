@@ -1,6 +1,7 @@
 <?php
 session_start();
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 include "conexion.php";
 $conexion = conexion();
 $texto = trim($_POST['texto']);

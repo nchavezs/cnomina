@@ -3,7 +3,8 @@ include "conexion.php";
 include "municipio.php";
 require_once "../../vendor/autoload.php";
 $css = file_get_contents("../css/reporte.css");
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 
 $conexion = conexion();
 $hoy = date('d/m/Y');

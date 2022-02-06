@@ -1,5 +1,6 @@
 <?php
-setlocale(LC_ALL, "spanish");
+date_default_timezone_set("America/Mexico_City");
+	setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 include "conexion.php";
 $conexion = conexion();
