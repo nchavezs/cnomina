@@ -32,7 +32,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         if($res["RFC"] != null){
             echo '<option disabled data-description="'.$res["nombre"].'" value="' . $res["id_plaza"] . '">PLAZA OCUPADA</option>';
         }else{
-            echo '<option data-description="'.$vacantes.' días vacantes" value="' . $res["id_plaza"] . '">PLAZA #'.$res["id_plaza"].'</option>';
+            echo '<option data-description="'.$vacantes.' días por ejercer" value="' . $res["id_plaza"] . '">PLAZA #'.$res["id_plaza"].'</option>';
         }
     }
 } else {

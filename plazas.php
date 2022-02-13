@@ -208,7 +208,7 @@ if ($varFoto != null) {
                                     <th class="oculto">Trabajador</th>
                                     <th class="oculto">Días ocupados</th>
                                     <th class="oculto">Días desocupados</th>
-                                    <th class="oculto">Días vacantes</th>
+                                    <th class="oculto">Días por ejercer</th>
 									<th class="">Eliminar</th>
                                 </tr>
                             </thead>

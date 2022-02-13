@@ -86,7 +86,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->setCellValue('D2', 'DEPARTAMENTO');
         $sheet->setCellValue('E2', 'DIAS OCUPADOS');
         $sheet->setCellValue('F2', 'DIAS DESOCUPADOS');
-        $sheet->setCellValue('G2', 'DIAS VACANTES');
+        $sheet->setCellValue('G2', 'DIAS POR EJERCER');
         $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
         $sheet->setCellValue('I2', 'ESTADO');
         $sheet->setCellValue('J2', 'ELABORACION');
