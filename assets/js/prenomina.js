@@ -38,17 +38,25 @@ $(document).ready(function () {
                 "targets": [0]
             }
         ],
-        "columns": [{
+        "columns": [
+            {
+                "render": function (data, type, row) {
+                    return row.numero;
+                }
+            },
+            {
                 "render": function (data, type, row) {
                     return '<a class="">' + row.del + ' ➟ ' + row.al + '</a>';
                 }
             },{
                 "data": "observacion"
-            }, {
-                "render": function (data, type, row) {
-                    return type === 'sort' ? row.elaboracion : moment(row.elaboracion).locale('es').format('MMM Do, h:mm a');
-                }
-            }, {
+            }, 
+            // {
+            //     "render": function (data, type, row) {
+            //         return type === 'sort' ? row.elaboracion : moment(row.elaboracion).locale('es').format('MMM Do, h:mm a');
+            //     }
+            // }, 
+            {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1" onclick="' + "descargar('assets/prenominas/" + row.url + "','Prenomina')" + ';">download</i>';
                 }
