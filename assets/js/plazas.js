@@ -82,6 +82,11 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
+                    return '<a class="tipo">' + row.dias + '</a>';
+                }
+            },
+            {
+                "render": function (data, type, row) {
                     return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ', event);">delete</i>';
                 }
             }

@@ -75,6 +75,9 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
             // $vacantes = $res["dias"] - $ocupados_total;
         }
         $desocupados = $res["dias"] - $vacantes - $ocupados_total;
+        if ($desocupados < 0) {
+            $desocupados = 0;
+        }
         // ------------------------------------------------------------------------------------------------------
 
         $res['usuario'] = $usuario[0];

@@ -128,6 +128,9 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             }
 
             $desocupados = $presupuestados - $vacantes - $ocupados_total;
+            if ($desocupados < 0) {
+                $desocupados = 0;
+            }
 
             $sheet->setCellValue('A' . $i, $resultado["id_plaza"]);
             $sheet->setCellValue('B' . $i, mb_strtoupper($resultado['nombre']));
