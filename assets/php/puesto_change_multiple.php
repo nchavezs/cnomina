@@ -14,7 +14,7 @@ if(isset($_POST["puestos"])){
     if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         while ($res = mysqli_fetch_array($consulta)) {
             if($res["RFC"] == null){
-                echo '<option data-description="PLAZA #'.$res["id_plaza"].' VACANTE" value="' . $res["id_plaza"] . '">'.$res["puesto"].'</option>';
+                echo '<option data-description="PLAZA #'.$res["id_plaza"].' POR EJERCER" value="' . $res["id_plaza"] . '">'.$res["puesto"].'</option>';
             }else{
                 echo '<option data-description="'.$res["nombre"].'" value="' . $res["id_plaza"] . '">'.$res["puesto"].'</option>';
             }

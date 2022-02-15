@@ -102,7 +102,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
                 $vacantes = $presupuestados;
             }
             if ($resultado["RFC"] == null) {
-                $resultado["nombre"] = "VACANTE";
+                $resultado["nombre"] = "POR EJERCER";
             }
 
             if ($resultado["estado"] == 0) {

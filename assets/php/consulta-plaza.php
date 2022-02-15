@@ -38,7 +38,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             $usuario = mysqli_fetch_row($consulta);
         } else {
-            $usuario[0] = "VACANTE";
+            $usuario[0] = '<span class="alta">POR EJERCER</span>';
         }
 
         $sql = "SELECT nombre,id_departamento FROM Puesto WHERE id_puesto = " . $res["id_puesto"];
