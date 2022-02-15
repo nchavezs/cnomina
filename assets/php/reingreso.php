@@ -8,7 +8,7 @@
 	(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre  
 	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $RFC . "'";
 
-	$consulta = mysqli_query($conexion, $sql);
+	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
 
 	echo '<div class="formulario_caja">
@@ -24,7 +24,7 @@
 				<div class="formulario">
 					<div class="p-2">
 						<h4 class="font-weight-bold text-primary">Registrar reingreso</h4>
-						<small class="text-muted">Completa el siguiente formulario para realizar el reingreso de '.$usuario["nombre"].', asignana una plaza nueva.</small>
+						<small class="text-muted">Completa el siguiente formulario para realizar el reingreso de '.$usuario["nombre"].', asignará una plaza nueva.</small>
 					</div>
 					<div class="card">
 						<div class="card-body">

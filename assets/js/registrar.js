@@ -453,6 +453,7 @@ function reingreso(id) {
             $.post("assets/php/fecha_baja.php", {
                 "id": id
             }, function (data) {
+                alert(data);
                 $('#fecha').datepicker({
                     minDate: new Date(moment(data, 'YYYY/MM/DD')),
                     maxDate: new Date(),
