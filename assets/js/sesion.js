@@ -267,6 +267,7 @@ function puesto_change() {
          type: "POST",
          data: {
             puesto: $("#puesto").val(),
+            fecha: $("#fecha").val()
          },
          success: function (data) {
             $("#plaza").html(data);

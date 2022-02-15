@@ -103,7 +103,7 @@ $(document).ready(function () {
             var date = new Date();
             date.setMonth(date.getMonth() - 1);
 
-            $('#ingreso').datepicker({
+            $('#fecha').datepicker({
                 minDate: date,
                 maxDate: new Date(),
                 language: 'es',
@@ -112,9 +112,11 @@ $(document).ready(function () {
                 todayButton: new Date(),
                 onSelect(formattedDate, date, inst) {
                     if (date == '')
-                        $('#ingreso').val(ingreso);
+                        $('#fecha').val(ingreso);
                     else
                         ingreso = formattedDate;
+
+                    $("#puesto").change();
                 }
             });
 
@@ -134,7 +136,7 @@ $(document).ready(function () {
                         type: "POST",
                         url: "assets/php/agregarEmpleado.php",
                         data: {
-                            "ingreso": $("#ingreso").val(),
+                            "ingreso": $("#fecha").val(),
                             "numero": $("#numero").val(),
                             "nombre": $("#nombre").val(),
                             "rfc": $("#rfc").val(),
@@ -465,6 +467,8 @@ function reingreso(id) {
                             $('#fecha').val(valor1);
                         else
                             valor1 = formattedDate;
+
+                        $("#puesto").change();
                     }
                 });
             });
@@ -1496,6 +1500,8 @@ function movimiento(id) {
                                     $('#fecha').val(valor1);
                                 else
                                     valor1 = formattedDate;
+                                    
+                                $("#puesto").change();
                             }
                         });
                     });
@@ -2349,20 +2355,20 @@ function editar_usuario(id, event) {
                 });
 
                 select_estilo();
-                $("#ingreso").blur();
+                $("#fecha").blur();
 
                 // $(".readonly").keydown(function (e) {
                 //     e.preventDefault();
                 // });
 
-                $('#ingreso').datepicker({
+                $('#fecha').datepicker({
                     language: 'es',
                     autoClose: 'true',
                     position: "top center",
                     todayButton: new Date(),
                     onSelect(formattedDate, date, inst) {
                         if (date == '')
-                            $('#ingreso').val(valor1);
+                            $('#fecha').val(valor1);
                         else
                             valor1 = formattedDate;
                     }
@@ -2398,7 +2404,7 @@ function editar_usuario(id, event) {
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
                             "trabajador": $("#trabajador").val(),
-                            "ingreso": $("#ingreso").val(),
+                            "ingreso": $("#fecha").val(),
                             "periodo": $("#periodo").val()
                         },
                         success: function (data) {

@@ -68,7 +68,7 @@ echo '<div class="formulario_caja">
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Fecha de ingreso</div>
-										<input id="ingreso" type="text" class="campo" value="' . $hoy . '" readonly />
+										<input id="fecha" type="text" class="campo" value="' . $hoy . '" readonly />
 									</div>
 								</div>
 							</div>

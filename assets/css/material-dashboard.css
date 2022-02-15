@@ -212,9 +212,9 @@
     box-shadow: 5px 5px 5px rgb(0, 0, 0, .1)
 }
 
-select {
+/* select {
     opacity: 0 !important
-}
+} */
 
 .select_estilo .select-dropdown {
     margin-top: 10px !important;
