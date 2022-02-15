@@ -109,13 +109,19 @@ if (validar_fecha($del) && validar_fecha($al)) {
                 $paga = 0;
             } else {
                 $fecha_baja = $fecha_baja[0];
-                if (($fecha_baja >= $del) && ($fecha_inicio <= $al)) {
+
+                if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
+                    $datetime1 = new DateTime($fecha_inicio);
+                    $datetime2 = new DateTime($fecha_baja);
+                    $interval = $datetime1->diff($datetime2);
+                    $paga = $interval->format('%a') + 1;
+                    
+                } 
+                else {
                     $datetime1 = new DateTime($del);
                     $datetime2 = new DateTime($fecha_baja);
                     $interval = $datetime1->diff($datetime2);
                     $paga = $interval->format('%a') + 1;
-                } else {
-                    $paga = $dias_pago;
                 }
             }
         }
