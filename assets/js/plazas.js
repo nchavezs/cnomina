@@ -12,7 +12,6 @@ $(document).ready(function () {
     $(".opciones_tabla select").change(function(){
         $('#tabla-plaza').DataTable().ajax.reload();
     });
-
   
 
     var tabla = $('#tabla-plaza').DataTable({
