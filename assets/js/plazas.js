@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     var tabla = $('#tabla-plaza').DataTable({
         "lengthChange": false,
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [
             [0, "desc"]
         ],

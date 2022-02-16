@@ -100,8 +100,8 @@ $(document).ready(function () {
             puesto_change();
             $("#nombre").blur();
             var ingreso;
-            var date = new Date();
-            date.setMonth(date.getMonth() - 1);
+            var date = moment().subtract(45, 'days').toDate();
+            // date.setMonth(date.getMonth() - 1);
 
             $('#fecha').datepicker({
                 minDate: date,
