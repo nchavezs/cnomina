@@ -2,6 +2,7 @@
 setlocale(LC_ALL, "spanish");
 
 include "conexion.php";
+include "municipio.php";
 require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -26,6 +27,8 @@ function diferencia($fecha1, $fecha2)
 
 $del = $_POST["del"];
 $al = $_POST["al"];
+$date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+$al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
 
 if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     $conexion = conexion();
@@ -40,7 +43,8 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
 
     $titulos = [
         'font' => [
-            'size' => 20,
+            'size' => 14,
+            "bold" => true
         ],
         'alignment' => [
             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -76,7 +80,8 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:' . $ultimo . '1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', "PLAZAS AL ".$al);
+        $sheet->setCellValue('C1', "MUNICIPIO DE ".get_municipio()."\nREPORTE DE PLAZAS AL ".$al_letra);
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:' . $ultimo . '2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:' . $ultimo . '2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -89,7 +94,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->setCellValue('G2', 'DIAS POR EJERCER');
         $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
         $sheet->setCellValue('I2', 'ESTADO');
-        $sheet->setCellValue('J2', 'ELABORACION');
+        // $sheet->setCellValue('J2', 'ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
             $presupuestados = $resultado["dias"];
@@ -141,7 +146,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             $sheet->setCellValue('G' . $i, $vacantes);
             $sheet->setCellValue('H' . $i, $presupuestados);
             $sheet->setCellValue('I' . $i, $estado);
-            $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
+            // $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }
