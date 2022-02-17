@@ -195,7 +195,7 @@ $consulta = mysqli_query($conexion, $sql);
 $total = mysqli_num_rows($consulta);
 
 if ($total == 0) {
-    if (validar_fecha($del) && validar_fecha($al) && validar_fecha($pago) && $periodo != "") {
+    if (validar_fecha($del) && validar_fecha($al) && validar_fecha($pago) && $periodo != "" && validar_fecha($inicio)) {
         $sql = "INSERT INTO Archivo(del, al,fecha_pago,nombre, url, RFC, puesto, departamento, dias_pago, id_periodo) VALUES(
             STR_TO_DATE('" . $del . "','%d/%m/%Y'),
             STR_TO_DATE('" . $al . "','%d/%m/%Y'),

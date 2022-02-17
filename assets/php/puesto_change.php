@@ -29,6 +29,9 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
         $consulta2 = $conexion->query($sql);
 
+        $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
+        $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
+
         if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
             while ($historial = mysqli_fetch_array($consulta2)) {
                 $fecha1 = new DateTime($historial["fecha_inicio"]);
@@ -44,7 +47,9 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
             $vacantes = $res["dias"] - $ocupados_total;
         }
 
-        if($fecha_movimiento <= $ultimo_historial){
+        if($fecha_movimiento < $fecha_presupuestada){
+            $description = 'data-description="Plaza disponible hasta el '.$fecha_presupuestada.'" disabled';
+        }else if($fecha_movimiento <= $ultimo_historial){
             $description = 'data-description="Seleccione una fecha mayor a '.$ultimo_historial.'" disabled';
         }else{
             $description = 'data-description="'.$vacantes.' días por ejercer"';

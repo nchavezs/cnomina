@@ -1482,14 +1482,11 @@ function movimiento(id) {
                     depa_change();
                     puesto_change();
 
-                    $.post("assets/php/fechaInicio.php", {
+                    $.post("assets/php/fecha_movimiento.php", {
                         "id": id
-                    }, function (datos) {
-                        var date = new Date();
-                        var data = JSON.parse(datos);
-                        date.setFullYear(data.ano, data.mes, data.dia);
+                    }, function (data) {
                         $('#fecha').datepicker({
-                            minDate: date,
+                            minDate: new Date(data),
                             maxDate: new Date(),
                             language: 'es',
                             autoClose: 'true',

@@ -2,8 +2,8 @@
 include "conexion.php";
 $conexion = conexion();
 $RFC = $_POST["id"];
-// $fecha = $_POST["fecha"];
-$fecha = date("d/m/Y");
+$fecha = $_POST["fecha"];
+// $fecha = date("d/m/Y");
 $id_puesto = $_POST["puesto"];
 $id_departamento = $_POST["departamento"];
 $observacion = $_POST["observacion"];
