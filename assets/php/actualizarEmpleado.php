@@ -7,8 +7,8 @@ if ($rol != 1) {
     echo 2;
 } else {
     $conexion = conexion();
-    $id_empleado = trim($_POST["id"]);
-    $ingreso = trim($_POST["ingreso"]);
+    // $id_empleado = trim($_POST["id"]);
+    // $ingreso = trim($_POST["ingreso"]);
     $RFC = trim($_POST["rfc"]);
     $CURP = trim($_POST["curp"]);
     // $puesto = trim($_POST["puesto"]);
@@ -31,8 +31,7 @@ if ($rol != 1) {
 
     if (mysqli_query($conexion, $sql)) {
 
-        $sql = "UPDATE Empleado SET
-        id_empleado = " . $id_empleado . ",
+        $sql = "UPDATE Empleado SET 
         CURP = '" . $CURP . "',
         banca = NULLIF('" . $banca . "', ''),
         afiliacion = NULLIF('" . $afiliacion . "',''),
@@ -40,8 +39,7 @@ if ($rol != 1) {
         apellidop = '" . $apellidop . "',
         apellidom = '" . $apellidom . "',
         id_trabajador = '" . $trabajador . "',
-        fechaRelLab = '" . $ingreso . "',
-        id_periodo = " . $periodo . "
+        id_periodo = " . $periodo . " 
         WHERE RFC = '" . $RFC . "'";
         if(mysqli_query($conexion, $sql)){
             echo 1;

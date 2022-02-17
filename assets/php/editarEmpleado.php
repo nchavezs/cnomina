@@ -5,7 +5,12 @@ include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
-$sql = "SELECT * FROM Empleado WHERE RFC = '" . $id . "'";
+$sql = "SELECT 
+*, 
+(SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento 
+FROM Empleado WHERE RFC = '" . $id . "'";
 
 $consulta = mysqli_query($conexion, $sql);
 $res = mysqli_fetch_array($consulta);
@@ -65,15 +70,14 @@ echo '<div class="formulario_caja">
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">Número de empleado</div>
-									<input id="numero" type="text" class="campo" maxlength=5 value="'.$res["id_empleado"].'" required
-										onkeypress="return isNumberKey(event)">
+									<input id="numero" type="text" class="campo" disabled value="'.$res["id_empleado"].'">
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="">
 									<div class="select-etiqueta ">Fecha de ingreso</div>
-									<input id="fecha" type="text" class="campo" readonly value="'.$res["fechaRelLab"].'" />
+									<input id="fecha" type="text" class="campo" disabled value="'.$res["fechaRelLab"].'" />
 								</div>
 							</div>
 						</div>
@@ -89,52 +93,70 @@ echo '<div class="formulario_caja">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
-								<div class="select">
-									<div class="select-etiqueta">Tipo de trabajador</div>
-									<select id="trabajador">';
-									$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
-									$consulta = mysqli_query($conexion, $sql);
-									if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-										$sql2 = "SELECT * FROM Trabajador WHERE id_trabajador = '" . $res['id_trabajador'] . "'";
-										$consulta2 = mysqli_query($conexion, $sql2);
-										if (mysqli_num_rows($consulta2) == 0) {
-											echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
-										}
-
-										while ($res2 = mysqli_fetch_row($consulta)) {
-											echo '<option value="' . $res2[0] . '" ';
-											if ($res['id_trabajador'] == $res2[0]) {
-												echo 'selected';
+									<div class="select">
+										<div class="select-etiqueta">Tipo de trabajador</div>
+										<select id="trabajador">';
+										$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
+										$consulta = mysqli_query($conexion, $sql);
+										if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+											$sql2 = "SELECT * FROM Trabajador WHERE id_trabajador = '" . $res['id_trabajador'] . "'";
+											$consulta2 = mysqli_query($conexion, $sql2);
+											if (mysqli_num_rows($consulta2) == 0) {
+												echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
 											}
 
-											echo '>' . $res2[1] . '</option>';
-										}
-									} else {
-										echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
-									}
-									echo '</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="select">
-									<div class="select-etiqueta">Tipo de periodo</div>
-									<select id="periodo">';
-									$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
-									$consulta = mysqli_query($conexion, $sql);
-									if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-										while ($res2 = mysqli_fetch_row($consulta)) {
-											echo '<option value="' . $res2[0] . '" ';
-											if ($res['id_periodo'] == $res2[0]) {
-												echo 'selected';
+											while ($res2 = mysqli_fetch_row($consulta)) {
+												echo '<option value="' . $res2[0] . '" ';
+												if ($res['id_trabajador'] == $res2[0]) {
+													echo 'selected';
+												}
+
+												echo '>' . $res2[1] . '</option>';
 											}
-											echo '>' . $res2[1] . '</option>';
+										} else {
+											echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
 										}
-									} else {
-										echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
-									}
-									echo '</select>
+										echo '</select>
+									</div>
 								</div>
-							</div>
+								<div class="col-md-6">
+									<div class="select">
+										<div class="select-etiqueta">Tipo de periodo</div>
+										<select id="periodo">';
+										$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
+										$consulta = mysqli_query($conexion, $sql);
+										if ($consulta && (mysqli_num_rows($consulta)) > 0) {
+											while ($res2 = mysqli_fetch_row($consulta)) {
+												echo '<option value="' . $res2[0] . '" ';
+												if ($res['id_periodo'] == $res2[0]) {
+													echo 'selected';
+												}
+												echo '>' . $res2[1] . '</option>';
+											}
+										} else {
+											echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
+										}
+										echo '</select>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="">
+										<div class="select-etiqueta ">Departamento</div>
+										<input type="text" class="campo" disabled value="'.$res["departamento"].'" />
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="">
+										<div class="select-etiqueta ">Puesto</div>
+										<input type="text" class="campo" disabled value="'.$res["puesto"].'" />
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="">
+										<div class="select-etiqueta ">Plaza</div>
+										<input type="text" class="campo" disabled value="PLAZA #'.$res["plaza"].'" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

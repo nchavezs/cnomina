@@ -1497,7 +1497,7 @@ function movimiento(id) {
                                     $('#fecha').val(valor1);
                                 else
                                     valor1 = formattedDate;
-                                    
+
                                 $("#puesto").change();
                             }
                         });
@@ -2447,12 +2447,17 @@ function editar_usuario(id, event) {
 
 function generar_empleados() {
     mensaje_cargar();
-    $.post("assets/php/generarExcel.php", function (data) {
-        swal.close();
-        if (data !== 0) {
-            descargar(data, 'Empleados');
-        } else {
-
+    $.ajax({
+        url: "assets/php/generarExcel.php",
+        data: {
+            estado: $("#estado").val()
+        },
+        type: "POST",
+        success: function (data) {
+            Swal.close();
+            if (data !== 0) {
+                descargar(data, 'Empleados');
+            }
         }
     });
 };

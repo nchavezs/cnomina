@@ -1,5 +1,7 @@
 <?php
 include "conexion.php";
+include "municipio.php";
+
 require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -31,6 +33,7 @@ $bajas = $_POST["bajas"];
 
 $del = $_POST["del"];
 $al = $_POST["al"];
+
 $puestos = $_POST["puestos"];
 $departamentos = $_POST["departamentos"];
 
@@ -44,7 +47,8 @@ if ($del == "" || $al == "") {
 
     $titulos = [
         'font' => [
-            'size' => 20,
+            'size' => 14,
+            "bold" => true
         ],
         'alignment' => [
             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -64,6 +68,9 @@ if ($del == "" || $al == "") {
 
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+
+    $del_letra = mb_strtoupper(strftime("%d de %B del %G", strtotime($date1)));
+    $al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
 
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
@@ -92,7 +99,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:N1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'MOVIMIENTOS DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTE DE MOVIMIENTOS DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -162,7 +170,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:L1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'DESCUENTOS DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTE DE DESCUENTOS DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -235,7 +244,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:N1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'VACACIONES DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTE DE VACACIONES DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -309,7 +319,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:O1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'PERMISOS CON GOCE DE SUELDO DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTES DE PERMISOS CON GOCE DE SUELDO DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:O2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:O2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -390,7 +401,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:N1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'PERMISOS SIN GOCE DE SUELDO DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTES DE PERMISOS SIN GOCE DE SUELDO DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -457,7 +469,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:N1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'ALTAS DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTES DE ALTAS DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -535,7 +548,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('C1:L1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
         $sheet->mergeCells('A1:B1');
-        $sheet->setCellValue('C1', 'BAJAS DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTES DE BAJAS DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
@@ -641,7 +655,8 @@ if ($del == "" || $al == "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:N1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', 'PASES DEL ' . $del . ' AL ' . $al);
+        $sheet->setCellValue('C1', 'REPORTES DE PASES DEL ' . $del_letra . ' AL ' . $al_letra ."\nMUNICIPIO DE ".get_municipio());
+        $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:N2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
         $sheet->getStyle('A2:N2')->getFont()->getColor()->setRGB('FFFFFF');

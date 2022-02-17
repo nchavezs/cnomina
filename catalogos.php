@@ -164,6 +164,7 @@ if ($varFoto != null) {
 											<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo puesto</button>
 											<input type="file" id="importar-puestos" accept=".xlsx" /><label class="btn-mostrar" for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>
 											<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>
+											<button onclick="exportar_puesto_agrupado();" class="btn-mostrar"><i class="material-icons">file_download</i>Puestos agrupados</button>
 										</div>
 								</div>
 							</div>

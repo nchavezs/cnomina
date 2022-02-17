@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     $('#tabla-puesto').DataTable({
         "lengthChange": false,
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [
             [0, "desc"]
         ],
@@ -162,6 +162,20 @@ $(document).ready(function () {
 
 function exportar_puesto() {
     $.post("assets/php/exportar_puesto.php", function (data) {
+        if (data != 0) {
+            descargar(data, "Puestos.xlsx");
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se pudo generar el archivo',
+                type: 'error'
+            });
+        }
+    });
+};
+
+function exportar_puesto_agrupado() {
+    $.post("assets/php/exportar_puesto_agrupado.php", function (data) {
         if (data != 0) {
             descargar(data, "Puestos.xlsx");
         } else {

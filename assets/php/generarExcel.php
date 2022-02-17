@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+$estado = $_POST["estado"];
+
 $ruta = '../archivos/';
 if (!file_exists($ruta)) {
     mkdir($ruta, 0777, true);
@@ -20,13 +22,14 @@ $contenido = [
 	],
 ];
 
-$sql = "SELECT *,
+$sql = "SELECT Empleado.*,
+    Usuario.estado,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador
-	FROM Empleado";
+	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE estado = '".$estado."'";
 
 $consulta = mysqli_query($conexion, $sql);
 
