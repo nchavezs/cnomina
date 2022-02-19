@@ -1,10 +1,10 @@
 <?php
 	setlocale(LC_ALL, "spanish");
-    $elemento = explode("-", $_POST['id']);
-	$id = $elemento[0];
+	$id = $_POST['id'];
 	include("conexion.php");
     $conexion = conexion();
-	$sql1 = "SELECT nombre FROM Usuario WHERE RFC = (SELECT RFC FROM Gastos WHERE id_gastos = ".$id.")";
+
+	$sql1 = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Gastos WHERE id_gastos = ".$id.")";
 	$consulta1 = mysqli_query($conexion, $sql1);
 	$usuario = mysqli_fetch_array($consulta1);
 
@@ -13,10 +13,6 @@
 	$gastos = mysqli_fetch_array($consulta2);
 	
 	$datos["html"] = '<div class="card">
-						<div class="card-header card-header-primary">
-							<h4 class="card-title ">Gastos médicos</h4>
-							<p class="card-category">Empleado: '.$usuario[0].'</p>
-						</div>
 						<div class="card-body">
 							<div class="row fecha-caja">
 								<div class="col-md-6 fecha-date">
@@ -45,7 +41,7 @@
 
 							 <div class="row">
 								<div class="col-12">
-									<div class="btn btn-secondary btn-sm regresar " id="'.$gastos[1].'" onclick="verGastos(this.id);"><i class="material-icons">arrow_back</i> Regresar </div>
+									<div class="btn btn-secondary btn-sm" onclick="verGastos(\''.$usuario["RFC"].'\');"><i class="material-icons">arrow_back</i> Regresar </div>
 								</div>
 							 </div>';
 

@@ -2,17 +2,20 @@
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
-$sql = "SELECT * FROM Beneficiario WHERE RFC = '" . $id."'";
-$sql2 = "SELECT nombre FROM Usuario WHERE RFC = '" . $id."'";
-$resultado = mysqli_query($conexion, $sql);
-$resultado2 = mysqli_query($conexion, $sql2);
-$nombre = mysqli_fetch_array($resultado2);
 
-echo '<div class="card">
-		<div class="card-header card-header-primary">
-				<h4 class="card-title ">Lista de beneficiarios</h4>
-				<p class="card-category">' . $nombre[0] . '</p>
-		</div>
+
+$sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $id."'";
+$resultado = $conexion->query($sql);
+$usuario = mysqli_fetch_array($resultado);
+
+$sql = "SELECT * FROM Beneficiario WHERE RFC = '" . $id."'";
+$resultado = $conexion->query($sql);
+
+echo '<div class="p-2">
+				<h4 class="font-weight-bold text-primary">Lista de beneficiarios</h4>
+				<small class="text-muted">Beneficiarios de '.$usuario["nombre"].'.</small>
+			</div>
+	<div class="card">
 		<div class="card-body">
 				<div class="table-responsive">
 					<table class="table">';
@@ -47,7 +50,5 @@ echo '</tbody>
 		</div>
 	</div>
 </div>';
-
-echo '<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id, 1);"><i class="material-icons">arrow_back</i>Regresar</div>';
 
 mysqli_close($conexion);

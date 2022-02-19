@@ -91,92 +91,33 @@ if ($resultado = mysqli_query($conexion, $sql)) {
         }
     }
 
-    echo '<div class="contenedor">
-				<div class="row">
-					<div class="col-md-12 perfil-caja">
-						<div class="card-profile">
-							<div class="fondo">
-							</div>
-							<div class="foto-caja">
-								<img id="foto-empleado" class="foto-empleado" src="' . $imagen . '" />
-								<input type="file" id="input-foto" accept=".jpg, .png, .jpeg" style="display:none">
-							</div>
-							<div class="boton-flotante boton-info">
-								<p><span class="oculto"># Empleado</span> <i class="negrita">'.$numero.'</i></p>
-							</div>
-						</div>
-						<div class="perfil-contenido">
-							<div class="perfil-contenido1">
-								<h3>' . $res["nombre"] . '</h3>
-								<h5>' . $res["puesto"] . '</h5>
-								<h6>' . $res["departamento"] . '</h6>
-							</div>
-
-
-							<div class="perfil-contenido2">
-								<div class="row">
-									<div class="col-5 espacio">
-										
-										<h5>RFC</h5>
-										<h5>CURP</h5>
-										<h5>Trabajador</h5>
-										' . $inicio_label . '
-										' . $reingreso_label . '
-										' . $baja_label . '
-										<h5>Cuenta bancaria</h5>
-										<h5>Afiliación</h5>
-
-									</div>
-									<div class="col-7">
-										
-										<h5>' . $res["RFC"] . '</h5>
-										<h5>' . $curp . '</h5>
-										<h5>' . $trabajador . '</h5>
-										<h5>' . $inicio . '</h5>
-										' . $reingreso . '
-										' . $baja . '
-
-										<h5>' . $banca . '</h5>
-										<h5>' . $afiliacion . '</h5>
-									</div>
-									<div class="col-md-12 flecha">
-										<button id="siguiente" class="learn-more">
-											<span class="circle" aria-hidden="true"><span class="icon arrow"></span></span>
-											<span class="button-text">Ver más</span>
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<div class="perfil-iconos">
-								<div class="row">
-									<div class="col-3">
-										<div class="icono-caja">
-											<i class="material-icons">phone</i>
-											<h5>' . $tel . '</h5>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="icono-caja">
-											<i class="material-icons">email</i>
-											<h5>' . $correo . '</h5>
-										</div>
-									</div>
-									<div class="col-3">
-										<div class="icono-caja">
-											<i class="material-icons">assignment_ind</i>
-											<h5>' . ucfirst($res["estado"]) . '</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
+    echo '<div class="ver_caja">
+			<div class="ver_panel">
+				<div class="foto-caja">
+					<img id="foto-empleado" class="foto-empleado" src="' . $imagen . '" />
+					<input type="file" id="input-foto" accept=".jpg, .png, .jpeg" style="display:none">
 				</div>
-			</div>';
+
+				<p onclick="verPerfil(\''.$res["RFC"].'\')"class="activo">Perfil</p>
+				<p onclick="verNominas(\''.$res["RFC"].'\')">CFDI</p>
+				<p onclick="verBeneficiarios(\''.$res["RFC"].'\')">Beneficiarios</p>
+				<p onclick="verMovimientos(\''.$res["RFC"].'\')">Movimientos</p>
+				<p onclick="verPases(\''.$res["RFC"].'\')">Pases</p>
+				<p onclick="verVacaciones(\''.$res["RFC"].'\')">Vacaciones</p>
+				<p onclick="verPermisos(\''.$res["RFC"].'\')">Licencias</p>
+				<p onclick="verGastos(\''.$res["RFC"].'\')">Gastos médicos</p>
+				<p onclick="verExpediente(\''.$res["RFC"].'\')">Expediente</p>
+				<p onclick="verHistorial(\''.$res["RFC"].'\')">Altas y Bajas</p>
+
+			</div>
+
+			<div class="ver_contenedor">
+			</div>
+		</div>';
 } else {
     echo 0;
 }
 
 mysqli_close($conexion);
+
+

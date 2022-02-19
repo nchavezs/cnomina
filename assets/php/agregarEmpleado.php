@@ -65,6 +65,10 @@ if ($consulta && mysqli_num_rows($consulta) == 0) {
     $sql4 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
     VALUES(" . $plaza . ", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '" . $RFC . "')";
 
+    $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
+    VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+
+
     if (!$conexion->query($sql1)) {
         $errors[] = $conexion->error;
     }
@@ -75,6 +79,10 @@ if ($consulta && mysqli_num_rows($consulta) == 0) {
         $errors[] = $conexion->error;
     }
     if (!$conexion->query($sql4)) {
+        $errors[] = $conexion->error;
+    }
+
+    if (!$conexion->query($sql5)) {
         $errors[] = $conexion->error;
     }
 

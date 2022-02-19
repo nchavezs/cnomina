@@ -33,13 +33,16 @@ $sql3 = "INSERT INTO Reingreso(RFC, fecha, inicio, observacion,id_plaza) VALUES(
 '" . $RFC . "',
 STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),
 STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),
-'" . $observacion . "',
+NULLIF('" . $observacion . "', ''),
 " . $id_plaza . ")";
 
 $sql4 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $id_plaza;
 
 $sql5 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
 VALUES(" . $id_plaza . ", STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), '" . $RFC . "')";
+
+$sql6 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
+VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'reingreso', '".$observacion."')";
 
 if (!$conexion->query($sql1)) {
     $errors[] = $conexion->error;
@@ -54,6 +57,10 @@ if (!$conexion->query($sql4)) {
     $errors[] = $conexion->error;
 }
 if (!$conexion->query($sql5)) {
+    $errors[] = $conexion->error;
+}
+
+if (!$conexion->query($sql6)) {
     $errors[] = $conexion->error;
 }
 

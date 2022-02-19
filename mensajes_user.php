@@ -20,6 +20,7 @@ include "assets/php/main_user.php";
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.4.3" rel="stylesheet" />
+	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
 
 </head>
@@ -194,6 +195,7 @@ include "assets/php/main_user.php";
 	<script src="assets/js/material-dashboard.js?v=3.4.3" type="text/javascript"></script>
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
+	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 	<script src="assets/js/sesion.js?v=3.4.3"></script>
 	<script src="assets/js/mensajes-user.js?v=3.4.3"></script>
 

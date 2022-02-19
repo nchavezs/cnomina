@@ -25,8 +25,8 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td>' . date("d/m/Y", strtotime($res[5])) . '</td>
 				<td class="col-puesto">' . $res[3] . '</td>
 				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[7] . '\',\'' . $res[1] . '\',\'Vacacion\',0)">attachment</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '-" onclick="detalle_vacacion(this.id)" >visibility</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '" onclick="borrar_vacacion(this.id)">delete</a></td>
+				<td> <a class="material-icons btn1" onclick="detalle_vacacion(\''.$res[0].'\')" >visibility</a></td>
+				<td> <a class="material-icons btn1" onclick="borrar_vacacion(\''.$res[0].'\')">delete</a></td>
 			</tr>';
     }
     echo '</tbody>

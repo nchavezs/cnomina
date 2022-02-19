@@ -12,22 +12,20 @@ if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
 			<table class="table">
 				<thead class=" text-primary">
-					<th class="titulo">ID</th>
-					<th class="titulo">Fecha</th>
-					<th class="titulo">Monto</th>
-					<th class="col-puesto">Archivo</th>
-					<th class="titulo">Detalle</th>
-					<th class="titulo">Eliminar</th>
+					<th class="">Fecha</th>
+					<th class="">Monto</th>
+					<th class="oculto">Archivo</th>
+					<th class="">Detalle</th>
+					<th class="">Eliminar</th>
 				</thead>
 				<tbody>';
     while ($res = mysqli_fetch_array($consulta)) {
 		echo '<tr>
-				<td>' . str_pad($res[0] , 4, '0', STR_PAD_LEFT). '</td>
 				<td>' . date("d/m/Y", strtotime($res['fecha'])) . '</td>
 				<td>$ ' . $res['monto'] . '</td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res['url'] . '\',\'' . $res[1] . '\',\'Gastos\',0)">attachment</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '-" onclick="detalle_gastos(this.id)" >visibility</a></td>
-				<td> <a class="material-icons btn1" id="' . $res[0] . '" onclick="borrar_gastos(this.id)">delete</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res['url'] . '\',\'' . $res[1] . '\',\'Gastos\',0)">attachment</a></td>
+				<td> <a class="material-icons btn1" onclick="detalle_gastos('.$res[0].')" >visibility</a></td>
+				<td> <a class="material-icons btn1" onclick="borrar_gastos('.$res[0].')">delete</a></td>
 			</tr>';
     }
     echo '</tbody>

@@ -217,6 +217,9 @@ if ($formato) {
                                 STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
                                 '" . $RFC . "')";
 
+                                $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
+                                VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+
                             if (!$conexion->query($sql1)) {
                                 $errors[] = $conexion->error;
                                 foreach ($errors as $error) {
@@ -236,6 +239,13 @@ if ($formato) {
                                 }
                             }
                             if (!$conexion->query($sql4)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+
+                            if (!$conexion->query($sql5)) {
                                 $errors[] = $conexion->error;
                                 foreach ($errors as $error) {
                                     array_push($errores, $error);

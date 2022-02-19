@@ -191,7 +191,7 @@ $nombres = implode(" ", $arraynombre);
 $password = str_pad($id, 5, '0', STR_PAD_LEFT);
 
 $sql = "SELECT id_archivo FROM Archivo WHERE url = '" . $nombreNomina . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $total = mysqli_num_rows($consulta);
 
 if ($total == 0) {
@@ -209,18 +209,18 @@ if ($total == 0) {
             " . $periodo . "
         )";
 
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             if ($registrar_usuario == 1) {
                 if ($periodo == 3) {
                     $periodo = 1;
                 }
 
                 $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
-                $consulta = mysqli_query($conexion, $sql);
+                $consulta = $conexion->query($sql);
                 $total = mysqli_num_rows($consulta);
                 if ($consulta && $total == 0) {
                     $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
-                    if (mysqli_query($conexion, $sql)) {
+                    if ($conexion->query($sql)) {
                         $id_depa = mysqli_insert_id($conexion);
                     }
                 } elseif ($consulta && $total > 0) {
@@ -229,12 +229,12 @@ if ($total == 0) {
                 }
 
                 $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = " . $id_depa;
-                $consulta = mysqli_query($conexion, $sql);
+                $consulta = $conexion->query($sql);
                 $total = mysqli_num_rows($consulta);
 
                 if ($consulta && $total == 0) {
                     $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
-                    if (mysqli_query($conexion, $sql)) {
+                    if ($conexion->query($sql)) {
                         $id_puesto = mysqli_insert_id($conexion);
                         
                         $sql = "INSERT INTO Usuario(categoria, contrasenia, nombre, RFC) VALUES(
@@ -244,7 +244,7 @@ if ($total == 0) {
                             '" . $rfc . "'
                         )";
 
-                        if (mysqli_query($conexion, $sql)) {
+                        if ($conexion->query($sql)) {
 
                             $sql = "INSERT INTO Empleado(id_empleado, RFC, CURP, fechaRelLab,
                             id_puesto, apellidop, apellidom, nombres, id_periodo) VALUES(
@@ -257,8 +257,10 @@ if ($total == 0) {
                                 '" . $apellidom . "',
                                 '" . $nombres . "',
                                 " . $periodo . ")";
-                            if (mysqli_query($conexion, $sql)) {
-
+                            if ($conexion->query($sql)) {
+                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
+                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+                                $consulta = $conexion->query($sql);
                             }
                         }
                     }

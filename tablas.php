@@ -15,6 +15,7 @@ include "assets/php/main_user.php";
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
@@ -338,6 +339,7 @@ include "assets/php/main_user.php";
 	<script src="assets/js/tablas.js?v=3.4.3"></script>
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/select.js"></script>
+	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 	<script src="assets/js/sesion.js?v=3.4.3"></script>
 	<script src="assets/js/mensajes-user.js?v=3.4.3"></script>
 

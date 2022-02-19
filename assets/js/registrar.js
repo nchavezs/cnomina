@@ -268,57 +268,40 @@ function baja(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                showCloseButton: true,
-                position: 'center',
-                html: html,
+            $(".ver_contenedor").html(html);
 
-                showConfirmButton: false,
-
-            });
-
-            $.post("assets/php/fechaInicio.php", {
+            $.post("assets/php/fecha_historial.php", {
                 "id": id
-            }, function (datos) {
-                var date = new Date();
-                var data = JSON.parse(datos);
-                date.setFullYear(data.ano, data.mes, data.dia);
-                $('#fecha1').datepicker({
-                    minDate: date,
+            }, function (data) {
+                $('#fecha').datepicker({
+                    minDate: new Date(data),
                     maxDate: new Date(),
                     language: 'es',
                     autoClose: 'true',
                     position: "bottom center",
                     todayButton: new Date(),
-                    onSelect(formattedDate, date, inst) {
-                        if (date == '')
-                            $('#fecha1').val(valor1);
-                        else
-                            valor1 = formattedDate;
-                    }
                 });
             });
 
             $("#form-baja").submit(function (e) {
                 e.preventDefault();
-                var fechaBaja = $("#fecha1").val();
-                var razon = $("#razon").val()
-                Swal.fire({
-                    title: 'Confirmar baja de usuario',
-                    html: "<p>¿Desea dar de baja a " + $("#nombre").text() + "?</p><p>Motivo de baja: " + razon + "</p>",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, continuar',
-                    cancelButtonText: 'No',
+                let fechaBaja = $("#fecha").val();
+                let razon = $("#razon").val();
+                let retroactivo = 0;
+                if ($("#retroactivo").is(":checked")) {
+                    retroactivo = 1;
+                }
 
+                $("#modal_opciones #modal_titulo").html("Confirmar baja de empleado");
+                $("#modal_opciones .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
+                $("#modal_opciones").modal("show");
+                $("#modal_aceptar").prop("disabled",false);
 
-                }).then(function (result) {
-                    if (result.value) {
-                        baja_prenomina(fechaBaja, id, razon);
-                    } else if (result.dismiss == 'cancel') {
-                        baja(id);
-                    }
-                });
+                $("#modal_aceptar").click(function () {
+                    $("#modal_aceptar").prop("disabled",true);
+                    $("#modal_opciones").modal("hide");
+                    baja_empleado(fechaBaja, id, razon, retroactivo);
+                })
             });
         }
     });
@@ -363,23 +346,6 @@ function reestablecer_password(id) {
         }
     });
 }
-
-function baja_prenomina(fechaBaja, id, razon) {
-    Swal.fire({
-        title: '¿El empleado fué dado de baja en el periodo anterior?',
-        html: "De ser así, los días a pagar al empleado en este periodo serán 0.",
-        type: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'Si',
-        cancelButtonText: 'No',
-    }).then(function (result) {
-        if (result.value) {
-            baja_empleado(fechaBaja, id, razon, 1);
-        } else if (result.dismiss == 'cancel') {
-            baja_empleado(fechaBaja, id, razon, 0);
-        }
-    });
-};
 
 function baja_empleado(fechaBaja, id, razon, condicion) {
     $.ajax({
@@ -441,18 +407,12 @@ function reingreso(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                showCloseButton: true,
-                position: 'center',
-                html: html,
-                showConfirmButton: false,
-                width: "60em"
-            });
+            $(".ver_contenedor").html(html);
             select_estilo();
             depa_change();
             puesto_change();
 
-            $.post("assets/php/fecha_baja.php", {
+            $.post("assets/php/fecha_historial.php", {
                 "id": id
             }, function (data) {
                 $('#fecha').datepicker({
@@ -482,6 +442,8 @@ function reingreso(id) {
                 var trabajador = $("#trabajador").val();
 
                 if (trabajador != null && plaza != null) {
+                    
+
                     Swal.fire({
                         title: 'Confirmar reingreso de usuario',
                         html: "<p>¿Desea dar de alta a " + $("#nombre").val() + "?</p>",
@@ -547,7 +509,7 @@ function permiso(id) {
                     "id": id
                 },
                 success: function (html) {
-                    Swal.getContent().innerHTML = html;
+                    $(".ver_contenedor").html(html);
                     select_estilo_2();
 
                     $("#categoria").change(function () {
@@ -688,9 +650,6 @@ function permiso(id) {
 
 
 function ver(id, ventana, event) {
-    // if(event){
-    //     event.stopPropagation();
-    // }
     if (ventana == 0) {
         $.ajax({
             type: "POST",
@@ -703,10 +662,10 @@ function ver(id, ventana, event) {
                     position: 'center',
                     html: html,
                     allowOutsideClick: true,
+                    padding: 0,
+                    width: "60em",
                     showCloseButton: true,
                     showConfirmButton: false,
-
-
                 });
                 cambiarFoto(id);
                 $("#siguiente").on('click', function () {
@@ -830,17 +789,21 @@ function opciones(id) {
 
         $("#beneficiarios-link").click(function (e) {
             e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "assets/php/verBeneficiarios.php",
-                data: {
-                    "id": id
-                },
-                success: function (html) {
-                    Swal.getContent().innerHTML = html;
-                }
-            });
+
         });
+    });
+}
+
+function verBeneficiarios(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/verBeneficiarios.php",
+        data: {
+            "id": id
+        },
+        success: function (html) {
+            $(".ver_contenedor").html(html);
+        }
     });
 }
 
@@ -849,14 +812,7 @@ function detalle(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        Swal.fire({
-            position: 'center',
-            html: data.html,
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
-
-        });
+        $(".ver_contenedor").html(data.html);
 
         var fecha2 = data.fecha2.split("/");
         var fecha3 = data.fecha3.split("/");
@@ -906,17 +862,9 @@ function verNominas(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
+            $(".ver_contenedor").html(html);
 
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-
-            select_estilo_2();
+            select_estilo_3();
 
             tablas_nominas(id);
             $(".sources").change(function () {
@@ -1157,17 +1105,8 @@ function verPermisos(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
 
             tablas(id);
             $(".sources").change(function () {
@@ -1185,21 +1124,43 @@ function verVacaciones(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
 
             tablas_vacaciones(id);
             $(".sources").change(function () {
                 tablas_vacaciones(id);
             });
+        }
+    });
+};
+
+function verHistorial(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/historial.php",
+        data: {
+            "id": id
+        },
+        success: function (html) {
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
+            tablas_historial(id);
+        }
+    });
+};
+
+function tablas_historial(id) {
+    var ano = $("#ano :selected").val();
+    $.ajax({
+        type: "POST",
+        url: "assets/php/mostrarHistorial.php",
+        data: {
+            "ano": ano,
+            "id": id
+        },
+        success: function (html) {
+            $(".caja-historial").html(html);
         }
     });
 };
@@ -1216,20 +1177,7 @@ function vacacion(id) {
                     "id": id
                 },
                 success: function (html) {
-                    Swal.getContent().innerHTML = html;
-
-                    // $('#fecha1').datepicker({
-                    //     language: 'es',
-                    //     autoClose: 'true',
-                    //     position: "bottom center",
-                    //     todayButton: new Date(),
-                    //     onSelect(formattedDate, date, inst) {
-                    //         if (date == '')
-                    //             $('#fecha1').val(valor1);
-                    //         else
-                    //             valor1 = formattedDate;
-                    //     }
-                    // });
+                    $(".ver_contenedor").html(html);
                     $.post("assets/php/fechaInicio.php", {
                         "id": id
                     }, function (datos) {
@@ -1351,15 +1299,7 @@ function detalle_vacacion(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        Swal.fire({
-            position: 'center',
-            html: data.html,
-
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
-
-        });
+        $(".ver_contenedor").html(data.html);
 
         var fecha2 = data.fecha2.split("/");
         var fecha3 = data.fecha3.split("/");
@@ -1441,14 +1381,8 @@ function verMovimientos(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-            });
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
             tablas_movimientos(id);
             $(".sources").change(function () {
                 tablas_movimientos(id);
@@ -1469,14 +1403,7 @@ function movimiento(id) {
                     "id": id
                 },
                 success: function (html) {
-                    Swal.fire({
-                        position: 'center',
-                        html: html,
-                        allowOutsideClick: true,
-                        showCloseButton: true,
-                        showConfirmButton: false,
-                        width: "60em"
-                    });
+                    $(".ver_contenedor").html(html);
 
                     select_estilo();
                     depa_change();
@@ -1514,53 +1441,41 @@ function movimiento(id) {
                         if (trabajador == null || plaza == null) {
                             md.showNotification("top", "right", "Completa todos los campos.");
                         } else {
-                            Swal.fire({
-                                title: 'Confirmar movimiento',
-                                html: $("#puesto :selected").text() + "<p class='negrita2'>Nuevo puesto</p>" + $("#departamento :selected").text() + "<p class='negrita2'>Nuevo departamento</p>",
-                                type: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Si, continuar',
-                                cancelButtonText: 'No'
-                            }).then(function (result) {
-                                if (result.value) {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "assets/php/agregarMovimiento.php",
-                                        data: {
-                                            "fecha": fecha,
-                                            "id": id,
-                                            "puesto": puesto,
-                                            "departamento": departamento,
-                                            "observacion": observacion,
-                                            "trabajador": trabajador,
-                                            "plaza": plaza
-                                        },
-                                        success: function (data) {
-                                            if (data != 0) {
-                                                formato_movimiento(data);
-                                                Swal.fire({
-                                                    title: 'Correcto',
-                                                    text: 'Movimiento agregado',
-                                                    type: 'success'
-                                                }).then((result) => {
-                                                    $('#tabla-empleado').DataTable().ajax.reload();
-                                                    verMovimientos(id);
-                                                })
-                                            } else {
-                                                Swal.fire({
-                                                    title: 'Error',
-                                                    text: 'Movimiento no agregado',
-                                                    type: 'error'
-                                                }).then((result) => {
-                                                    verMovimientos(id);
-                                                })
-                                            }
-                                        }
-                                    });
+                            $("#modal_opciones .modal-body").html($("#puesto :selected").text() +
+                                "<p class='negrita2'>Nuevo puesto</p>" +
+                                $("#departamento :selected").text() +
+                                "<p class='negrita2'>Nuevo departamento</p>");
 
-                                } else if (result.dismiss == 'cancel') {
-                                    movimiento(id);
-                                }
+                            $("#modal_opciones").modal("show");
+                            $("#modal_aceptar").prop("disabled",false);
+
+                            $("#modal_aceptar").click(function () {
+                                $("#modal_aceptar").prop("disabled",true);
+                                $("#modal_opciones").modal("hide");
+                                $.ajax({
+                                    type: "POST",
+                                    url: "assets/php/agregarMovimiento.php",
+                                    data: {
+                                        "fecha": fecha,
+                                        "id": id,
+                                        "puesto": puesto,
+                                        "departamento": departamento,
+                                        "observacion": observacion,
+                                        "trabajador": trabajador,
+                                        "plaza": plaza
+                                    },
+                                    success: function (data) {
+                                        if (data != 0) {
+                                            formato_movimiento(data);
+                                            md.showNotification("top", "right", "Datos agregados.");
+                                            $('#tabla-empleado').DataTable().ajax.reload();
+                                            verMovimientos(id);
+                                        } else {
+                                            md.showNotification("top", "right", "Ocurrió un error.");
+                                            verMovimientos(id);
+                                        }
+                                    }
+                                });
                             });
                         }
                     });
@@ -1578,13 +1493,7 @@ function detalle_movimiento(id) {
     $.post("assets/php/detalleMovimiento.php", {
         "id": id
     }, function (html) {
-        Swal.fire({
-            position: 'center',
-            html: html,
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false
-        });
+        $(".ver_contenedor").html(html);
     });
 };
 
@@ -1674,17 +1583,7 @@ function verExpediente(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-
-                allowOutsideClick: false,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-                width: '50em'
-            });
-
+            $(".ver_contenedor").html(html);
             expediente_menu(id);
         }
     });
@@ -1721,7 +1620,7 @@ function expediente_menu(id) {
                             "id": id
                         },
                         success: function (html) {
-                            Swal.getContent().innerHTML = html;
+                            $(".ver_contenedor").html(html);
                             expediente_menu(id);
                         }
                     });
@@ -1830,16 +1729,8 @@ function verGastos(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
             tablas_gastos(id);
             $(".sources").change(function () {
                 tablas_gastos(id);
@@ -1861,7 +1752,7 @@ function gastos(id) {
                     "id": id
                 },
                 success: function (html) {
-                    Swal.getContent().innerHTML = html;
+                    $(".ver_contenedor").html(html);
 
                     $('#monto').keypress(function (event) {
                         if (((event.which != 46 || (event.which == 46 && $(this).val() == '')) ||
@@ -2017,15 +1908,7 @@ function detalle_gastos(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        Swal.fire({
-            position: 'center',
-            html: data.html,
-
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
-
-        });
+        $(".ver_contenedor").html(data.html);
         var date1 = data.fecha.split("/");
         var date2 = new Date(date1[2], parseInt(date1[1]) - 1, date1[0]);
         $('#fecha').datepicker({
@@ -2051,16 +1934,8 @@ function verDescuentos(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
             tablas_descuentos(id);
             $(".sources").change(function () {
                 tablas_descuentos(id);
@@ -2229,15 +2104,7 @@ function detalle_descuento(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        Swal.fire({
-            position: 'center',
-            html: data.html,
-
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
-
-        });
+        $(".ver_contenedor").html(html);
 
         var fechas = data.fechas.split(",");
         var fecha1 = fechas[0].split("/");
@@ -2470,15 +2337,8 @@ function verPases(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-                allowOutsideClick: true,
-                showCloseButton: true,
-                showConfirmButton: false,
-
-            });
-            select_estilo_2();
+            $(".ver_contenedor").html(html);
+            select_estilo_3();
             tablas_pases(id);
             $(".sources").change(function () {
                 tablas_pases(id);
@@ -2499,7 +2359,7 @@ function pase(id) {
                     "id": id
                 },
                 success: function (html) {
-                    Swal.getContent().innerHTML = html;
+                    $(".ver_contenedor").html(html);
 
                     $.post("assets/php/fechaInicio.php", {
                         "id": id
@@ -2650,15 +2510,7 @@ function detalle_pase(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        Swal.fire({
-            position: 'center',
-            html: data.html,
-
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
-
-        });
+        $(".ver_contenedor").html(data.html);
         var date1 = data.fecha.split("/");
         var date2 = new Date(date1[2], parseInt(date1[1]) - 1, date1[0]);
         var hora1 = data.hora.split(" ");

@@ -56,7 +56,7 @@ Dropzone.options.myAwesomeDropzone = {
                 myDropzone.options.autoProcessQueue = true;
                 myDropzone.processQueue();
                 clearInterval(numero_evento);
-                mensaje();
+                show_mensaje();
             });
         });
 
@@ -93,7 +93,7 @@ Dropzone.options.myAwesomeDropzone = {
 };
 
 
-function mensaje() {
+function show_mensaje() {
     Swal.fire({
         title: 'Subiendo archivos',
         html: 'Espere porfavor',

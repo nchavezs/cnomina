@@ -242,6 +242,7 @@ include "./assets/php/comprobar_catalago.php";
                             </div>
                         </div>
                     </div>
+
                     <div class="table-responsive adp-hide">
                         <div class="opciones_tabla">
                             <select id="estado">
@@ -266,21 +267,25 @@ include "./assets/php/comprobar_catalago.php";
                 </div>
             </div>
 
-            <footer class="footer">
-                <div class="chat_fondo"></div>
-                <div class="chat">
-                    <i class="material-icons">chat</i>
-                </div>
-
-                <div class="chat_caja">
-                    <div class="chat_cerrar">x</div>
-                    <div class="chat_cuerpo"></div>
-                    <div class="chat_input">
-                        <textarea id="chat-input" placeholder="Escribe tu mensaje" rows="1"></textarea>
-                        <i class="material-icons text-success chat_enviar">send</i>
+            <div class="modal fade" id="modal_opciones" data-backdrop="static" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_titulo"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-sm btn-primary" id="modal_aceptar">Continuar</button>
+                    </div>
                     </div>
                 </div>
-            </footer>
+            </div>
+
+            <footer class="footer"></footer>
         </div>
     </div>
     <script src="assets/js/core/jquery.min.js"></script>
@@ -299,9 +304,9 @@ include "./assets/php/comprobar_catalago.php";
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
     <script src="assets/js/moment.js"></script>
     <script src="assets/js/plugins/animate/adp.js"></script>
-    <script src="assets/js/registrar.js?v=3.4.3"></script>
+    <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
     <script src="assets/js/sesion.js?v=3.4.3"></script>
-
+    <script src="assets/js/registrar.js?v=3.4.3"></script>
 </body>
 
 </html>

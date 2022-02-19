@@ -7,14 +7,15 @@
 	$usuario = mysqli_fetch_array($consulta);
 	setlocale(LC_ALL, "spanish");
 	$hoy = date("d/m/Y");
+	
 
 	// $sql2 = "SELECT COUNT(*) FROM Permiso WHERE RFC = '".$id[0]."'";
 	// $consulta2 = mysqli_query($conexion, $sql2);
 	// $permiso = mysqli_fetch_array($consulta2);
 	// $permiso[0] = $permiso[0]+1;
 	
-	echo '<form class="formulario_caja" id="form-permiso">
-			<div class="formulario">
+	echo '<form id="form-permiso">
+			<div class="">
 				<div class="p-2">
 					<h4 class="font-weight-bold text-primary">Registrar nuevo permiso</h4>
 					<small class="text-muted">Nuevo permiso para '.$usuario["nombre"].'.</small>
@@ -45,7 +46,7 @@
 							</div>
 							<div class="col-md-12">
 								<div class="select-etiqueta">Descripción <cite class="text-danger"> opcional</cite></div>
-								<textarea id="descripcion" class="campo" rows="5"></textarea>
+								<textarea id="descripcion" class="campo" rows="3"></textarea>
 							</div>
 						</div>
 					</div>

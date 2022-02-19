@@ -19,6 +19,7 @@ if (rol() != 1) {
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
 	<link href="assets/css/select2.css?v=3.4.3" rel="stylesheet" />
 	<link href="assets/js/plugins/datatables/datatables.min.css" rel="stylesheet" />
@@ -254,6 +255,7 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/catalagos.js?v=3.4.3"></script>
+	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 	<script src="assets/js/sesion.js?v=3.4.3"></script>
 
 </body>

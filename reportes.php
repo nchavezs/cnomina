@@ -16,6 +16,7 @@ if (rol() != 1) {
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
@@ -469,6 +470,7 @@ if (rol() != 1) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
 	<script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
+	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 	<script src="assets/js/sesion.js?v=3.4.3"></script>
 	<script src="assets/js/reportes.js?v=3.4.3"></script>
 

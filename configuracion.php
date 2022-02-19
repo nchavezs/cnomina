@@ -20,7 +20,8 @@ if (rol() != 1) {
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
+    <link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/dropzone.min.css" rel="stylesheet" />
     <link href="assets/css/sweetalert2.min.css?v=3.4.3" rel="stylesheet" />

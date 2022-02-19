@@ -48,6 +48,10 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
                     $sql = "UPDATE Historial_Plaza SET fecha_fin = STR_TO_DATE('" . $fecha . "','%d/%m/%Y') WHERE id_historial_plaza = " . $historial[0];
                     $consulta = $conexion->query($sql);
 
+                    $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
+                    VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'baja', '".$razon."')";
+                    $consulta = $conexion->query($sql);
+
                     // -----------------------------------------------------------------------
 
                     echo 1;

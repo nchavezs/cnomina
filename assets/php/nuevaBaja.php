@@ -2,49 +2,53 @@
 $id = $_POST['id'];
 include "conexion.php";
 $conexion = conexion();
-
-$sql1 = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
-$consulta1 = mysqli_query($conexion, $sql1);
-$resultado1 = mysqli_fetch_array($consulta1);
 setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 
-echo '<form id="form-baja">
-			<div class="card">
-				<div class="card-header card-header-primary">
-					<h4 class="card-title ">Baja de empleado</h4>
-					<p class="card-category">Empleado: <span id="nombre">' . $resultado1[6] . '</span></p>
+$sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
+$consulta = $conexion->query($sql);
+$usuario = mysqli_fetch_array($consulta);
 
-				</div>
+echo '<form id="form-baja">
+			<div class="p-2">
+				<h4 class="font-weight-bold text-primary">Registrar baja de empleado</h4>
+				<small class="text-muted">Completa el siguiente formulario para dar de baja a <span id="nombre">' . $usuario["nombre"] . '</span> .</small>
+			</div>
+			<div class="card">
 				<div class="card-body">
 					<div class="row">
 
 						<div class="col-md-12">
-							<div class="form-group">
 							<div class="select-etiqueta">Fecha de baja</div>
-							  <input id="fecha1" type="text" class="form-control datepicker-here" readonly value="' . $hoy . '"/>
-							</div>
+							<input id="fecha" type="text" class="campo" readonly value="' . $hoy . '"/>
 						</div>
 
 						<div class="col-md-12">
-							<div class="form-group">
 							<div class="select-etiqueta">Motivo de baja</div>
-								<textarea id="razon" required class="form-control" rows="5"></textarea>
-							</div>
+							<textarea id="razon" required class="campo" rows="5"></textarea>
 						</div>
 
 					</div>
 				</div>
-			</div>';
-
-echo '<div class="row">
-				<div class="col-6">
-					<div class="btn btn-secondary btn-sm regresar " id="' . $id . '" onclick="ver(this.id,1);"><i class="material-icons">arrow_back</i> Regresar </div>
-					</div>
-				<div class="col-6">
-					<button type="submit" class="btn btn-secondary btn-sm regresar " ><i class="material-icons">thumb_down_alt</i> Dar de baja </button>
-				</div>
 			</div>
-		</form>';
+			
+			<div class="card">
+					<div class="card-body">
+						<div class="check_opciones">
+							<div class="toggle-btn">
+								<input id="retroactivo" type="checkbox" class="cb-value" /> 
+								<span class="round-btn"></span>
+							</div>
+							<span class="text-muted ml-3">¿El empleado fue dado de baja en el periodo anterior? Se establecerán 0 días a pagar para este periodo.</span>	
+
+						</div>
+					</div>
+				</div>';
+
+echo '<div class="pie">
+		<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $id . '\',1);">Regresar </div>
+		<button type="submit" class="btn btn-danger btn-sm" ><i class="material-icons">thumb_down_alt</i> Dar de baja </button>
+	</div>	
+</form>';
 
 mysqli_close($conexion);

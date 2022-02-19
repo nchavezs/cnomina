@@ -314,3 +314,15 @@ $(document).on("click", '.cb-value', function () {
 function soporte(){
    $("#nomina").click();
 }
+
+
+function mensaje(titulo, texto, color) {
+   iziToast.show({
+       title: titulo
+       , message: texto
+       , color: color
+       , theme: "dark"
+       , position: "bottomCenter"
+       , transitionIn: 'revealIn'
+   , });
+ }
