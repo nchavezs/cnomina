@@ -26,7 +26,7 @@
 						
 						<div class="col-md-6">
 							<div class="select-etiqueta">Monto $</div>
-							<input id="monto" type="text" class="campo" required="true" />
+							<input onkeypress="validate(event);" id="monto" type="text" class="campo" required="true" />
 						</div>
 
 						<div class="col-md-12">

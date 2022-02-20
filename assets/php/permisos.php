@@ -32,10 +32,9 @@ if (mysqli_num_rows($resultado) == 0) {
 			<select id="ano" class="sources">';
 			$ano = date("Y");
 			for($i=2022;$i<=2025;$i++){
+				$select_ano = "";
 				if($ano == $i)
 					$select_ano = "selected";
-				else
-					$select_ano = "";
 				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
 			}
 			echo '

@@ -34,7 +34,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="select-etiqueta">Días de permiso</div>
-								<input id="dias" type="text" class="campo" disabled onkeypress="return isNumberKey(event)">
+								<input id="dias" value="1" type="text" class="campo" disabled onkeypress="return isNumberKey(event)">
 							</div>
 							<div class="col-md-6">
 								<div class="select-etiqueta">Periodo del</div>

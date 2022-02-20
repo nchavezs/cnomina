@@ -28,15 +28,14 @@ if (mysqli_num_rows($consulta) == 0) {
 
 		<div class="ver_opciones">
 			<select id="ano" class="sources">';
-				$ano = date("Y");
-				for($i=2022;$i<=2025;$i++){
-					$select_ano = "";
-					if($ano == $i)
-						$select_ano = "selected";
-					echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
-				}
-				echo '
-			</select>
+			$ano = date("Y");
+			for($i=2022;$i<=2025;$i++){
+				$select_ano = "";
+				if($ano == $i)
+					$select_ano = "selected";
+				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
+			}
+			echo '</select>
 			<div class="btn btn-secondary btn-sm" onclick="vacacion(\''.$id.'\')"><i class="material-icons">add</i> Nuevo </div>
 
 			</div>

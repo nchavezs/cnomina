@@ -3,11 +3,12 @@ $id = $_POST['id'];
 include "conexion.php";
 $conexion = conexion();
 
+setlocale(LC_ALL, "spanish");
+$hoy = date("d/m/Y");
+
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id. "'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
-setlocale(LC_ALL, "spanish");
-$hoy = date("d/m/Y");
 
 echo '<form id="form-pase">
 			<div class="p-2">
@@ -19,7 +20,7 @@ echo '<form id="form-pase">
 						<div class="row">
 							<div class="col-md-6 fecha-date">
 								<div id="fecha" class="datepicker-here"></div>
-								<input id="temporal" type="hidden" />
+								<input id="pase" type="hidden" />
 							</div>
 							<div class="col-md-6">
 								<div class="row">

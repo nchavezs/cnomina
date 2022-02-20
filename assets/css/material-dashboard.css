@@ -2155,7 +2155,8 @@ div[data-notify=container] {
     padding: 4px 10px !important;
     width: 100%;
     color: #fff !important;
-    font-weight: 700
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .alta {
@@ -2166,7 +2167,8 @@ div[data-notify=container] {
     border-radius: 50px;
     padding: 4px 10px;
     color: #fff !important;
-    font-weight: 700
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .manual {

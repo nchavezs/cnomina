@@ -105,6 +105,7 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 				<p onclick="verPases(\''.$res["RFC"].'\')">Pases</p>
 				<p onclick="verVacaciones(\''.$res["RFC"].'\')">Vacaciones</p>
 				<p onclick="verPermisos(\''.$res["RFC"].'\')">Licencias</p>
+                <p onclick="verDescuentos(\''.$res["RFC"].'\')">Descuentos</p>
 				<p onclick="verGastos(\''.$res["RFC"].'\')">Gastos médicos</p>
 				<p onclick="verExpediente(\''.$res["RFC"].'\')">Expediente</p>
 				<p onclick="verHistorial(\''.$res["RFC"].'\')">Altas y Bajas</p>

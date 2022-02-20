@@ -126,13 +126,12 @@ if ($mes12 == $mes) {
 echo '<div class="container-fluid">
 		<select name="sources" id="ano" class="custom-select sources">';
 		$ano = date("Y");
-		for($i=2022;$i<=2025;$i++){
-			if($ano == $i)
-				$select_ano = "selected";
-			else
+			for($i=2022;$i<=2025;$i++){
 				$select_ano = "";
-			echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
-		}
+				if($ano == $i)
+					$select_ano = "selected";
+				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
+			}
 		echo '</select>
 
 		<select id="mes" class="custom-select sources">

@@ -33,7 +33,7 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
         $ocupados = $diff->format('%a') + 1;
 
         $html=$html. '<div class="col-md-6">
-                        <div class="card overflow-hidden">
+                        <div class="card overflow-hidden my-3">
                             <div class="card-body historial_caja">
                                 <div class="historial_img"><img src="assets/img/user.png" alt=""></div>
                                 <div class="historial_usuario">

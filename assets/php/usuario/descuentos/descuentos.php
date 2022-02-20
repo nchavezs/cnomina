@@ -127,10 +127,9 @@ echo '<div class="container-fluid">
                 <select name="sources" id="ano" class="custom-select sources">';
                 $ano = date("Y");
                 for($i=2022;$i<=2025;$i++){
+                    $select_ano = "";
                     if($ano == $i)
                         $select_ano = "selected";
-                    else
-                        $select_ano = "";
                     echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
                 }
                 echo '</select>
