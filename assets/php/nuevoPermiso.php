@@ -17,8 +17,8 @@
 	echo '<form id="form-permiso">
 			<div class="">
 				<div class="p-2">
-					<h4 class="font-weight-bold text-primary">Registrar nuevo permiso</h4>
-					<small class="text-muted">Nuevo permiso para '.$usuario["nombre"].'.</small>
+					<h4 class="font-weight-bold text-primary">Registrar nueva licencia</h4>
+					<small class="text-muted">Nueva licencia para '.$usuario["nombre"].'.</small>
 				</div>
 				<div class="card">
 					<div class="card-body">

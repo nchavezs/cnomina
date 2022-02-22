@@ -1,17 +1,28 @@
 <?php
-	$id = $_POST['id'];
-	$tabla = $_POST['tabla'];
-	$usuario = $_POST['usuario'];
+include "conexion.php";
+$conexion = conexion();
 
-	$ruta = './../'.mb_strtolower($tabla).'/'.$id.'_'.$usuario;
-	if (!file_exists($ruta))
-   	mkdir($ruta, 0777, true);
-	$archivo = $_FILES['file']['name'];
-	$ext = pathinfo($archivo, PATHINFO_EXTENSION);
-	$ruta = $ruta.'/archivo.'.$ext;
-	move_uploaded_file($_FILES['file'][ 'tmp_name'], $ruta);
+$id = $_POST['id'];
+$tabla = $_POST['tabla'];
+$usuario = $_POST['usuario'];
 
-	$ruta = 'assets/'.mb_strtolower($tabla).'/'.$id.'_'.$usuario.'/archivo.'.$ext;
+$ruta = './../' . mb_strtolower($tabla) . '/' . $id . '_' . $usuario;
+if (!file_exists($ruta)) {
+    mkdir($ruta, 0777, true);
+}
 
-	echo $ruta;
-?>
+$archivo = $_FILES['file']['name'];
+$ext = pathinfo($archivo, PATHINFO_EXTENSION);
+$ruta = $ruta . '/archivo.' . $ext;
+move_uploaded_file($_FILES['file']['tmp_name'], $ruta);
+
+$url = 'assets/' . mb_strtolower($tabla) . '/' . $id . '_' . $usuario . '/archivo.' . $ext;
+
+$sql = "UPDATE " . $tabla . "  SET url = '" . $url . "' WHERE id_" . mb_strtolower($tabla) . " = " . $id;
+if ($conexion->query($sql)) {
+    echo 1;
+} else {
+    echo 0;
+}
+
+mysqli_close($conexion);

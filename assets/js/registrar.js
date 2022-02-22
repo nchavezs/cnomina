@@ -238,21 +238,15 @@ $(document).ready(function () {
     $(document).on("click", "#tabla-empleado tbody tr", function (e) {
         var data = table.row(this).data();
         ver(data[0], 0);
+        //error consola en empty row
     });
 });
 
 function mensaje_baja(id) {
-    var user = id + "";
-    var idUsuario = user.split("-");
-    Swal.fire({
-        title: 'Usuario dado de baja',
-        text: 'Este usuario se encuentra actualmente dado de baja por lo que no podrá realizar nuevos movimientos.',
-        type: 'warning',
-        customClass: 'animated fadeInDown'
-    }).then((result) => {
-        ver(idUsuario[0], 1);
-
-    })
+    $("#modal .modal_titulo").html("Usuario dado de baja");
+    $("#modal .modal-body").html('Este usuario se encuentra actualmente dado de baja por lo que no podrá realizar nuevos movimientos.');
+    mostrar_modal();
+    $("#modal .modal-footer").hide();
 }
 
 
@@ -260,7 +254,7 @@ function baja(id) {
     $.post("assets/php/fecha_historial.php", {
         "id": id
     }, function (data) {
-        let d1 = moment(new Date(),"YYYY-MM-DD");
+        let d1 = moment(new Date(), "YYYY-MM-DD");
         let d2 = moment(data, "YYYY-MM-DD");
         if (d1.isSameOrAfter(d2)) {
             $.ajax({
@@ -291,8 +285,8 @@ function baja(id) {
                             retroactivo = 1;
                         }
 
-                        $("#modal_opciones #modal_titulo").html("Confirmar baja de empleado");
-                        $("#modal_opciones .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
+                        $("#modal .modal_titulo").html("Confirmar baja de empleado");
+                        $("#modal .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
                         mostrar_modal();
 
                         $("#modal_aceptar").off().click(function () {
@@ -376,7 +370,7 @@ function reingreso(id) {
     $.post("assets/php/fecha_historial.php", {
         "id": id
     }, function (data) {
-        let d1 = moment(new Date(),"YYYY-MM-DD");
+        let d1 = moment(new Date(), "YYYY-MM-DD");
         let d2 = moment(data, "YYYY-MM-DD");
         if (d1.isSameOrAfter(d2)) {
             $.ajax({
@@ -409,8 +403,8 @@ function reingreso(id) {
                         var trabajador = $("#trabajador").val();
 
                         if (trabajador != null && plaza != null) {
-                            $("#modal_opciones #modal_titulo").html("Confirmar reingreso de empleado");
-                            $("#modal_opciones .modal-body").html("¿Dar de alta a " + $("#nombre").val() + "?");
+                            $("#modal .modal_titulo").html("Confirmar reingreso de empleado");
+                            $("#modal .modal-body").html("¿Dar de alta a " + $("#nombre").val() + "?");
 
                             mostrar_modal();
 
@@ -546,27 +540,10 @@ function permiso(id) {
                                     success: function (html) {
                                         $(".continuar").prop("disabled", true);
                                         if (html == 0) {
-                                            Swal.fire({
-                                                title: 'Correcto',
-                                                text: 'Licencia agregada',
-                                                type: 'success',
-
-
-                                            }).then((result) => {
-                                                var idUsuario = id.split("-");
-                                                verPermisos(idUsuario[0]);
-                                            })
+                                            md.showNotification("top", "right", "Licencia agregada correctamente.");
+                                            verPermisos(id);
                                         } else {
-                                            Swal.fire({
-                                                title: 'Error',
-                                                text: 'Licencia no agregada',
-                                                type: 'error',
-
-
-                                            }).then((result) => {
-                                                var idUsuario = id.split("-");
-                                                verPermisos(idUsuario[0]);
-                                            })
+                                            md.showNotification("top", "right", "Licencia no agregadas.");
                                         }
 
                                     }
@@ -877,21 +854,17 @@ function archivo2(url, id) {
 };
 
 function archivo(id, url, usuario, tabla, condicion) {
-    if (url === "") {
-        Swal.fire({
-            title: 'No se ha encontrado archivo',
-            html: '<div class="col-md-12"><p>Seleccione un archivo para continuar.</p></div><div class="col-md-12"><input type="file" accept=".pdf, .xlsx" id="file" /><label for="file" class="btn-3"><span><i class="material-icons">cloud_upload</i>Subir archivo</span></label></div>',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Continuar',
-            cancelButtonText: 'Cancelar',
+    alert(url);
+    if (url == "") {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/form_archivo.php",
+            success: function (html) {
+                $("#modal .modal_titulo").html("Archivo");
+                $("#modal .modal-body").html(html);
+                mostrar_modal();
+                $("#modal .modal-footer").hide();
 
-
-            preConfirm: () => {
-                if (document.getElementById('file').value == "")
-                    Swal.showValidationMessage("Seleccione un archivo")
-            },
-            onOpen: function () {
                 $("#file").change(function () {
                     if ($("#file").val() !== "") {
                         $.blockUI({
@@ -913,41 +886,16 @@ function archivo(id, url, usuario, tabla, condicion) {
                             processData: false,
                             cache: false,
                             success: function (html) {
-                                url = html;
                                 $.unblockUI();
                                 md.showNotification("top", "right", "Archivo cargado correctamente.");
+                                ocultar_modal();
+                                ventanaRegresar(tabla, condicion, id, usuario);
                             }
                         });
                     }
                 });
             }
-        }).then(function (result) {
-            if (result.value) {
-                $.ajax({
-                    type: "POST",
-                    url: "assets/php/actualizarArchivo.php",
-                    data: {
-                        "url": url,
-                        "tabla": tabla,
-                        "id": id
-                    },
-                    success: function () {
-                        Swal.fire({
-                            title: 'Correcto',
-                            text: 'Archivo cargado',
-                            type: 'success',
-
-
-                        }).then((result) => {
-                            ventanaRegresar(tabla, condicion, id, usuario);
-                        })
-                    }
-                });
-            } else if (result.dismiss == 'cancel') {
-                ventanaRegresar(tabla, condicion, id, usuario);
-
-            }
-        })
+        });
     } else
         window.open(url, '_blank');
 };
@@ -1170,27 +1118,11 @@ function vacacion(id) {
 
                                     },
                                     success: function (html) {
-                                        var idUsuario = id.split("-");
                                         if (html == 0) {
-                                            Swal.fire({
-                                                title: 'Correcto',
-                                                text: 'Vacaciones agregadas',
-                                                type: 'success',
-
-
-                                            }).then((result) => {
-                                                verVacaciones(idUsuario[0]);
-                                            })
+                                            md.showNotification("top", "right", "Vacaciones agregadas correctamente.");
+                                            verVacaciones(id);
                                         } else {
-                                            Swal.fire({
-                                                title: 'Error',
-                                                text: 'No agregado',
-                                                type: 'error',
-
-
-                                            }).then((result) => {
-                                                verVacaciones(idUsuario[0]);
-                                            })
+                                            md.showNotification("top", "right", "Vacaciones no agregadas.");
                                         }
                                     }
                                 });
@@ -1254,49 +1186,21 @@ function detalle_vacacion(id) {
 };
 
 function borrar_vacacion(id) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarVacacion.php",
-                data: {
-                    "id": id,
-                    "condicion": 1
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Registro eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verVacaciones(data);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarVacacion.php",
-                data: {
-                    "id": id,
-                    "condicion": 0
-                },
-                success: function (data) {
-                    verVacaciones(data);
-                }
-            });
-        }
+    $("#modal .modal_titulo").html("Eliminar pase");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este registro?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarVacacion.php",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                verVacaciones(data);
+                ocultar_modal();
+            }
+        });
     })
 };
 
@@ -1365,17 +1269,18 @@ function movimiento(id) {
                         if (trabajador == null || plaza == null) {
                             md.showNotification("top", "right", "Completa todos los campos.");
                         } else {
-                            $("#modal_opciones .modal-body").html($("#puesto :selected").text() +
-                                "<p class='negrita2'>Nuevo puesto</p>" +
+                            $("#modal .modal_titulo").html("Confirmar movimiento");
+                            $("#modal .modal-body").html($("#puesto :selected").text() +
+                                "<p>Nuevo puesto</p>" +
                                 $("#departamento :selected").text() +
-                                "<p class='negrita2'>Nuevo departamento</p>");
+                                "<p>Nuevo departamento</p>");
 
-                            $("#modal_opciones").modal("show");
+                            $("#modal").modal("show");
                             $("#modal_aceptar").prop("disabled", false);
 
                             $("#modal_aceptar").click(function () {
                                 $("#modal_aceptar").prop("disabled", true);
-                                $("#modal_opciones").modal("hide");
+                                $("#modal").modal("hide");
                                 $.ajax({
                                     type: "POST",
                                     url: "assets/php/agregarMovimiento.php",
@@ -1608,41 +1513,26 @@ function descargar_expediente(id, nombre) {
 };
 
 function eliminar_expediente(id, nombre) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este archivo?",
-        type: 'warning',
-        showCancelButton: true,
-        allowOutsideClick: false,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarExpediente.php",
-                data: {
-                    "id": id,
-                    "nombre": nombre
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Archivo eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verExpediente(id);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            verExpediente(id);
-        }
+    $("#modal .modal_titulo").html("Eliminar archivo");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este archivo?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarExpediente.php",
+            data: {
+                "id": id,
+                "nombre": nombre
+            },
+            success: function (data) {
+                md.showNotification("top", "right", "Archivo eliminado correctamente.");
+                ocultar_modal();
+                verExpediente(id);
+            }
+        });
     })
+
+
 };
 
 function verGastos(id) {
@@ -1716,25 +1606,10 @@ function gastos(id) {
                                 success: function (html) {
                                     var idUsuario = id.split("-");
                                     if (html == 0) {
-                                        Swal.fire({
-                                            title: 'Correcto',
-                                            text: 'Gastos médicos agregados',
-                                            type: 'success',
-
-
-                                        }).then((result) => {
-                                            verGastos(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Gastos médicos agregados correctamente.");
+                                        verGastos(id);
                                     } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: 'No agregado',
-                                            type: 'error',
-
-
-                                        }).then((result) => {
-                                            verGastos(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Gastos médicos no agregados.");
                                     }
                                 }
                             });
@@ -1767,49 +1642,21 @@ function tablas_gastos(id) {
 
 
 function borrar_gastos(id) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarGastos.php",
-                data: {
-                    "id": id,
-                    "condicion": 1
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Registro eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verGastos(data);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarGastos.php",
-                data: {
-                    "id": id,
-                    "condicion": 0
-                },
-                success: function (data) {
-                    verGastos(data);
-                }
-            });
-        }
+    $("#modal .modal_titulo").html("Eliminar pase");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este registro?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarGastos.php",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                verGastos(data);
+                ocultar_modal();
+            }
+        });
     })
 };
 
@@ -1911,25 +1758,10 @@ function descuento(id) {
                                 success: function (html) {
                                     var idUsuario = id.split("-");
                                     if (html == 0) {
-                                        Swal.fire({
-                                            title: 'Correcto',
-                                            text: 'Descuento agregado',
-                                            type: 'success',
-
-
-                                        }).then((result) => {
-                                            verDescuentos(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Descuento agregado correctamente.");
+                                        verDescuentos(id);
                                     } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: 'No agregado',
-                                            type: 'error',
-
-
-                                        }).then((result) => {
-                                            verDescuentos(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Descuento no agregado.");
                                     }
                                 }
                             });
@@ -2012,7 +1844,7 @@ function detalle_descuento(id) {
         "id": id
     }, function (datos) {
         var data = JSON.parse(datos);
-        $(".ver_contenedor").html(html);
+        $(".ver_contenedor").html(data.html);
 
         var fechas = data.fechas.split(",");
         var fecha1 = fechas[0].split("/");
@@ -2298,35 +2130,13 @@ function pase(id) {
                                     "observacion": $("#observacion").val(),
                                 },
                                 success: function (html) {
-                                    var idUsuario = id.split("-");
                                     if (html == 1) {
-                                        Swal.fire({
-                                            title: 'Correcto',
-                                            text: 'Pase agregado',
-                                            type: 'success',
-                                        }).then((result) => {
-                                            verPases(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Pase agregado correctamente.");
+                                        verPases(id);
                                     } else if (html == 2) {
-                                        Swal.fire({
-                                            title: 'Advertencia',
-                                            text: 'Debe especificar fecha y hora',
-                                            type: 'warning',
-
-
-                                        }).then((result) => {
-                                            verPases(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Deber especificar una fecha y hora.");
                                     } else {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: 'No agregado',
-                                            type: 'error',
-
-
-                                        }).then((result) => {
-                                            verPases(idUsuario[0]);
-                                        })
+                                        md.showNotification("top", "right", "Pase no agregado.");
                                     }
                                 }
                             });
@@ -2362,49 +2172,21 @@ function tablas_pases(id) {
 };
 
 function borrar_pase(id) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarPase.php",
-                data: {
-                    "id": id,
-                    "condicion": 1
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Registro eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verPases(data);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarPase.php",
-                data: {
-                    "id": id,
-                    "condicion": 0
-                },
-                success: function (data) {
-                    verPases(data);
-                }
-            });
-        }
+    $("#modal .modal_titulo").html("Eliminar pase");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este registro?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarPase.php",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                verPases(data);
+                ocultar_modal();
+            }
+        });
     })
 };
 
@@ -2455,40 +2237,27 @@ function formato_movimiento(id) {
 }
 
 function eliminar_archivo(id, tabla) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar el archivo actual?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
 
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarArchivo.php",
-                data: {
-                    "id": id,
-                    "tabla": tabla
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Archivo eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        ventanaRegresar(tabla, 1, id, 0);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            ventanaRegresar(tabla, 1, id, 0);
-        }
+    $("#modal .modal_titulo").html("Eliminar archivo");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este archivo?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarArchivo.php",
+            data: {
+                "id": id,
+                "tabla": tabla
+            },
+            success: function (data) {
+                md.showNotification("top", "right", "Archivo eliminado correctamente.");
+                ventanaRegresar(tabla, 1, id, null);
+                ocultar_modal();
+            }
+        });
     })
+
+
 
 }
 

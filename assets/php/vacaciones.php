@@ -3,13 +3,13 @@ include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
-$sql = "SELECT * FROM Vacacion WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
 
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
+$sql = "SELECT * FROM Vacacion WHERE RFC = '" . $id . "'";
+$consulta = mysqli_query($conexion, $sql);
 
 if (mysqli_num_rows($consulta) == 0) {
     echo '<div class="vacia">

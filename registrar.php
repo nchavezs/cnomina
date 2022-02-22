@@ -267,13 +267,13 @@ include "./assets/php/comprobar_catalago.php";
                 </div>
             </div>
 
-            <div class="modal fade" id="modal_opciones" data-backdrop="static" tabindex="-1" role="dialog">
+            <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal_titulo"></h5>
+                        <h4 class="modal-title modal_titulo text-primary "></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body"></div>

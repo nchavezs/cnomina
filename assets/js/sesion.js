@@ -7,6 +7,11 @@ $(document).ready( function () {
 
       $('.dataTable').DataTable.ext.pager.numbers_length = 5;
 
+      $(document).on("click", ".ver_panel p", function () {
+         $(".ver_panel p").removeClass("activo");
+         $(this).addClass("activo");
+      });
+
       // numero();
       // numero_evento = setInterval(numero, 10000);
 
@@ -330,13 +335,14 @@ function mensaje(titulo, texto, color) {
 
  function ocultar_modal(){
    $("#modal_aceptar").prop("disabled", true);
-   $("#modal_opciones").modal("hide");
+   $("#modal").modal("hide");
  }
 
  
  function mostrar_modal(){
+   $("#modal .modal-footer").show();
    $("#modal_aceptar").prop("disabled", false);
-   $("#modal_opciones").modal("show");
+   $("#modal").modal("show");
  }
 
  function validate(evt) {

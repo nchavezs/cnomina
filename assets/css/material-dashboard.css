@@ -11,6 +11,12 @@
     align-items: center;
 }
 
+.ver_contenedor .pie{
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+}
+
 .ver_opciones>div {
     margin: 10px 10px 0 0 !important;
     min-width: 50px !important;
@@ -30,12 +36,12 @@
 }
 
 .ver_panel p:hover {
-    transform: scale(0.9);
+    transform: translateY(5px);
     color: #4d7bdf !important;
 }
 
 .ver_panel p.activo {
-    background: #f0f1f1e7;
+    background: #e7e7e7f5;
     color: #4d7bdf;
 }
 
@@ -67,12 +73,13 @@
 }
 
 .ver_contenedor thead th {
+    font-size: 12px !important;
     color: #fff !important;
 }
 
 .ver_contenedor .table-responsive {
     min-height: auto !important;
-    max-height: 380px !important;
+    max-height: 400px !important;
     overflow: scroll;
 }
 
@@ -752,7 +759,7 @@
 }
 
 .pie {
-    text-align: right
+    text-align: right;
 }
 
 .formulario_caja .wallpaper {
@@ -1801,17 +1808,9 @@ button:hover .button-text {
 }
 
 .btn3 {
-    font-size: 14px;
-    display: block;
-    color: rgba(0, 0, 0, .6);
-    margin: 5px 0 0 0
-}
-
-.btn3 i {
-    position: relative;
-    margin-right: 5px !important;
-    margin-left: -5px !important;
-    top: 5px !important
+    font-size: 9px !important;
+    padding: 3px 10px !important;
+    margin-right: 10px !important;
 }
 
 .numero {
@@ -2565,6 +2564,12 @@ label.btn-mostrar {
 }
 
 @media (max-width:768px) {
+
+    .ver_contenedor .pie{
+        position: relative;
+        bottom: auto;
+        right: auto;
+    }
     .ver_panel{
         width: 100%;
         display: none;
@@ -2572,6 +2577,7 @@ label.btn-mostrar {
 
     .ver_contenedor{
         width: 100%;
+        padding: 10px;
     }
 
     .formulario_caja .wallpaper {

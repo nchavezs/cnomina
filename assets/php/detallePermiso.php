@@ -34,15 +34,15 @@ $html = '<div class="p-2">
 			<small class="text-muted">Detalle de permiso de '.$usuario["nombre"].'.</small>
 		</div>
 		<div class="row">
-			<div class="col-lg-5">
+			<div class="col-md-6">
 				<div class="card">
-					<div class="card-body p-3 d-flex justify-content-center">
+					<div class="card-body centrado">
 						<div id="fecha" class="datepicker-here"></div>
 					</div>
 				</div>';
 if ($permiso[6] == 0) {
 	$html = $html . '<div class="card">
-						<div class="card-body d-flex justify-content-center">
+						<div class="card-body centrado">
 							<i class="material-icons text-success mr-3">task_alt</i>
 							Permiso materno
 						</div>
@@ -50,7 +50,7 @@ if ($permiso[6] == 0) {
 }
 
 $html = $html . '</div>
-					<div class="col-lg-7">
+					<div class="col-md-6">
 						<div class="card" id="fecha-contenido">
 							<div class="card-body">
 								<p class="card-category">Fecha de elaboración: <span>' . date("d/m/Y", strtotime($permiso[2])) . '</span></p>
@@ -61,9 +61,9 @@ $html = $html . '</div>
 								<br>
 								<p class="card-category">Descripción:</p>
 								<h5>' . $desc . '</h5>
-								<div class="btn3" onclick="archivo(' . $permiso[0] . ',\'' . $permiso[8] . '\',\'' . $permiso[1] . '\',\'Permiso\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
+								<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $permiso[0] . ',\'' . $permiso[8] . '\',\'' . $permiso[1] . '\',\'Permiso\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
 		if (!is_null($permiso[8])) {
-			$html = $html . '<div class="btn3" onclick="eliminar_archivo(' . $permiso[0] . ',\'Permiso\')"><i class="material-icons">clear</i> Eliminar archivo </div>';
+			$html = $html . '<div class="btn btn-primary btn-sm btn3" onclick="eliminar_archivo(' . $permiso[0] . ',\'Permiso\')"><i class="material-icons">clear</i> Eliminar archivo </div>';
 		}
 
 	$html = $html . '</div>
