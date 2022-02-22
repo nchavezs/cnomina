@@ -94,8 +94,8 @@ if ($resultado = mysqli_query($conexion, $sql)) {
     echo '<div class="ver_caja">
 			<div class="ver_panel">
 				<div class="foto-caja">
-					<img id="foto-empleado" class="foto-empleado" src="' . $imagen . '" />
-					<input type="file" id="input-foto" accept=".jpg, .png, .jpeg" style="display:none">
+					<img class="foto-empleado foto" src="' . $imagen . '" />
+					<input class="hidden" type="file" id="input-foto" accept="image/jpg, image/png, iamge/jpeg" >
 				</div>
 
 				<p onclick="verPerfil(\''.$res["RFC"].'\')"class="activo">Perfil</p>
@@ -112,8 +112,9 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 
 			</div>
 
-			<div class="ver_contenedor">
-			</div>
+
+            <div class="ver_boton"><i onclick="ver_panel();" class="material-icons regresar">keyboard_backspace</i></div>
+			<div class="ver_contenedor"></div>
 		</div>';
 } else {
     echo 0;

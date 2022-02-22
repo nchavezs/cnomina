@@ -95,12 +95,10 @@ $(document).ready(function () {
             message: "<div class='circulo'></div><h5>Cargando foto de perfil ...</h5>",
         });
         var formData = new FormData();
-        var files = $('#archivo')[0].files[0];
-        var id = 'admin';
+        var files = $('#archivo')[0].files[0];  
         formData.append('file', files);
-        formData.append('id', id);
         $.ajax({
-            url: 'assets/php/foto.php',
+            url: 'assets/php/foto_perfil.php',
             type: 'post',
             data: formData,
             contentType: false,
@@ -113,6 +111,7 @@ $(document).ready(function () {
                 if (a.includes("assets/")) {
                     imagen();
                     $("#foto").attr('src', a);
+                    $(".sidebar .avatar img").attr('src', a);
                 } else {
                     formato();
                 }

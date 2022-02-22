@@ -1,11 +1,13 @@
 <?php
+
+session_start();
+$id = $_SESSION['usuario'];
+
 include 'conexion.php';
 $ruta = './../img/perfil/';
 if (!file_exists($ruta)) {
     mkdir($ruta, 0777, true);
 }
-
-$id = $_POST['id'];
 
 $key = $id . "_" . uniqid();
 $max_ancho = 800;
@@ -74,6 +76,7 @@ if (($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "im
 
         $sql = "UPDATE Usuario SET urlFoto = '" . $ruta . "' WHERE RFC = '" . $id . "'";
         if (mysqli_query($conexion, $sql)) {
+            $_SESSION['foto'] = $ruta;
             echo $ruta;
         } else {
             echo 0;

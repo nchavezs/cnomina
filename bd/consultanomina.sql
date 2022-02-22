@@ -116,6 +116,7 @@ CREATE TABLE Expediente(
 	curp VARCHAR(100) NULL,
 	curriculum VARCHAR(100) NULL,
 	identificacion VARCHAR(100) NULL,
+	constancia VARCHAR(100) NULL,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

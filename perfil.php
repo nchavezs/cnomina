@@ -30,9 +30,12 @@ if ($resultadoUsuario) {
    </title>
    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"  />
    <link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
    <link href="assets/css/animate.css" rel="stylesheet" />
+   <link href="assets/css/sweetalert2.min.css?v=3.4.3" rel="stylesheet" />
+   <link href="assets/css/material-dashboard.css?v=3.4.3" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -216,9 +219,9 @@ if ($resultadoUsuario) {
                      <div class="card card-profile">
                         <div class="card-avatar">
                            <div id="subir">
-                              <img id="foto" class="img" src="assets/img/user.svg" />
+                              <img id="foto" class="img" src="<?php echo $foto ?>" />
                            </div>
-                           <input type="file" id="archivo" accept=".jpg, .png, .jpeg" style="display:none">
+                           <input class="hidden" type="file" id="archivo" accept="image/jpg, image/png, image/jpeg">
                         </div>
                         <form  class="text-left px-3" id="form-user">
                            <div class="card-body">
@@ -346,42 +349,15 @@ if ($resultadoUsuario) {
          </footer>
       </div>
    </div>
-   <!--   Core JS Files   -->
    <script src="assets/js/core/jquery.min.js"></script>
    <script src="assets/js/core/popper.min.js"></script>
    <script src="assets/js/core/bootstrap-material-design.min.js"></script>
    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-   <!-- Plugin for the momentJs  -->
-   <script src="assets/js/plugins/moment.min.js"></script>
-   <!--  Plugin for Sweet Alert -->
-   <link href="assets/css/sweetalert2.min.css?v=3.4.3" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
    <script src="assets/js/plugins/sweetalert2.min.js"></script>
-   <!-- Forms Validations Plugin -->
-   <script src="assets/js/plugins/jquery.validate.min.js"></script>
-   <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-   <script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-   <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-   <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-   <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
-
-   <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-   <script src="assets/js/plugins/fullcalendar.min.js"></script>
-   <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-   <script src="assets/js/plugins/jquery-jvectormap.js"></script>
-   <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-   <script src="assets/js/plugins/nouislider.min.js"></script>
-
-   <!-- Library for adding dinamically elements -->
-   <script src="assets/js/plugins/arrive.min.js"></script>
-   <!-- Chartist JS -->
-
-   <!--  Notifications Plugin    -->
    <script src="assets/js/plugins/bootstrap-notify.js"></script>
-   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
    <script src="assets/js/material-dashboard.js?v=3.4.3" type="text/javascript"></script>
    <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
+   <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/sesion.js?v=3.4.3"></script>
    <script src="assets/js/perfil.js?v=3.4.3"></script>
    <script src="assets/js/block.js"></script>

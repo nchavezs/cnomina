@@ -1,3 +1,17 @@
+var rfc_global = "";
+
+if ($(window).width() < 767) {
+    $(document).on("click", ".ver_panel p", function () {
+        $(".ver_contenedor").show();
+        $(".ver_panel").addClass("adp-hide");
+    }); 
+
+    $(document).on("click", ".ver_boton .regresar", function () {
+        $(".ver_panel").removeClass("adp-hide");
+        $(".ver_contenedor").hide();
+    });
+}
+
 $(document).ready(function () {
     select_estilo_3();
 
@@ -240,6 +254,39 @@ $(document).ready(function () {
         ver(data[0], 0);
         //error consola en empty row
     });
+
+    $(document).on("click", ".foto_usuario", function () {
+        $("#input-foto").click();
+    });
+
+    $(document).on('change', '#input-foto', function () {
+        $.blockUI({
+            message: "<div class='circulo'></div><h5>Cargando foto de perfil ...</h5>",
+        });
+        var formData = new FormData();
+        var files = $(this)[0].files[0];
+        formData.append('file', files);
+        formData.append('id', rfc_global);
+        $.ajax({
+            url: 'assets/php/foto.php',
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            cache: false,
+            success: function (a) {
+                $.unblockUI();
+                $("#input-foto").val("");
+                if (a.includes("assets/")) {
+                    $(".foto").attr('src', a);
+                    md.showNotification("top", "right", "Foto de perfil actualizada.");
+                } else {
+                    md.showNotification("top", "right", "Formato no soportado.");
+                }
+            }
+        });
+    });
 });
 
 function mensaje_baja(id) {
@@ -302,22 +349,14 @@ function baja(id) {
 };
 
 function password(id) {
-    Swal.fire({
-        title: 'Reestablecer contraseña',
-        html: "<p>¿Desea reestablecer la contraseña a la predeterminada?</p>",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
+    $("#modal .modal_titulo").html("Restablecer contraseña");
+    $("#modal .modal-body").html('¿Restablecer contraseña del usuario a la predeterminada?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        reestablecer_password(id);
+        ocultar_modal();
+    })
 
-
-    }).then(function (result) {
-        if (result.value) {
-            reestablecer_password(id);
-        } else if (result.dismiss == 'cancel') {
-            ver(id, 1);
-        }
-    });
 };
 
 function reestablecer_password(id) {
@@ -328,15 +367,8 @@ function reestablecer_password(id) {
             "id": id
         },
         success: function (html) {
-            Swal.fire({
-                title: 'Correcto',
-                text: 'Contraseña reestablecida',
-                type: 'success',
+            md.showNotification("top", "right", "Contraseña restablecida correctamente.");
 
-
-            }).then((result) => {
-                ver(id, 1);
-            });
         }
     });
 }
@@ -444,9 +476,9 @@ function reingreso(id) {
     });
 };
 
-var valor1;
-var valor2;
-var valor3;
+// var valor1;
+// var valor2;
+// var valor3;
 
 function permiso(id) {
     $.post("assets/php/verificarBaja.php", {
@@ -580,10 +612,9 @@ function ver(id, ventana, event) {
                     showCloseButton: true,
                     showConfirmButton: false,
                 });
-                cambiarFoto(id);
-                $("#siguiente").on('click', function () {
-                    opciones(id);
-                });
+                rfc_global = id;
+
+                verPerfil(id);
             }
         });
     } else if (ventana == 1) {
@@ -591,121 +622,90 @@ function ver(id, ventana, event) {
     }
 };
 
-function cambiarFoto(id) {
-    $(".foto-empleado").on('click', function () {
-        document.getElementById("input-foto").click();
-    });
+// function cambiarFoto(id) {
 
-    $('#input-foto').on('change', function () {
-        $.blockUI({
-            message: "<div class='circulo'></div><h5>Cargando foto de perfil ...</h5>",
-        });
-        var formData = new FormData();
-        var files = $(this)[0].files[0];
-        formData.append('file', files);
-        formData.append('id', id);
-        $.ajax({
-            url: 'assets/php/foto.php',
-            type: 'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            enctype: 'multipart/form-data',
-            cache: false,
-            success: function (a) {
-                $.unblockUI();
-                $("#input-foto").val("");
-                if (a.includes("assets/")) {
-                    $(".foto-empleado").attr('src', a);
-                    md.showNotification("top", "right", "Foto de perfil actualizada.");
-                } else {
-                    md.showNotification("top", "right", "Formato no soportado.");
-                }
-            }
-        });
-    });
-};
+// };
 
 
-function opciones(id) {
-    $.post("assets/php/masOpciones.php", {
-        id: id
-    }).done(function (html) {
-        Swal.fire({
-            position: 'center',
-            html: html,
-            allowOutsideClick: true,
-            showCloseButton: true,
-            showConfirmButton: false,
+// function opciones(id) {
+//     $.post("assets/php/masOpciones.php", {
+//         id: id
+//     }).done(function (html) {
+//         Swal.fire({
+//             position: 'center',
+//             html: html,
+//             allowOutsideClick: true,
+//             showCloseButton: true,
+//             showConfirmButton: false,
 
 
-        });
+//         });
 
-        cambiarFoto(id);
+//         cambiarFoto(id);
 
-        $("#anterior").on('click', function () {
-            ver(id, 0);
-        });
+//         $("#anterior").on('click', function () {
+//             ver(id, 0);
+//         });
 
-        $("#boton-baja").on('click', function () {
-            baja(id);
-        });
+//         $("#boton-baja").on('click', function () {
+//             baja(id);
+//         });
 
 
-        $("#boton-password").on('click', function () {
-            password(id);
-        });
+//         $("#boton-password").on('click', function () {
+//             password(id);
+//         });
 
-        $("#boton-reingreso").on('click', function () {
-            reingreso(id);
-        });
+//         $("#boton-reingreso").on('click', function () {
+//             reingreso(id);
+//         });
 
-        $("#pases").click(function (e) {
-            e.preventDefault();
-            verPases(id);
-        });
+//         $("#pases").click(function (e) {
+//             e.preventDefault();
+//             verPases(id);
+//         });
 
-        $("#vacaciones").click(function (e) {
-            e.preventDefault();
-            verVacaciones(id);
-        });
+//         $("#vacaciones").click(function (e) {
+//             e.preventDefault();
+//             verVacaciones(id);
+//         });
 
-        $("#movimientos").click(function (e) {
-            e.preventDefault();
-            verMovimientos(id);
-        });
+//         $("#movimientos").click(function (e) {
+//             e.preventDefault();
+//             verMovimientos(id);
+//         });
 
-        $("#descuentos").click(function (e) {
-            e.preventDefault();
-            verDescuentos(id);
-        });
+//         $("#descuentos").click(function (e) {
+//             e.preventDefault();
+//             verDescuentos(id);
+//         });
 
-        $("#expediente").click(function (e) {
-            e.preventDefault();
-            verExpediente(id);
-        });
+//         $("#expediente").click(function (e) {
+//             e.preventDefault();
+//             verExpediente(id);
+//         });
 
-        $("#gastos").click(function (e) {
-            e.preventDefault();
-            verGastos(id);
-        });
+//         $("#gastos").click(function (e) {
+//             e.preventDefault();
+//             verGastos(id);
+//         });
 
-        $("#fecha-link").click(function (e) {
-            e.preventDefault();
-            verPermisos(id);
-        });
+//         $("#fecha-link").click(function (e) {
+//             e.preventDefault();
+//             verPermisos(id);
+//         });
 
-        $("#recibos-link").click(function (e) {
-            e.preventDefault();
-            verNominas(id);
-        });
+//         $("#recibos-link").click(function (e) {
+//             e.preventDefault();
+//             verNominas(id);
+//         });
 
-        $("#beneficiarios-link").click(function (e) {
-            e.preventDefault();
+//         $("#beneficiarios-link").click(function (e) {
+//             e.preventDefault();
 
-        });
-    });
-}
+//         });
+//     });
+// }
 
 function verBeneficiarios(id) {
     $.ajax({
@@ -854,7 +854,6 @@ function archivo2(url, id) {
 };
 
 function archivo(id, url, usuario, tabla, condicion) {
-    alert(url);
     if (url == "") {
         $.ajax({
             type: "POST",
@@ -935,49 +934,21 @@ function ventanaRegresar(tabla, condicion, id, usuario) {
 };
 
 function borrar(id) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este permiso?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarPermiso.php",
-                data: {
-                    "id": id,
-                    "condicion": 1
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Permiso eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verPermisos(data);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarPermiso.php",
-                data: {
-                    "id": id,
-                    "condicion": 0
-                },
-                success: function (data) {
-                    verPermisos(data);
-                }
-            });
-        }
+    $("#modal .modal_titulo").html("Eliminar pase");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este registro?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarPermiso.php",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                verPermisos(data);
+                ocultar_modal();
+            }
+        });
     })
 };
 
@@ -1015,6 +986,19 @@ function verVacaciones(id) {
             $(".sources").change(function () {
                 tablas_vacaciones(id);
             });
+        }
+    });
+};
+
+function verPerfil(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/profile.php",
+        data: {
+            "id": id
+        },
+        success: function (html) {
+            $(".ver_contenedor").html(html);
         }
     });
 };
@@ -1496,6 +1480,11 @@ function expediente_menu(id) {
         nombre = 'identificacion';
         $("#expediente_file").click();
     });
+
+    $(".constancia").click(function () {
+        nombre = 'constancia';
+        $("#expediente_file").click();
+    });
 }
 
 function descargar_expediente(id, nombre) {
@@ -1793,50 +1782,23 @@ function tablas_descuentos(id) {
 };
 
 function borrar_descuento(id) {
-    Swal.fire({
-        title: 'Eliminar',
-        text: "¿Seguro que quieres eliminar este registro?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, continuar',
-        cancelButtonText: 'No',
-
-
-    }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarDescuento.php",
-                data: {
-                    "id": id,
-                    "condicion": 1
-                },
-                success: function (data) {
-                    Swal.fire({
-                        title: 'Correcto',
-                        text: 'Registro eliminado',
-                        type: 'success',
-
-
-                    }).then((result) => {
-                        verDescuentos(data);
-                    })
-                }
-            });
-        } else if (result.dismiss == 'cancel') {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/eliminarDescuento.php",
-                data: {
-                    "id": id,
-                    "condicion": 0
-                },
-                success: function (data) {
-                    verDescuentos(data);
-                }
-            });
-        }
+    $("#modal .modal_titulo").html("Eliminar pase");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este registro?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarDescuento.php",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                verDescuentos(data);
+                ocultar_modal();
+            }
+        });
     })
+
 };
 
 function detalle_descuento(id) {
@@ -2306,3 +2268,10 @@ function diferencia_fecha(fecha1, fecha2) {
 
 //     $("#departamento").change();
 // }
+
+
+function ver_panel() {
+    $(".ver_panel").show();
+    ADP.show($(".ver_panel")[0], 'slide-left');
+    // $(".pagina_1").removeClass("adp-hide");
+}

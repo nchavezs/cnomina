@@ -1,3 +1,55 @@
+.ver_boton .regresar {
+    position: absolute;
+    background: #ddd;
+    border-radius: 50px;
+    padding: 5px;
+    cursor: pointer;
+    right: 30px;
+    top: 50px;
+    display: none
+}
+
+.profile {
+    width: 100%;
+    border-radius: 8px;
+    padding: 0 20px;
+    font-size: 12px !important;
+}
+
+.profile >div:not(.profile > div:last-child){
+    border-bottom: 2px solid #d9dfe65d;
+}
+
+.profile_caja{
+    background: #F1F5FB;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    color: #5377DB !important;
+}
+
+.profile >div{
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.profile img {
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.profile p{
+    margin: 0 !important;
+    font-weight: bold !important;
+}
+
+.profile small{
+    font-weight: bold !important;
+}
+
 .modal {
     z-index: 1071 !important;
 }
@@ -11,7 +63,7 @@
     align-items: center;
 }
 
-.ver_contenedor .pie{
+.ver_contenedor .pie {
     position: absolute;
     bottom: 20px;
     right: 30px;
@@ -28,7 +80,7 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: bold;
-    padding: 15px;
+    padding: 13px;
     width: 100%;
     transition: all 0.2s;
     margin: 0 !important;
@@ -402,7 +454,7 @@
     background: #ededed
 }
 
-.mensajeria_usuario .regresar {
+.mensajeria_usuario .regresar{
     position: relative;
     background: #ddd;
     border-radius: 50px;
@@ -1212,19 +1264,20 @@
 }
 
 .expediente_caja button:before {
-    /* box-shadow: 2px 2px 5px rgba(0, 0, 0, .1); */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
     background: #4B587D;
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 5px;
     content: attr(data-hover);
     position: absolute;
     top: .5em;
-    left: 0;
-    width: 100%;
+    left: 30px;
+    right: 30px;
+    margin: 0 auto;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 10px;
     opacity: 0;
     color: #fff;
     transform: translateY(10px);
@@ -1248,7 +1301,7 @@
     padding: 0 5px;
     border-bottom: 2px solid rgba(0, 0, 0, .08);
     margin-bottom: 5px !important;
-    height: 45px;
+    height: 44px;
     font-weight: 600;
     font-size: 13px;
     color: rgba(119, 119, 119, .952)
@@ -1266,7 +1319,7 @@
     border-radius: 6px;
     display: block;
     position: relative;
-    padding: 10px;
+    /* padding: 10px; */
     background: #fff;
     text-align: center !important;
     transition: all 0.2s;
@@ -1275,12 +1328,12 @@
 
 .expediente_caja:hover {
     position: relative;
-    transform:translateY(4px);
+    transform: translateY(4px);
     border: 3px solid #789ae463;
 }
 
 .expediente_caja i {
-    font-size: 40px;
+    font-size: 35px;
     padding-bottom: 15px
 }
 
@@ -1809,7 +1862,7 @@ button:hover .button-text {
 
 .btn3 {
     font-size: 9px !important;
-    padding: 3px 10px !important;
+    padding: 5px 10px !important;
     margin-right: 10px !important;
 }
 
@@ -2565,19 +2618,20 @@ label.btn-mostrar {
 
 @media (max-width:768px) {
 
-    .ver_contenedor .pie{
+    .ver_contenedor .pie {
         position: relative;
         bottom: auto;
         right: auto;
     }
-    .ver_panel{
+
+    .ver_panel {
         width: 100%;
-        display: none;
     }
 
-    .ver_contenedor{
+    .ver_contenedor {
         width: 100%;
         padding: 10px;
+        display: none;
     }
 
     .formulario_caja .wallpaper {
@@ -2593,7 +2647,8 @@ label.btn-mostrar {
         display: none
     }
 
-    .mensajeria_usuario .regresar {
+    .mensajeria_usuario .regresar,
+    .ver_boton .regresar {
         display: block
     }
 
@@ -16780,16 +16835,6 @@ label {
     margin-bottom: -13px
 }
 
-.fondo {
-    position: absolute;
-    width: 100%;
-    top: -20px;
-    height: 120px;
-    background-image: url("../img/1.jpg");
-    background-size: cover;
-    animation: movimiento 5s linear infinite alternate;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .2)
-}
 
 @keyframes movimiento {
     from {
