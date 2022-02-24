@@ -4,10 +4,12 @@ if ($(window).width() < 767) {
     $(document).on("click", ".ver_panel p", function () {
         $(".ver_contenedor").show();
         $(".ver_panel").addClass("adp-hide");
+        
     }); 
 
     $(document).on("click", ".ver_boton .regresar", function () {
-        $(".ver_panel").removeClass("adp-hide");
+        // $(".ver_panel").removeClass("adp-hide");
+        ADP.show($(".ver_panel")[0], 'slide-left');
         $(".ver_contenedor").hide();
     });
 }
@@ -2268,10 +2270,3 @@ function diferencia_fecha(fecha1, fecha2) {
 
 //     $("#departamento").change();
 // }
-
-
-function ver_panel() {
-    $(".ver_panel").show();
-    ADP.show($(".ver_panel")[0], 'slide-left');
-    // $(".pagina_1").removeClass("adp-hide");
-}

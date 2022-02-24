@@ -21,7 +21,7 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
         if ($res["categoria"] === 'user') {
             echo './tablas';
         } else if ($res["categoria"] === 'admin') {
-            echo './registrar';
+            echo './periodo';
         } else {
             echo 0;
         }

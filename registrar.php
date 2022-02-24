@@ -28,7 +28,7 @@ include "./assets/php/comprobar_catalago.php";
 
 </head>
 
-<body class="">
+<body>
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white">
              <div class="municipio">MUNICIPIO DE <?php echo get_municipio() ?></div>
@@ -197,7 +197,6 @@ include "./assets/php/comprobar_catalago.php";
                     </div>
                 </div>
             </nav>
-            <!-- End Navbar -->
             <div class="content">
                 <div id="msn-caja" class="container-fluid msn-caja">
                     <div class="card">

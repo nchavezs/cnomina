@@ -53,7 +53,8 @@ DROP TABLE IF EXISTS Historial;
 
 CREATE TABLE Periodo(
 	id_periodo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	nombre VARCHAR(50) NOT NULL
+	nombre VARCHAR(50) NOT NULL,
+	dias INT NOT NULL
 );
 
 
@@ -105,7 +106,9 @@ CREATE TABLE Gastos(
 	monto DECIMAL(8,2) NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
 	url VARCHAR(50),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Expediente(
@@ -127,7 +130,9 @@ CREATE TABLE Reingreso(
 	inicio DATE NOT NULL,
 	id_plaza INT,
 	observacion VARCHAR(500),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Usuario(
@@ -204,7 +209,9 @@ CREATE TABLE Permiso(
 	descripcion VARCHAR(500),
 	url VARCHAR(50),
 	materno INT NOT NULL,
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Vacacion(
@@ -216,7 +223,9 @@ CREATE TABLE Vacacion(
 	al DATE NOT NULL,
 	descripcion VARCHAR(500),
 	url VARCHAR(50),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Descuento(
@@ -227,7 +236,9 @@ CREATE TABLE Descuento(
 	fechas VARCHAR(500) NOT NULL,
 	motivo VARCHAR(500) NOT NULL,
 	url VARCHAR(50),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Movimiento(
@@ -244,7 +255,9 @@ CREATE TABLE Movimiento(
 	tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
 	plazaAnterior INT NOT NULL,
 	observacion VARCHAR(500),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Baja(
@@ -254,7 +267,9 @@ CREATE TABLE Baja(
 	razon VARCHAR(100) NOT NULL,
 	id_plaza INT,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	dias INT DEFAULT 0
+	dias INT DEFAULT 0,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Departamento(
@@ -285,7 +300,9 @@ CREATE TABLE Pase(
 	categoria INT NOT NULL,
 	observacion VARCHAR(500),
 	url VARCHAR(50),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Plaza(
@@ -327,9 +344,9 @@ INSERT INTO Trabajador(nombre) VALUES('SINDICALIZADO');
 
 INSERT INTO Configuracion(logo,nombre) VALUES("logo.png", "COMONFORT");
 
-INSERT INTO Periodo(nombre) VALUES("CATORCENAL");
-INSERT INTO Periodo(nombre) VALUES("MENSUAL");
-INSERT INTO Periodo(nombre) VALUES("OTRA PERIODICIDAD");
+INSERT INTO Periodo(nombre,dias) VALUES("CATORCENAL",14);
+INSERT INTO Periodo(nombre,dias) VALUES("MENSUAL",30);
+INSERT INTO Periodo(nombre,dias) VALUES("OTRA PERIODICIDAD",0);
 
 INSERT INTO Roles(rol,RFC, descripcion) VALUES('1', 'admin', 'administrador principal');
 INSERT INTO Roles(rol,RFC, descripcion) VALUES('1', 'nomina', 'administrador principal');
