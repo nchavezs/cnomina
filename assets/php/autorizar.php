@@ -25,7 +25,7 @@ if ($id_periodo == 2) {
 
 } else {
     $del = date("Y-m-d", strtotime($prenomina["al"] . "+ 1 days"));
-    $al = date("Y-m-d", strtotime($prenomina["al"] . "+ " . ($prenomina["dias"] - 1) . " days"));
+    $al = date("Y-m-d", strtotime($prenomina["al"] . "+ " . $prenomina["dias"] . " days"));
 }
 
 $ano_del = explode("-", $del);

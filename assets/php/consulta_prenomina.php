@@ -21,13 +21,15 @@ if ($total > 0) {
         $estado = "";
         if($prenomina["estado"] == 0){
             $estado = "activo";
+        }else{
+            $estado = "cerrado";
         }
         if($prenomina["url"] != null){
             $estado = $estado." generado";
         }
         echo '<div class="col-xl-3 col-6">
                 <div class="prenomina">
-                    <div class="card '.$estado.'" data-aos="fade-down-left">
+                    <div class="card '.$estado.'">
                         <div class="card-body text-center">
                             <p class="negrita m-0">Periodo '.$total--.'</p>
                             <div class="prenomina_titulo negrita text-secondary mb-3">'.$nombre.'</div>';
