@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $RFC = $_POST["id"];
@@ -58,7 +60,8 @@ if ($consulta) {
         plaza,
         plazaAnterior,
         tipoTrabajador,
-        tipoTrabajadorAnterior
+        tipoTrabajadorAnterior,
+        id_prenomina
         )VALUES(
         '" . $RFC . "',
         STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),
@@ -70,7 +73,8 @@ if ($consulta) {
         " . $id_plaza . ",
         " . $plazaAnterior . ",
         '" . $trabajador . "',
-        '" . $tipoTrabajadorAnterior . "'
+        '" . $tipoTrabajadorAnterior . "',
+        ".$id_prenomina."
     )";
 
     $consulta = mysqli_query($conexion, $sql);

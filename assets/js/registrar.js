@@ -1261,12 +1261,9 @@ function movimiento(id) {
                                 $("#departamento :selected").text() +
                                 "<p>Nuevo departamento</p>");
 
-                            $("#modal").modal("show");
-                            $("#modal_aceptar").prop("disabled", false);
+                            mostrar_modal();
 
                             $("#modal_aceptar").click(function () {
-                                $("#modal_aceptar").prop("disabled", true);
-                                $("#modal").modal("hide");
                                 $.ajax({
                                     type: "POST",
                                     url: "assets/php/agregarMovimiento.php",
@@ -1280,6 +1277,7 @@ function movimiento(id) {
                                         "plaza": plaza
                                     },
                                     success: function (data) {
+                                        ocultar_modal();
                                         if (data != 0) {
                                             formato_movimiento(data);
                                             md.showNotification("top", "right", "Datos agregados.");
@@ -1287,7 +1285,6 @@ function movimiento(id) {
                                             verMovimientos(id);
                                         } else {
                                             md.showNotification("top", "right", "Ocurrió un error.");
-                                            verMovimientos(id);
                                         }
                                     }
                                 });

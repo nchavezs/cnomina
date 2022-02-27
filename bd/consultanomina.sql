@@ -74,6 +74,7 @@ CREATE TABLE Prenomina(
 	url VARCHAR(50),
 	observacion VARCHAR(255),
 	id_periodo VARCHAR(50) NOT NULL,
+	estado INT DEFAULT 0,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

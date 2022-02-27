@@ -1,3 +1,101 @@
+/* .periodos{
+    max-height: 340px;
+    overflow: auto;
+} */
+
+.periodo .pagina_3 .row {
+    overflow: hidden;
+    position: relative;
+    flex-wrap: nowrap;
+}
+
+.periodo .pagina_3 .row .col-xl-2 {
+    display: inline-block;
+}
+
+
+.btn4 {
+    background: rgba(236, 237, 240, 0.473);
+    font-size: 11px;
+    text-align: center;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px 0px;
+    /* color: #4e5564; */
+}
+
+.prenomina {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.btn4 i {
+    font-size: 14px;
+    position: relative;
+    top: 4px;
+    padding: 0 5px;
+    transition: all .3s;
+}
+
+.btn4:hover {
+    background: rgb(215, 217, 223);
+}
+
+.prenominas .card {
+    border: 2px solid #fff;
+    transition: all .2s;
+}
+
+.prenominas .card::after {
+    background: transparent;
+}
+
+.prenominas .card.activo::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    box-shadow: 1px 1px 5px rgb(0, 0, 0, .1);
+    background: rgb(85, 199, 113);
+    top: 5px;
+    right: 5px;
+    display: block;
+    position: absolute;
+    animation: heartBeat infinite;
+    animation-duration: 5s;
+}
+
+.prenomina_titulo {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.prenominas .extra {
+    display: none;
+}
+
+.prenominas .card.activo:hover {
+    border: 2px solid rgba(51, 61, 194, 0.267);
+    box-shadow: none !important;
+    /* transform: translateY(5px); */
+    cursor: pointer;
+}
+
+
+.prenominas .card.activo.generado:hover {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    min-height: calc(200% - 20px) !important;
+}
+
+.prenominas .card:hover .extra {
+    display: block;
+}
+
+
 .periodo {
     position: fixed;
     top: 0;
@@ -10,28 +108,28 @@
     background-size: 40px 40px;
 }
 
-.periodo .pagina{
+.periodo .pagina {
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 10% 20%;
+    padding: 10%;
 }
 
-.periodo_boton{
+.periodo_boton {
     position: absolute;
     bottom: 30px;
-   right: 0;
-   left: 0;
+    right: 0;
+    left: 0;
 }
 
-.periodo_boton button{
+.periodo_boton button {
     border-radius: 2px !important;
     border: 2px solid #fff !important;
     background: transparent;
     color: #fff;
 }
 
-.periodo_boton button:hover{
+.periodo_boton button:hover {
     background: rgba(255, 255, 255, 0.24);
 }
 
@@ -54,7 +152,7 @@
 
 .periodo .periodo_elemento p {
     font-weight: bold;
-    font-size: 15px !important;
+    font-size: 13px !important;
     padding: 10px 0;
     margin: 0 !important;
 }
@@ -63,13 +161,14 @@
     border-radius: 2px !important;
 }
 
-.periodo .card{
+.periodo .card {
     border: 3px solid #fff;
     transition: all 0.2s;
     cursor: pointer;
+    /* white-space:normal; */
 }
 
-.periodo .card:hover{
+.periodo .card:hover {
     border: 3px solid #4032c28a;
     transform: translateY(-10px);
     box-shadow: 0 30px 20px rgb(0, 0, 0, .2) !important;
@@ -1859,7 +1958,7 @@ button:hover .button-text {
 
 .centrado {
     text-align: center !important;
-    display: flex !important;
+    display: flex;
     justify-content: center !important;
     align-items: center !important
 }
@@ -1940,7 +2039,7 @@ button:hover .button-text {
 .btn3 {
     font-size: 9px !important;
     padding: 5px 10px !important;
-    margin-right: 10px !important;
+    /* margin-right: 10px !important; */
 }
 
 .numero {
@@ -2253,16 +2352,16 @@ div[data-notify=container] {
 }
 
 .negrita {
-    font-weight: 700;
-    margin-right: 10px
+    font-weight: bold;
+    /* margin-right: 10px */
 }
 
-.negrita2 {
+/* .negrita2 {
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 1px;
     color: rgba(0, 0, 0, .4)
-}
+} */
 
 .baja {
     letter-spacing: 1px;
@@ -2694,16 +2793,28 @@ label.btn-mostrar {
 }
 
 @media (max-width:768px) {
+    .periodo::after {
+        height: 15%;
+    }
+
+    .periodo .pagina_3 .row {
+        flex-wrap: wrap;
+        max-height: 65%;
+    }
+
+    .periodo .pagina_3 .row .col-xl-2 {
+        display: block;
+    }
 
     .periodo_elemento button {
         font-size: 8px !important;
     }
 
-    .periodo {
-        padding: 10% 0;
+    .periodo .pagina {
+        padding: 10% 5%;
     }
 
-    .periodo .periodo_elemento i{
+    .periodo .periodo_elemento i {
         font-size: 40px;
     }
 
@@ -3124,7 +3235,7 @@ sup {
     top: -.5em
 }
 
-a {
+/* a {
     color: #4B587D;
     text-decoration: none;
     background-color: transparent;
@@ -3149,7 +3260,7 @@ a:not([href]):not([tabindex]):hover {
 
 a:not([href]):not([tabindex]):focus {
     outline: 0
-}
+} */
 
 code,
 kbd,
@@ -3570,14 +3681,14 @@ sup {
     top: -.5em
 }
 
-a {
-    color: #4B587D;
+/* a {
+    color: #4e5564;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects
-}
+} */
 
-a:hover {
+/* a:hover {
     color: #0a6ebd;
     text-decoration: underline
 }
@@ -3595,7 +3706,7 @@ a:not([href]):not([tabindex]):hover {
 
 a:not([href]):not([tabindex]):focus {
     outline: 0
-}
+} */
 
 code,
 kbd,
@@ -16177,19 +16288,20 @@ legend {
 }
 
 a {
-    color: #4B587D
+    color: inherit;
+    text-decoration: none;
 }
 
 a:focus,
 a:hover {
-    color: #89229b;
+    color: inherit;
     text-decoration: none
 }
 
-a.text-info:focus,
+/* a.text-info:focus,
 a.text-info:hover {
     color: #00a5bb
-}
+} */
 
 a .material-icons {
     vertical-align: middle
@@ -16510,7 +16622,7 @@ label {
     background-color: #fff;
     background-clip: border-box;
     border-radius: 10px;
-    margin: 30px 0;
+    margin: 10px 0;
     box-shadow: 1px 4px 5px rgba(0, 0, 0, .2) !important
 }
 

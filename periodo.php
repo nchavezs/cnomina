@@ -25,17 +25,17 @@ include "assets/php/main_admin.php";
     <div class="periodo">
         <div class="pagina pagina_1">
             <div class="text-center">
-                <h2 class="text-primary font-weight-bold">Tipo de periodo</h2>
-                <h3>Selecciona el tipo de periodo para continuar</h3>
+                <h2 class="text-primary negrita">Tipo de periodo</h2>
+                <h3>Selecciona el tipo de periodo </h3>
             </div>
-            <div class="row centrado p-4 mt-4">
+            <div class="row centrado mt-4">
             <?php
                 $conexion = conexion();
                 $sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
                 $consulta = $conexion->query($sql);
 
                 while ($periodo = mysqli_fetch_array($consulta)) {
-                    echo '<div class="col-xl-4 col-6">
+                    echo '<div class="col-xl-3 col-6">
                             <div onclick="seleccionar_ano(' . $periodo[0] . ');" class="card periodo_elemento">
                                 <div class="card-body text-center">
                                     <i class="material-icons text-warning">highlight_alt</i>
@@ -51,13 +51,13 @@ include "assets/php/main_admin.php";
 
         <div class="pagina pagina_2 adp-hide">
             <div class="text-center">
-                <h2 class="text-primary font-weight-bold">Año</h2>
+                <h2 class="text-primary negrita">Año</h2>
                 <h3>Selecciona el año del periodo</h3>
             </div>
-            <div class="row centrado p-4 mt-4">
+            <div class="row centrado mt-4">
             <?php
-            for ($i = 2022; $i <= 2022; $i++) {
-                echo '<div class="col-xl-3 col-4">
+            for ($i = 2022; $i <= date("Y"); $i++) {
+                echo '<div class="col-xl-2 col-4">
                         <div onclick="seleccionar_periodo(' . $i . ');" class="card periodo_elemento">
                             <div class="card-body text-center">
                                 <p>' . $i . '</p>
@@ -67,17 +67,17 @@ include "assets/php/main_admin.php";
             }
             ?>
             </div>
-            <div class="periodo_boton centrado"><button onclick="seleccionar_tipoperiodo();" class="btn"><i class="material-icons">keyboard_backspace</i>Seleccionar tipo de periodo</button></div>
+            <div class="periodo_boton centrado"><button onclick="seleccionar_tipoperiodo();" class="btn"><i class="material-icons">keyboard_backspace</i> Regresar</button></div>
         </div>
 
         <div class="pagina pagina_3 adp-hide">
             <div class="text-center">
-                <h2 class="text-primary font-weight-bold">Periodo</h2>
-                <h3>Selecciona el periodo para finalizar</h3>
+                <h2 class="text-primary negrita">Periodo</h2>
+                <h3>Selecciona el periodo con el cual deseas iniciar</h3>
             </div>
-            <div class="row centrado p-4 mt-4 periodos">
+            <div class="row pb-5 mt-4 periodos">
             </div>
-            <div class="periodo_boton centrado"><button onclick="seleccionar_ano();" class="btn"><i class="material-icons">keyboard_backspace</i>Seleccionar año</button></div>
+            <div class="periodo_boton centrado"><button onclick="seleccionar_ano();" class="btn"><i class="material-icons">keyboard_backspace</i> Regresar</button></div>
         </div>
 
     </div>
@@ -85,6 +85,8 @@ include "assets/php/main_admin.php";
     <script src="assets/js/core/jquery.min.js"></script>
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/animate/adp.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
     <script src="assets/js/periodo.js?v=3.4.4"></script>
 </body>
 

@@ -266,7 +266,7 @@ include "./assets/php/comprobar_catalago.php";
                 </div>
             </div>
 
-            <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog">
+            <div class="modal" id="modal" data-backdrop="static" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header">

@@ -29,6 +29,8 @@ function seleccionar_periodo(id) {
         },
         success: function (data) {
             $(".periodos").html(data);
+            $(".periodos").perfectScrollbar();
+
         }
     })
 

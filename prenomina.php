@@ -19,15 +19,16 @@ if (rol() == 2) {
 	</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
+	
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.4.4" rel="stylesheet" />
-	<link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
-	<link href="assets/css/animate.css" rel="stylesheet" />
+	<link href="assets/js/plugins/datatables/datatables.min.css"rel="stylesheet" type="text/css"/>
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/css/sweetalert2.min.css?v=3.4.4" rel="stylesheet" />
-	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
-	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+	<link href="assets/js/plugins/animate/adp.css">
+	<link href="assets/js/plugins/tailselect/css/default/tail.select-light.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/animate.css" rel="stylesheet" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -197,67 +198,34 @@ if (rol() == 2) {
 					</div>
 				</div>
 			</nav>
-			<!-- End Navbar -->
 			<div class="content">
 				<div id="msn-caja" class="container-fluid msn-caja">
-					<div class="card">
-						<!-- <div class="card-header">
-                            <h6 class="card-category text-gray">Prenomina</h6>
-                        </div> -->
-						<div class="card-body">
-							<div class="msn-mostrar">
-								<?php
-								if (rol() != 2) {
-									echo '<button onclick="nueva_prenomina();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva Prenomina</button>';
-								}
-								?>
-							</div>
-						</div>
-					</div>
+				
+					<div class="prenominas"></div>
 
-					<div class="table-responsive adp-hide">
-						<div class="opciones_tabla">
-							<select id="ano">
-								<option value="2022">2022</option>
-								<option value="2023">2023</option>
-								<option value="2024">2024</option>
-								<option value="2025">2025</option>
-							</select>
-							<select id="id_periodo">
-								<option value="1">CATORCENAL</option>
-								<option value="2">MENSUAL</option>
-							</select>
-						</div>
-						<table id="tabla-prenomina" class="table table-striped" style="width:100%">
-							<thead class="text-primary">
-								<tr>
-									<th class="">#</th>
-									<th class="">Periodo</th>
-									<th class="oculto">Observaciones</th>
-									<!-- <th class="oculto">Fecha de elaboración</th> -->
-									<th class="">Descargar</th>
-									<th class="">Eliminar</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
+
 				</div>
 			</div>
 
-			<footer class="footer">
-				<div class="chat_fondo"></div>
-				<div class="chat">
-					<i class="material-icons">chat</i>
-				</div>
+			<div class="modal" id="modal" data-backdrop="static" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title modal_titulo text-primary negrita"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-sm btn-primary" id="modal_aceptar">Si</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
-				<div class="chat_caja">
-					<div class="chat_cerrar">x</div>
-					<div class="chat_cuerpo"></div>
-					<div class="chat_input">
-						<textarea id="chat-input" placeholder="Escribe tu mensaje" rows="1"></textarea>
-						<i class="material-icons text-success chat_enviar">send</i>
-					</div>
-				</div>
+			<footer class="footer">
 			</footer>
 		</div>
 	</div>
