@@ -5,6 +5,7 @@ var id_prenomina;
 function seleccionar_tipoperiodo() {
     $(".periodo .pagina").addClass("adp-hide");
     ADP.show($(".periodo .pagina_1")[0], 'slide-left');
+    $(".periodo .pagina_1").removeClass("adp-hide");
 }
 
 function seleccionar_ano(id) {
@@ -13,12 +14,14 @@ function seleccionar_ano(id) {
     }
     $(".periodo .pagina").addClass("adp-hide");
     ADP.show($(".periodo .pagina_2")[0], 'slide-left');
+    $(".periodo .pagina_2").removeClass("adp-hide");
 }
 
 function seleccionar_periodo(id) {
     ano = id;
     $(".periodo .pagina").addClass("adp-hide");
     ADP.show($(".periodo .pagina_3")[0], 'slide-left');
+    $(".periodo .pagina_3").removeClass("adp-hide");
 
     $.ajax({
         url: "assets/php/consulta_periodo.php",

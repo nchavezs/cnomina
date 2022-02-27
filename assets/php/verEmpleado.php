@@ -113,7 +113,7 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 			</div>
 
 
-            <div class="ver_boton"><i class="material-icons regresar">keyboard_backspace</i></div>
+            <div class="ver_boton"><i class="material-icons regresar">menu</i></div>
 			<div class="ver_contenedor"></div>
 		</div>';
 } else {

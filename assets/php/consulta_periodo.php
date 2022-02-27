@@ -19,7 +19,7 @@ $consulta = $conexion->query($sql);
 if ($consulta && mysqli_num_rows($consulta) > 0) {
     while ($prenomina = mysqli_fetch_array($consulta)) {
 
-        $nombre = strftime("%e de %B", strtotime($prenomina["del"]))." al ".strftime("%e de %B", strtotime($prenomina["al"]));
+        $nombre = strftime("%e de %B", strtotime($prenomina["del"])).strftime(" al %e de %B", strtotime($prenomina["al"]));
         if($prenomina["estado"] == 0){
             $estado = "<div class='btn btn-success btn3'>en curso</div>";
         }else{
@@ -35,8 +35,13 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
             </div>';
     }
 } else {
-    $del = $ano . "-01-01";
-    $al = date("Y-m-d", strtotime($del . "+ " . ($periodo["dias"] - 1). " days"));
+
+    $del = $ano."-01-01";
+    if ($id_periodo == 2) {
+        $al = date("Y-m-t", strtotime($del));
+    } else {
+        $al = date("Y-m-d", strtotime($del . "+ " . ($periodo["dias"] - 1). " days"));    
+    }
 
     $sql = "INSERT INTO Prenomina(del, al, id_periodo) VALUES(
         '" . $del . "',

@@ -8,8 +8,9 @@ if ($(window).width() < 767) {
     }); 
 
     $(document).on("click", ".ver_boton .regresar", function () {
-        // $(".ver_panel").removeClass("adp-hide");
         ADP.show($(".ver_panel")[0], 'slide-left');
+        $(".ver_panel").removeClass("adp-hide");
+
         $(".ver_contenedor").hide();
     });
 }

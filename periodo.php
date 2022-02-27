@@ -75,7 +75,7 @@ include "assets/php/main_admin.php";
                 <h2 class="text-primary negrita">Periodo</h2>
                 <h3>Selecciona el periodo con el cual deseas iniciar</h3>
             </div>
-            <div class="row pb-5 mt-4 periodos">
+            <div class="row pb-5 mt-4 centrado periodos">
             </div>
             <div class="periodo_boton centrado"><button onclick="seleccionar_ano();" class="btn"><i class="material-icons">keyboard_backspace</i> Regresar</button></div>
         </div>

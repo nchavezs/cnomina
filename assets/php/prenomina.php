@@ -11,7 +11,9 @@ session_start();
 $periodo = $_SESSION["id_periodo"];
 $ano = date("Y");
 
-$sql = "SELECT * FROM Prenomina WHERE 
+$sql = "SELECT *,
+(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias 
+FROM Prenomina WHERE 
 YEAR(del) = ".$ano." AND 
 id_periodo = ".$periodo." 
 ORDER BY id_prenomina DESC LIMIT 1";
@@ -76,6 +78,9 @@ $fecha1 = new DateTime($del);
 $fecha2 = new DateTime($al);
 $diff = $fecha1->diff($fecha2);
 $dias_pago = $diff->format('%a') + 1;
+if($periodo == 2){
+    $dias_pago = $prenomina["dias"];
+}
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,

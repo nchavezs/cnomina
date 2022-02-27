@@ -7,10 +7,10 @@ $id_periodo = $_SESSION["id_periodo"];
 $ano = date("Y");
 
 $sql = "SELECT *,
-(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias 
-FROM Prenomina WHERE 
-YEAR(del) = ".$ano." AND 
-id_periodo = ".$id_periodo." 
+(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias
+FROM Prenomina WHERE
+YEAR(del) = " . $ano . " AND
+id_periodo = " . $id_periodo . "
 ORDER BY id_prenomina DESC LIMIT 1";
 
 $consulta = $conexion->query($sql);
@@ -19,13 +19,19 @@ $prenomina = mysqli_fetch_array($consulta);
 $sql = "UPDATE Prenomina SET estado = 1 WHERE id_prenomina = " . $prenomina["id_prenomina"];
 $conexion->query($sql);
 
-$del = date("Y-m-d", strtotime($prenomina["al"] . "+ 1 days"));
-$al = date("Y-m-d", strtotime($prenomina["al"]  . "+ " . ($prenomina["dias"] - 1) . " days"));
+if ($id_periodo == 2) {
+    $del = date("Y-m-01", strtotime($prenomina["del"] . "+ 1 month"));
+    $al = date("Y-m-t", strtotime($del));
+
+} else {
+    $del = date("Y-m-d", strtotime($prenomina["al"] . "+ 1 days"));
+    $al = date("Y-m-d", strtotime($prenomina["al"] . "+ " . ($prenomina["dias"] - 1) . " days"));
+}
 
 $ano_del = explode("-", $del);
 $ano_del = array_shift($ano_del);
 if ($ano_del == $ano) {
-    
+
     $ano_al = explode("-", $al);
     $ano_al = array_shift($ano_al);
     if ($ano_al != $ano) {
