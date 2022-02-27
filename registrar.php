@@ -1,6 +1,7 @@
 <?php
 include "assets/php/main_admin.php";
-include "./assets/php/comprobar_catalago.php";
+include "assets/php/comprobar_periodo.php";
+include "assets/php/comprobar_catalago.php";
 ?>
 
 <!DOCTYPE html>

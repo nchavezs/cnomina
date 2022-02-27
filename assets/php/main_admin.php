@@ -13,5 +13,5 @@ if ($varUser == null || $varUser == '' || $varCateg == "user") {
 }
 
 // --------------------------------------------------------------------------
-include "./assets/php/rol.php";
-include "./assets/php/municipio.php";
+include "assets/php/rol.php";
+include "assets/php/municipio.php";

@@ -7,10 +7,10 @@ $id_periodo = $_SESSION["id_periodo"];
 $ano = date("Y");
 
 $sql = "SELECT *,
-(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias  
+(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias 
 FROM Prenomina WHERE 
 YEAR(del) = ".$ano." AND 
-Prenomina.id_periodo = ".$id_periodo." 
+id_periodo = ".$id_periodo." 
 ORDER BY id_prenomina DESC LIMIT 1";
 
 $consulta = $conexion->query($sql);
@@ -20,7 +20,7 @@ $sql = "UPDATE Prenomina SET estado = 1 WHERE id_prenomina = " . $prenomina["id_
 $conexion->query($sql);
 
 $del = date("Y-m-d", strtotime($prenomina["al"] . "+ 1 days"));
-$al = date("Y-m-d", strtotime($del . "+ " . ($prenomina["dias"] - 1) . " days"));
+$al = date("Y-m-d", strtotime($prenomina["al"]  . "+ " . ($prenomina["dias"] - 1) . " days"));
 
 $ano_del = explode("-", $del);
 $ano_del = array_shift($ano_del);

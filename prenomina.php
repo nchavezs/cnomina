@@ -1,5 +1,6 @@
 <?php
 include "assets/php/main_admin.php";
+include "assets/php/comprobar_periodo.php";
 
 if (rol() == 2) {
 	header('location:./registrar');
