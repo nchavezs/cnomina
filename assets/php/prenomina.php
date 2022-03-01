@@ -190,7 +190,7 @@ while ($usuario = mysqli_fetch_array($query)) {
             $sql = "SELECT * FROM Historial WHERE
             RFC = '" . $usuario["RFC"] . "' AND
             tipo = 'alta' AND
-            id_prenomina = " . $prenomina["id_prenomina"];
+            id_prenomina = " . $id_prenomina;
 
             $consulta = $conexion->query($sql);
             $paga = $dias_pago;
@@ -204,34 +204,36 @@ while ($usuario = mysqli_fetch_array($query)) {
 
         $sql = "SELECT * FROM Historial WHERE
             RFC = '" . $usuario["RFC"] . "' AND
-            id_prenomina = " . $prenomina["id_prenomina"] . " AND
+            id_prenomina = " . $id_prenomina . " AND
             tipo = 'reingreso' ORDER BY fecha DESC LIMIT 1";
 
         $consulta = $conexion->query($sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             $reingreso = mysqli_fetch_array($consulta);
             $fecha_reingreso = $reingreso["fecha"];
+            $paga = diferencia($fecha_reingreso, $al);
 
             $sql = "SELECT * FROM Historial WHERE
             RFC = '" . $usuario["RFC"] . "' AND
-            id_prenomina = " . $prenomina["id_prenomina"] . " AND
+            id_prenomina = " . $id_prenomina . " AND
             tipo = 'baja' ORDER BY fecha DESC LIMIT 1";
 
             $consulta = $conexion->query($sql);
-            $baja = mysqli_fetch_array($consulta);
-            if ($baja["retroactivo"] == 1) {
-                $paga = 0;
-            } else {
-                $fecha_baja = $baja["fecha"];
-
-                if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
-                    $paga = diferencia($fecha_inicio, $fecha_baja);
+            if($consulta && mysqli_num_rows($consulta) > 0){
+                $baja = mysqli_fetch_array($consulta);
+                if ($baja["retroactivo"] == 1) {
+                    $paga = 0;
                 } else {
-                    $paga = diferencia($del, $fecha_baja);
+                    $fecha_baja = $baja["fecha"];
+
+                    if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
+                        $paga = $paga + diferencia($fecha_inicio, $fecha_baja);
+                    } else {
+                        $paga = $paga + diferencia($del, $fecha_baja);
+                    }
                 }
             }
             
-            $paga = $paga + diferencia($fecha_reingreso, $al);
         }
 
     } else {
