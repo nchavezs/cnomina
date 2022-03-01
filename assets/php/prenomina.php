@@ -169,10 +169,6 @@ $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 $dias_pago = diferencia($del, $al);
 
-if ($periodo == 2) {
-    $dias_pago = $prenomina["dias"];
-}
-
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
@@ -197,13 +193,12 @@ while ($usuario = mysqli_fetch_array($query)) {
             id_prenomina = " . $prenomina["id_prenomina"];
 
             $consulta = $conexion->query($sql);
+            $paga = $dias_pago;
             if ($consulta && mysqli_num_rows($consulta) > 0) {
                 $alta = mysqli_fetch_array($consulta);
                 if ($alta["retroactivo"] == 1) {
                     $paga = diferencia($fecha_inicio, $al);
                 }
-            } else {
-                $paga = $dias_pago;
             }
         }
 
@@ -283,6 +278,13 @@ while ($usuario = mysqli_fetch_array($query)) {
     }
 
     $paga = $paga - ($descontados + $descontados_permiso);
+
+    if ($periodo == 2) {
+        $diff = diferencia($del,$al);
+        if($diff != 30){
+            $paga = $paga + (30 - $diff);
+        }
+    }
 
     if ($paga < 0) {
         $paga = 0;
