@@ -126,7 +126,7 @@ $(document).ready(function () {
                 language: 'es',
                 autoClose: 'true',
                 position: "top center",
-                todayButton: new Date(),
+                // todayButton: new Date(),
                 toggleSelected: false,
                 onSelect(formattedDate, date, inst) {
                     $("#puesto").change();
@@ -324,7 +324,7 @@ function baja(id) {
                     language: 'es',
                     autoClose: 'true',
                     position: "bottom center",
-                    todayButton: new Date(),
+                    // todayButton: new Date(),
                     toggleSelected: false
                 });
             });
@@ -424,7 +424,7 @@ function reingreso(id) {
                     language: 'es',
                     autoClose: 'true',
                     position: "bottom center",
-                    todayButton: new Date(),
+                    // todayButton: new Date(),
                     toggleSelected: false
                 });
             });
@@ -514,7 +514,7 @@ function permiso(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
                                 diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
@@ -526,7 +526,7 @@ function permiso(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
                                 diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
@@ -1050,7 +1050,7 @@ function vacacion(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
                                 diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
@@ -1063,7 +1063,7 @@ function vacacion(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
                                 diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
@@ -1231,7 +1231,7 @@ function movimiento(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
                                 $("#puesto").change();
@@ -1560,7 +1560,7 @@ function gastos(id) {
                             language: 'es',
                             autoClose: 'true',
                             position: "bottom center",
-                            todayButton: new Date(),
+                            // todayButton: new Date(),
                             toggleSelected: false,
                         });
                     });
@@ -1915,7 +1915,7 @@ function editar_usuario(id, event) {
                     language: 'es',
                     autoClose: 'true',
                     position: "top center",
-                    todayButton: new Date(),
+                    // todayButton: new Date(),
                     toggleSelected: false,
                 });
 
