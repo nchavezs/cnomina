@@ -1,75 +1,5 @@
 $(document).ready(function () {
-    select_estilo_3();
     cargar_prenominas();
-
-
-    // $(".opciones_tabla select").change(function () {
-    //     $('#tabla-prenomina').DataTable().ajax.reload();
-    // });
-
-    // $('#tabla-prenomina').DataTable({
-    //     "lengthChange": false,
-    //     "pageLength": 5,
-    //     "order": [
-    //         [2, "desc"]
-    //     ],
-    //     "language": {
-    //         url: "assets/js/datatables/es.json"
-    //     },
-    //     "ajax": {
-    //         "type": "POST",
-    //         "url": "assets/php/consulta-prenomina.php",
-    //         "data": function (d) {
-    //             d.ano = $("#ano").val();
-    //             d.id_periodo = $("#id_periodo").val();
-    //         }
-    //     },
-    //     "drawCallback": function (settings) {
-    //         $('.main-panel .content').perfectScrollbar('update');
-    //         ADP.show($(".table-responsive")[0], 'slide-left');
-    //     },
-    //     "columnDefs": [{
-    //             "className": "oculto",
-    //             "targets": [1, 2]
-    //         },
-    //         {
-    //             "orderable": false,
-    //             "targets": [3, 4]
-    //         }, {
-    //             "className": "text-center",
-    //             "targets": [0]
-    //         }
-    //     ],
-    //     "columns": [
-    //         {
-    //             "render": function (data, type, row) {
-    //                 return row.numero;
-    //             }
-    //         },
-    //         {
-    //             "render": function (data, type, row) {
-    //                 return '<a class="">' + row.del + ' ➟ ' + row.al + '</a>';
-    //             }
-    //         },{
-    //             "data": "observacion"
-    //         }, 
-    //         // {
-    //         //     "render": function (data, type, row) {
-    //         //         return type === 'sort' ? row.elaboracion : moment(row.elaboracion).locale('es').format('MMM Do, h:mm a');
-    //         //     }
-    //         // }, 
-    //         {
-    //             "render": function (data, type, row) {
-    //                 return '<i class="material-icons btn1" onclick="' + "descargar('assets/prenominas/" + row.url + "','Prenomina')" + ';">download</i>';
-    //             }
-    //         },
-    //         {
-    //             "render": function (data, type, row) {
-    //                 return '<i class="material-icons btn1-danger" onClick="generar_prenomina(' + row.id_prenomina + ', event);">edit</i>';
-    //             }
-    //         }
-    //     ]
-    // });
 });
 
 function cargar_prenominas() {
@@ -91,77 +21,12 @@ function nueva_prenomina() {
             width: "55em"
         });
 
-        // select_estilo();
-        // ultima_prenomina();
-
-        // $('#del').datepicker({
-        //     maxDate: new Date(),
-        //     language: 'es',
-        //     autoClose: 'true',
-        //     position: "bottom center",
-        //     todayButton: new Date(),
-        //     onSelect(formattedDate, date, inst) {
-        //         let dias = 13;
-        //         if ($("#periodo").val() == 2) {
-        //             dias = 29;
-        //         }
-        //         let al = moment(formattedDate, "DD/MM/YYYY").add(dias, "days").format("DD/MM/YYYY");
-        //         $("#al").val(al);
-        //     }
-        // });
-
-
-
-        // $("#periodo").change(function () {
-        //     ultima_prenomina();
-        // });
-
-        // $("#check1").click(function () {
-        //     if ($(this).is(':checked')) {
-        //         ultima_prenomina();
-        //         $("#del").prop("disabled", true);
-        //         $("#al").prop("disabled", true);
-        //     } else {
-        //         $("#del").prop("disabled", false);
-        //         $("#al").prop("disabled", false);
-        //     }
-        // });
-
-        // $('#al').datepicker({
-        //     minDate: new Date(),
-        //     language: 'es',
-        //     autoClose: 'true',
-        //     position: "bottom center",
-        //     todayButton: new Date(),
-        //     onSelect(formattedDate, date, inst) {}
-        // });
-
         $("#form-prenomina").on("submit", function (e) {
             e.preventDefault();
             prenomina();
         });
     });
 };
-
-// function ultima_prenomina() {
-//     $.ajax({
-//         url: "assets/php/ultima_prenomina.php",
-//         method: "POST",
-//         data: {
-//             periodo: $("#periodo").val()
-//         },
-//         success: function (data) {
-//             let dias = 14;
-//             if ($("#periodo").val() == 2) {
-//                 dias = 30;
-//             }
-//             let del = moment(data, "DD/MM/YYYY").add(1, "days").format("DD/MM/YYYY");
-//             let al = moment(data, "DD/MM/YYYY").add(dias, "days").format("DD/MM/YYYY");
-//             $("#del").val(del);
-//             $("#al").val(al);
-//         }
-//     });
-// }
 
 function prenomina() {
     $.ajax({
@@ -174,6 +39,7 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
+            alert(data);
             cargar_prenominas();
             if (data != 0) {
                 Swal.fire({

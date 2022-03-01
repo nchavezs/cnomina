@@ -19,27 +19,19 @@
 				<div class="card-body">
 					<div class="row">
 						
-						<div class="col-md-6">
-							<div class="form-group">
-							<div class="select-etiqueta">Fecha de elaboración</div>
-
-							  <input id="fecha1" type="text" class="campo" disabled value="'.$hoy.'"/> 
-							</div>
-						</div>
-						
-						<div class="col-md-6">
-							<div class="select-etiqueta">Días de vacaciones</div>
-							<input id="dias" value="1" type="text" class="campo" disabled onkeypress="return isNumberKey(event)">
-						</div>
-						
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="select-etiqueta">Periodo del</div>
 							<input id="fecha2" type="text" class="campo" required="true" readonly value="'.$hoy.'"/> 
 						</div>
 						
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="select-etiqueta">Al</div>
 							<input id="fecha3" type="text" class="campo" required="true" readonly value="'.$hoy.'"/> 
+						</div>
+
+						<div class="col-md-4">
+							<div class="select-etiqueta">Días de vacaciones</div>
+							<input id="dias" value="1" type="text" class="campo" disabled onkeypress="return isNumberKey(event)">
 						</div>
 						
 						<div class="col-md-12">

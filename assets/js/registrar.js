@@ -145,6 +145,10 @@ $(document).ready(function () {
                 if ($("#trabajador").val() == null || $("#plaza").val() == null) {
                     md.showNotification("top", "right", "Completa todos los campos.");
                 } else {
+                    let retroactivo = 0;
+                    if($("#retroactivo").is(":checked")){
+                        retroactivo = 1;
+                    }
                     $.ajax({
                         type: "POST",
                         url: "assets/php/agregarEmpleado.php",
@@ -163,7 +167,8 @@ $(document).ready(function () {
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
                             "plaza": $("#plaza").val(),
-                            "periodo": $("#periodo").val()
+                            "periodo": $("#periodo").val(),
+                            "retroactivo": retroactivo
                         },
                         success: function (data) {
                             if (data == 1) {

@@ -1,7 +1,6 @@
-/* .periodos{
-    max-height: 340px;
-    overflow: auto;
-} */
+form .card{
+    margin: 20px 0;
+}
 
 .periodo .pagina_3 .row {
     overflow: hidden;
@@ -249,6 +248,8 @@
 .ver_opciones {
     display: flex;
     align-items: center;
+    justify-content: end;
+    margin-bottom: 20px;
 }
 
 .ver_contenedor .pie {
@@ -258,7 +259,7 @@
 }
 
 .ver_opciones>div {
-    margin: 10px 10px 0 0 !important;
+    margin: 10px 0 0 10px !important;
     min-width: 50px !important;
     width: auto !important;
     height: 30px !important;
@@ -309,7 +310,7 @@
 .ver_contenedor thead {
     position: sticky;
     top: 0;
-    background: #4b587d;
+    background: #5377DB;
 }
 
 .ver_contenedor thead th {
@@ -320,11 +321,11 @@
 .ver_contenedor .table-responsive {
     min-height: auto !important;
     max-height: 400px !important;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .ver_contenedor .ver_tabla .card-body {
-    padding: 10px 5px 10px 10px !important;
+    /* padding: 10px 5px 10px 10px !important; */
 }
 
 .ver_contenedor thead th:first-child {
@@ -420,7 +421,7 @@
 .tail-select-container .select-handle {
     font-size: 10px !important;
     max-width: 150px !important;
-    padding: 1 12px !important;
+    padding: 1px 12px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -562,7 +563,8 @@
 
 .select_estilo .select-dropdown {
     margin-top: 10px !important;
-    border-radius: 6px !important
+    border-radius: 6px !important;
+    min-width: 100px;
 }
 
 .select_estilo .dropdown-option {
@@ -574,7 +576,7 @@
     background: #fff;
     border-radius: 50px !important;
     margin-right: 10px !important;
-    height: 30px !important
+    height: 30px !important;
 }
 
 .select_estilo .select-label {
@@ -598,7 +600,7 @@
 .select_estilo .label-inner {
     font-weight: 700 !important;
     color: #555 !important;
-    font-size: 12px !important
+    font-size: 12px !important;
 }
 
 .select_estilo .select-label .label-inner {
@@ -932,7 +934,7 @@
 }
 
 .dropdown-option {
-    background: 0 0 !important
+    background: 0 0 !important;
 }
 
 .dropdown-option .selected {

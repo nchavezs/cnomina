@@ -1,4 +1,7 @@
 <?php
+session_start();
+$id_periodo = $_SESSION["id_periodo"];
+
 include "conexion.php";
 $conexion = conexion();
 $estado = $_POST["estado"];
@@ -10,7 +13,9 @@ $sql = "SELECT
    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
    (SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador,
    id_empleado
-   FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE estado = '" . $estado . "'";
+   FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
+   id_periodo = ".$id_periodo." AND
+   estado = '" . $estado . "'";
 
 $resultado = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($resultado) == 0) {

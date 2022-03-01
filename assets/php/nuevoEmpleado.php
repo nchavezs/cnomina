@@ -1,9 +1,15 @@
 <?php
+session_start();
+$id_periodo = $_SESSION["id_periodo"];
+
 setlocale(LC_ALL, "spanish");
 $hoy = date("d/m/Y");
 include "conexion.php";
 $conexion = conexion();
 
+$sql = "SELECT * FROM Periodo WHERE id_periodo = ".$id_periodo;
+$consulta = $conexion->query($sql);
+$periodo = mysqli_fetch_array($consulta);
 
 echo '<div class="formulario_caja">
 		<div class="row">
@@ -95,15 +101,9 @@ echo '<div class="formulario_caja">
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="select">
+									<div class="">
 										<div class="select-etiqueta">Tipo de periodo</div>
-										<select id="periodo">';
-										$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
-										$consulta = mysqli_query($conexion, $sql);
-										while ($res2 = mysqli_fetch_row($consulta)) {
-											echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
-										}
-										echo '</select>
+										<input type="text" class="campo" disabled value="'.$periodo["nombre"].'" />
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -123,14 +123,14 @@ echo '<div class="formulario_caja">
 										echo '</select>
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<div class="select">
 										<div class="select-etiqueta">Puesto</div>
 										<select id="puesto" class="">
 										</select>
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<div class="select">
 										<div class="select-etiqueta">Plaza</div>
 										<select id="plaza" class="">
@@ -154,6 +154,18 @@ echo '<div class="formulario_caja">
 										<div class="select-etiqueta ">No. de afiliación <cite class="text-danger"> opcional</cite></div>
 										<input id="afiliacion" maxlength="20" type="text" class="campo">
 									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="check_opciones">
+									<div class="toggle-btn">
+										<input id="retroactivo" type="checkbox" class="cb-value" /> 
+										<span class="round-btn"></span>
+									</div>
+									<span class="text-muted ml-3">¿Pagar retroactivo?</span>	
 								</div>
 							</div>
 						</div>

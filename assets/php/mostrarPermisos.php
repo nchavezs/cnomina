@@ -1,11 +1,13 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
-$ano = $_POST["ano"];
+// $ano = $_POST["ano"];
 $categoria = $_POST["categoria"];
 
-$sql = "SELECT * FROM Permiso WHERE YEAR(del) = " . $ano . " AND categoria = " . $categoria . " AND RFC = '" . $id . "'";
+$sql = "SELECT * FROM Permiso WHERE id_prenomina=".$id_prenomina." AND categoria = " . $categoria . " AND RFC = '" . $id . "'";
 $resultado = mysqli_query($conexion, $sql);
 
 if (($total = mysqli_num_rows($resultado)) > 0) {

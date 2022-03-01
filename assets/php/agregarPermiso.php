@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST["id"];
@@ -11,7 +13,7 @@ $dias = $_POST["dias"];
 $descripcion = $_POST["descripcion"];
 $materno = $_POST["materno"];
 
-$sql = "INSERT INTO Permiso(RFC,fecha,dias,del,al,categoria,descripcion,materno) VALUES('" . $id . "', STR_TO_DATE('" . $fecha1 . "','%d/%m/%Y')," . $dias . ",STR_TO_DATE('" . $fecha2 . "','%d/%m/%Y'),STR_TO_DATE('" . $fecha3 . "','%d/%m/%Y')," . $categoria . ",'" . $descripcion . "', " . $materno . ")";
+$sql = "INSERT INTO Permiso(RFC,fecha,dias,del,al,categoria,descripcion,materno,id_prenomina) VALUES('" . $id . "', STR_TO_DATE('" . $fecha1 . "','%d/%m/%Y')," . $dias . ",STR_TO_DATE('" . $fecha2 . "','%d/%m/%Y'),STR_TO_DATE('" . $fecha3 . "','%d/%m/%Y')," . $categoria . ",'" . $descripcion . "', " . $materno . ",".$id_prenomina.")";
 
 if (mysqli_query($conexion, $sql)) {
     echo 0;

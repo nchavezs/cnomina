@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
@@ -8,7 +10,7 @@ $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
-$sql = "SELECT * FROM Vacacion WHERE RFC = '" . $id . "'";
+$sql = "SELECT * FROM Vacacion WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
 $consulta = mysqli_query($conexion, $sql);
 
 if (mysqli_num_rows($consulta) == 0) {
@@ -27,15 +29,6 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>
 
 		<div class="ver_opciones">
-			<select id="ano" class="sources">';
-			$ano = date("Y");
-			for($i=2022;$i<=2025;$i++){
-				$select_ano = "";
-				if($ano == $i)
-					$select_ano = "selected";
-				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
-			}
-			echo '</select>
 			<div class="btn btn-secondary btn-sm" onclick="vacacion(\''.$id.'\')"><i class="material-icons">add</i> Nuevo </div>
 
 			</div>
@@ -47,3 +40,13 @@ if (mysqli_num_rows($consulta) == 0) {
 }
 
 mysqli_close($conexion);
+
+// <select id="ano" class="sources">';
+// 			$ano = date("Y");
+// 			for($i=2022;$i<=2025;$i++){
+// 				$select_ano = "";
+// 				if($ano == $i)
+// 					$select_ano = "selected";
+// 				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
+// 			}
+// 			echo '</select>

@@ -5,8 +5,8 @@ include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
-$sql = "SELECT 
-*, 
+$sql = "SELECT *,
+(SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo, 
 (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento 
@@ -120,23 +120,9 @@ echo '<div class="formulario_caja">
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="select">
+									<div class="">
 										<div class="select-etiqueta">Tipo de periodo</div>
-										<select id="periodo">';
-										$sql = "SELECT * FROM Periodo WHERE id_periodo <> 3";
-										$consulta = mysqli_query($conexion, $sql);
-										if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-											while ($res2 = mysqli_fetch_row($consulta)) {
-												echo '<option value="' . $res2[0] . '" ';
-												if ($res['id_periodo'] == $res2[0]) {
-													echo 'selected';
-												}
-												echo '>' . $res2[1] . '</option>';
-											}
-										} else {
-											echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
-										}
-										echo '</select>
+										<input type="text" class="campo" disabled value="'.$res["periodo"].'" />
 									</div>
 								</div>
 								<div class="col-md-12">

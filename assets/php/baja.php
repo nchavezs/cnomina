@@ -4,8 +4,10 @@ $RFC = $_POST['id'];
 $fecha = $_POST['fecha'];
 $razon = $_POST['razon'];
 $condicion = $_POST['condicion'];
-
 $conexion = conexion();
+
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 
 $sql = "SELECT * FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Empleado.RFC = '" . $RFC . "' AND estado = 'alta'";
 
@@ -29,12 +31,13 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
 
             $sql = "UPDATE Usuario SET estado = 'baja' WHERE RFC = '" . $RFC . "'";
             if ($conexion->query($sql)) {
-                $sql = "INSERT INTO Baja(RFC, fecha, razon, dias,id_plaza) VALUES(
+                $sql = "INSERT INTO Baja(RFC, fecha, razon,id_plaza) VALUES(
                     '" . $RFC . "', 
                     STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), 
-                    '" . $razon . "', 
-                    " . $condicion . ",
-                    ".$plaza["id_plaza"].")";
+                    '" . $razon . "',
+                    ".$plaza["id_plaza"]."
+                )";
+
                 if ($conexion->query($sql)) {
 
                     // -----------------------------------------------------------------------
@@ -48,8 +51,8 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
                     $sql = "UPDATE Historial_Plaza SET fecha_fin = STR_TO_DATE('" . $fecha . "','%d/%m/%Y') WHERE id_historial_plaza = " . $historial[0];
                     $consulta = $conexion->query($sql);
 
-                    $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
-                    VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'baja', '".$razon."')";
+                    $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion, retroactivo, id_prenomina) 
+                    VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'baja', '".$razon."', ".$condicion.", ".$id_prenomina.")";
                     $consulta = $conexion->query($sql);
 
                     // -----------------------------------------------------------------------

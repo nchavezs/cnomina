@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $RFC = $_POST['id'];
@@ -41,8 +43,8 @@ $sql4 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $id_plaza;
 $sql5 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
 VALUES(" . $id_plaza . ", STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), '" . $RFC . "')";
 
-$sql6 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
-VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'reingreso', '".$observacion."')";
+$sql6 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina) 
+VALUES('" . $RFC . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'reingreso', '".$observacion."',".$id_prenomina.")";
 
 if (!$conexion->query($sql1)) {
     $errors[] = $conexion->error;

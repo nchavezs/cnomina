@@ -41,8 +41,6 @@ DROP TABLE IF EXISTS Puesto;
 
 DROP TABLE IF EXISTS Departamento;
 
-DROP TABLE IF EXISTS Prenomina;
-
 DROP TABLE IF EXISTS Periodo;
 
 DROP TABLE IF EXISTS Usuario;
@@ -51,20 +49,12 @@ DROP TABLE IF EXISTS Chat;
 
 DROP TABLE IF EXISTS Historial;
 
+DROP TABLE IF EXISTS Prenomina;
+
 CREATE TABLE Periodo(
 	id_periodo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nombre VARCHAR(50) NOT NULL,
 	dias INT NOT NULL
-);
-
-
-CREATE TABLE Historial(
-	id_historial INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	RFC VARCHAR(13) NOT NULL,
-	fecha DATE NOT NULL,
-	tipo VARCHAR(50) NOT NULL,
-	descripcion VARCHAR(255),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Prenomina(
@@ -76,6 +66,18 @@ CREATE TABLE Prenomina(
 	id_periodo VARCHAR(50) NOT NULL,
 	estado INT DEFAULT 0,
 	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Historial(
+	id_historial INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	RFC VARCHAR(13) NOT NULL,
+	fecha DATE NOT NULL,
+	tipo VARCHAR(50) NOT NULL,
+	descripcion VARCHAR(255),
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	retroactivo INT DEFAULT 0,
+	id_prenomina INT NOT NULL,
+	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
 CREATE TABLE Configuracion(
@@ -131,9 +133,7 @@ CREATE TABLE Reingreso(
 	inicio DATE NOT NULL,
 	id_plaza INT,
 	observacion VARCHAR(500),
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	id_prenomina INT NOT NULL,
-	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Usuario(
@@ -267,10 +267,7 @@ CREATE TABLE Baja(
 	fecha DATE NOT NULL,
 	razon VARCHAR(100) NOT NULL,
 	id_plaza INT,
-	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	dias INT DEFAULT 0,
-	id_prenomina INT NOT NULL,
-	FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
+	elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Departamento(

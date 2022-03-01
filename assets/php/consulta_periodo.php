@@ -53,7 +53,7 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
     $id = mysqli_insert_id($conexion);
     $nombre = strftime("%e de %B", strtotime($del))." al ".strftime("%e de %B", strtotime($al));
 
-    echo '<div class="col-xl-3 col-4">
+    echo '<div class="col-xl-2 col-6">
             <div onclick="finalizar(' . $id . ');" class="card periodo_elemento">
                 <div class="card-body text-center">
                     <p>' .$nombre.'</p>

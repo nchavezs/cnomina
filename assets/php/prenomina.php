@@ -1,33 +1,43 @@
 <?php
+session_start();
+setlocale(LC_ALL, "spanish");
 require '../../vendor/autoload.php';
 include "conexion.php";
-setlocale(LC_ALL, "spanish");
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-$conexion = conexion();
-session_start();
 
-// $id_prenomina = $_SESSION["id_prenomina"];
+$conexion = conexion();
+$observacion = trim($_POST["observacion"]) ?: 'Sin observaciones';
 $periodo = $_SESSION["id_periodo"];
 $ano = date("Y");
 
-$sql = "SELECT *,
-(SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias 
-FROM Prenomina WHERE 
-YEAR(del) = ".$ano." AND 
-id_periodo = ".$periodo." 
-ORDER BY id_prenomina DESC LIMIT 1";
+// ----------------------------------------------------------------------------------------------------------------------------
+function cabecera($titulo, $col, $sheet)
+{
+    $sheet->mergeCells('A1:B1');
+    $sheet->mergeCells('C1:' . $col . '1');
+    $sheet->getStyle("C1")->applyFromArray($GLOBALS["titulos"]);
+    $sheet->setCellValue('C1', $titulo);
+    logo($sheet);
+    $sheet->getRowDimension('1')->setRowHeight(40);
+    $sheet->getStyle('A2:' . $col . '2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
+    $sheet->getStyle('A2:' . $col . '2')->getFont()->getColor()->setRGB('FFFFFF');
+}
 
-$consulta = $conexion->query($sql);
-$prenomina = mysqli_fetch_array($consulta);
-
-$del = $prenomina["del"];
-$al = $prenomina["al"];
-$observacion = trim($_POST["observacion"]) ?: 'Sin observaciones';
-
-$ruta = './../prenominas/';
-if (!file_exists($ruta)) {
-    mkdir($ruta, 0777, true);
+function firma($i, $col, $sheet)
+{
+    $sheet->getStyle('A3:' . $col . $i)->applyFromArray($GLOBALS["contenido"]);
+    $i = $i + 5;
+    $sheet->mergeCells('A' . $i . ':' . $col . $i);
+    $sheet->getStyle("A" . $i)->applyFromArray($GLOBALS["firma"]);
+    $sheet->setCellValue('A' . $i, "_____________________________________");
+    $i++;
+    $sheet->mergeCells('A' . $i . ':' . $col . $i);
+    $sheet->getStyle("A" . $i)->applyFromArray($GLOBALS["firma"]);
+    $sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
+    foreach (range('A', $col) as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
 }
 
 function logo($sheet)
@@ -70,148 +80,23 @@ function dias_permiso($val, $array)
     return null;
 }
 
-$descuentos = [];
-$texto = mb_strtoupper(strftime(" del %e de %B", strtotime($del)).strftime(" al %e de %B", strtotime($al)).strftime(" del %Y", strtotime($del)));
-$del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
-$al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-$fecha1 = new DateTime($del);
-$fecha2 = new DateTime($al);
-$diff = $fecha1->diff($fecha2);
-$dias_pago = $diff->format('%a') + 1;
-if($periodo == 2){
-    $dias_pago = $prenomina["dias"];
+function diferencia($fecha1, $fecha2)
+{
+    $fecha1 = new DateTime($fecha1);
+    $fecha2 = new DateTime($fecha2);
+    $diff = $fecha2->diff($fecha1);
+    return $diff->format('%a') + 1;
 }
 
-$sql = "SELECT *,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-    (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
-    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
-    FROM Empleado WHERE
-    id_periodo = " . $periodo . " AND
-    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
-
-$consulta = $conexion->query($sql);
-
-mysqli_num_rows($consulta);
-
-while ($usuario = mysqli_fetch_array($consulta)) {
-    $fecha_inicio = date("Y-m-d", strtotime(str_replace('/', '-', $usuario["fechaRelLab"])));
-    if ($usuario["estado"] == 'alta') {
-        if (($fecha_inicio >= $del) && ($fecha_inicio <= $al)) {
-            $datetime = new DateTime($fecha_inicio);
-            $interval = $datetime->diff($fecha2);
-            $paga = $interval->format('%a') + 1;
-        } else {
-            $paga = $dias_pago;
-        }
-    } else {
-        $sql1 = "SELECT fecha, dias FROM Baja WHERE RFC = '" . $usuario["RFC"] . "' ORDER BY id_baja DESC LIMIT 1";
-        $consulta1 = mysqli_query($conexion, $sql1);
-        $fecha_baja = mysqli_fetch_row($consulta1);
-        if ($fecha_baja[1] == 1) {
-            $paga = 0;
-        } else {
-            $fecha_baja = $fecha_baja[0];
-
-            if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
-                $datetime1 = new DateTime($fecha_inicio);
-                $datetime2 = new DateTime($fecha_baja);
-                $interval = $datetime1->diff($datetime2);
-                $paga = $interval->format('%a') + 1;
-
-            } else {
-                $datetime1 = new DateTime($del);
-                $datetime2 = new DateTime($fecha_baja);
-                $interval = $datetime1->diff($datetime2);
-                $paga = $interval->format('%a') + 1;
-            }
-        }
-    }
-
-    $datos = [];
-    $descontados = 0;
-    $descontados_permiso = 0;
-
-    $sql1 = "SELECT fechas FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "'";
-    $consulta1 = mysqli_query($conexion, $sql1);
-    if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
-        while ($resultado1 = mysqli_fetch_row($consulta1)) {
-            $fechas = explode(",", $resultado1[0]);
-            foreach ($fechas as $fecha) {
-                $date = date("Y-m-d", strtotime(str_replace('/', '-', $fecha)));
-                if ($date >= $del && $date <= $al) {
-                    $paga--;
-                    $descontados++;
-                }
-            }
-        }
-    }
-
-    $sql2 = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 1 AND del <= '" . $al . "'";
-    if (($consulta2 = mysqli_query($conexion, $sql2)) && (mysqli_num_rows($consulta2) > 0)) {
-        while ($resultado1 = mysqli_fetch_array($consulta2)) {
-            if ($resultado1['al'] >= $al) {
-                if ($resultado1['del'] < $del) {
-                    $fecha1 = $del;
-                } else {
-                    $fecha1 = $resultado1['del'];
-                }
-
-                if ($resultado1['al'] < $al) {
-                    $fecha2 = $resultado1['al'];
-                } else {
-                    $fecha2 = $al;
-                }
-
-                $fecha1 = new DateTime($fecha1);
-                $fecha2 = new DateTime($fecha2);
-                $diff = $fecha1->diff($fecha2);
-                $dias = $diff->format('%a') + 1;
-            } else {
-                if ($resultado1['del'] < $del) {
-                    $fecha1 = $del;
-                } else {
-                    $fecha1 = $resultado1['del'];
-                }
-                $fecha1 = new DateTime($fecha1);
-                $fecha2 = new DateTime($resultado1['al']);
-                $diff = $fecha1->diff($fecha2);
-                $dias = $diff->format('%a') + 1;
-            }
-            if ($dias <= 0) {
-                $dias = 0;
-            }
-            $paga = $paga - $dias;
-            $descontados_permiso = $descontados_permiso + $dias;
-        }
-    }
-
-    if ($paga < 0) {
-        $paga = 0;
-    } else if ($paga > $dias_pago) {
-        $paga = $dias_pago;
-    }
-
-    if ($descontados > $dias_pago) {
-        $descontados = $dias_pago;
-    }
-
-    if ($descontados_permiso > $dias_pago) {
-        $descontados_permiso = $dias_pago;
-    }
-
-    $datos["rfc"] = $usuario["RFC"];
-    $datos['paga'] = $paga;
-    $datos['dias'] = $descontados;
-    $datos['dias_permiso'] = $descontados_permiso;
-    array_push($descuentos, $datos);
+// ----------------------------------------------------------------------------------------------------------------------------
+$ruta = './../prenominas/';
+if (!file_exists($ruta)) {
+    mkdir($ruta, 0777, true);
 }
 
 $titulos = [
     'font' => [
-        'size' => 20,
+        'size' => 16,
     ],
     'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -263,48 +148,183 @@ $contenido2 = [
         ],
     ],
 ];
+// ----------------------------------------------------------------------------------------------------------------------------
+
+$sql = "SELECT *,
+    (SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias
+    FROM Prenomina WHERE
+    YEAR(del) = " . $ano . " AND
+    id_periodo = " . $periodo . "
+    ORDER BY id_prenomina DESC LIMIT 1";
+
+$consulta = $conexion->query($sql);
+$prenomina = mysqli_fetch_array($consulta);
+$id_prenomina = $prenomina["id_prenomina"];
+$del = $prenomina["del"];
+$al = $prenomina["al"];
+
+$descuentos = [];
+$titulo = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" al %e de %B", strtotime($al)) . strftime(" del %Y", strtotime($del)));
+$del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
+$al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+$dias_pago = diferencia($del, $al);
+
+if ($periodo == 2) {
+    $dias_pago = $prenomina["dias"];
+}
+
+$sql = "SELECT *,
+    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+    (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
+    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
+    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
+    FROM Empleado WHERE
+    id_periodo = " . $periodo . " AND
+    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
+
+$query = $conexion->query($sql);
+
+while ($usuario = mysqli_fetch_array($query)) {
+    $fecha_inicio = date("Y-m-d", strtotime(str_replace('/', '-', $usuario["fechaRelLab"])));
+    if ($usuario["estado"] == 'alta') {
+        if (($fecha_inicio >= $del) && ($fecha_inicio <= $al)) {
+            $paga = diferencia($fecha_inicio, $al);
+        } else {
+            $sql = "SELECT * FROM Historial WHERE
+            RFC = '" . $usuario["RFC"] . "' AND
+            tipo = 'alta' AND
+            id_prenomina = " . $prenomina["id_prenomina"];
+
+            $consulta = $conexion->query($sql);
+            if ($consulta && mysqli_num_rows($consulta) > 0) {
+                $alta = mysqli_fetch_array($consulta);
+                if ($alta["retroactivo"] == 1) {
+                    $paga = diferencia($fecha_inicio, $al);
+                }
+            } else {
+                $paga = $dias_pago;
+            }
+        }
+
+        $sql = "SELECT * FROM Historial WHERE
+            RFC = '" . $usuario["RFC"] . "' AND
+            id_prenomina = " . $prenomina["id_prenomina"] . " AND
+            tipo = 'reingreso' ORDER BY fecha DESC LIMIT 1";
+
+        $consulta = $conexion->query($sql);
+        if ($consulta && mysqli_num_rows($consulta) > 0) {
+            $reingreso = mysqli_fetch_array($consulta);
+            $fecha_reingreso = $reingreso["fecha"];
+
+            $sql = "SELECT * FROM Historial WHERE
+            RFC = '" . $usuario["RFC"] . "' AND
+            id_prenomina = " . $prenomina["id_prenomina"] . " AND
+            tipo = 'baja' ORDER BY fecha DESC LIMIT 1";
+
+            $consulta = $conexion->query($sql);
+            $baja = mysqli_fetch_array($consulta);
+            if ($baja["retroactivo"] == 1) {
+                $paga = 0;
+            } else {
+                $fecha_baja = $baja["fecha"];
+
+                if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
+                    $paga = diferencia($fecha_inicio, $fecha_baja);
+                } else {
+                    $paga = diferencia($del, $fecha_baja);
+                }
+            }
+            
+            $paga = $paga + diferencia($fecha_reingreso, $al);
+        }
+
+    } else {
+        $sql = "SELECT * FROM Historial WHERE
+        RFC = '" . $usuario["RFC"] . "' AND
+        id_prenomina = " . $prenomina["id_prenomina"] . " AND
+        tipo = 'baja' ORDER BY fecha DESC LIMIT 1";
+
+        $consulta = $conexion->query($sql);
+        if ($consulta && mysqli_num_rows($consulta) > 0) {
+            $baja = mysqli_fetch_array($consulta);
+            if ($baja["retroactivo"] == 1) {
+                $paga = 0;
+            } else {
+                $fecha_baja = $baja["fecha"];
+
+                if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
+                    $paga = diferencia($fecha_inicio, $fecha_baja);
+                } else {
+                    $paga = diferencia($del, $fecha_baja);
+                }
+            }
+        }
+    }
+
+    $datos = [];
+    $descontados = 0;
+    $descontados_permiso = 0;
+
+    $sql = "SELECT * FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "' AND id_prenomina = " . $id_prenomina;
+    $consulta = $conexion->query($sql);
+    if ($consulta && mysqli_num_rows($consulta) > 0) {
+        while ($descuento = mysqli_fetch_array($consulta)) {
+            $descontados = $descontados + $descuento["dias"];
+        }
+    }
+
+    $sql = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 1 AND id_prenomina = " . $id_prenomina;
+    $consulta = $conexion->query($sql);
+    if ($consulta && mysqli_num_rows($consulta) > 0) {
+        while ($permiso = mysqli_fetch_array($consulta)) {
+            $descontados_permiso = $descontados_permiso + $permiso["dias"];
+        }
+    }
+
+    $paga = $paga - ($descontados + $descontados_permiso);
+
+    if ($paga < 0) {
+        $paga = 0;
+    }
+
+    if ($descontados > $dias_pago) {
+        $descontados = $dias_pago;
+    }
+
+    if ($descontados_permiso > $dias_pago) {
+        $descontados_permiso = $dias_pago;
+    }
+
+    $datos["rfc"] = $usuario["RFC"];
+    $datos['paga'] = $paga;
+    $datos['dias'] = $descontados;
+    $datos['dias_permiso'] = $descontados_permiso;
+    array_push($descuentos, $datos);
+}
 
 $spreadsheet = new Spreadsheet();
 $spreadsheet->removeSheetByIndex(0);
 
+// MOVIMIENTOS ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Movimientos');
 $spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:K1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'MOVIMIENTOS' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
-
+$col = "I";
+cabecera("MOVIMIENTOS" . $titulo, $col, $sheet);
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'FECHA DE INGRESO');
-$sheet->setCellValue('F2', 'DIAS A PAGAR');
-$sheet->setCellValue('G2', 'PUESTO ACTUAL');
-$sheet->setCellValue('H2', 'PUESTO ANTERIOR');
-$sheet->setCellValue('I2', 'DEPARTAMENTO ACTUAL');
-$sheet->setCellValue('J2', 'DEPARTAMENTO ANTERIOR');
-$sheet->setCellValue('K2', 'FECHA DE MOVIMIENTO');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'FECHA DE MOVIMIENTO');
+$sheet->setCellValue('E2', 'PUESTO ACTUAL');
+$sheet->setCellValue('F2', 'PUESTO ANTERIOR');
+$sheet->setCellValue('G2', 'DEPARTAMENTO ACTUAL');
+$sheet->setCellValue('H2', 'DEPARTAMENTO ANTERIOR');
+$sheet->setCellValue('I2', 'DIAS A PAGAR');
 
-$sql = "SELECT
-    Empleado.id_empleado,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-    Empleado.CURP,
-    Empleado.RFC,
-    Empleado.fechaRelLab,
-    Movimiento.departamentoAnterior,
-    Movimiento.puestoAnterior,
-    Movimiento.departamento,
-    Movimiento.puesto,
-    Movimiento.fecha
-    FROM Movimiento INNER JOIN Empleado ON Movimiento.RFC = Empleado.RFC WHERE
-    id_periodo =  " . $periodo . " AND
-    Movimiento.fecha >= '" . $del . "' AND
-    Movimiento.fecha <= '" . $al . "'";
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre
+FROM Movimiento LEFT JOIN Empleado ON Movimiento.RFC = Empleado.RFC WHERE
+id_prenomina = " . $id_prenomina;
 
 $consulta = $conexion->query($sql);
 $i = 3;
@@ -312,366 +332,251 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-        $sheet->setCellValue('C' . $i, $res["CURP"]);
-        $sheet->setCellValue('D' . $i, $res["RFC"]);
-        $sheet->setCellValue('E' . $i, $res["fechaRelLab"]);
-        $sheet->setCellValue('F' . $i, dias_paga($res['RFC'], $descuentos));
-        $sheet->setCellValue('G' . $i, $res["puesto"]);
-        $sheet->setCellValue('H' . $i, $res["departamento"]);
-        $sheet->setCellValue('I' . $i, $res["puestoAnterior"]);
-        $sheet->setCellValue('J' . $i, $res["departamentoAnterior"]);
-        $sheet->setCellValue('K' . $i, date("d/m/Y", strtotime($res["fecha"])));
-        $i++;
-    }
-}
-
-$sheet->getStyle('A3:K' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':K' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':K' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'K') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
-
-$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Bajas');
-$spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:J1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'BAJAS' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:J2')->getFont()->getColor()->setRGB('FFFFFF');
-
-$sheet->setCellValue('A2', "# EMPLEADO");
-$sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'FECHA DE BAJA');
-$sheet->setCellValue('I2', 'OBSERVACIONES');
-$sheet->setCellValue('J2', 'DIAS A PAGAR');
-
-$sql = "SELECT
-    Empleado.id_empleado,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-    Empleado.CURP,
-    Empleado.RFC,
-    Empleado.fechaRelLab,
-    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    Baja.fecha,
-    Baja.razon
-    FROM Baja INNER JOIN Empleado ON Baja.RFC = Empleado.RFC WHERE
-    id_periodo =  " . $periodo . " AND
-    Baja.fecha >= '" . $del . "' AND
-    Baja.fecha <= '" . $al . "'";
-
-$consulta = $conexion->query($sql);
-$i = 3;
-if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    while ($res = mysqli_fetch_array($consulta)) {
-        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-        $sheet->setCellValue('C' . $i, $res["CURP"]);
-        $sheet->setCellValue('D' . $i, $res["RFC"]);
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('E' . $i, $res["puesto"]);
         $sheet->setCellValue('F' . $i, $res["departamento"]);
-        $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-        $sheet->setCellValue('H' . $i, date("d/m/Y", strtotime($res["fecha"])));
-        $sheet->setCellValue('I' . $i, mb_strtoupper($res["razon"]));
-        $sheet->setCellValue('J' . $i, dias_paga($res['RFC'], $descuentos));
+        $sheet->setCellValue('G' . $i, $res["puestoAnterior"]);
+        $sheet->setCellValue('H' . $i, $res["departamentoAnterior"]);
+        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
+
+        $i++;
+    }
+}
+firma($i, $col, $sheet);
+
+// BAJAS ---------------------------------------------------------------------------------------------------------------------------
+$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Bajas');
+$spreadsheet->addSheet($sheet);
+$col = "I";
+cabecera("BAJAS" . $titulo, $col, $sheet);
+
+$sheet->setCellValue('A2', "# EMPLEADO");
+$sheet->setCellValue('B2', 'NOMBRE');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE INGRESO');
+$sheet->setCellValue('G2', 'FECHA DE BAJA');
+$sheet->setCellValue('H2', 'OBSERVACIONES');
+$sheet->setCellValue('I2', 'DIAS A PAGAR');
+
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
+FROM Historial LEFT JOIN Baja ON Historial.RFC = Baja.RFC LEFT JOIN Empleado ON Baja.RFC = Empleado.RFC WHERE id_prenomina = " . $id_prenomina . " AND tipo = 'baja'";
+
+$consulta = $conexion->query($sql);
+$i = 3;
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+        $sheet->setCellValue('G' . $i, date("d/m/Y", strtotime($res["fecha"])));
+        $sheet->setCellValue('H' . $i, mb_strtoupper($res["razon"]));
+        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
         $i++;
     }
 }
 
-$sheet->getStyle('A3:J' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'J') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+firma($i, $col, $sheet);
+
+// REINGRESO ---------------------------------------------------------------------------------------------------------------------------
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
+FROM Empleado LEFT JOIN Historial ON Empleado.RFC = Historial.RFC WHERE
+tipo = 'reingreso' AND
+id_prenomina = " . $id_prenomina;
+$consulta = $conexion->query($sql);
+
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Reingreso');
+    $spreadsheet->addSheet($sheet);
+    $col = "H";
+    cabecera("REINGRESO" . $titulo, $col, $sheet);
+
+    $sheet->setCellValue('A2', "# EMPLEADO");
+    $sheet->setCellValue('B2', 'NOMBRE');
+    $sheet->setCellValue('C2', 'RFC');
+    $sheet->setCellValue('D2', 'PUESTO');
+    $sheet->setCellValue('E2', 'DEPARTAMENTO');
+    $sheet->setCellValue('F2', 'FECHA DE REINGRESO');
+    $sheet->setCellValue('G2', 'OBSERVACIONES');
+    $sheet->setCellValue('H2', 'DIAS A PAGAR');
+
+    $i = 3;
+
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, date("d/m/Y", strtotime($res["fecha"])));
+        $sheet->setCellValue('G' . $i, $res["descripcion"]);
+        $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
+
+        $i++;
+    }
 }
 
+firma($i, $col, $sheet);
+
+// ALTAS ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Altas');
 $spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:H1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'ALTAS' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:I2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:I2')->getFont()->getColor()->setRGB('FFFFFF');
+$col = "G";
+cabecera("ALTAS" . $titulo, $col, $sheet);
 
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'OBSERVACIONES');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE INGRESO');
+$sheet->setCellValue('G2', 'DIAS A PAGAR');
+
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
+FROM Empleado LEFT JOIN Historial ON Empleado.RFC = Historial.RFC WHERE
+tipo = 'alta' AND
+id_prenomina = " . $id_prenomina;
+$consulta = $conexion->query($sql);
+$i = 3;
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+        $sheet->setCellValue('G' . $i, dias_paga($res['RFC'], $descuentos));
+
+        $i++;
+    }
+}
+
+firma($i, $col, $sheet);
+
+// DESCUENTOS ---------------------------------------------------------------------------------------------------------------------------
+$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Descuentos');
+$spreadsheet->addSheet($sheet);
+$col = "I";
+cabecera("DESCUENTOS" . $titulo, $col, $sheet);
+$sheet->setCellValue('A2', "# EMPLEADO");
+$sheet->setCellValue('B2', 'NOMBRE');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE DESCUENTO');
+$sheet->setCellValue('G2', 'DIAS DESCONTADOS');
+$sheet->setCellValue('H2', 'MOTIVO');
+$sheet->setCellValue('I2', 'DIAS A PAGAR');
+
+$sql = "SELECT *,
+(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
+(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
+FROM Descuento LEFT JOIN Empleado ON Descuento.RFC = Empleado.RFC WHERE
+id_prenomina =" . $id_prenomina;
+
+$consulta = $conexion->query($sql);
+$i = 3;
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, $res["fechas"]);
+        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('H' . $i, mb_strtoupper($res["motivo"]));
+        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
+        $i++;
+    }
+}
+
+firma($i, $col, $sheet);
+
+// CON GOCE ---------------------------------------------------------------------------------------------------------------------------
+$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Licencias con goce');
+$spreadsheet->addSheet($sheet);
+$col = "I";
+cabecera("LICENCIAS CON GOCE" . $titulo, $col, $sheet);
+
+$sheet->setCellValue('A2', "# EMPLEADO");
+$sheet->setCellValue('B2', 'NOMBRE');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE LICENCIA');
+$sheet->setCellValue('G2', 'DIAS DE LICENCIA');
+$sheet->setCellValue('H2', 'OBSERVACIONES');
+$sheet->setCellValue('I2', 'DIAS A PAGAR');
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
-    FROM Empleado WHERE
-    id_periodo =  " . $periodo . " AND
-    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') >= '" . $del . "' AND
-    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
-
-$consulta = $conexion->query($sql);
-$i = 3;
-if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    while ($res = mysqli_fetch_array($consulta)) {
-        $sql0 = "SELECT * FROM Reingreso WHERE RFC = '" . $res['RFC'] . "'";
-        $consulta0 = mysqli_query($conexion, $sql0);
-        $observaciones = "";
-        if ($consulta0 && mysqli_num_rows($consulta0) > 0) {
-            $observaciones = "REINGRESO";
-        }
-
-        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-        $sheet->setCellValue('C' . $i, $res["CURP"]);
-        $sheet->setCellValue('D' . $i, $res["RFC"]);
-        $sheet->setCellValue('E' . $i, $res["puesto"]);
-        $sheet->setCellValue('F' . $i, $res["departamento"]);
-        $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-        $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-        $sheet->setCellValue('I' . $i, $observaciones);
-
-        $i++;
-    }
-}
-
-$sheet->getStyle('A3:I' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':I' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':I' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'I') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
-
-$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Descuentos');
-$spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:J1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'DESCUENTOS' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:J2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:J2')->getFont()->getColor()->setRGB('FFFFFF');
-
-$sheet->setCellValue('A2', "# EMPLEADO");
-$sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'DIAS DESCONTADOS');
-$sheet->setCellValue('J2', 'OBSERVACIONES');
-
-$sql = "SELECT
-    Empleado.id_empleado,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-    Empleado.CURP,
-    Empleado.RFC,
-    Empleado.fechaRelLab,
-    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
-    FROM Empleado WHERE
-    id_periodo =  " . $periodo . " AND
-    STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
-$consulta = $conexion->query($sql);
-$i = 3;
-if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    while ($res = mysqli_fetch_array($consulta)) {
-        $usuario = false;
-        $sql1 = "SELECT * FROM Descuento WHERE RFC = '" . $res['RFC'] . "'";
-        if (($consulta1 = mysqli_query($conexion, $sql1)) && (mysqli_num_rows($consulta1) > 0)) {
-            $observaciones = [];
-            while ($resultado1 = mysqli_fetch_row($consulta1)) {
-                $fechas = explode(",", $resultado1[4]);
-                $existe_descuento = false;
-                foreach ($fechas as $fecha) {
-                    $date = date("Y-m-d", strtotime(str_replace('/', '-', $fecha)));
-                    if ($date >= $del && $date <= $al) {
-                        $existe_descuento = true;
-                        array_push($observaciones, $resultado1[5]);
-                    }
-                }
-            }
-            $observaciones = array_unique($observaciones);
-            $observaciones = implode(", ", $observaciones);
-            $usuario = true;
-        }
-        if ($usuario && $existe_descuento) {
-            $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-            $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-            $sheet->setCellValue('C' . $i, $res["CURP"]);
-            $sheet->setCellValue('D' . $i, $res["RFC"]);
-            $sheet->setCellValue('E' . $i, $res["puesto"]);
-            $sheet->setCellValue('F' . $i, $res["departamento"]);
-            $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-            $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-            $sheet->setCellValue('I' . $i, dias_descontados($res['RFC'], $descuentos));
-            $sheet->setCellValue('J' . $i, mb_strtoupper(($observaciones)));
-            $i++;
-        }
-    }
-}
-
-$sheet->getStyle('A3:J' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'J') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
-
-$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Licencias con goce');
-$spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:K1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'LICENCIAS CON GOCE DE SUELDO' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
-
-$sheet->setCellValue('A2', "# EMPLEADO");
-$sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'FECHA');
-$sheet->setCellValue('J2', 'DIAS DE LICENCIA');
-$sheet->setCellValue('K2', 'OBSERVACIONES');
-
-$sql = "SELECT
-    Empleado.id_empleado,
-    Empleado.CURP,
-    Empleado.RFC,
-    Empleado.fechaRelLab,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-    (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    Permiso.del,
-    Permiso.al,
-    Permiso.dias,
-    Permiso.descripcion
     FROM Permiso LEFT JOIN Empleado ON Permiso.RFC = Empleado.RFC WHERE
-    id_periodo =  " . $periodo . " AND
-    Permiso.al >= '" . $del . "' AND
-    Permiso.del <= '" . $al . "' AND
+    id_prenomina = " . $id_prenomina . " AND
     Permiso.categoria = 0
     ORDER BY Permiso.RFC ASC";
+
 $consulta = $conexion->query($sql);
 $i = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-        $sheet->setCellValue('C' . $i, $res["CURP"]);
-        $sheet->setCellValue('D' . $i, $res["RFC"]);
-        $sheet->setCellValue('E' . $i, $res["puesto"]);
-        $sheet->setCellValue('F' . $i, $res["departamento"]);
-        $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-        $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-        $sheet->setCellValue('I' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
-        $sheet->setCellValue('J' . $i, $res["dias"]);
-        $sheet->setCellValue('K' . $i, mb_strtoupper($res["descripcion"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
+        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
+        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
+
         $i++;
     }
 }
 
-$sheet->getStyle('A3:K' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':K' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':K' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'K') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
+firma($i, $col, $sheet);
 
+// SIN GOCE ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Licencias sin goce');
 $spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:K1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'LICENCIAS SIN GOCE DE SUELDO' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:L2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:L2')->getFont()->getColor()->setRGB('FFFFFF');
+$col = "I";
+cabecera("LICENCIAS SIN GOCE" . $titulo, $col, $sheet);
 
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'DIAS DESCONTADOS');
-$sheet->setCellValue('J2', 'FECHA');
-$sheet->setCellValue('K2', 'DIAS DE LICENCIA');
-$sheet->setCellValue('L2', 'OBSERVACIONES');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE LICENCIA');
+$sheet->setCellValue('G2', 'DIAS DESCONTADOS');
+$sheet->setCellValue('H2', 'OBSERVACIONES');
+$sheet->setCellValue('I2', 'DIAS A PAGAR');
 
-$sql = "SELECT
-    Empleado.id_empleado,
-    Empleado.CURP,
-    Empleado.RFC,
-    Empleado.fechaRelLab,
+$sql = "SELECT *,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    Permiso.del,
-    Permiso.al,
-    Permiso.dias,
-    Permiso.descripcion
+    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
     FROM Permiso LEFT JOIN Empleado ON Permiso.RFC = Empleado.RFC WHERE
-    id_periodo =  " . $periodo . " AND
-    Permiso.del <= '" . $al . "' AND
+    id_prenomina =  " . $id_prenomina . " AND
     Permiso.categoria = 1
     ORDER BY Permiso.RFC ASC";
 $consulta = $conexion->query($sql);
@@ -681,105 +586,94 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-        $sheet->setCellValue('C' . $i, $res["CURP"]);
-        $sheet->setCellValue('D' . $i, $res["RFC"]);
-        $sheet->setCellValue('E' . $i, $res["puesto"]);
-        $sheet->setCellValue('F' . $i, $res["departamento"]);
-        $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-        $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-        $sheet->setCellValue('I' . $i, dias_permiso($res['RFC'], $descuentos));
-        $sheet->setCellValue('J' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
-        $sheet->setCellValue('K' . $i, $res["dias"]);
-        $sheet->setCellValue('L' . $i, mb_strtoupper($res["descripcion"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["puesto"]);
+        $sheet->setCellValue('E' . $i, $res["departamento"]);
+        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
+        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
+        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
+
         $i++;
     }
 }
 
-$sheet->getStyle('A3:L' . $i)->applyFromArray($contenido);
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':L' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':L' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'L') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
+firma($i, $col, $sheet);
 
-#------------------------------------------------------------------------------------------
-
+// HONORARIOS ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Honorarios y Eventuales');
 $spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:K1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'HONORARIOS Y EVENTUALES' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
+$col = "K";
+cabecera("HONORARIOS Y EVENTUALES" . $titulo, $col, $sheet);
 
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'TIPO DE TRABAJADOR');
-$sheet->setCellValue('J2', 'ESTADO DEL EMPLEADO');
-$sheet->setCellValue('K2', 'OBSERVACIONES');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE INGRESO');
+$sheet->setCellValue('G2', 'TIPO DE TRABAJADOR');
+$sheet->setCellValue('H2', 'ESTADO DEL EMPLEADO');
+$sheet->setCellValue('I2', 'OBSERVACIONES');
+$sheet->setCellValue('J2', 'DIAS A PAGAR');
+$sheet->setCellValue('K2', 'DIAS DESCONTADOS');
 
 $sql = "SELECT *,
+    (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
     (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
     FROM Empleado WHERE
+    id_periodo =  " . $periodo . " AND
     id_trabajador IN(3,4) AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
-$consulta = $conexion->query($sql);
 
+$consulta = $conexion->query($sql);
 $i = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    $sheet->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
+    $sheet->getStyle('A3:' . $col . '3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
     while ($res = mysqli_fetch_array($consulta)) {
         $bandera = false;
-        if ($res["estado"] === 'baja') {
-            $sql1 = "SELECT RFC FROM Baja WHERE fecha >= '" . $del . "' AND fecha <= '" . $al . "' AND RFC = '" . $res["RFC"] . "'";
-            $consulta1 = mysqli_query($conexion, $sql1);
+        if ($res["estado"] == 'baja') {
+            $sql = "SELECT * FROM Historial WHERE
+                tipo = 'baja' AND
+                RFC = '" . $res['RFC'] . "' AND
+                id_prenomina = " . $id_prenomina;
+
+            $consulta1 = $conexion->query($sql);
             if ($consulta1 && (mysqli_num_rows($consulta1) > 0)) {
                 $bandera = true;
-            } else {
-                $bandera = false;
             }
         } else {
             $bandera = true;
         }
 
         if ($bandera) {
-            $sql0 = "SELECT * FROM Reingreso WHERE RFC = '" . $res['RFC'] . "'";
-            $consulta0 = mysqli_query($conexion, $sql0);
+            $sql = "SELECT * FROM Historial WHERE
+                tipo = 'reingreso' AND
+                RFC = '" . $res['RFC'] . "' AND
+                id_prenomina = " . $id_prenomina;
+
+            $consulta1 = $conexion->query($sql);
             $observaciones = "";
-            if ($consulta0 && mysqli_num_rows($consulta0) > 0) {
+            if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
                 $observaciones = "REINGRESO";
             }
             $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-            $sheet->setCellValue('C' . $i, $res["CURP"]);
-            $sheet->setCellValue('D' . $i, $res["RFC"]);
-            $sheet->setCellValue('E' . $i, $res["puesto"]);
-            $sheet->setCellValue('F' . $i, $res["departamento"]);
-            $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-            $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-            $sheet->setCellValue('I' . $i, $res['tipoTrabajador']);
-            $sheet->setCellValue('J' . $i, mb_strtoupper($res["estado"]));
-            $sheet->setCellValue('K' . $i, $observaciones);
+            $sheet->setCellValue('C' . $i, $res["RFC"]);
+            $sheet->setCellValue('D' . $i, $res["puesto"]);
+            $sheet->setCellValue('E' . $i, $res["departamento"]);
+            $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+            $sheet->setCellValue('G' . $i, $res['tipoTrabajador']);
+            $sheet->setCellValue('H' . $i, mb_strtoupper($res["estado"]));
+            $sheet->setCellValue('I' . $i, $observaciones);
+            $sheet->setCellValue('J' . $i, dias_paga($res['RFC'], $descuentos));
+            $sheet->setCellValue('K' . $i, dias_descontados($res['RFC'], $descuentos) + dias_permiso($res['RFC'], $descuentos));
+
             $sheet->getStyle('A' . $i)->applyFromArray($contenido2);
             $sheet->getStyle('B' . $i)->applyFromArray($contenido2);
             $sheet->getStyle('C' . $i)->applyFromArray($contenido2);
@@ -812,47 +706,29 @@ for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
             $color = 'ffffff';
         }
     }
-    $sheet->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
+    $sheet->getStyle('A' . $i . ':' . $col . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
     $i++;
 }
 
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'J') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
+firma($i, $col, $sheet);
 
-$sheet->setAutoFilter('A2:J2');
-
-#------------------------------------------------------------------------------------------
+// PRENOMINA ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Prenomina');
 $spreadsheet->addSheet($sheet);
-$sheet->mergeCells('A1:B1');
-$sheet->mergeCells('C1:K1');
-$sheet->getStyle("C1")->applyFromArray($titulos);
-$sheet->setCellValue('C1', 'PRENOMINA' . $texto);
-logo($sheet);
-$sheet->getRowDimension('1')->setRowHeight(40);
-$sheet->getStyle('A2:K2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
-$sheet->getStyle('A2:K2')->getFont()->getColor()->setRGB('FFFFFF');
+$col = "K";
+cabecera("PRENOMINA" . $titulo, $col, $sheet);
 
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
-$sheet->setCellValue('C2', 'CURP');
-$sheet->setCellValue('D2', 'RFC');
-$sheet->setCellValue('E2', 'PUESTO');
-$sheet->setCellValue('F2', 'DEPARTAMENTO');
-$sheet->setCellValue('G2', 'FECHA DE INGRESO');
-$sheet->setCellValue('H2', 'DIAS A PAGAR');
-$sheet->setCellValue('I2', 'TIPO DE TRABAJADOR');
-$sheet->setCellValue('J2', 'ESTADO DEL EMPLEADO');
-$sheet->setCellValue('K2', 'OBSERVACIONES');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'PUESTO');
+$sheet->setCellValue('E2', 'DEPARTAMENTO');
+$sheet->setCellValue('F2', 'FECHA DE INGRESO');
+$sheet->setCellValue('G2', 'TIPO DE TRABAJADOR');
+$sheet->setCellValue('H2', 'ESTADO DEL EMPLEADO');
+$sheet->setCellValue('I2', 'OBSERVACIONES');
+$sheet->setCellValue('J2', 'DIAS A PAGAR');
+$sheet->setCellValue('K2', 'DIAS DESCONTADOS');
 
 $sql = "SELECT *,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
@@ -865,43 +741,51 @@ $sql = "SELECT *,
     id_trabajador NOT IN(3,4) AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
+
 $consulta = $conexion->query($sql);
 $i = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
-    $sheet->getStyle('A3:K3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
+    $sheet->getStyle('A3:' . $col . '3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
     while ($res = mysqli_fetch_array($consulta)) {
         $bandera = false;
-        if ($res["estado"] === 'baja') {
-            $sql1 = "SELECT RFC FROM Baja WHERE fecha >= '" . $del . "' AND fecha <= '" . $al . "' AND RFC = '" . $res["RFC"] . "'";
-            $consulta1 = mysqli_query($conexion, $sql1);
+        if ($res["estado"] == 'baja') {
+            $sql = "SELECT * FROM Historial WHERE
+            tipo = 'baja' AND
+            RFC = '" . $res['RFC'] . "' AND
+            id_prenomina = " . $id_prenomina;
+
+            $consulta1 = $conexion->query($sql);
             if ($consulta1 && (mysqli_num_rows($consulta1) > 0)) {
                 $bandera = true;
-            } else {
-                $bandera = false;
             }
         } else {
             $bandera = true;
         }
 
         if ($bandera) {
-            $sql0 = "SELECT * FROM Reingreso WHERE RFC = '" . $res['RFC'] . "'";
-            $consulta0 = mysqli_query($conexion, $sql0);
+            $sql = "SELECT * FROM Historial WHERE
+            tipo = 'reingreso' AND
+            RFC = '" . $res['RFC'] . "' AND
+            id_prenomina = " . $id_prenomina;
+
+            $consulta1 = $conexion->query($sql);
             $observaciones = "";
-            if ($consulta0 && mysqli_num_rows($consulta0) > 0) {
+            if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
                 $observaciones = "REINGRESO";
             }
             $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
-            $sheet->setCellValue('C' . $i, $res["CURP"]);
-            $sheet->setCellValue('D' . $i, $res["RFC"]);
-            $sheet->setCellValue('E' . $i, $res["puesto"]);
-            $sheet->setCellValue('F' . $i, $res["departamento"]);
-            $sheet->setCellValue('G' . $i, $res["fechaRelLab"]);
-            $sheet->setCellValue('H' . $i, dias_paga($res['RFC'], $descuentos));
-            $sheet->setCellValue('I' . $i, $res['tipoTrabajador']);
-            $sheet->setCellValue('J' . $i, mb_strtoupper($res["estado"]));
-            $sheet->setCellValue('K' . $i, $observaciones);
+            $sheet->setCellValue('C' . $i, $res["RFC"]);
+            $sheet->setCellValue('D' . $i, $res["puesto"]);
+            $sheet->setCellValue('E' . $i, $res["departamento"]);
+            $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+            $sheet->setCellValue('G' . $i, $res['tipoTrabajador']);
+            $sheet->setCellValue('H' . $i, mb_strtoupper($res["estado"]));
+            $sheet->setCellValue('I' . $i, $observaciones);
+            $sheet->setCellValue('J' . $i, dias_paga($res['RFC'], $descuentos));
+            $sheet->setCellValue('K' . $i, dias_descontados($res['RFC'], $descuentos) + dias_permiso($res['RFC'], $descuentos));
+
             $sheet->getStyle('A' . $i)->applyFromArray($contenido2);
             $sheet->getStyle('B' . $i)->applyFromArray($contenido2);
             $sheet->getStyle('C' . $i)->applyFromArray($contenido2);
@@ -934,30 +818,18 @@ for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
             $color = 'ffffff';
         }
     }
-    $sheet->getStyle('A' . $i . ':J' . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
+    $sheet->getStyle('A' . $i . ':' . $col . $i)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB($color);
     $i++;
 }
 
-$i = $i + 5;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "_____________________________________");
-$i++;
-$sheet->mergeCells('A' . $i . ':J' . $i);
-$sheet->getStyle("A" . $i)->applyFromArray($firma);
-$sheet->setCellValue('A' . $i, "DIRECTOR DE RECURSOS HUMANOS");
-foreach (range('A', 'J') as $columnID) {
-    $sheet->getColumnDimension($columnID)->setAutoSize(true);
-}
+firma($i, $col, $sheet);
 
-$sheet->setAutoFilter('A2:J2');
-
-#------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------------
 
 $url = uniqid() . ".xlsx";
 $ruta = $ruta . $url;
 
-$sql = "UPDATE Prenomina SET observacion = '" . $observacion . "', url = '" . $url . "' WHERE id_prenomina = ".$prenomina["id_prenomina"];
+$sql = "UPDATE Prenomina SET observacion = '" . $observacion . "', url = '" . $url . "' WHERE id_prenomina = " . $id_prenomina;
 
 if ($conexion->query($sql)) {
     $writer = new Xlsx($spreadsheet);

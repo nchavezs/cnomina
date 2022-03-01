@@ -10,23 +10,23 @@ echo '<div class="p-2">
 		<h4 class="font-weight-bold text-primary">Lista de CFDI</h4>
 		<small class="text-muted">CFDI de '.$usuario["nombre"].'.</small>
 	</div>
-<div class="ver_opciones">
-	<select id="ano" class="sources">';
-		$ano = date("Y");
-		for ($i = 2022; $i <= 2025; $i++) {
-			if ($ano == $i) {
-				$select_ano = "selected";
-			} else {
-				$select_ano = "";
-			}
-			echo '<option ' . $select_ano . ' value="' . $i . '">' . $i . '</option>';
-		}
-echo '</select>
-</div>	
-<div class="card card-profile">
+
+<div class="card">
 		<div class="card-body">
 			<div class="caja-recibos"></div>
 		</div>
 	</div>';
 
 mysqli_close($conexion);
+
+// <select id="ano" class="sources">';
+// 		$ano = date("Y");
+// 		for ($i = 2022; $i <= 2025; $i++) {
+// 			if ($ano == $i) {
+// 				$select_ano = "selected";
+// 			} else {
+// 				$select_ano = "";
+// 			}
+// 			echo '<option ' . $select_ano . ' value="' . $i . '">' . $i . '</option>';
+// 		}
+// echo '</select>

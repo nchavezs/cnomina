@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 require_once "../../vendor/autoload.php";
 $conexion = conexion();
@@ -217,8 +219,8 @@ if ($formato) {
                                 STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
                                 '" . $RFC . "')";
 
-                                $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
-                                VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+                                $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina) 
+                                VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado',".$id_prenomina.")";
 
                             if (!$conexion->query($sql1)) {
                                 $errors[] = $conexion->error;

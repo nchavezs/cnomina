@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
@@ -7,7 +9,7 @@ $sql = "SELECT * FROM Usuario WHERE RFC = '".$id."'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
-$sql = "SELECT * FROM Permiso WHERE RFC = '" . $id."'";
+$sql = "SELECT * FROM Permiso WHERE id_prenomina=".$id_prenomina." AND RFC = '" . $id."'";
 $resultado = mysqli_query($conexion, $sql);
 
 if (mysqli_num_rows($resultado) == 0) {
@@ -28,16 +30,6 @@ if (mysqli_num_rows($resultado) == 0) {
 			<select name="sources" id="permiso" class="select-permiso custom-select sources" >
 				<option value="0" selected="true">CON GOCE DE SUELDO</option>
 				<option value="1">SIN GOCE DE SUELDO</option>
-			</select>
-			<select id="ano" class="sources">';
-			$ano = date("Y");
-			for($i=2022;$i<=2025;$i++){
-				$select_ano = "";
-				if($ano == $i)
-					$select_ano = "selected";
-				echo '<option '.$select_ano.' value="'.$i.'">'.$i.'</option>';
-			}
-			echo '
 			</select>
 			<div class="btn btn-secondary btn-sm" onclick="permiso(\''.$id.'\');"><i class="material-icons">add</i> Nuevo </div>
 	</div>

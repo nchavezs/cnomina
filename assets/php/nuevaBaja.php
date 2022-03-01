@@ -33,17 +33,17 @@ echo '<form id="form-baja">
 			</div>
 			
 			<div class="card">
-					<div class="card-body">
-						<div class="check_opciones">
-							<div class="toggle-btn">
-								<input id="retroactivo" type="checkbox" class="cb-value" /> 
-								<span class="round-btn"></span>
-							</div>
-							<span class="text-muted ml-3">¿El empleado fue dado de baja en el periodo anterior? Se establecerán 0 días a pagar para este periodo.</span>	
-
+				<div class="card-body">
+					<div class="check_opciones">
+						<div class="toggle-btn">
+							<input id="retroactivo" type="checkbox" class="cb-value" /> 
+							<span class="round-btn"></span>
 						</div>
+						<span class="text-muted ml-3">¿El empleado fue dado de baja en el periodo anterior? Se establecerán 0 días a pagar para este periodo.</span>	
+
 					</div>
-				</div>';
+				</div>
+			</div>';
 
 echo '<div class="pie">
 		<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $id . '\',1);">Regresar </div>

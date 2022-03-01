@@ -1,4 +1,7 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
+
 include 'conexion.php';
 require_once "../../vendor/autoload.php";
 
@@ -258,8 +261,8 @@ if ($total == 0) {
                                 '" . $nombres . "',
                                 " . $periodo . ")";
                             if ($conexion->query($sql)) {
-                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
-                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina) 
+                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado',".$id_prenomina.")";
                                 $consulta = $conexion->query($sql);
                             }
                         }
@@ -279,6 +282,8 @@ if ($total == 0) {
 } else {
     echo 2;
 }
+
+$conexion->close();
 
 // file_put_contents("./prueba.txt", $pdf);
 // echo $id;

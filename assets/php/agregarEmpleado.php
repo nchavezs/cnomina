@@ -1,4 +1,7 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
+$id_periodo = $_SESSION["id_periodo"];
 include "conexion.php";
 
 $id_empleado = trim($_POST["numero"]);
@@ -15,7 +18,8 @@ $trabajador = $_POST["trabajador"];
 $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
 $password = str_pad($id_empleado, 5, '0', STR_PAD_LEFT);
 $plaza = $_POST["plaza"];
-$periodo = $_POST["periodo"];
+$periodo = $_SESSION["id_periodo"];
+$retroactivo = $_POST["retroactivo"];
 
 $conexion = conexion();
 $errors = [];
@@ -65,8 +69,8 @@ if ($consulta && mysqli_num_rows($consulta) == 0) {
     $sql4 = "INSERT INTO Historial_Plaza(id_plaza, fecha_inicio, RFC)
     VALUES(" . $plaza . ", STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'), '" . $RFC . "')";
 
-    $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion) 
-    VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado')";
+    $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,retroactivo,id_prenomina) 
+    VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado', ".$retroactivo.",".$id_prenomina.")";
 
 
     if (!$conexion->query($sql1)) {

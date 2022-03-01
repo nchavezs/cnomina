@@ -1,9 +1,10 @@
 <?php
+session_start();
 include "conexion.php";
 setlocale(LC_ALL, "spanish");
 $conexion = conexion();
 $id = $_POST['id'];
-$ano = $_POST["ano"];
+$ano = $_SESSION["ano"];
 
 $sql = "SELECT *,
 (SELECT nombre FROM Periodo WHERE id_periodo = Archivo.id_periodo) AS periodo

@@ -1,11 +1,12 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
-$ano = $_POST["ano"];
-$mes = $_POST["mes"];
 
-$sql = "SELECT * FROM Gastos WHERE YEAR(fecha) = " . $ano . " AND MONTH(fecha) = " . $mes . " AND RFC = '" . $id . "'";
+
+$sql = "SELECT * FROM Gastos WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
 $consulta = mysqli_query($conexion, $sql);
 
 if (mysqli_num_rows($consulta) > 0) {

@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
 $id = explode("-", $_POST["id"]);
@@ -15,7 +17,7 @@ if ($fecha === "") {
     $hora = $fecha[1] . " " . $fecha[2];
     $fecha = $fecha[0];
 
-    $sql = "INSERT INTO Pase(RFC,fecha,hora,categoria,observacion) VALUES('" . $id . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'" . $hora . "', " . $categoria . ", '" . $observacion . "')";
+    $sql = "INSERT INTO Pase(RFC,fecha,hora,categoria,observacion,id_prenomina) VALUES('" . $id . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'" . $hora . "', " . $categoria . ", '" . $observacion . "',".$id_prenomina.")";
 
     if (mysqli_query($conexion, $sql)) {
         echo 1;
