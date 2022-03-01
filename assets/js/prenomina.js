@@ -39,7 +39,6 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            alert(data);
             cargar_prenominas();
             if (data != 0) {
                 Swal.fire({
