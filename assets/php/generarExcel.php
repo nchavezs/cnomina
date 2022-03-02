@@ -1,4 +1,6 @@
 <?php
+session_start();
+$id_periodo = $_SESSION["id_periodo"];
 include "conexion.php";
 $conexion = conexion();
 require '../../vendor/autoload.php';
@@ -29,7 +31,9 @@ $sql = "SELECT Empleado.*,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador
-	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE estado = '".$estado."'";
+	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
+    id_periodo = ".$id_periodo." AND 
+    estado = '".$estado."'";
 
 $consulta = mysqli_query($conexion, $sql);
 

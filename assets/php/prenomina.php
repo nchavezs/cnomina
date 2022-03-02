@@ -339,8 +339,8 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('E' . $i, $res["puesto"]);
-        $sheet->setCellValue('F' . $i, $res["departamento"]);
-        $sheet->setCellValue('G' . $i, $res["puestoAnterior"]);
+        $sheet->setCellValue('F' . $i, $res["puestoAnterior"]);
+        $sheet->setCellValue('G' . $i, $res["departamento"]);
         $sheet->setCellValue('H' . $i, $res["departamentoAnterior"]);
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
 
@@ -830,7 +830,7 @@ firma($i, $col, $sheet);
 
 // --------------------------------------------------------------------------------------------------------------------------------
 
-$url = uniqid() . ".xlsx";
+$url = "Prenomina_".uniqid() . ".xlsx";
 $ruta = $ruta . $url;
 
 $sql = "UPDATE Prenomina SET observacion = '" . $observacion . "', url = '" . $url . "' WHERE id_prenomina = " . $id_prenomina;
