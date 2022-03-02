@@ -3,14 +3,14 @@
     $conexion = conexion();
 	setlocale(LC_ALL, "spanish");
 	$id = $_POST['id'];
-	$hoy = date("d/m/Y");
+	// $hoy = date("d/m/Y");
 
 	$sql = "SELECT * FROM Usuario WHERE RFC = '".$id."'";
 	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
 	
 	
-	echo '<form id="form-vacacion">
+	echo '<form id="form-vacacion" autocomplete="off">
 			<div class="p-2">
 				<h4 class="font-weight-bold text-primary">Registrar vacaciones</h4>
 				<small class="text-muted">Completa el siguiente formulario para registrar vacaciones de '.$usuario["nombre"].'.</small>
@@ -21,12 +21,12 @@
 						
 						<div class="col-md-4">
 							<div class="select-etiqueta">Periodo del</div>
-							<input id="fecha2" type="text" class="campo" required="true" readonly value="'.$hoy.'"/> 
+							<input id="fecha2" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>
 						
 						<div class="col-md-4">
 							<div class="select-etiqueta">Al</div>
-							<input id="fecha3" type="text" class="campo" required="true" readonly value="'.$hoy.'"/> 
+							<input id="fecha3" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>
 
 						<div class="col-md-4">

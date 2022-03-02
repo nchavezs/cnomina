@@ -3,125 +3,123 @@ var total = -1;
 
 var numero_evento = null;
 
-$(document).ready( function () {
+$(document).ready(function () {
+   $('.dataTable').DataTable.ext.pager.numbers_length = 5;
 
-      $('.dataTable').DataTable.ext.pager.numbers_length = 5;
+   $(document).on("click", ".ver_panel p", function () {
+      $(".ver_panel p").removeClass("activo");
+      $(this).addClass("activo");
+   });
 
-      $(document).on("click", ".ver_panel p", function () {
-         $(".ver_panel p").removeClass("activo");
-         $(this).addClass("activo");
+   // numero();
+   // numero_evento = setInterval(numero, 10000);
+
+   $(document).on("click", "#salir", function () {
+      Swal.close();
+   });
+
+   // $("#navbarDropdownMenuLink").on("click", function () {
+   //    notificaciones();
+   // });
+
+   // $(".chat_cuerpo").perfectScrollbar();
+
+   // $(".chat_enviar").on("click", function (e) {
+   //    e.preventDefault();
+   //    let mensaje = $("#chat-input").val().trim();
+   //    if (mensaje != "") {
+   //       send_mail(mensaje);
+   //    }
+   // });
+
+   // $(".chat_fondo").on("click", function () {
+   //    $(".chat_cerrar").click();
+   // });
+
+   // $(".chat").on("click", function () {
+   //    cargar_mensajes();
+
+   //    timer = setInterval(function () {
+   //       cargar_mensajes()
+   //    }, 8000);
+
+   //    $(".chat").css("opacity", 0);
+   //    $(".chat_caja").css("bottom", "20px");
+   //    $(".chat_caja").css("opacity", 1);
+   //    $(".chat_caja").css("pointer-events", "all");
+   //    $(".chat_fondo").css("opacity", 1);
+   //    $(".chat_fondo").css("pointer-events", "all");
+   // });
+   // $(".chat_cerrar").on("click", function () {
+   //    clearTimeout(timer);
+   //    $(".chat").css("opacity", 1);
+   //    $(".chat_caja").css("bottom", "60px");
+   //    $(".chat_caja").css("opacity", 0);
+   //    $(".chat_caja").css("pointer-events", "none");
+   //    $(".chat_fondo").css("opacity", 0);
+   //    $(".chat_fondo").css("pointer-events", "none");
+   // });
+   // $('.chat_input textarea').on('keydown', function (e) {
+   //    if (e.which === 13 && !e.shiftKey) {
+   //       e.preventDefault();
+   //       $(".chat_enviar").click();
+   //    }
+   //    var el = this;
+   //    setTimeout(function () {
+   //       el.style.cssText = 'height:auto; padding:0';
+   //       el.style.cssText = '-moz-box-sizing:content-box';
+   //       el.style.cssText = 'height:' + el.scrollHeight + 'px';
+   //       $(".chat_cuerpo").css("height", "calc(90% - " + el.scrollHeight + 'px)');
+   //    }, 0);
+   // });
+
+
+   $('#cerrar').click(function () {
+      Swal.fire({
+         position: 'center',
+         type: 'question',
+         title: '¿Desea cerrar sesión?',
+         reverseButtons: true,
+         showCancelButton: true,
+         confirmButtonText: 'SI',
+         cancelButtonText: 'NO',
+
+
+      }).then((result) => {
+         if (result.value) {
+            $.post("assets/php/cerrarSesion.php", function (data) {
+               window.location.href = data;
+            });
+
+         } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+         }
       });
+   });
 
-      // numero();
-      // numero_evento = setInterval(numero, 10000);
+   $('#cerrar-btn').click(function () {
+      Swal.fire({
+         position: 'center',
+         type: 'question',
+         title: '¿Desea cerrar sesión?',
+         reverseButtons: true,
+         showCancelButton: true,
+         confirmButtonText: 'SI',
+         cancelButtonText: 'NO',
 
-      $(document).on("click", "#salir", function () {
-         Swal.close();
+
+      }).then((result) => {
+         if (result.value) {
+            $.post("assets/php/cerrarSesion.php", function (data) {
+               window.location.href = data;
+            });
+
+         } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+         }
       });
-
-      // $("#navbarDropdownMenuLink").on("click", function () {
-      //    notificaciones();
-      // });
-
-      // $(".chat_cuerpo").perfectScrollbar();
-
-      // $(".chat_enviar").on("click", function (e) {
-      //    e.preventDefault();
-      //    let mensaje = $("#chat-input").val().trim();
-      //    if (mensaje != "") {
-      //       send_mail(mensaje);
-      //    }
-      // });
-
-      // $(".chat_fondo").on("click", function () {
-      //    $(".chat_cerrar").click();
-      // });
-
-      // $(".chat").on("click", function () {
-      //    cargar_mensajes();
-
-      //    timer = setInterval(function () {
-      //       cargar_mensajes()
-      //    }, 8000);
-
-      //    $(".chat").css("opacity", 0);
-      //    $(".chat_caja").css("bottom", "20px");
-      //    $(".chat_caja").css("opacity", 1);
-      //    $(".chat_caja").css("pointer-events", "all");
-      //    $(".chat_fondo").css("opacity", 1);
-      //    $(".chat_fondo").css("pointer-events", "all");
-      // });
-      // $(".chat_cerrar").on("click", function () {
-      //    clearTimeout(timer);
-      //    $(".chat").css("opacity", 1);
-      //    $(".chat_caja").css("bottom", "60px");
-      //    $(".chat_caja").css("opacity", 0);
-      //    $(".chat_caja").css("pointer-events", "none");
-      //    $(".chat_fondo").css("opacity", 0);
-      //    $(".chat_fondo").css("pointer-events", "none");
-      // });
-      // $('.chat_input textarea').on('keydown', function (e) {
-      //    if (e.which === 13 && !e.shiftKey) {
-      //       e.preventDefault();
-      //       $(".chat_enviar").click();
-      //    }
-      //    var el = this;
-      //    setTimeout(function () {
-      //       el.style.cssText = 'height:auto; padding:0';
-      //       el.style.cssText = '-moz-box-sizing:content-box';
-      //       el.style.cssText = 'height:' + el.scrollHeight + 'px';
-      //       $(".chat_cuerpo").css("height", "calc(90% - " + el.scrollHeight + 'px)');
-      //    }, 0);
-      // });
-
-
-      $('#cerrar').click(function () {
-         Swal.fire({
-            position: 'center',
-            type: 'question',
-            title: '¿Desea cerrar sesión?',
-            reverseButtons: true,
-            showCancelButton: true,
-            confirmButtonText: 'SI',
-            cancelButtonText: 'NO',
-
-
-         }).then((result) => {
-            if (result.value) {
-               $.post("assets/php/cerrarSesion.php", function (data) {
-                  window.location.href = data;
-               });
-
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-            }
-         });
-      });
-
-      $('#cerrar-btn').click(function () {
-         Swal.fire({
-            position: 'center',
-            type: 'question',
-            title: '¿Desea cerrar sesión?',
-            reverseButtons: true,
-            showCancelButton: true,
-            confirmButtonText: 'SI',
-            cancelButtonText: 'NO',
-
-
-         }).then((result) => {
-            if (result.value) {
-               $.post("assets/php/cerrarSesion.php", function (data) {
-                  window.location.href = data;
-               });
-
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-            }
-         });
-      });
-   }
-);
+   });
+});
 
 function no_pasar() {
    md.showNotification("top", "right", "No cuenta con los permisos suficientes.");
@@ -215,7 +213,7 @@ function select_estilo() {
       search: true,
       descriptions: true,
       placeholder: "SELECCIONA UNA OPCIÓN",
-      multiSelectAll:true,
+      multiSelectAll: true,
       multiContainer: true,
       multiShowCount: false,
    });
@@ -255,7 +253,7 @@ function depa_change() {
             $("#puesto").html(data);
             tail.select("#puesto").reload();
             $("#puesto").change();
-            if(document.getElementById( "plaza")){
+            if (document.getElementById("plaza")) {
                tail.select("#plaza").reload();
             }
          }
@@ -289,10 +287,10 @@ function isNumberKey(evt) {
 
 
 function descargar(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    link.click();
+   var link = document.createElement("a");
+   link.download = name;
+   link.href = uri;
+   link.click();
 }
 
 function descargar_php(direccion) {
@@ -301,64 +299,64 @@ function descargar_php(direccion) {
 
 function log_show(html) {
    Swal.fire({
-       html: html,
-       allowOutsideClick: false,
-       allowEscapeKey: false
+      html: html,
+      allowOutsideClick: false,
+      allowEscapeKey: false
    });
 }
 
 $(document).on("click", '.cb-value', function () {
    var mainParent = $(this).parent('.toggle-btn');
    if ($(mainParent).find('input.cb-value').is(':checked')) {
-       $(mainParent).addClass('active');
+      $(mainParent).addClass('active');
    } else {
-       $(mainParent).removeClass('active');
+      $(mainParent).removeClass('active');
    }
 });
 
-function soporte(){
+function soporte() {
    $("#nomina").click();
 }
 
 
 function mensaje(titulo, texto, color) {
    iziToast.show({
-       title: titulo
-       , message: texto
-       , color: color
-       , theme: "dark"
-       , position: "bottomCenter"
-       , transitionIn: 'revealIn'
-   , });
- }
+      title: titulo,
+      message: texto,
+      color: color,
+      theme: "dark",
+      position: "bottomCenter",
+      transitionIn: 'revealIn',
+   });
+}
 
 
- function ocultar_modal(){
+function ocultar_modal() {
    $("#modal_aceptar").prop("disabled", true);
    $("#modal").modal("hide");
- }
+}
 
- 
- function mostrar_modal(){
+
+function mostrar_modal() {
    $("#modal .modal-footer").show();
    $("#modal_aceptar").prop("disabled", false);
    $("#modal").modal("show");
- }
+}
 
- function validate(evt) {
+function validate(evt) {
    var theEvent = evt || window.event;
- 
+
    // Handle paste
    if (theEvent.type === 'paste') {
-       key = event.clipboardData.getData('text/plain');
+      key = event.clipboardData.getData('text/plain');
    } else {
-   // Handle key press
-       var key = theEvent.keyCode || theEvent.which;
-       key = String.fromCharCode(key);
+      // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
    }
    var regex = /[0-9]|\./;
-   if( !regex.test(key) ) {
-     theEvent.returnValue = false;
-     if(theEvent.preventDefault) theEvent.preventDefault();
+   if (!regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) theEvent.preventDefault();
    }
- }
+}

@@ -4,7 +4,7 @@
 	$RFC = $_POST['id'];
 
 	setlocale(LC_ALL, "spanish");
-	$hoy = date("d/m/Y");
+	// $hoy = date("d/m/Y");
 
 	$sql = "SELECT
 	Empleado.RFC AS RFC,
@@ -26,7 +26,8 @@
 	// 	$plaza = "PLAZA #".$plaza[0];
 	// }
 
-	echo '<div class="">
+	echo '<form id="form-movimiento" autocomplete="off">
+		<div>
 			<div class="p-2">
 				<h4 class="font-weight-bold text-primary">Registrar nuevo movimiento</h4>
 				<small class="text-muted">Completa el siguiente formulario para realizar el cambio de puesto y departamento para '.$usuario["nombre"].'.</small>
@@ -36,7 +37,7 @@
 					<div class="row">';
 					echo '<div class="col-md-6">
 							<div class="select-etiqueta">Fecha de movimiento</div>
-							<input id="fecha" type="text" class="campo" readonly value="'.$hoy.'"/> 
+							<input id="fecha" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>';
 					// echo '<div class="col-md-6"></div>';
 					
@@ -123,7 +124,8 @@
 		</div>
 		<div class="pie">
 			<div class="btn btn-secondary btn-sm" onclick="verMovimientos(\''.$RFC.'\');">Regresar </div>
-			<div class="btn btn-success btn-sm" id="form-movimiento"><i class="material-icons">save</i> Guardar </div>
-		</div>';
+			<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
+		</div>
+	</form>';
 
 	mysqli_close($conexion);

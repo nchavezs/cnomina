@@ -4,13 +4,13 @@
 	$conexion = conexion();
 
 	setlocale(LC_ALL, "spanish");
-	$hoy = date("d/m/Y");
+	// $hoy = date("d/m/Y");
 
 	$sql = "SELECT * FROM Usuario WHERE RFC = '".$id."'";
 	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
 	
-	echo '<form id="form-gastos">
+	echo '<form id="form-gastos" autocomplete="off">
 			<div class="p-2">
 				<h4 class="font-weight-bold text-primary">Registro de gastos médicos</h4>
 				<small class="text-muted">Nuevo gasto médico de '.$usuario["nombre"].'.</small>
@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="select-etiqueta">Fecha de apoyo</div>
-							<input id="fecha" type="text" class="campo" readonly required value="'.$hoy.'"/> 
+							<input id="fecha" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>
 						
 						

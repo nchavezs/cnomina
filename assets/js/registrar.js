@@ -116,21 +116,22 @@ $(document).ready(function () {
             depa_change();
             puesto_change();
             $("#nombre").blur();
-            var ingreso;
-            var date = moment().subtract(45, 'days').toDate();
-            // date.setMonth(date.getMonth() - 1);
 
-            $('#fecha').datepicker({
-                minDate: date,
-                maxDate: new Date(),
-                language: 'es',
-                autoClose: 'true',
-                position: "top center",
-                // todayButton: new Date(),
-                toggleSelected: false,
-                onSelect(formattedDate, date, inst) {
-                    $("#puesto").change();
-                }
+
+            $.post("assets/php/verificar_tope", function (datos) {
+                let data = JSON.parse(datos);
+                $('#fecha').datepicker({
+                    minDate: new Date(data.del),
+                    maxDate: new Date(data.al),
+                    language: 'es',
+                    autoClose: 'true',
+                    position: "top center",
+                    // todayButton: new Date(),
+                    toggleSelected: false,
+                    onSelect(formattedDate, date, inst) {
+                        $("#puesto").change();
+                    }
+                });
             });
 
             $("#form-empleado-1").submit(function (e) {
@@ -429,7 +430,7 @@ function reingreso(id) {
                 });
             });
 
-            $("#form-reingreso").click(function (e) {
+            $("#form-reingreso").submit(function (e) {
                 e.preventDefault();
                 var fechaReingreso = $("#fecha").val();
                 var observacion = $("#observacion").val();
@@ -473,10 +474,6 @@ function reingreso(id) {
     });
 };
 
-// var valor1;
-// var valor2;
-// var valor3;
-
 function permiso(id) {
     $.post("assets/php/verificar_periodo.php", {
         "id": id
@@ -503,8 +500,6 @@ function permiso(id) {
                             $("#materno").prop("disabled", false);
 
                     });
-
-
 
                     $.post("assets/php/fecha_periodo.php", function (datos) {
                         var data = JSON.parse(datos);
@@ -1240,7 +1235,8 @@ function movimiento(id) {
                     });
 
 
-                    $("#form-movimiento").click(function () {
+                    $("#form-movimiento").submit(function (e) {
+                        e.preventDefault();
                         let puesto = $("#puesto").val();
                         let departamento = $("#departamento").val();
                         let observacion = $("#observacion").val();
@@ -1258,7 +1254,7 @@ function movimiento(id) {
 
                             mostrar_modal();
 
-                            $("#modal_aceptar").click(function () {
+                            $("#modal_aceptar").off().click(function () {
                                 $.ajax({
                                     type: "POST",
                                     url: "assets/php/agregarMovimiento.php",
@@ -1976,7 +1972,7 @@ function editar_usuario(id, event) {
 
             });
         } else {
-           mensaje_baja(data);
+            mensaje_baja(data);
         }
     });
 };
@@ -2197,8 +2193,9 @@ function diferencia_fecha(fecha1, fecha2) {
     var a = moment(fecha1, 'DD/MM/YYYY').subtract(1, 'days');
     var b = moment(fecha2, 'DD/MM/YYYY');
     var diffDays = b.diff(a, 'days');
-    if (diffDays <= 0)
+    if (diffDays <= 0 || isNaN(diffDays))
         diffDays = 0;
+
     $("#dias").val(diffDays);
 }
 

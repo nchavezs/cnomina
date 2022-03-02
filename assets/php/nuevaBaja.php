@@ -3,13 +3,13 @@ $id = $_POST['id'];
 include "conexion.php";
 $conexion = conexion();
 setlocale(LC_ALL, "spanish");
-$hoy = date("d/m/Y");
+// $hoy = date("d/m/Y");
 
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
-echo '<form id="form-baja">
+echo '<form id="form-baja" autocomplete="off">
 			<div class="p-2">
 				<h4 class="font-weight-bold text-primary">Registrar baja de empleado</h4>
 				<small class="text-muted">Completa el siguiente formulario para dar de baja a <span id="nombre">' . $usuario["nombre"] . '</span> .</small>
@@ -20,7 +20,7 @@ echo '<form id="form-baja">
 
 						<div class="col-md-12">
 							<div class="select-etiqueta">Fecha de baja</div>
-							<input id="fecha" type="text" class="campo" readonly value="' . $hoy . '"/>
+							<input id="fecha" type="text" class="campo" onkeypress="return false;" required/>
 						</div>
 
 						<div class="col-md-12">

@@ -31,6 +31,8 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 
         $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
         $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
+        // $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".($res["dias"] - 1)." days"));
+
 
         if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
             while ($historial = mysqli_fetch_array($consulta2)) {

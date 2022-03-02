@@ -6,7 +6,7 @@
 	$consulta = mysqli_query($conexion, $sql);
 	$usuario = mysqli_fetch_array($consulta);
 	setlocale(LC_ALL, "spanish");
-	$hoy = date("d/m/Y");
+	// $hoy = date("d/m/Y");
 	
 
 	// $sql2 = "SELECT COUNT(*) FROM Permiso WHERE RFC = '".$id[0]."'";
@@ -14,7 +14,7 @@
 	// $permiso = mysqli_fetch_array($consulta2);
 	// $permiso[0] = $permiso[0]+1;
 	
-	echo '<form id="form-permiso">
+	echo '<form id="form-permiso" autocomplete="off">
 			<div class="">
 				<div class="p-2">
 					<h4 class="font-weight-bold text-primary">Registrar nueva licencia</h4>
@@ -34,15 +34,15 @@
 							</div>
 							<div class="col-md-6">
 								<div class="select-etiqueta">Días de permiso</div>
-								<input id="dias" value="1" type="text" class="campo" disabled onkeypress="return isNumberKey(event)">
+								<input id="dias" value="0" type="text" class="campo" disabled />
 							</div>
 							<div class="col-md-6">
 								<div class="select-etiqueta">Periodo del</div>
-								<input id="fecha2" type="text" class="datepicker-here campo" required="true" readonly value="'.$hoy.'"/> 
+								<input id="fecha2" type="text" class="datepicker-here campo" onkeypress="return false;" required/> 
 							</div>
 							<div class="col-md-6">
 								<div class="select-etiqueta">Al</div>
-								<input id="fecha3" type="text" class="datepicker-here campo" required="true" readonly value="'.$hoy.'"/> 
+								<input id="fecha3" type="text" class="datepicker-here campo" onkeypress="return false;" required/> 
 							</div>
 							<div class="col-md-12">
 								<div class="select-etiqueta">Descripción <cite class="text-danger"> opcional</cite></div>

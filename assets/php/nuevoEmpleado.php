@@ -21,7 +21,7 @@ echo '<div class="formulario_caja">
 
 			<div class="col-md-8">
 				<div class="formulario">
-					<form id="form-empleado-1" class="pagina_1">
+					<form id="form-empleado-1" class="pagina_1" autocomplete="off">
 						<div class="p-2">
 							<h4 class="font-weight-bold text-primary">Registrar nuevo empleado</h4>
 							<small class="text-muted">Completa el siguiente formulario que contendrá los datos generales del empleado, podrás editarlos en cualquier momento.</small>
@@ -74,7 +74,7 @@ echo '<div class="formulario_caja">
 								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Fecha de ingreso</div>
-										<input id="fecha" type="text" class="campo" value="' . $hoy . '" readonly />
+										<input id="fecha" type="text" class="campo" onkeypress="return false;" required/>
 									</div>
 								</div>
 							</div>
