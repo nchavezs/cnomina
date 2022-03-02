@@ -1,12 +1,12 @@
 <?php
 session_start();
-$id_periodo = $_SESSION["id_periodo"];
 include "conexion.php";
-$conexion = conexion();
 require '../../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+$id_periodo = $_SESSION["id_periodo"];
+$conexion = conexion();
 $estado = $_POST["estado"];
 
 $ruta = '../archivos/';
@@ -73,7 +73,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 		$sheet->setCellValue('K' . $i, $res["trabajador"]);
         $sheet->setCellValue('L' . $i, $res["banca"]);
         $sheet->setCellValue('M' . $i, $res["afiliacion"]);
-        $sheet->setCellValue('N' . $i, $res["estado"]);
+        $sheet->setCellValue('N' . $i, $res["periodo"]);
         $i++;
     }
 
@@ -86,9 +86,11 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     }
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 $writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/empleados.xlsx');
-echo "assets/archivos/empleados.xlsx";
+
+$nombre = 'empleados'.time().'.xlsx';
+$writer->save('../archivos/'.$nombre);
+echo "assets/archivos/".$nombre;
 exit();
