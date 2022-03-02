@@ -24,18 +24,18 @@ $contenido = [
 	],
 ];
 
-$sql = "SELECT Empleado.*,
-    Usuario.estado,
+$sql = "SELECT *,
+    (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador
-	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
+	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador 
+	FROM Empleado WHERE 
     id_periodo = ".$id_periodo." AND 
     estado = '".$estado."'";
 
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 $ultimo = "N";
 $spreadsheet = new Spreadsheet();
@@ -73,7 +73,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 		$sheet->setCellValue('K' . $i, $res["trabajador"]);
         $sheet->setCellValue('L' . $i, $res["banca"]);
         $sheet->setCellValue('M' . $i, $res["afiliacion"]);
-        $sheet->setCellValue('N' . $i, $res["periodo"]);
+        $sheet->setCellValue('N' . $i, $res["estado"]);
         $i++;
     }
 
