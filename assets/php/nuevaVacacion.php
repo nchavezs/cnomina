@@ -21,12 +21,12 @@
 						
 						<div class="col-md-4">
 							<div class="select-etiqueta">Periodo del</div>
-							<input id="fecha2" type="text" class="campo" onkeypress="return false;" required/> 
+							<input id="fecha1" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>
 						
 						<div class="col-md-4">
 							<div class="select-etiqueta">Al</div>
-							<input id="fecha3" type="text" class="campo" onkeypress="return false;" required/> 
+							<input id="fecha2" type="text" class="campo" onkeypress="return false;" required/> 
 						</div>
 
 						<div class="col-md-4">

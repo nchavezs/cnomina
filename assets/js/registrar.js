@@ -612,90 +612,7 @@ function ver(id, ventana, event) {
     }
 };
 
-// function cambiarFoto(id) {
 
-// };
-
-
-// function opciones(id) {
-//     $.post("assets/php/masOpciones.php", {
-//         id: id
-//     }).done(function (html) {
-//         Swal.fire({
-//             position: 'center',
-//             html: html,
-//             allowOutsideClick: true,
-//             showCloseButton: true,
-//             showConfirmButton: false,
-
-
-//         });
-
-//         cambiarFoto(id);
-
-//         $("#anterior").on('click', function () {
-//             ver(id, 0);
-//         });
-
-//         $("#boton-baja").on('click', function () {
-//             baja(id);
-//         });
-
-
-//         $("#boton-password").on('click', function () {
-//             password(id);
-//         });
-
-//         $("#boton-reingreso").on('click', function () {
-//             reingreso(id);
-//         });
-
-//         $("#pases").click(function (e) {
-//             e.preventDefault();
-//             verPases(id);
-//         });
-
-//         $("#vacaciones").click(function (e) {
-//             e.preventDefault();
-//             verVacaciones(id);
-//         });
-
-//         $("#movimientos").click(function (e) {
-//             e.preventDefault();
-//             verMovimientos(id);
-//         });
-
-//         $("#descuentos").click(function (e) {
-//             e.preventDefault();
-//             verDescuentos(id);
-//         });
-
-//         $("#expediente").click(function (e) {
-//             e.preventDefault();
-//             verExpediente(id);
-//         });
-
-//         $("#gastos").click(function (e) {
-//             e.preventDefault();
-//             verGastos(id);
-//         });
-
-//         $("#fecha-link").click(function (e) {
-//             e.preventDefault();
-//             verPermisos(id);
-//         });
-
-//         $("#recibos-link").click(function (e) {
-//             e.preventDefault();
-//             verNominas(id);
-//         });
-
-//         $("#beneficiarios-link").click(function (e) {
-//             e.preventDefault();
-
-//         });
-//     });
-// }
 
 function verBeneficiarios(id) {
     $.ajax({
@@ -717,22 +634,15 @@ function detalle(id) {
         var data = JSON.parse(datos);
         $(".ver_contenedor").html(data.html);
 
-        var fecha2 = data.fecha2.split("/");
-        var fecha3 = data.fecha3.split("/");
         $('#fecha').datepicker({
-            startDate: new Date(fecha2[2], fecha2[1] - 1, fecha2[0]),
             language: 'es',
-            minDate: new Date(fecha2[2], fecha2[1] - 1, fecha2[0]),
-            maxDate: new Date(fecha3[2], fecha3[1] - 1, fecha3[0]),
+            minDate: new Date(data.del),
+            maxDate: new Date(data.al),
+            startDate: new Date(data.del),
             onRenderCell: function (date, cellType) {
-                var ano = date.getFullYear();
-                var mes = date.getMonth() + 1;
-                var dia = date.getDay();
-                var fecha = date.getDate();
-
-                if (cellType == 'day' && comprobarFecha(data.fecha2, data.fecha3, date)) {
+                if (cellType == 'day' && comprobarFecha(data.del, data.al, date)) {
                     return {
-                        html: '<div class="celda-fecha"><p>' + fecha + '</p></div>'
+                        html: '<div class="celda-fecha"><p>' + date.getDate() + '</p></div>'
                     }
                 }
             },
@@ -1039,6 +949,19 @@ function vacacion(id) {
                     $(".ver_contenedor").html(html);
                     $.post("assets/php/fecha_periodo.php", function (datos) {
                         var data = JSON.parse(datos);
+                        $('#fecha1').datepicker({
+                            minDate: new Date(data.del),
+                            maxDate: new Date(data.al),
+                            language: 'es',
+                            autoClose: 'true',
+                            position: "bottom center",
+                            // todayButton: new Date(),
+                            toggleSelected: false,
+                            onSelect(formattedDate, date, inst) {
+                                diferencia_fecha($("#fecha1").val(), $("#fecha2").val());
+
+                            }
+                        });
                         $('#fecha2').datepicker({
                             minDate: new Date(data.del),
                             maxDate: new Date(data.al),
@@ -1048,20 +971,7 @@ function vacacion(id) {
                             // todayButton: new Date(),
                             toggleSelected: false,
                             onSelect(formattedDate, date, inst) {
-                                diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
-
-                            }
-                        });
-                        $('#fecha3').datepicker({
-                            minDate: new Date(data.del),
-                            maxDate: new Date(data.al),
-                            language: 'es',
-                            autoClose: 'true',
-                            position: "bottom center",
-                            // todayButton: new Date(),
-                            toggleSelected: false,
-                            onSelect(formattedDate, date, inst) {
-                                diferencia_fecha($("#fecha2").val(), $("#fecha3").val());
+                                diferencia_fecha($("#fecha1").val(), $("#fecha2").val());
 
                             }
                         });
@@ -1071,8 +981,6 @@ function vacacion(id) {
                         e.preventDefault();
                         $.post('assets/php/comprobarFechas.php', {
                             dias: $("#dias").val(),
-                            fecha1: $("#fecha2").val(),
-                            fecha2: $("#fecha3").val()
                         }).done(function (dato) {
                             if (dato != 1) {
                                 $("#advertencia").removeClass("hide");
@@ -1082,9 +990,8 @@ function vacacion(id) {
                                     type: "POST",
                                     url: "assets/php/agregarVacacion.php",
                                     data: {
-                                        "fecha1": $("#fecha1").val(),
-                                        "fecha2": $("#fecha2").val(),
-                                        "fecha3": $("#fecha3").val(),
+                                        "del": $("#fecha1").val(),
+                                        "al": $("#fecha2").val(),
                                         "id": id,
                                         "dias": $("#dias").val(),
                                         "descripcion": $("#descripcion").val()
@@ -1986,8 +1893,6 @@ function generar_empleados() {
         },
         type: "POST",
         success: function (data) {
-            console.log($("#estado").val());
-            console.log(data);
             Swal.close();
             if (data !== 0) {
                 descargar(data, 'Empleados');
@@ -2155,13 +2060,25 @@ function detalle_pase(id) {
 function formato_movimiento(id) {
     $.ajax({
         type: "POST",
-        url: "assets/php/formatoMovimiento.php",
+        url: "assets/php/formato_movimiento.php",
         data: {
             "id": id
         },
         success: function (url) {
-            alert(url);
             descargar(url, "Movimiento");
+        }
+    });
+}
+
+function formato_historial(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/formato_historial.php",
+        data: {
+            "id": id
+        },
+        success: function (url) {
+            descargar(url, "Historial");
         }
     });
 }

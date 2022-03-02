@@ -25,8 +25,8 @@
 								</div>
 								<div class="col-md-6">
 									<div id="fecha-contenido">
-										<p class="card-category">Del '.strftime("%A, %d de %B de %G", strtotime($vacacion[4])).'</p>
-										<p class="card-category">Al '.strftime("%A, %d de %B de %G", strtotime($vacacion[5])).'</p>
+										<p class="card-category">Del '.strftime("%d de %B de %Y", strtotime($vacacion[4])).'</p>
+										<p class="card-category">Al '.strftime("%d de %B de %Y", strtotime($vacacion[5])).'</p>
 										<p class="card-category mt-4">Descripción:</p>
 										<h5>'.$desc.'</h5>
 									</div>

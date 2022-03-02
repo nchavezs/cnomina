@@ -25,7 +25,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td>'.$res["tipo"].'</td>
 				<td>' . date("d/m/Y", strtotime($res["fecha"])) . '</td>
 				<td class="oculto">' . $res["descripcion"] . '</td>
-				<td class="oculto"> <a class="material-icons btn1">attachment</a></td>
+				<td class=""> <i onclick="formato_historial('.$res["id_historial"].');" class="material-icons btn1">attachment</i></td>
 			</tr>';
     }
     echo '</tbody>

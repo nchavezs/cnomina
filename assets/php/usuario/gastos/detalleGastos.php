@@ -12,7 +12,7 @@ $gastos = mysqli_fetch_array($consulta2);
 $datos["html"] = '<div class="card">
 					<div class="card-header card-header-primary">
 						<h4 class="card-title ">Gastos médicos</h4>
-						<p class="card-category">'.strftime("%A, %d de %B de %G", strtotime($gastos['fecha'])).'</p>
+						<p class="card-category">'.strftime("%d de %B de %Y", strtotime($gastos['fecha'])).'</p>
 					</div>
 					<div class="card-body">
 						<div class="row fecha-caja">

@@ -3,36 +3,40 @@ $id = $_POST['id'];
 include "conexion.php";
 $conexion = conexion();
 setlocale(LC_ALL, "spanish");
-$sql1 = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Permiso WHERE id_permiso = " . $id . ") LIMIT 1";
-$consulta1 = mysqli_query($conexion, $sql1);
-$usuario = mysqli_fetch_array($consulta1);
+$sql = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Permiso WHERE id_permiso = " . $id . " LIMIT 1)";
+$consulta = $conexion->query($sql);
+$usuario = mysqli_fetch_array($consulta);
 
-$sql2 = "SELECT * FROM Permiso WHERE id_permiso = " . $id;
-$consulta2 = mysqli_query($conexion, $sql2);
-$permiso = mysqli_fetch_array($consulta2);
+$sql = "SELECT * FROM Permiso WHERE id_permiso = " . $id;
+$consulta = $conexion->query($sql);
+$permiso = mysqli_fetch_array($consulta);
 
-if ($permiso[6] == 0) {
+if ($permiso["categoria"] == 0) {
     $tipo = "con";
 } else {
     $tipo = "sin";
 }
 
-if ($permiso[7] == "") {
+if ($permiso["descripcion"] == "") {
     $desc = "Sin descripción";
 } else {
-    $desc = $permiso[7];
+    $desc = $permiso["descripcion"];
 }
 
-if ($permiso[9] == 1) {
+if ($permiso["materno"] == 1) {
     $materno = "active";
 } else {
     $materno = "";
 }
 
+$del = strftime('Del %d de %B de %Y', strtotime($permiso['del']));
+$al = strftime('Al %d de %B de %Y', strtotime($permiso['al']));
+
 $html = '<div class="p-2">
 			<h4 class="font-weight-bold text-primary">Detalle de permiso</h4>
 			<small class="text-muted">Detalle de permiso de '.$usuario["nombre"].'.</small>
 		</div>
+		
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card">
@@ -40,7 +44,7 @@ $html = '<div class="p-2">
 						<div id="fecha" class="datepicker-here"></div>
 					</div>
 				</div>';
-if ($permiso[6] == 0) {
+if ($permiso["categoria"] == 0) {
 	$html = $html . '<div class="card">
 						<div class="card-body centrado">
 							<i class="material-icons text-success mr-3">task_alt</i>
@@ -53,16 +57,16 @@ $html = $html . '</div>
 					<div class="col-md-6">
 						<div class="card" id="fecha-contenido">
 							<div class="card-body">
-								<p class="card-category">Fecha de elaboración: <span>' . date("d/m/Y", strtotime($permiso[2])) . '</span></p>
-								<p class="card-category">Días de permiso: <span>' . $permiso[3] . '</span></p>
-								<br>
-								<p class="card-category">Del ' . strftime("%A, %d de %B de %G", strtotime($permiso[4])) . '</p>
-								<p class="card-category">Al ' . strftime("%A, %d de %B de %G", strtotime($permiso[5])) . '</p>
-								<br>
+								<p class="card-category">Fecha de elaboración: <span>' . date("d/m/Y", strtotime($permiso["elaboracion"])) . '</span></p>
+								<p class="card-category">Días de permiso: <span>' . $permiso["dias"] . '</span></p>
+								
+								<p class="card-category pt-2">' .$del. '</p>
+								<p class="card-category pb-2">' .$al . '</p>
+								
 								<p class="card-category">Descripción:</p>
 								<h5>' . $desc . '</h5>
-								<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $permiso[0] . ',\'' . $permiso[8] . '\',\'' . $permiso[1] . '\',\'Permiso\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
-		if (!is_null($permiso[8])) {
+								<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $permiso[0] . ',\'' . $permiso["url"] . '\',\'' . $permiso["RFC"] . '\',\'Permiso\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
+		if (!is_null($permiso["url"])) {
 			$html = $html . '<div class="btn btn-primary btn-sm btn3" onclick="eliminar_archivo(' . $permiso[0] . ',\'Permiso\')"><i class="material-icons">clear</i> Eliminar archivo </div>';
 		}
 
@@ -75,10 +79,11 @@ $html = $html . '</div>
 			<div class="btn btn-secondary btn-sm" onclick="verPermisos(\''.$usuario["RFC"].'\');">Regresar </div>
 		</div>';
 
-$datos["fecha1"] = date("d/m/Y", strtotime($permiso[2]));
-$datos["fecha2"] = date("d/m/Y", strtotime($permiso[4]));
-$datos["fecha3"] = date("d/m/Y", strtotime($permiso[5]));
 $datos["html"] = $html;
+$datos["del"] = date("d/m/Y", strtotime($permiso["del"]));
+$datos["al"] = date("d/m/Y", strtotime($permiso["al"]));
+
+$conexion->close();
 
 echo json_encode($datos);
-mysqli_close($conexion);
+

@@ -55,8 +55,8 @@
 									$datos["html"] = $datos["html"] .'</div>
 										<div class="col-md-6">
 											<div id="fecha-contenido">
-												<p class="card-category">Del '.strftime("%A, %d de %B de %G", strtotime($permiso[4])).'</p>
-												<p class="card-category">Al '.strftime("%A, %d de %B de %G", strtotime($permiso[5])).'</p>
+												<p class="card-category">Del '.strftime("%d de %B de %Y", strtotime($permiso[4])).'</p>
+												<p class="card-category">Al '.strftime("%d de %B de %Y", strtotime($permiso[5])).'</p>
 												<br>
 												<p class="card-category">Descripción:</p>
 												<h5>'.$desc.'</h5>

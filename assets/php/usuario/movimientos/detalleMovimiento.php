@@ -19,7 +19,7 @@
 	echo '<div class="card">
 				<div class="card-header card-header-primary">
 					<h4 class="card-title ">Movimiento</h4>
-					<p class="card-category">'.strftime("%A, %d de %B de %G", strtotime($resultado1["fecha"])).'</p>
+					<p class="card-category">'.strftime("%d de %B de %Y", strtotime($resultado1["fecha"])).'</p>
 				</div>
 				<div class="card-body">
 					<div class="row">

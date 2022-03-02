@@ -37,8 +37,8 @@ $html = '<div class="p-2">
 							<p class="card-category">Fecha de elaboración: ' . date("d/m/Y", strtotime($vacacion[2])) . '</p>
 							<p class="card-category">Días de vacaciones: ' . $vacacion[3] . '</p>
 							<br>
-							<p class="card-category">Del ' . strftime("%A, %d de %B de %G", strtotime($vacacion[4])) . '</p>
-							<p class="card-category">Al ' . strftime("%A, %d de %B de %G", strtotime($vacacion[5])) . '</p>
+							<p class="card-category">Del ' . strftime("%d de %B de %Y", strtotime($vacacion[4])) . '</p>
+							<p class="card-category">Al ' . strftime("%d de %B de %Y", strtotime($vacacion[5])) . '</p>
 							<br>
 							<p>Descripción:</p>
 							<h5>' . $desc . '</h5>
