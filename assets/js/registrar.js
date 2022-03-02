@@ -1986,6 +1986,8 @@ function generar_empleados() {
         },
         type: "POST",
         success: function (data) {
+            console.log($("#estado").val());
+            console.log(data);
             Swal.close();
             if (data !== 0) {
                 descargar(data, 'Empleados');
@@ -2158,6 +2160,7 @@ function formato_movimiento(id) {
             "id": id
         },
         success: function (url) {
+            alert(url);
             descargar(url, "Movimiento");
         }
     });
