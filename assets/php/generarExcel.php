@@ -25,13 +25,12 @@ $contenido = [
 ];
 
 $sql = "SELECT *,
-    (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador 
-	FROM Empleado WHERE 
+	FROM Empleado LEFT JOIN Usuario ON Usuario.RFC = Empleado.RFC WHERE 
     id_periodo = ".$id_periodo." AND 
     estado = '".$estado."'";
 
@@ -90,7 +89,7 @@ $conexion->close();
 
 $writer = new Xlsx($spreadsheet);
 
-$nombre = 'empleados'.time().'.xlsx';
+$nombre = 'empleados_'.time().'.xlsx';
 $writer->save('../archivos/'.$nombre);
 echo "assets/archivos/".$nombre;
 exit();
