@@ -1,3 +1,37 @@
+.cambiar_periodo{
+    font-weight: 600 !important;
+    background: #0014550a;
+    border-radius: 6px !important;
+    border: 1px solid #ccc;
+    padding: 5px 20px !important;
+    margin-right: 100px;
+    transition: all .3s;
+}
+
+.cambiar_periodo:hover{
+    transform:scale(1.05);
+}
+
+.cambiar_periodo::after{
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    box-shadow: 1px 1px 5px rgb(0, 0, 0, .1);
+    background: rgb(85, 199, 113);
+    top: -3px;
+    right: -5px;
+    display: block;
+    position: absolute;
+    animation: heartBeat infinite;
+    animation-duration: 5s;
+}
+
+.cambiar_periodo.cerrado::after{
+    background: #DF4F4F;
+}
+
+
 form .card{
     margin: 20px 0;
 }
@@ -340,7 +374,7 @@ form .card{
 }
 
 .btn {
-    font-family: Montserrat !important;
+    font-family:'Open Sans' !important;
     border-radius: 20px !important;
     font-weight: 600 !important;
     font-size: 11px !important;
@@ -355,7 +389,7 @@ form .card{
     font-weight: 700;
     font-size: 15px;
     color: #eee !important;
-    font-family: Montserrat
+    font-family:'Open Sans'
 }
 
 .dropdown-item .material-icons {
@@ -744,7 +778,7 @@ form .card{
     font-size: 12px;
     max-width: 60%;
     min-width: auto;
-    font-family: Montserrat, sans-serif;
+    font-family:'Open Sans', sans-serif;
     font-weight: 500;
     box-shadow: 2px 3px 5px rgb(0, 0, 0, .1)
 }
@@ -788,7 +822,7 @@ form .card{
 }
 
 .mensajeria_vacio h2 {
-    font-family: Montserrat, sans-serif
+    font-family:'Open Sans', sans-serif
 }
 
 .mensajeria_vacio p {
@@ -1002,6 +1036,7 @@ form .card{
 
 .pie {
     text-align: right;
+    margin-top: 50px;
 }
 
 .formulario_caja .wallpaper {
@@ -1134,7 +1169,7 @@ form .card{
     color: rgba(255, 255, 255, .918) !important;
     text-align: center;
     letter-spacing: 1px;
-    font-family: Montserrat;
+    font-family:'Open Sans';
     background: rgba(255, 255, 255, .048);
     border-radius: 10px
 }
@@ -1399,7 +1434,7 @@ form .card{
     position: relative;
     width: 100% !important;
     color: #777 !important;
-    font-family: "Montserrat" !important
+    font-family: "Open Sans" !important
 }
 
 .opciones_expediente_icono {
@@ -3015,7 +3050,7 @@ label.btn-mostrar {
 }
 
 .sidebar .avatar a {
-    font-family: Montserrat, sans-serif;
+    font-family:'Open Sans', sans-serif;
     color: rgba(245, 245, 245, .4)
 }
 
@@ -3547,7 +3582,7 @@ template {
     src: url(../fonts/Poison-Regular.woff2)
 } */
 
-/* @font-face {
+@font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 300;
@@ -3561,9 +3596,8 @@ template {
     font-weight: 400;
     src: url('../fonts/Roboto-Regular.woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
-} */
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 html {
     font-family: sans-serif;
@@ -17101,7 +17135,7 @@ label {
     font-weight: 100;
     color: #777;
     text-align: left;
-    font-family: "Montserrat";
+    font-family: "Open Sans";
     line-height: .9 !important
 }
 
@@ -17117,7 +17151,7 @@ label {
 .icono-caja2 {
     border-left: 3px solid rgba(57, 103, 172, .3);
     height: 65px;
-    font-family: "Montserrat";
+    font-family: "Open Sans";
     font-weight: 600;
     color: rgba(0, 0, 0, .4);
     font-size: 15px;
@@ -17147,7 +17181,7 @@ label {
 }
 
 .icono-caja h5 {
-    font-family: "Montserrat";
+    font-family: "Open Sans";
     font-size: 13px;
     color: #888
 }
@@ -19279,4 +19313,10 @@ input[type=checkbox]:checked+label:after {
 
 .hide {
     display: none
+}
+
+
+.sorting::before,
+.sorting::after{
+    display: none !important;
 }

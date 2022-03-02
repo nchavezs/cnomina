@@ -20,14 +20,14 @@ if (rol() != 1) {
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.4.6" rel="stylesheet" />
-    <link href="assets/css/select2.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.4.7" rel="stylesheet" />
+    <link href="assets/css/select2.css?v=3.4.7" rel="stylesheet" />
     <link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-	<link href="assets/css/sweetalert2.min.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.4.7" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -38,12 +38,12 @@ if (rol() != 1) {
              <div class="municipio">MUNICIPIO DE <?php echo get_municipio() ?></div>
             <div class="avatar">
                 <?php
-$foto = "assets/img/user.png";
-if ($varFoto != null) {
-    $foto = $varFoto;
-}
+                $foto = "assets/img/user.png";
+                if ($varFoto != null) {
+                    $foto = $varFoto;
+                }
 
-?>
+                ?>
                 <a href="./perfil"><img src="<?php echo $foto ?>"></a>
                 <!-- <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p> -->
                 <p><?php echo $varName ?></p>
@@ -144,6 +144,9 @@ if ($varFoto != null) {
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <?php echo nombre_periodo(); ?>
+                            </li>
+                            <li class="nav-item">
                                 <a id="cerrar" class="nav-link" href="#">
                                     <i class="material-icons">exit_to_app</i>Cerrar sesión
                                 </a>
@@ -205,13 +208,15 @@ if ($varFoto != null) {
                             <thead class="text-primary">
                                 <tr>
                                     <th class="">ID</th>
-									<th class="">Puesto / Departamento</th>
-                                    <th class="oculto">Trabajador</th>
+									<th class="">Puesto</th>
+                                    <th class="">Trabajador</th>
                                     <th class="oculto">Días ocupados</th>
                                     <th class="oculto">Días desocupados</th>
                                     <th class="oculto">Días por ejercer</th>
                                     <th class="oculto">Días presupuestados</th>
-									<th class="">Eliminar</th>
+									<th class="oculto">Eliminar</th>
+                                    <th class="oculto">Estado</th>
+
                                 </tr>
                             </thead>
                         </table>
@@ -244,7 +249,7 @@ if ($varFoto != null) {
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/material-dashboard.js?v=3.4.6" type="text/javascript"></script>
+    <script src="assets/js/material-dashboard.js?v=3.4.7" type="text/javascript"></script>
     <script src="assets/js/plugins/datatables/datatables.min.js"></script>
     <script src="assets/js/datepicker.min.js"></script>
     <script src="assets/js/plugins/datepicker.es.js"></script>
@@ -254,8 +259,8 @@ if ($varFoto != null) {
     <script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/moment.js"></script>
     <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.4.6"></script>
-    <script src="assets/js/plazas.js?v=3.4.6"></script>
+	<script src="assets/js/sesion.js?v=3.4.7"></script>
+    <script src="assets/js/plazas.js?v=3.4.7"></script>
 
 </body>
 

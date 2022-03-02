@@ -2158,7 +2158,6 @@ function formato_movimiento(id) {
             "id": id
         },
         success: function (url) {
-            console.log(url)
             descargar(url, "Movimiento");
         }
     });

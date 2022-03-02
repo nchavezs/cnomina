@@ -7,7 +7,11 @@ $hoy = date("Y-m-d");
 $fecha_movimiento = $_POST["fecha"];
 $fecha_movimiento = date("Y-m-d", strtotime(str_replace("/", "-", $fecha_movimiento))); 
 
-$sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE Plaza.id_puesto = " . $puesto . " ORDER BY Plaza.id_plaza";
+$sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE 
+Plaza.id_puesto = " . $puesto . " AND 
+Plaza.estado = 1 
+ORDER BY Plaza.id_plaza";
+
 $consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {

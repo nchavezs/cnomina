@@ -23,10 +23,10 @@ if (rol() == 2) {
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
 	
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.4.7" rel="stylesheet" />
 	<link href="assets/js/plugins/datatables/datatables.min.css"rel="stylesheet" type="text/css"/>
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.4.7" rel="stylesheet" />
 	<link href="assets/js/plugins/animate/adp.css">
 	<link href="assets/js/plugins/tailselect/css/default/tail.select-light.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/animate.css" rel="stylesheet" rel="stylesheet" type="text/css"/>
@@ -155,6 +155,7 @@ if (rol() == 2) {
 						</li>';
 					}
 					?>
+					
 					<li class="nav-item" id="cerrar-btn">
 						<a class="nav-link">
 							<i class="material-icons">exit_to_app</i>
@@ -189,6 +190,9 @@ if (rol() == 2) {
 									<a class="dropdown-item" href="#">No tiene notificaciones</a>
 								</div>
 							</li>
+							<li class="nav-item">
+                                <?php echo nombre_periodo() ?>
+                            </li>
 							<li class="nav-item">
 								<a id="cerrar" class="nav-link" href="#">
 									<i class="material-icons">exit_to_app</i>
@@ -241,12 +245,12 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/datepicker.es.js"></script>
 	<script src="assets/js/moment.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.4.6"></script>
+	<script src="assets/js/sesion.js?v=3.4.7"></script>
 	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
-	<script src="assets/js/prenomina.js?v=3.4.6"></script>
+	<script src="assets/js/prenomina.js?v=3.4.7"></script>
 
 </body>
 

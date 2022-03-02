@@ -22,7 +22,7 @@ if (rol() == 2) {
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.4.7" rel="stylesheet" />
 	<link href="assets/css/dropzone.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet">
 </head>
@@ -158,6 +158,9 @@ if (rol() == 2) {
 								</div>
 							</li>
 							<li class="nav-item">
+                                <?php echo nombre_periodo(); ?>
+                            </li>
+							<li class="nav-item">
 								<a id="cerrar" class="nav-link" href="#">
 									<i class="material-icons">exit_to_app</i>
 									Cerrar sesión
@@ -256,7 +259,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.4.6" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.4.7" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 
@@ -268,11 +271,11 @@ if (rol() == 2) {
 	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="assets/js/material-dashboard.js?v=3.4.6" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.4.7" type="text/javascript"></script>
 	<script src="assets/js/dropzone.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.4.6"></script>
-	<script src="assets/js/subir.js?v=3.4.6"></script>
+	<script src="assets/js/sesion.js?v=3.4.7"></script>
+	<script src="assets/js/subir.js?v=3.4.7"></script>
 
 </body>
 

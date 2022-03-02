@@ -70,7 +70,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
 
     $consulta = mysqli_query($conexion, $sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "J";
+        $ultimo = "I";
         $bandera = true;
         $i = 3;
 
@@ -111,7 +111,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             }
 
             if ($resultado["estado"] == 0) {
-               $estado = "BAJA";
+               $estado = "SUSPENDIDA";
             }
 
             $sql = "SELECT * FROM Historial_Plaza WHERE

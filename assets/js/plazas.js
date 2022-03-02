@@ -36,20 +36,12 @@ $(document).ready(function () {
             ADP.show($(".table-responsive")[0], 'slide-left');
         },
         "columnDefs": [{
-                "className": "font-weight-bold",
+                "className": "negrita",
                 "targets": [0]
             },
             {
-                "orderable": false,
-                "targets": [6]
-            },
-            {
-                "className": "oculto",
-                "targets": [3,4,5]
-            },
-            {
-                "className": "oculto font-weight-bold",
-                "targets": [2]
+                "className": "oculto text-center",
+                "targets": [3,4,5,6,7,8]
             }
         ],
         "columns": [{
@@ -66,27 +58,39 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="baja">' + row.ocupados + '</a>';
+                    return '<a class="">' + row.ocupados + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.desocupados + '</a>';
+                    return '<a class="">' + row.desocupados + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.vacantes + '</a>';
+                    return '<a class="">' + row.vacantes + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.dias + '</a>';
+                    return '<a class="">' + row.dias + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ', event);">delete</i>';
+                }
+            },{
+                "render": function (data, type, row) {
+                    let estado = "";
+                    let activo = "";
+                    if(row.estado == 1){
+                        estado = "checked";
+                        activo = "active"
+
+                    }
+                    return '<div class="toggle-btn '+activo+'"><input id="'+row.id_plaza+'" type="checkbox" class="cb-value" '+estado+'/>'+
+                    '<span class="round-btn"></span></div>';
                 }
             }
         ]
@@ -125,21 +129,6 @@ $(document).ready(function () {
         }
     });
 });
-
-// function exportar_puesto() {
-//     $.post("assets/php/exportar_puesto.php", function (data) {
-//         if (data != 0) {
-//             descargar(data, "Puestos.xlsx");
-//         } else {
-//             Swal.fire({
-//                 title: 'Error',
-//                 text: 'No se pudo generar el archivo',
-//                 type: 'error'
-//             });
-//         }
-//     });
-// };
-
 
 function nueva_plaza() {
     $.post("assets/php/nuevaPlaza.php").done(function (html) {
@@ -199,6 +188,41 @@ function guardar_plaza() {
         }
     });
 }
+
+function suspender(id, event) {
+    event.stopPropagation();
+
+    
+};
+
+$(document).on("click", ".cb-value", function(e){
+    e.stopPropagation();
+    let boton = this;
+    if($(boton).is(":checked")){
+        $.ajax({
+            type: "POST",
+            url: "assets/php/reactivar_plaza.php",
+            data: {
+                "id": boton.id
+            },
+            success: function (data) {
+                md.showNotification("top", "right", "Plaza activada.");
+            }
+        });
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "assets/php/suspender_plaza.php",
+            data: {
+                "id": boton.id
+            },
+            success: function (data) {
+                md.showNotification("top", "right", "Plaza suspendida.");
+            }
+        });
+    }
+})
+
 
 function eliminar(id, event) {
     event.stopPropagation();

@@ -79,7 +79,7 @@ echo '<div class="formulario_caja">
 								</div>
 							</div>
 						</div>
-						<div class="text-right p-3">
+						<div class="pie">
 							<div class="btn btn-secondary btn-sm" id="salir">Cancelar </div>
 							<button type="submit" class="btn btn-primary pagina_1_boton btn-sm">Siguiente<i class="material-icons">navigate_next</i></button>
 						</div>
@@ -165,12 +165,12 @@ echo '<div class="formulario_caja">
 										<input id="retroactivo" type="checkbox" class="cb-value" /> 
 										<span class="round-btn"></span>
 									</div>
-									<span class="text-muted ml-3">¿Pagar retroactivo?</span>	
+									<span class="text-muted ml-3">¿Pagar retroactivo para este periodo?</span>	
 								</div>
 							</div>
 						</div>
 
-						<div class="text-right p-3 pagina_2_opciones">
+						<div class="pie pagina_2_opciones">
 							<div class="btn btn-secondary pagina_2_boton btn-sm"><i class="material-icons">chevron_left</i> Anterior </div>
 							<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
 						</div>
