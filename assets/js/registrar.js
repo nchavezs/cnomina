@@ -298,7 +298,7 @@ $(document).ready(function () {
     });
 });
 
-function mensaje_baja(data) {
+function mensaje_error(data) {
     $("#modal .modal_titulo").html(data.titulo);
     $("#modal .modal-body").html(data.mensaje);
     mostrar_modal();
@@ -307,49 +307,57 @@ function mensaje_baja(data) {
 
 
 function baja(id) {
-    $.ajax({
-        type: "POST",
-        url: "assets/php/nuevaBaja.php",
-        data: {
-            "id": id
-        },
-        success: function (html) {
-            $(".ver_contenedor").html(html);
-            $.post("assets/php/fecha_movimiento.php", {
-                "id": id
-            }, function (datos) {
-                let data = JSON.parse(datos);
-                $('#fecha').datepicker({
-                    minDate: new Date(data.del),
-                    maxDate: new Date(data.al),
-                    language: 'es',
-                    autoClose: 'true',
-                    position: "bottom center",
-                    // todayButton: new Date(),
-                    toggleSelected: false
-                });
-            });
-
-            $("#form-baja").submit(function (e) {
-                e.preventDefault();
-                let fechaBaja = $("#fecha").val();
-                let razon = $("#razon").val();
-                let retroactivo = 0;
-                if ($("#retroactivo").is(":checked")) {
-                    retroactivo = 1;
+    $.post("assets/php/verificar_periodo.php", {
+        "id": id
+    }, function (datos) {
+        let data = JSON.parse(datos);
+        if (data.success) {
+            $.ajax({
+                type: "POST",
+                url: "assets/php/nuevaBaja.php",
+                data: {
+                    "id": id
+                },
+                success: function (html) {
+                    $(".ver_contenedor").html(html);
+                    $.post("assets/php/fecha_movimiento.php", {
+                        "id": id
+                    }, function (datos) {
+                        let data = JSON.parse(datos);
+                        $('#fecha').datepicker({
+                            minDate: new Date(data.del),
+                            maxDate: new Date(data.al),
+                            language: 'es',
+                            autoClose: 'true',
+                            position: "bottom center",
+                            // todayButton: new Date(),
+                            toggleSelected: false
+                        });
+                    });
+        
+                    $("#form-baja").submit(function (e) {
+                        e.preventDefault();
+                        let fechaBaja = $("#fecha").val();
+                        let razon = $("#razon").val();
+                        let retroactivo = 0;
+                        if ($("#retroactivo").is(":checked")) {
+                            retroactivo = 1;
+                        }
+        
+                        $("#modal .modal_titulo").html("Confirmar baja de empleado");
+                        $("#modal .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
+                        mostrar_modal();
+        
+                        $("#modal_aceptar").off().click(function () {
+                            baja_empleado(fechaBaja, id, razon, retroactivo);
+                        })
+                    });
                 }
-
-                $("#modal .modal_titulo").html("Confirmar baja de empleado");
-                $("#modal .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
-                mostrar_modal();
-
-                $("#modal_aceptar").off().click(function () {
-                    baja_empleado(fechaBaja, id, razon, retroactivo);
-                })
             });
+        }else{
+            mensaje_error(data);
         }
     });
-
 };
 
 function password(id) {
@@ -403,79 +411,88 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
 };
 
 function reingreso(id) {
-    $.ajax({
-        type: "POST",
-        url: "assets/php/reingreso.php",
-        data: {
-            "id": id
-        },
-        success: function (html) {
-            $(".ver_contenedor").html(html);
-            select_estilo();
-            depa_change();
-            puesto_change();
-
-            $.post("assets/php/fecha_movimiento.php", {
-                "id": id
-            }, function (datos) {
-                let data = JSON.parse(datos);
-                $('#fecha').datepicker({
-                    minDate: new Date(data.del),
-                    maxDate: new Date(data.al),
-                    language: 'es',
-                    autoClose: 'true',
-                    position: "bottom center",
-                    // todayButton: new Date(),
-                    toggleSelected: false
-                });
-            });
-
-            $("#form-reingreso").submit(function (e) {
-                e.preventDefault();
-                var fechaReingreso = $("#fecha").val();
-                var observacion = $("#observacion").val();
-                var plaza = $("#plaza").val();
-                var trabajador = $("#trabajador").val();
-
-                if (trabajador != null && plaza != null) {
-                    $("#modal .modal_titulo").html("Confirmar reingreso de empleado");
-                    $("#modal .modal-body").html("¿Dar de alta a " + $("#nombre").val() + "?");
-
-                    mostrar_modal();
-
-                    $("#modal_aceptar").off().click(function () {
-                        $.ajax({
-                            type: "POST",
-                            url: "assets/php/alta.php",
-                            data: {
-                                "fecha": fechaReingreso,
-                                "id": id,
-                                "observacion": observacion,
-                                "plaza": plaza,
-                                "trabajador": trabajador
-                            },
-                            success: function (data) {
-                                ocultar_modal();
-                                if (data == 1) {
-                                    md.showNotification("top", "right", "Empleado dado de alta correctamente.");
-                                    $('#tabla-empleado').DataTable().ajax.reload();
-                                    verHistorial(id);
-                                } else {
-                                    md.showNotification("top", "right", "No fue posible dar de alta a este empleado.");
-                                }
-                            }
+    $.post("assets/php/verificar_periodo.php", {
+        "id": id
+    }, function (datos) {
+        let data = JSON.parse(datos);
+        if (data.success) {
+            $.ajax({
+                type: "POST",
+                url: "assets/php/reingreso.php",
+                data: {
+                    "id": id
+                },
+                success: function (html) {
+                    $(".ver_contenedor").html(html);
+                    select_estilo();
+                    depa_change();
+                    puesto_change();
+        
+                    $.post("assets/php/fecha_movimiento.php", {
+                        "id": id
+                    }, function (datos) {
+                        let data = JSON.parse(datos);
+                        $('#fecha').datepicker({
+                            minDate: new Date(data.del),
+                            maxDate: new Date(data.al),
+                            language: 'es',
+                            autoClose: 'true',
+                            position: "bottom center",
+                            // todayButton: new Date(),
+                            toggleSelected: false
                         });
                     });
-                } else {
-                    md.showNotification("top", "right", "Completa todos los campos.");
+        
+                    $("#form-reingreso").submit(function (e) {
+                        e.preventDefault();
+                        var fechaReingreso = $("#fecha").val();
+                        var observacion = $("#observacion").val();
+                        var plaza = $("#plaza").val();
+                        var trabajador = $("#trabajador").val();
+        
+                        if (trabajador != null && plaza != null) {
+                            $("#modal .modal_titulo").html("Confirmar reingreso de empleado");
+                            $("#modal .modal-body").html("¿Dar de alta a " + $("#nombre").val() + "?");
+        
+                            mostrar_modal();
+        
+                            $("#modal_aceptar").off().click(function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "assets/php/alta.php",
+                                    data: {
+                                        "fecha": fechaReingreso,
+                                        "id": id,
+                                        "observacion": observacion,
+                                        "plaza": plaza,
+                                        "trabajador": trabajador
+                                    },
+                                    success: function (data) {
+                                        ocultar_modal();
+                                        if (data == 1) {
+                                            md.showNotification("top", "right", "Empleado dado de alta correctamente.");
+                                            $('#tabla-empleado').DataTable().ajax.reload();
+                                            verHistorial(id);
+                                        } else {
+                                            md.showNotification("top", "right", "No fue posible dar de alta a este empleado.");
+                                        }
+                                    }
+                                });
+                            });
+                        } else {
+                            md.showNotification("top", "right", "Completa todos los campos.");
+                        }
+                    });
                 }
             });
+        }else{
+            mensaje_error(data);
         }
     });
 };
 
 function permiso(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -577,7 +594,7 @@ function permiso(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 
@@ -934,7 +951,7 @@ function tablas_historial(id) {
 };
 
 function vacacion(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1013,7 +1030,7 @@ function vacacion(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 
@@ -1104,7 +1121,7 @@ function verMovimientos(id) {
 };
 
 function movimiento(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1192,7 +1209,7 @@ function movimiento(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 
@@ -1441,7 +1458,7 @@ function verGastos(id) {
 
 
 function gastos(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1500,7 +1517,7 @@ function gastos(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 };
@@ -1584,7 +1601,7 @@ function verDescuentos(id) {
 };
 
 function descuento(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1649,7 +1666,7 @@ function descuento(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 };
@@ -1794,7 +1811,7 @@ function eliminar_usuario(id, event) {
 
 function editar_usuario(id, event) {
     event.stopPropagation();
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1879,7 +1896,7 @@ function editar_usuario(id, event) {
 
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 };
@@ -1920,7 +1937,7 @@ function verPases(id) {
 };
 
 function pase(id) {
-    $.post("assets/php/verificar_periodo.php", {
+    $.post("assets/php/verificar_baja.php", {
         "id": id
     }, function (datos) {
         let data = JSON.parse(datos);
@@ -1981,7 +1998,7 @@ function pase(id) {
                 }
             });
         } else {
-            mensaje_baja(data);
+            mensaje_error(data);
         }
     });
 

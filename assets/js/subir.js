@@ -40,9 +40,7 @@ Dropzone.options.myAwesomeDropzone = {
             formData.append("registrar_usuario", check1);
         });
 
-        this.on("addedfile", function (file) {
-            // $("#enviar").html('<button id="enviar-btn" type="button" class="btn btn-primary btn-sm btn-round"><i class="material-icons">done</i> Subir archivos</button>');
-           
+        this.on("addedfile", function (file) {           
                 let ext = file.name.split('.').pop();
                 switch(ext){
                     case 'pdf': $(file.previewElement).find(".dz-image img").attr("src", "assets/img/icons/pdf.png");

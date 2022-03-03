@@ -22,7 +22,7 @@ if (rol() == 2) {
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.5.0" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.5.1" rel="stylesheet" />
 	<link href="assets/css/dropzone.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet">
 </head>
@@ -209,20 +209,6 @@ if (rol() == 2) {
                                             </div>
                                         </div>
                                     </form>
-
-								<!-- <form action="assets/php/subir.php" class="dropzone" id="myAwesomeDropzone" enctype="multipart/form-data">
-									<div class="dz-message" data-dz-message>
-										<div class="row">
-											<div class="col-md-4 drop-icon">
-												<i id="drop-icon" class="material-icons">cloud_upload</i>
-											</div>
-											<div id="drop-text" class="col-md-6">
-												<h2>Seleccionar archivo PDF</h2>
-												<h4>o suelta los documentos PDF aquí.</h4>
-											</div>
-										</div>
-									</div>
-								</form> -->
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -259,7 +245,7 @@ if (rol() == 2) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 	<!--  Plugin for Sweet Alert -->
-	<link href="assets/css/sweetalert2.min.css?v=3.5.0" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.5.1" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 
@@ -271,11 +257,11 @@ if (rol() == 2) {
 	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="assets/js/material-dashboard.js?v=3.5.0" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.5.1" type="text/javascript"></script>
 	<script src="assets/js/dropzone.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.5.0"></script>
-	<script src="assets/js/subir.js?v=3.5.0"></script>
+	<script src="assets/js/sesion.js?v=3.5.1"></script>
+	<script src="assets/js/subir.js?v=3.5.1"></script>
 
 </body>
 
