@@ -41,6 +41,8 @@ $sheet->setCellValue('F30', mb_strtoupper($usuario["apellidom"]));
 $sheet->setCellValue('F32', mb_strtoupper($usuario["apellidop"]));
 $sheet->setCellValue('P30', mb_strtoupper($usuario["CURP"]));
 $sheet->setCellValue('P32', mb_strtoupper($usuario["RFC"]));
+$sheet->setCellValue('H36', mb_strtoupper($usuario["departamento"]));
+$sheet->setCellValue('E38', mb_strtoupper($usuario["puesto"]));
 
 if($usuario["trabajador"] == "BASE"){
     $sheet->setCellValue('E43', "X");
