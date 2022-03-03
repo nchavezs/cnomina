@@ -70,7 +70,6 @@ function fecha($fecha)
 }
 
 $archivo = $_FILES['file']['tmp_name'];
-file_put_contents("./prueba.txt", basename($_FILES['file']['name']));
 
 $pdf = Pdf::getText($archivo, 'pdftotext');
 $pdf = str_replace("\n", "<br>", $pdf);
@@ -240,7 +239,7 @@ if ($total == 0) {
                     $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
                     if ($conexion->query($sql)) {
                         $id_puesto = mysqli_insert_id($conexion);
-                        
+
                         $sql = "INSERT INTO Usuario(categoria, contrasenia, nombre, RFC) VALUES(
                             'user',
                             '" . $password . "',
@@ -262,8 +261,8 @@ if ($total == 0) {
                                 '" . $nombres . "',
                                 " . $periodo . ")";
                             if ($conexion->query($sql)) {
-                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina) 
-                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado',".$id_prenomina.")";
+                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina)
+                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado'," . $id_prenomina . ")";
                                 $consulta = $conexion->query($sql);
                             }
                         }

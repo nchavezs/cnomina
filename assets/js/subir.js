@@ -57,7 +57,6 @@ Dropzone.options.myAwesomeDropzone = {
         });
 
         this.on("success", function (file, data) {
-            console.log(data);
             Swal.getContent().innerHTML = file.name;
             if (data == 2) {
                 contenido = contenido + "<h5><span class='material-icons info'>info</span>" + file.name + "</h5>";
@@ -74,7 +73,6 @@ Dropzone.options.myAwesomeDropzone = {
         this.on("queuecomplete", function (file) {
             Swal.close();
             log_show(html(contenido, a, b, c));
-            console.log(contenido);
             $(".contenido_log").perfectScrollbar();
             Dropzone.forElement("#myAwesomeDropzone").removeAllFiles(true);
             window.scroll(0, 0);
@@ -84,7 +82,6 @@ Dropzone.options.myAwesomeDropzone = {
             a = 0;
             b = 0;
             c = 0;
-            eliminar_archivos();
         });
     }
 };
