@@ -49,7 +49,7 @@ Dropzone.options.myAwesomeDropzone = {
                     break;
                 }
             $("#enviar").html('<div class="boton_generar_reporte"><div id="enviar-btn" class="btn btn-primary btn-sm regresar"><i class="material-icons">upload</i> Subir archivos</div></div>');
-            $("#enviar").on("click", function () {
+            $("#enviar-btn").on("click", function () {
                 myDropzone.options.autoProcessQueue = true;
                 myDropzone.processQueue();
                 clearInterval(numero_evento);

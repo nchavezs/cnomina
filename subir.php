@@ -196,8 +196,7 @@ if (rol() == 2) {
 						</div>
 						<div class="col-md-12">
 							<div class="card">
-							<form action="assets/php/subir.php" class="dropzone"
-                                        id="myAwesomeDropzone">
+							<form action="assets/php/subir.php" class="dropzone" id="myAwesomeDropzone">
                                         <div class="dz-message">
                                             <div class="row">
                                                 <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
@@ -238,25 +237,15 @@ if (rol() == 2) {
 			</footer>
 		</div>
 	</div>
-	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap-material-design.min.js"></script>
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-	<!--  Plugin for Sweet Alert -->
 	<link href="assets/css/sweetalert2.min.css?v=3.5.3" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
-
-	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-
-	<!-- Chartist JS -->
-
-	<!--  Notifications Plugin    -->
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="assets/js/material-dashboard.js?v=3.5.3" type="text/javascript"></script>
 	<script src="assets/js/dropzone.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
