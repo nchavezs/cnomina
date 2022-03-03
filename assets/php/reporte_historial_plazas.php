@@ -68,7 +68,7 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
 
     $consulta = mysqli_query($conexion, $sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "H";
+        $ultimo = "G";
         $bandera = true;
         $i = 3;
 
@@ -89,7 +89,6 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
         $sheet->setCellValue('E2', 'DIAS OCUPADOS');
         $sheet->setCellValue('F2', 'FECHA DE INICIO');
         $sheet->setCellValue('G2', 'FECHA DE TERMINO');
-        $sheet->setCellValue('H2', 'ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
             $fecha1 = new DateTime($resultado["fecha_inicio"]);
@@ -110,7 +109,6 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
             $sheet->setCellValue('E' . $i, $ocupados);
             $sheet->setCellValue('F' . $i, date("d/m/Y", strtotime($resultado['fecha_inicio'])));
             $sheet->setCellValue('G' . $i, $fecha_termino);
-            $sheet->setCellValue('H' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }
