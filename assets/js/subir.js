@@ -52,7 +52,6 @@ Dropzone.options.myAwesomeDropzone = {
             $("#enviar-btn").on("click", function () {
                 myDropzone.options.autoProcessQueue = true;
                 myDropzone.processQueue();
-                clearInterval(numero_evento);
                 show_mensaje();
             });
         });
@@ -85,7 +84,6 @@ Dropzone.options.myAwesomeDropzone = {
             b = 0;
             c = 0;
             eliminar_archivos();
-            numero_evento = setInterval(numero, 10000);
         });
     }
 };
