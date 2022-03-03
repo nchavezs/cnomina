@@ -57,6 +57,7 @@ Dropzone.options.myAwesomeDropzone = {
         });
 
         this.on("success", function (file, data) {
+            console.log(data);
             Swal.getContent().innerHTML = file.name;
             if (data == 2) {
                 contenido = contenido + "<h5><span class='material-icons info'>info</span>" + file.name + "</h5>";
@@ -82,6 +83,7 @@ Dropzone.options.myAwesomeDropzone = {
             a = 0;
             b = 0;
             c = 0;
+
         });
     }
 };

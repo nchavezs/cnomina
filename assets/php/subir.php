@@ -1,14 +1,12 @@
 <?php
 session_start();
-$id_prenomina = $_SESSION["id_prenomina"];
+setlocale(LC_ALL, "spanish");
 
 include 'conexion.php';
-require_once "../../vendor/autoload.php";
+include '../../pdf/PdfToText.phpclass';
 
-use Spatie\PdfToText\Pdf;
-
+$id_prenomina = $_SESSION["id_prenomina"];
 $registrar_usuario = $_POST['registrar_usuario'];
-setlocale(LC_ALL, "spanish");
 $conexion = conexion();
 
 $ruta_nominas = "../nominas/";
@@ -26,163 +24,127 @@ function validar_fecha($date)
 function fecha($fecha)
 {
     $datos = explode("/", $fecha);
-    switch ($datos[1]) {
-        case 'Ene':
-            return $datos[0] . '/01/' . $datos[2];
-            break;
-        case 'Feb':
-            return $datos[0] . '/02/' . $datos[2];
-            break;
-        case 'Mar':
-            return $datos[0] . '/03/' . $datos[2];
-            break;
-        case 'Abr':
-            return $datos[0] . '/04/' . $datos[2];
-            break;
-        case 'May':
-            return $datos[0] . '/05/' . $datos[2];
-            break;
-        case 'Jun':
-            return $datos[0] . '/06/' . $datos[2];
-            break;
-        case 'Jul':
-            return $datos[0] . '/07/' . $datos[2];
-            break;
-        case 'Ago':
-            return $datos[0] . '/08/' . $datos[2];
-            break;
-        case 'Sep':
-            return $datos[0] . '/09/' . $datos[2];
-            break;
-        case 'Oct':
-            return $datos[0] . '/10/' . $datos[2];
-            break;
-        case 'Nov':
-            return $datos[0] . '/11/' . $datos[2];
-            break;
-        case 'Dic':
-            return $datos[0] . '/12/' . $datos[2];
-            break;
-        default:
-            return "";
-            break;
+    if (count($datos) == 3) {
+        switch ($datos[1]) {
+            case 'ENE':
+                return $datos[0] . '/01/' . $datos[2];
+                break;
+            case 'FEB':
+                return $datos[0] . '/02/' . $datos[2];
+                break;
+            case 'MAR':
+                return $datos[0] . '/03/' . $datos[2];
+                break;
+            case 'ABR':
+                return $datos[0] . '/04/' . $datos[2];
+                break;
+            case 'MAY':
+                return $datos[0] . '/05/' . $datos[2];
+                break;
+            case 'JUN':
+                return $datos[0] . '/06/' . $datos[2];
+                break;
+            case 'JUL':
+                return $datos[0] . '/07/' . $datos[2];
+                break;
+            case 'AGO':
+                return $datos[0] . '/08/' . $datos[2];
+                break;
+            case 'SEP':
+                return $datos[0] . '/09/' . $datos[2];
+                break;
+            case 'OCT':
+                return $datos[0] . '/10/' . $datos[2];
+                break;
+            case 'NOV':
+                return $datos[0] . '/11/' . $datos[2];
+                break;
+            case 'DIC':
+                return $datos[0] . '/12/' . $datos[2];
+                break;
+            default:
+                return "";
+                break;
+        }
+    } else {
+        return "";
+    }
+
+}
+
+function calcular($string, $pdf)
+{
+    $pos1 = strpos($pdf, $string);
+    if ($pos1 !== false) {
+        $pos1 = $pos1 + strlen($string);
+        $pos2 = strpos($pdf, "|", $pos1);
+        return substr($pdf, $pos1, ($pos2 - $pos1));
+    } else {
+        return "";
+    }
+}
+
+function calcular_reversa($string, $pdf, $offset = 0)
+{
+    $pos1 = strpos($pdf, $string);
+    if ($pos1 !== false) {
+        $pos1 = $pos1 - $offset;
+        $text = substr($pdf, 0, $pos1);
+        $pos2 = strrpos($text, "|") + 1;
+        return substr($pdf, $pos2, ($pos1 - $pos2));
+    } else {
+        return "";
     }
 }
 
 $archivo = $_FILES['file']['tmp_name'];
 
-$pdf = Pdf::getText($archivo, 'pdftotext');
-$pdf = str_replace("\n", "<br>", $pdf);
-$pdf = str_replace("<br>\r<br>", "<br>", $pdf);
+$pdf = new PdfToText();
+$pdf->BlockSeparator = "|";
+$pdf->Separator = "|";
+$pdf->Load($archivo);
+$pdf = mb_strtoupper($pdf->Text);
+$pdf = str_replace("\n", "|", $pdf);
+// $pdf = str_replace("\r", "|\r", $pdf);
+$pdf = str_replace(":", "", $pdf);
+$pdf = str_replace("  ", " ", $pdf);
+$pdf = str_replace("Á", "A", $pdf);
+$pdf = str_replace("É", "E", $pdf);
+$pdf = str_replace("Í", "I", $pdf);
+$pdf = str_replace("Ó", "O", $pdf);
+$pdf = str_replace("Ú", "U", $pdf);
+$pdf = preg_replace('/([|])\1+/', '|', $pdf);
 
-$posid1 = strpos($pdf, ' - ');
-if ($posid1 !== false) {
-    $posid2 = strpos($pdf, ' - ');
-    $posid1 = strrpos($pdf, "<br>", -(strlen($pdf) - $posid2)) + 4;
-    $id = substr($pdf, $posid1, $posid2 - $posid1);
-} else {
-    $id = 0;
-}
-
-$posnombre1 = strpos($pdf, ' - ');
-if ($posnombre1 !== false) {
-    $posnombre1 = $posnombre1 + 3;
-    $posnombre2 = strpos($pdf, '<br>', $posnombre1);
-    $nombre = utf8_encode(trim(substr($pdf, $posnombre1, $posnombre2 - $posnombre1)));
-} else {
-    $nombre = "";
-}
-
-$posrfc1 = strpos($pdf, 'RFC:');
-if ($posrfc1 !== false) {
-    $posrfc1 = strpos($pdf, 'RFC:', $posrfc1 + 10) + 9;
-    $posrfc2 = strpos($pdf, '<br>', $posrfc1);
-    $rfc = trim(substr($pdf, $posrfc1, $posrfc2 - $posrfc1));
+$pos1 = strpos($pdf, 'RFC|');
+if ($pos1 !== false) {
+    $pos1 = strpos($pdf, 'RFC|', strpos($pdf, 'RFC|')) + 4;
+    $pos2 = strpos($pdf, "|", $pos1);
+    $rfc = substr($pdf, $pos1, ($pos2 - $pos1));
 } else {
     $rfc = "";
 }
 
-$poscurp1 = strpos($pdf, 'CURP:');
-if ($poscurp1 !== false) {
-    $poscurp1 = strpos($pdf, "<br>", $poscurp1) + 4;
-    $poscurp2 = strpos($pdf, '<br>', $poscurp1);
-    $curp = trim(substr($pdf, $poscurp1, $poscurp2 - $poscurp1));
-} else {
-    $curp = "";
-}
-$pospuesto1 = strpos($pdf, 'Puesto:');
-if ($pospuesto1 !== false) {
-    $pospuesto1 = strpos($pdf, "<br>", $pospuesto1) + 4;
-    $pospuesto2 = strpos($pdf, '<br>', $pospuesto1);
-    $puesto = utf8_encode((trim(substr($pdf, $pospuesto1, $pospuesto2 - $pospuesto1))));
-} else {
-    $puesto = "";
-}
-
-$posdepa1 = strpos($pdf, 'Depto:');
-if ($posdepa1 !== false) {
-    $posdepa1 = strpos($pdf, "<br>", $posdepa1) + 4;
-    $posdepa2 = strpos($pdf, '<br>', $posdepa1);
-    $departamento = utf8_encode(trim(substr($pdf, $posdepa1, $posdepa2 - $posdepa1)));
-} else {
-    $departamento = "";
-}
-
-$posdias1 = strpos($pdf, 'as de Pago:');
-if ($posdias1 !== false) {
-    $posdias1 = $posdias1 + 11;
-    $posdias2 = strpos($pdf, '<br>', $posdias1);
-    $dias = trim(substr($pdf, $posdias1, $posdias2 - $posdias1));
-} else {
-    $dias = "";
-}
-
-if (strpos($pdf, 'Catorcenal') !== false) {
+if (strpos($pdf, 'CATORCENAL') !== false) {
     $periodo = 1;
-} else if (strpos($pdf, 'Mensual') !== false) {
+} else if (strpos($pdf, 'MENSUAL') !== false) {
     $periodo = 2;
-} else if (strpos($pdf, 'Periodicidad') !== false) {
+} else if (strpos($pdf, 'PERIODICIDAD') !== false) {
     $periodo = 3;
     $dias = 0;
 } else {
     $periodo = "";
 }
 
-$posdel1 = strpos($pdf, 'Periodo');
-if ($posdel1 !== false) {
-    $posdel2 = strpos($pdf, " - ", $posdel1);
-    $posdel1 = $posdel2 - 11;
-    $del = trim(substr($pdf, $posdel1, $posdel2 - $posdel1));
-    $del = fecha($del);
-
-    $posal1 = $posdel2 + 3;
-    $posal2 = strpos($pdf, '<br>', $posal1);
-    $al = trim(substr($pdf, $posal1, $posal2 - $posal1));
-    $al = fecha($al);
-} else {
-    $del = "";
-    $al = "";
-}
-
-$pospago1 = strpos($pdf, 'Fecha Pago:');
-if ($pospago1 !== false) {
-    $pospago1 = $pospago1 + 12;
-    $pospago2 = strpos($pdf, '<br>', $pospago1);
-    $pago = trim(substr($pdf, $pospago1, $pospago2 - $pospago1));
-    $pago = fecha($pago);
-} else {
-    $pago = "";
-}
-
-$posinicio1 = strpos($pdf, 'Lab:');
-if ($posinicio1 !== false) {
-    $posinicio1 = $posinicio1 + 5;
-    $posinicio2 = strpos($pdf, '<br>', $posinicio1);
-    $inicio = trim(substr($pdf, $posinicio1, $posinicio2 - $posinicio1));
-    $inicio = fecha($inicio);
-} else {
-    $inicio = "";
-}
+$id = calcular_reversa(" - ", $pdf);
+$nombre = calcular(" - ", $pdf);
+$curp = calcular("CURP|", $pdf);
+$puesto = calcular("PUESTO|", $pdf);
+$departamento = calcular("DEPTO|", $pdf);
+$dias = calcular("DIAS DE PAGO|", $pdf);
+$pago = fecha(calcular("FECHA PAGO|", $pdf));
+$del = fecha(calcular_reversa("|PERIODO", $pdf, 14));
+$al = fecha(calcular_reversa("|PERIODO", $pdf));
+$inicio = calcular("LAB|", $pdf);
 
 $arraypago = explode("/", $pago);
 $nombreNomina = $id . implode("_", $arraypago) . '.pdf';
@@ -286,25 +248,25 @@ if ($total == 0) {
 $conexion->close();
 
 // file_put_contents("./prueba.txt", $pdf);
-// echo $id;
-// echo "\n";
-// echo $nombre;
-// echo "\n";
-// echo $curp;
-// echo "\n";
-// echo $rfc;
-// echo "\n";
-// echo $inicio;
-// echo "\n";
-// echo $pago;
-// echo "\n";
-// echo $puesto;
-// echo "\n";
-// echo $departamento;
-// echo "\n";
-// echo $dias;
-// echo "\n";
-// echo $del;
-// echo "\n";
-// echo $al;
-// echo "\n";
+echo $id;
+echo "\n";
+echo $nombre;
+echo "\n";
+echo $curp;
+echo "\n";
+echo $rfc;
+echo "\n";
+echo $inicio;
+echo "\n";
+echo $pago;
+echo "\n";
+echo $puesto;
+echo "\n";
+echo $departamento;
+echo "\n";
+echo $dias;
+echo "\n";
+echo $del;
+echo "\n";
+echo $al;
+echo "\n";
