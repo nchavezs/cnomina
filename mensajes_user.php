@@ -19,9 +19,9 @@ include "assets/php/main_user.php";
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link href="assets/css/animate.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.5.3" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.5.4" rel="stylesheet" />
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.5.3" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.5.4" rel="stylesheet" />
 
 </head>
 
@@ -192,12 +192,12 @@ include "assets/php/main_user.php";
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.5.3" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.5.4" type="text/javascript"></script>
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.5.3"></script>
-	<script src="assets/js/mensajes-user.js?v=3.5.3"></script>
+	<script src="assets/js/sesion.js?v=3.5.4"></script>
+	<script src="assets/js/mensajes-user.js?v=3.5.4"></script>
 
 </body>
 
