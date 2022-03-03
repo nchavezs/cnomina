@@ -56,9 +56,7 @@ if($usuario["trabajador"] == "BASE"){
 }
 
 
-
-mysqli_close($conexion);
+$nombre = "movimiento_".time().".xlsx";
 $writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/movimiento.xlsx');
-echo "assets/archivos/movimiento.xlsx";
-exit();
+$writer->save('../archivos/'.$nombre);
+echo "assets/archivos/".$nombre;
