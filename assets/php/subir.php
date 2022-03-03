@@ -70,6 +70,7 @@ function fecha($fecha)
 }
 
 $archivo = $_FILES['file']['tmp_name'];
+file_put_contents("./prueba.txt", basename($_FILES['file']['name']));
 
 $pdf = Pdf::getText($archivo, 'pdftotext');
 $pdf = str_replace("\n", "<br>", $pdf);
