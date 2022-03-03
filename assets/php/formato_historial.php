@@ -61,7 +61,9 @@ if($historial["tipo"] == "alta"){
 }
 
 $conexion->close();
+
+$nombre = "historial_".time().".xlsx";
 $writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/historial.xlsx');
-echo "assets/archivos/historial.xlsx";
-exit();
+$writer->save('../archivos/'.$nombre);
+echo "assets/archivos/".$nombre;
+
