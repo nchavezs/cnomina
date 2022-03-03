@@ -55,7 +55,7 @@ if($usuario["trabajador"] == "BASE"){
     $sheet->setCellValue('R43', "X");
 }
 
-
+$conexion->close();
 $nombre = "movimiento_".time().".xlsx";
 $writer = new Xlsx($spreadsheet);
 $writer->save('../archivos/'.$nombre);

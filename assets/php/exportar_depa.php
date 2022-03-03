@@ -32,9 +32,8 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $spreadsheet->getActiveSheet()->setAutoFilter('A1:A1');
 }
 
-mysqli_close($conexion);
-
+$conexion->close();
+$nombre = "departamentos_".time().".xlsx";
 $writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/departamentos.xlsx');
-echo "assets/archivos/departamentos.xlsx";
-exit();
+$writer->save('../archivos/'.$nombre);
+echo "assets/archivos/".$nombre;

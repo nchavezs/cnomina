@@ -34,9 +34,8 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $spreadsheet->getActiveSheet()->setAutoFilter('A1:B1');
 }
 
-mysqli_close($conexion);
-
+$conexion->close();
+$nombre = "puestos_".time().".xlsx";
 $writer = new Xlsx($spreadsheet);
-$writer->save('../archivos/puestos.xlsx');
-echo "assets/archivos/puestos.xlsx";
-exit();
+$writer->save('../archivos/'.$nombre);
+echo "assets/archivos/".$nombre;

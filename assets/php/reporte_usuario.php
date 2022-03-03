@@ -344,12 +344,14 @@ if ($query && $total > 0) {
         }
     }
     if ($bandera) {
-        $mpdf->Output('../archivos/reporte.pdf', 'F');
-        echo 'assets/archivos/reporte.pdf';
+        $nombre = "reporte_".time().".xlsx";
+        $mpdf->Output('../archivos/'.$nombre, 'F');
+        echo 'assets/archivos/'.$nombre;
     } else {
         echo 0;
     }
 } else {
     echo 0;
 }
-mysqli_close($conexion);
+
+$conexion->close();

@@ -686,13 +686,14 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     }
 
     if ($bandera) {
+        $nombre = "reporte_".time().".xlsx";
         $writer = new Xlsx($spreadsheet);
-        $writer->save('../archivos/reporte.xlsx');
-        echo "assets/archivos/reporte.xlsx";
+        $writer->save('../archivos/'.$nombre);
+        echo "assets/archivos/".$nombre;
     } else {
         echo 0;
     }
 
 }
 
-mysqli_close($conexion);
+$conexion->close();

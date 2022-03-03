@@ -123,13 +123,13 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     }
 
     if ($bandera) {
+        $nombre = "reporte_plaza_".time().".xlsx";
         $writer = new Xlsx($spreadsheet);
-        $uid = uniqid();
-        $writer->save('../archivos/reporte_plaza_' . $uid . '.xlsx');
-        echo "assets/archivos/reporte_plaza_" . $uid . ".xlsx";
+        $writer->save('../archivos/'.$nombre);
+        echo "assets/archivos/".$nombre;
     } else {
         echo "No se encontraron resultados.";
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

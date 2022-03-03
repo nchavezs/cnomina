@@ -717,13 +717,13 @@ if ($del == "" || $al == "") {
     }
 
     if ($bandera) {
+        $nombre = "reporte_".time().".xlsx";
         $writer = new Xlsx($spreadsheet);
-        $uid = uniqid();
-        $writer->save('../archivos/reporte_'.$uid.'.xlsx');
-        echo "assets/archivos/reporte_".$uid.".xlsx";
+        $writer->save('../archivos/'.$nombre);
+        echo "assets/archivos/".$nombre;
     } else {
         echo "No se encontraron resultados.";
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }
