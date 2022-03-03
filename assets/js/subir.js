@@ -74,6 +74,7 @@ Dropzone.options.myAwesomeDropzone = {
         this.on("queuecomplete", function (file) {
             Swal.close();
             log_show(html(contenido, a, b, c));
+            console.log(contenido);
             $(".contenido_log").perfectScrollbar();
             Dropzone.forElement("#myAwesomeDropzone").removeAllFiles(true);
             window.scroll(0, 0);
