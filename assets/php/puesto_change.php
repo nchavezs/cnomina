@@ -34,8 +34,8 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         $consulta2 = $conexion->query($sql);
 
         $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
-        $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
-        // $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".($res["dias"] - 1)." days"));
+        // $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
+        $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".($res["dias"] - 1)." days"));
 
 
         if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
