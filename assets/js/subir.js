@@ -102,8 +102,8 @@ function show_mensaje() {
 };
 
 function html(contenido, a, b, c) {
-    return "<div class='log archivos'>" +
-        "<h4>Información de archivos cargados</h4>" +
+    return "<div class='log archivos text-center'>" +
+        "<h3>RESUMEN DE IMPORTACIÓN</h3>" +
         "<div class='row informacion_archivos'>" +
         "<div class='col-10'>" +
         "<h5>Archivo ya ha sido cargado anteriormente <span class='material-icons info'>info</span></h5>" +
@@ -124,14 +124,14 @@ function html(contenido, a, b, c) {
         "<p>" + a + "</p>" +
         "</div>" +
         "</div>" +
-        "<div class='contenido_log'>" + contenido + "</div>" +
+        "<div class='contenido_log text-left'>" + contenido + "</div>" +
         "</div>";
 }
 
-function eliminar_archivos() {
-    $.ajax({
-        type: "POST",
-        url: "assets/php/eliminar_temporal.php",
-        success: function (data) {}
-    });
-}
+// function eliminar_archivos() {
+//     $.ajax({
+//         type: "POST",
+//         url: "assets/php/eliminar_temporal.php",
+//         success: function (data) {}
+//     });
+// }

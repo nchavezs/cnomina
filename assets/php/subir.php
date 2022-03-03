@@ -78,7 +78,7 @@ function calcular($string, $pdf)
     if ($pos1 !== false) {
         $pos1 = $pos1 + strlen($string);
         $pos2 = strpos($pdf, "|", $pos1);
-        return substr($pdf, $pos1, ($pos2 - $pos1));
+        return trim(substr($pdf, $pos1, ($pos2 - $pos1)));
     } else {
         return "";
     }
@@ -91,7 +91,7 @@ function calcular_reversa($string, $pdf, $offset = 0)
         $pos1 = $pos1 - $offset;
         $text = substr($pdf, 0, $pos1);
         $pos2 = strrpos($text, "|") + 1;
-        return substr($pdf, $pos2, ($pos1 - $pos2));
+        return trim(substr($pdf, $pos2, ($pos1 - $pos2)));
     } else {
         return "";
     }
@@ -119,7 +119,7 @@ $pos1 = strpos($pdf, 'RFC|');
 if ($pos1 !== false) {
     $pos1 = strpos($pdf, 'RFC|', strpos($pdf, 'RFC|')) + 4;
     $pos2 = strpos($pdf, "|", $pos1);
-    $rfc = substr($pdf, $pos1, ($pos2 - $pos1));
+    $rfc = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
 } else {
     $rfc = "";
 }
@@ -160,7 +160,7 @@ $consulta = $conexion->query($sql);
 $total = mysqli_num_rows($consulta);
 
 if ($total == 0) {
-    if (validar_fecha($del) && validar_fecha($al) && validar_fecha($pago) && $periodo != "" && validar_fecha($inicio)) {
+    if (validar_fecha($del) && validar_fecha($al) && validar_fecha($pago) && $periodo != "") {
         $sql = "INSERT INTO Archivo(del, al,fecha_pago,nombre, url, RFC, puesto, departamento, dias_pago, id_periodo) VALUES(
             STR_TO_DATE('" . $del . "','%d/%m/%Y'),
             STR_TO_DATE('" . $al . "','%d/%m/%Y'),
@@ -176,59 +176,63 @@ if ($total == 0) {
 
         if ($conexion->query($sql)) {
             if ($registrar_usuario == 1) {
-                if ($periodo == 3) {
-                    $periodo = 1;
-                }
-
-                $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
-                $consulta = $conexion->query($sql);
-                $total = mysqli_num_rows($consulta);
-                if ($consulta && $total == 0) {
-                    $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
-                    if ($conexion->query($sql)) {
-                        $id_depa = mysqli_insert_id($conexion);
+                if (validar_fecha($inicio)) {
+                    if ($periodo == 3) {
+                        $periodo = 1;
                     }
-                } elseif ($consulta && $total > 0) {
-                    $res = mysqli_fetch_row($consulta);
-                    $id_depa = $res[0];
-                }
 
-                $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = " . $id_depa;
-                $consulta = $conexion->query($sql);
-                $total = mysqli_num_rows($consulta);
-
-                if ($consulta && $total == 0) {
-                    $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
-                    if ($conexion->query($sql)) {
-                        $id_puesto = mysqli_insert_id($conexion);
-
-                        $sql = "INSERT INTO Usuario(categoria, contrasenia, nombre, RFC) VALUES(
-                            'user',
-                            '" . $password . "',
-                            '" . $nombre . "',
-                            '" . $rfc . "'
-                        )";
-
+                    $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
+                    $consulta = $conexion->query($sql);
+                    $total = mysqli_num_rows($consulta);
+                    if ($consulta && $total == 0) {
+                        $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
                         if ($conexion->query($sql)) {
+                            $id_depa = mysqli_insert_id($conexion);
+                        }
+                    } elseif ($consulta && $total > 0) {
+                        $res = mysqli_fetch_row($consulta);
+                        $id_depa = $res[0];
+                    }
 
-                            $sql = "INSERT INTO Empleado(id_empleado, RFC, CURP, fechaRelLab,
-                            id_puesto, apellidop, apellidom, nombres, id_periodo) VALUES(
-                                " . $id . ",
-                                '" . $rfc . "',
-                                '" . $curp . "',
-                                '" . $inicio . "',
-                                " . $id_puesto . ",
-                                '" . $apellidop . "',
-                                '" . $apellidom . "',
-                                '" . $nombres . "',
-                                " . $periodo . ")";
+                    $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = " . $id_depa;
+                    $consulta = $conexion->query($sql);
+                    $total = mysqli_num_rows($consulta);
+
+                    if ($consulta && $total == 0) {
+                        $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
+                        if ($conexion->query($sql)) {
+                            $id_puesto = mysqli_insert_id($conexion);
+
+                            $sql = "INSERT INTO Usuario(categoria, contrasenia, nombre, RFC) VALUES(
+                                'user',
+                                '" . $password . "',
+                                '" . $nombre . "',
+                                '" . $rfc . "'
+                            )";
+
                             if ($conexion->query($sql)) {
-                                $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina)
-                                VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado'," . $id_prenomina . ")";
-                                $consulta = $conexion->query($sql);
+
+                                $sql = "INSERT INTO Empleado(id_empleado, RFC, CURP, fechaRelLab,
+                                id_puesto, apellidop, apellidom, nombres, id_periodo) VALUES(
+                                    " . $id . ",
+                                    '" . $rfc . "',
+                                    '" . $curp . "',
+                                    '" . $inicio . "',
+                                    " . $id_puesto . ",
+                                    '" . $apellidop . "',
+                                    '" . $apellidom . "',
+                                    '" . $nombres . "',
+                                    " . $periodo . ")";
+                                if ($conexion->query($sql)) {
+                                    $sql = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina)
+                                    VALUES('" . $RFC . "', STR_TO_DATE('" . $inicio . "','%d/%m/%Y'),'alta', 'alta de empleado'," . $id_prenomina . ")";
+                                    $consulta = $conexion->query($sql);
+                                }
                             }
                         }
                     }
+                } else {
+                    echo 0;
                 }
             }
 
@@ -248,25 +252,27 @@ if ($total == 0) {
 $conexion->close();
 
 // file_put_contents("./prueba.txt", $pdf);
-echo $id;
-echo "\n";
-echo $nombre;
-echo "\n";
-echo $curp;
-echo "\n";
-echo $rfc;
-echo "\n";
-echo $inicio;
-echo "\n";
-echo $pago;
-echo "\n";
-echo $puesto;
-echo "\n";
-echo $departamento;
-echo "\n";
-echo $dias;
-echo "\n";
-echo $del;
-echo "\n";
-echo $al;
-echo "\n";
+// echo $id;
+// echo "\n";
+// echo $periodo;
+// echo "\n";
+// echo $nombre;
+// echo "\n";
+// echo $curp;
+// echo "\n";
+// echo $rfc;
+// echo "\n";
+// echo $inicio;
+// echo "\n";
+// echo $pago;
+// echo "\n";
+// echo $puesto;
+// echo "\n";
+// echo $departamento;
+// echo "\n";
+// echo $dias;
+// echo "\n";
+// echo $del;
+// echo "\n";
+// echo $al;
+// echo "\n";

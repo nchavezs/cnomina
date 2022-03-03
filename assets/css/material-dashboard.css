@@ -1826,8 +1826,8 @@ button:hover .button-text {
     position: relative;
     text-align: left;
     font-size: 20px !important;
-    border-top: 2px solid #ddd;
-    padding: 20px
+    /* border-top: 2px solid #ddd; */
+    padding: 0 20px
 }
 
 .informacion_archivos {
@@ -1867,10 +1867,6 @@ button:hover .button-text {
 .log.archivos {
     text-align: left;
     white-space: nowrap
-}
-
-.log.archivos h4 {
-    text-align: center
 }
 
 .log .error {
