@@ -16,10 +16,10 @@ include "assets/php/main_admin.php";
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.5.1" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.5.2" rel="stylesheet" />
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.5.1" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.5.2" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -249,10 +249,10 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.5.1" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.5.2" type="text/javascript"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.5.1"></script>
-	<script src="assets/js/mensajes.js?v=3.5.1"></script>
+	<script src="assets/js/sesion.js?v=3.5.2"></script>
+	<script src="assets/js/mensajes.js?v=3.5.2"></script>
 </body>
 
 </html>
