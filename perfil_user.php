@@ -38,11 +38,11 @@ if ($conexion->query($sql)) {
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.5.2" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.5.3" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
-    <link href="assets/css/select2.css?v=3.5.2" rel="stylesheet" />
+    <link href="assets/css/select2.css?v=3.5.3" rel="stylesheet" />
     <link href="assets/css/datepicker.min.css" rel="stylesheet" />
-    <link href="assets/css/sweetalert2.min.css?v=3.5.2" rel="stylesheet" />
+    <link href="assets/css/sweetalert2.min.css?v=3.5.3" rel="stylesheet" />
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
 </head>
 
@@ -316,13 +316,13 @@ if ($conexion->query($sql)) {
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/material-dashboard.js?v=3.5.2" type="text/javascript"></script>
+    <script src="assets/js/material-dashboard.js?v=3.5.3" type="text/javascript"></script>
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.5.2"></script>
+	<script src="assets/js/sesion.js?v=3.5.3"></script>
     <script src="assets/js/block.js"></script>
-    <script src="assets/js/perfil.js?v=3.5.2"></script>
-    <script src="assets/js/mensajes-user.js?v=3.5.2"></script>
+    <script src="assets/js/perfil.js?v=3.5.3"></script>
+    <script src="assets/js/mensajes-user.js?v=3.5.3"></script>
     <script src="assets/js/select.js"></script>
 
 </body>
