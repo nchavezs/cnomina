@@ -20,7 +20,7 @@ if ($rol != 1) {
     $apellidop = trim(ucfirst(mb_strtolower($_POST["apellidop"])));
     $trabajador = $_POST["trabajador"];
     $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
-    $periodo = $_POST["periodo"];
+    $periodo = $_SESSION["id_periodo"];
 
     $sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "'";
     $consulta = mysqli_query($conexion, $sql);
