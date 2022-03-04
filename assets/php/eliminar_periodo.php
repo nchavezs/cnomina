@@ -8,11 +8,11 @@ $fecha1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $fecha2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
 $sql = "SELECT id_archivo FROM Archivo";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $total1 = mysqli_num_rows($consulta);
 
 $sql = "SELECT url FROM Archivo WHERE STR_TO_DATE(fecha_pago, '%d/%m/%Y') BETWEEN '".$fecha1. "' AND '". $fecha2."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta) {
     while($res = mysqli_fetch_row($consulta)){
         $url = explode("/", $res[0]); 
@@ -23,9 +23,9 @@ if ($consulta) {
     }
 
     $sql = "DELETE FROM Archivo WHERE STR_TO_DATE(fecha_pago, '%d/%m/%Y') BETWEEN '".$fecha1. "' AND '". $fecha2."'";
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         $sql = "SELECT id_archivo FROM Archivo";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $total2 = mysqli_num_rows($consulta);
         $total = $total1 - $total2;
         echo $total;
@@ -36,4 +36,4 @@ if ($consulta) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

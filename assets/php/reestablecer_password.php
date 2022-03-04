@@ -10,4 +10,4 @@ $usuario = str_pad($res['id_usuario'], 5, '0', STR_PAD_LEFT);
 $sql2 = "UPDATE Usuario SET contrasenia = '" . $usuario . "' WHERE RFC = '" . $id . "'";
 
 mysqli_query($conexion, $sql2);
-mysqli_close($conexion);
+$conexion->close();

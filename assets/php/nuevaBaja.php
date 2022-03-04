@@ -11,7 +11,7 @@ $usuario = mysqli_fetch_array($consulta);
 
 echo '<form id="form-baja" autocomplete="off">
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Registrar baja de empleado</h4>
+				<h4 class="negrita text-primary">Registrar baja de empleado</h4>
 				<small class="text-muted">Completa el siguiente formulario para dar de baja a <span id="nombre">' . $usuario["nombre"] . '</span> .</small>
 			</div>
 			<div class="card">
@@ -51,4 +51,4 @@ echo '<div class="pie">
 	</div>	
 </form>';
 
-mysqli_close($conexion);
+$conexion->close();

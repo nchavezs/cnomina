@@ -3,20 +3,24 @@ session_start();
 $id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
 $conexion = conexion();
-$id = explode("-", $_POST["id"]);
-$id = $id[0];
+$id = $_POST["id"];
 setlocale(LC_ALL, "spanish");
-$fecha = date("d/m/Y");
-$fecha1 = $_POST["fecha1"];
+$fechas = $_POST["fechas"];
 $dias = $_POST["dias"];
 $motivo = $_POST["motivo"];
 
-$sql = "INSERT INTO Descuento(RFC,dias,fecha,fechas,motivo,id_prenomina) VALUES('" . $id . "'," . $dias . ", STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'" . $fecha1 . "','" . $motivo . "',".$id_prenomina.")";
+$sql = "INSERT INTO Descuento(RFC,dias,fechas,motivo,id_prenomina) VALUES(
+    '" . $id . "',
+    " . $dias . ", 
+    '" . $fechas . "',
+    '" . $motivo . "',
+    " . $id_prenomina . "
+)";
 
 if ($dias == 0) {
     echo 1;
 } else {
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         echo 0;
     } else {
         echo 1;
@@ -24,4 +28,4 @@ if ($dias == 0) {
 
 }
 
-mysqli_close($conexion);
+$conexion->close();

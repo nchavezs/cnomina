@@ -24,4 +24,4 @@ echo $res["RFC"];
 
 $conexion->query($sql);
 
-mysqli_close($conexion);
+$conexion->close();

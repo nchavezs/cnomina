@@ -21,4 +21,4 @@ $ext = pathinfo($archivo, PATHINFO_EXTENSION);
 $ruta = $ruta . $id . "." . $ext;
 move_uploaded_file($_FILES['file']['tmp_name'], $ruta);
 echo 'assets/beneficiario/' . $id . "." . $ext;
-mysqli_close($conexion);
+$conexion->close();

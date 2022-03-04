@@ -10,7 +10,7 @@ if(isset($_POST["puestos"])){
     Usuario.nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto   
     FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE Plaza.id_puesto IN(" . $puestos . ") ORDER BY Plaza.id_plaza";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         while ($res = mysqli_fetch_array($consulta)) {
             if($res["RFC"] == null){
@@ -21,5 +21,5 @@ if(isset($_POST["puestos"])){
         }
     }
     
-    mysqli_close($conexion);
+    $conexion->close();
 }

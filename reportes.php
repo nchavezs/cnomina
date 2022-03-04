@@ -215,14 +215,14 @@ if (rol() != 1) {
 															<?php
 																$conexion = conexion();
 																$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-																$consulta = mysqli_query($conexion, $sql);
+																$consulta = $conexion->query($sql);
 																if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 																	while ($res2 = mysqli_fetch_row($consulta)) {
 																		echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
 																	}
 																} else {
 																}
-																mysqli_close($conexion);	
+																$conexion->close();	
 															?>
 														</select>
 													</div>
@@ -342,14 +342,14 @@ if (rol() != 1) {
 															<?php
 															$conexion = conexion();
 															$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-															$consulta = mysqli_query($conexion, $sql);
+															$consulta = $conexion->query($sql);
 															if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 																while ($res2 = mysqli_fetch_row($consulta)) {
 																	echo '<option value="' . $res2[0] . '">' . $res2[1] . '</option>';
 																}
 															} else {
 															}
-															mysqli_close($conexion);	
+															$conexion->close();	
 														?>
 														</select>
 													</div>
@@ -427,14 +427,14 @@ if (rol() != 1) {
 															<?php
 																$conexion = conexion();
 																$sql = "SELECT * FROM Usuario WHERE categoria = 'user' ORDER BY nombre ASC";
-																$consulta = mysqli_query($conexion, $sql);
+																$consulta = $conexion->query($sql);
 																if ($consulta && (mysqli_num_rows($consulta)) > 0) {
 																	while ($res2 = mysqli_fetch_array($consulta)) {
 																		echo '<option value="' . $res2["RFC"] . '">' . $res2["nombre"] . '</option>';
 																	}
 																} else {
 																}
-																mysqli_close($conexion);	
+																$conexion->close();	
 															?>
 														</select>
 													</div>

@@ -10,7 +10,7 @@ $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 $sql = "SELECT * FROM Permiso WHERE id_prenomina=".$id_prenomina." AND RFC = '" . $id."'";
-$resultado = mysqli_query($conexion, $sql);
+$resultado = $conexion->query($sql);
 
 if (mysqli_num_rows($resultado) == 0) {
     echo '<div class="vacia">
@@ -23,7 +23,7 @@ if (mysqli_num_rows($resultado) == 0) {
 		</div>';
 } else {
     echo '<div class="p-2">
-			<h4 class="font-weight-bold text-primary">Lista de licencias</h4>
+			<h4 class="negrita text-primary">Lista de licencias</h4>
 			<small class="text-muted">Permisos con goce de sueldo, sin goce de sueldo de '.$usuario["nombre"].'.</small>
 		</div>
 		<div class="ver_opciones">
@@ -37,4 +37,4 @@ if (mysqli_num_rows($resultado) == 0) {
 	<div id="caja-permiso"></div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

@@ -5,7 +5,7 @@ $id = $_POST['id'];
 $nombre = $_POST['nombre'];
 
 $sql = "SELECT ".$nombre." FROM Expediente WHERE RFC = '".$id."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $expediente = mysqli_fetch_row($consulta);
 
 $url = explode("/", $expediente[0]);
@@ -15,10 +15,10 @@ if (is_file($url)) {
 }
 
 $sql = "UPDATE Expediente SET ".$nombre." = NULL WHERE RFC = '". $id."'";
-if (mysqli_query($conexion, $sql)) {
+if ($conexion->query($sql)) {
     echo 1;
 } else {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

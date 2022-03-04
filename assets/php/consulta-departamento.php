@@ -3,7 +3,7 @@
    $conexion = conexion();
 
    $sql = "SELECT id_departamento, nombre FROM Departamento";
-   $resultado = mysqli_query($conexion, $sql);
+   $resultado = $conexion->query($sql);
 	if($resultado && (mysqli_num_rows($resultado) == 0)){
 		 echo '{"data":[]}';
 	}else{
@@ -14,5 +14,5 @@
       }
       echo json_encode($arreglo);
    }
-   mysqli_close($conexion);
+   $conexion->close();
 ?>

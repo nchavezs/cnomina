@@ -7,7 +7,7 @@
 	$categoria = $_POST["categoria"];
 
 	$sql = "SELECT * FROM Permiso WHERE YEAR(del) = ".$ano." AND categoria = ".$categoria." AND RFC = '".$id."'";
-	$resultado = mysqli_query($conexion, $sql);
+	$resultado = $conexion->query($sql);
 
 	if($categoria == 0)
 		$permiso = "con";
@@ -55,5 +55,5 @@
 
 	$datos["total"] = $total;
 	echo json_encode($datos);
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

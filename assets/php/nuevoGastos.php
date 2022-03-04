@@ -12,7 +12,7 @@
 	
 	echo '<form id="form-gastos" autocomplete="off">
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Registro de gastos médicos</h4>
+				<h4 class="negrita text-primary">Registro de gastos médicos</h4>
 				<small class="text-muted">Nuevo gasto médico de '.$usuario["nombre"].'.</small>
 			</div>
 			<div class="card">
@@ -50,5 +50,5 @@
 		</div>
 	</form>';
 
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

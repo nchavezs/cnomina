@@ -19,7 +19,7 @@ $sql = "SELECT *,
 $datos["total"] = 0;
 $datos["html"] = "";
 
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $total = mysqli_num_rows($consulta);
 
 if ($consulta && $total > 0) {
@@ -29,7 +29,7 @@ if ($consulta && $total > 0) {
             emisor = '" . $usuario["RFC"] . "' AND
             estado = 0
         ";
-        $consulta2 = mysqli_query($conexion, $sql);
+        $consulta2 = $conexion->query($sql);
         $numero = mysqli_num_rows($consulta2);
         $datos["total"] = $datos["total"] + $numero;
 
@@ -38,7 +38,7 @@ if ($consulta && $total > 0) {
             emisor = '" . $usuario["RFC"] . "'
             ORDER BY elaboracion DESC
         ";
-        $consulta3 = mysqli_query($conexion, $sql);
+        $consulta3 = $conexion->query($sql);
         $fecha = "";
         if ($consulta3 && mysqli_num_rows($consulta3) > 0) {
             $mensaje = mysqli_fetch_array($consulta3);
@@ -63,6 +63,6 @@ if ($consulta && $total > 0) {
     $datos["html"] = '<div class="mensajeria_resultados">No se encontró ningún contacto</div> ';
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 echo json_encode($datos);

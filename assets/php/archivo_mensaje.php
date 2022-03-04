@@ -5,9 +5,9 @@ $conexion = conexion();
 $texto = $_SESSION['texto'];
 
 $sql = "";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 
 
 
-mysqli_close($conexion);
+$conexion->close();

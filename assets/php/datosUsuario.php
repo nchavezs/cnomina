@@ -9,7 +9,7 @@ $telefono = $_POST['telefono'];
 
 $sql = "UPDATE Usuario SET nombre = '" . $nombre . "', telefono = '" . $telefono . "',
 email = '" . $email . "' WHERE RFC = '" . $id . "'";
-if (mysqli_query($conexion, $sql)) {
+if ($conexion->query($sql)) {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['email'] = $email;
     echo 1;
@@ -17,4 +17,4 @@ if (mysqli_query($conexion, $sql)) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

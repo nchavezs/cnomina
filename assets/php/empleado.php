@@ -5,7 +5,7 @@ $id = $_POST['id'];
 
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "' AND categoria = 'user'";
 
-if ($resultado = mysqli_query($conexion, $sql)) {
+if ($resultado = $conexion->query($sql)) {
     while ($res = mysqli_fetch_array($resultado)) {
         $datos["id"] = $res[0];
         $datos["nombre"] = $res[6];
@@ -22,4 +22,4 @@ if ($resultado = mysqli_query($conexion, $sql)) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

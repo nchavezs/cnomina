@@ -64,7 +64,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha1)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha2)));
     $sql = "SELECT * FROM Movimiento INNER JOIN Usuario ON Movimiento.RFC = Usuario.RFC WHERE fecha >= '" . $date1 . "' AND fecha <= '" . $date2 . "'" . $puesto . $departamento.' ORDER BY Movimiento.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Movimientos");
     $spreadsheet->getActiveSheet()->mergeCells('A1:B1');
@@ -127,7 +127,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha3)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha4)));
     $sql = "SELECT * FROM Descuento INNER JOIN Usuario ON Descuento.RFC = Usuario.RFC WHERE Descuento.id_descuento >= 0 ". $puesto . $departamento.' ORDER BY Descuento.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(1);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Descuentos");
@@ -193,7 +193,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha6)));
     $sql = "SELECT * FROM Vacacion INNER JOIN Usuario ON Vacacion.RFC = Usuario.RFC WHERE al >= '" . $date1 . "' AND al <= '" . $date2 . "'" . $puesto . $departamento .' ORDER BY Vacacion.RFC';
 
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(2);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Vacaciones");
@@ -259,7 +259,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha7)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha8)));
     $sql = "SELECT * FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC WHERE al >= '" . $date1 . "' AND al <= '" . $date2 . "' AND Permiso.categoria = 0" . $puesto . $departamento.' ORDER BY Permiso.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(3);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Permisos con goce");
@@ -332,7 +332,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha9)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha10)));
     $sql = "SELECT * FROM Permiso INNER JOIN Usuario ON Permiso.RFC = Usuario.RFC WHERE al >= '" . $date1 . "' AND al <= '" . $date2 . "' AND Permiso.categoria = 1" . $puesto . $departamento.' ORDER BY Permiso.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(4);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Permisos sin goce");
@@ -397,7 +397,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha13)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha14)));
     $sql = "SELECT * FROM Usuario WHERE STR_TO_DATE(fechaRelLab,'%d/%m/%Y') >= '" . $date1 . "' AND STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $date2 . "'" . $puesto . $departamento.' ORDER BY Usuario.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(5);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Altas");
@@ -467,7 +467,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha15)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha16)));
     $sql = "SELECT * FROM Baja INNER JOIN Usuario ON Baja.RFC = Usuario.RFC WHERE fecha >= '" . $date1 . "' AND fecha <= '" . $date2 . "'" . $puesto . $departamento.' ORDER BY Baja.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(6);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Bajas");
@@ -543,7 +543,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $sheet->setCellValue('C2', 'PARENTESCO');
     $sheet->setCellValue('D2', 'FECHA DE REGISTRO');
     $sql = "SELECT * FROM Beneficiario INNER JOIN Usuario ON Beneficiario.RFC = Usuario.RFC";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0 && $beneficiarios == 1) {
         $bandera = true;
         $i = 3;
@@ -565,7 +565,7 @@ if ($fecha1 == 0 && $fecha3 == 0 && $fecha5 == 0 && $fecha7 == 0 && $fecha9 == 0
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha17)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $fecha18)));
     $sql = "SELECT * FROM Pase INNER JOIN Usuario ON Pase.RFC = Usuario.RFC WHERE fecha >= '" . $date1 . "' AND fecha <= '" . $date2 . "'" . $puesto . $departamento.' ORDER BY Pase.RFC';
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $spreadsheet->createSheet();
     $spreadsheet->setActiveSheetIndex(8);
     $sheet = $spreadsheet->getActiveSheet()->setTitle("Pases");

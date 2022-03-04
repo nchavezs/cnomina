@@ -3,11 +3,11 @@ include "conexion.php";
 $conexion = conexion();
 
 $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $_POST['id'] . "'";
-$resultado = mysqli_query($conexion, $sql);
+$resultado = $conexion->query($sql);
 $usuario = mysqli_fetch_array($resultado);
 
 echo '<div class="p-2">
-		<h4 class="font-weight-bold text-primary">Lista de CFDI</h4>
+		<h4 class="negrita text-primary">Lista de CFDI</h4>
 		<small class="text-muted">CFDI de '.$usuario["nombre"].'.</small>
 	</div>
 
@@ -17,7 +17,7 @@ echo '<div class="p-2">
 		</div>
 	</div>';
 
-mysqli_close($conexion);
+$conexion->close();
 
 // <select id="ano" class="sources">';
 // 		$ano = date("Y");

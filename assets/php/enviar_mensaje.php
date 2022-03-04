@@ -12,11 +12,11 @@ if($id != "" && $mensaje != ""){
         '".$myid."',
         '".$mensaje."'
     )";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     if($consulta){
         $id_mensaje = mysqli_insert_id($conexion);
         $sql = "SELECT * FROM Mensaje WHERE id_mensaje = ".$id_mensaje;
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $res = mysqli_fetch_array($consulta);
         $hora = date("h:i A", strtotime($res["elaboracion"]));
         echo '<div class="mensajeria_mensaje mio">
@@ -34,4 +34,4 @@ if($id != "" && $mensaje != ""){
 
 
 
-mysqli_close($conexion);
+$conexion->close();

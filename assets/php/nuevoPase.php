@@ -12,7 +12,7 @@ $usuario = mysqli_fetch_array($consulta);
 
 echo '<form id="form-pase">
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Registrar nuevo pase</h4>
+				<h4 class="negrita text-primary">Registrar nuevo pase</h4>
 				<small class="text-muted">Completa el siguiente formulario para realizar un nuevo pase para '.$usuario["nombre"].'.</small>
 			</div>
 				<div class="card">
@@ -54,4 +54,4 @@ echo '<div class="pie">
 	</div>
 </form>';
 
-mysqli_close($conexion);
+$conexion->close();

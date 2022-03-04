@@ -7,7 +7,7 @@ $ano = $_POST["ano"];
 $mes = $_POST["mes"];
 
 $sql = "SELECT * FROM Gastos WHERE YEAR(fecha) = " . $ano . " AND MONTH(fecha) = " . $mes . " AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
@@ -47,4 +47,4 @@ if (mysqli_num_rows($consulta) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

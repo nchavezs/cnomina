@@ -5,7 +5,7 @@ $hoy = date("d/m/Y");
 echo '<div class="formulario_caja">
 	<form class="formulario" id="form-periodo">
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Eliminar CFDI</h4>
+				<h4 class="negrita text-primary">Eliminar CFDI</h4>
 				<small class="text-muted">Indique el periodo en los que se eliminarán los CFDI.</small>
 			</div>
 			<div class="card">

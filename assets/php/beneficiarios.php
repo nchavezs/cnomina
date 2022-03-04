@@ -5,7 +5,7 @@ session_start();
 $id = $_SESSION['usuario'];
 
 $sql = "SELECT * FROM Beneficiario WHERE RFC = '" . $id."'";
-$total = mysqli_num_rows(mysqli_query($conexion, $sql));
+$total = mysqli_num_rows($conexion->query($sql));
 
 $comprobar_baja = "SELECT * FROM Usuario WHERE RFC = '" . $id."' and estado = 'baja'";
 $baja = mysqli_num_rows(mysqli_query($conexion, $comprobar_baja));
@@ -65,4 +65,4 @@ if ($total == 0) {
 		</table>
 	</div>';
 }
-mysqli_close($conexion);
+$conexion->close();

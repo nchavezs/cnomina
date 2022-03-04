@@ -12,14 +12,14 @@ $sql2 = "SELECT * FROM Vacacion WHERE id_vacacion = " . $id;
 $consulta2 = mysqli_query($conexion, $sql2);
 $vacacion = mysqli_fetch_array($consulta2);
 
-if (trim($vacacion[6]) == "") {
+if (trim($vacacion["descripcion"]) == "") {
     $desc = "Sin descripción";
 } else {
-    $desc = $vacacion[6];
+    $desc = $vacacion["descripcion"];
 }
 
 $html = '<div class="p-2">
-			<h4 class="font-weight-bold text-primary">Detalle de vacaciones</h4>
+			<h4 class="negrita text-primary">Detalle de vacaciones</h4>
 			<small class="text-muted">Detalle de vacaciones de '.$usuario["nombre"].'.</small>
 		</div>
 		<div class="row">
@@ -34,16 +34,16 @@ $html = '<div class="p-2">
 				<div class="card">
 					<div class="card-body">
 						<div id="fecha-contenido">
-							<p class="card-category">Fecha de elaboración: ' . date("d/m/Y", strtotime($vacacion[2])) . '</p>
-							<p class="card-category">Días de vacaciones: ' . $vacacion[3] . '</p>
+							<p class="card-category">Fecha de elaboración: ' . date("d/m/Y", strtotime($vacacion["elaboracion"])) . '</p>
+							<p class="card-category">Días de vacaciones: ' . $vacacion["dias"] . '</p>
 							<br>
-							<p class="card-category">Del ' . strftime("%d de %B de %Y", strtotime($vacacion[4])) . '</p>
-							<p class="card-category">Al ' . strftime("%d de %B de %Y", strtotime($vacacion[5])) . '</p>
+							<p class="card-category">Del ' . strftime("%d de %B de %Y", strtotime($vacacion["del"])) . '</p>
+							<p class="card-category">Al ' . strftime("%d de %B de %Y", strtotime($vacacion["al"])) . '</p>
 							<br>
 							<p>Descripción:</p>
 							<h5>' . $desc . '</h5>
-							<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $vacacion[0] . ',\'' . $vacacion[7] . '\',\'' . $vacacion[1] . '\',\'Vacacion\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
-							if (!is_null($vacacion[7])) {
+							<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $vacacion[0] . ',\'' . $vacacion["url"] . '\',\'' . $vacacion["RFC"] . '\',\'Vacacion\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
+							if (!is_null($vacacion["url"])) {
 								$html = $html . '<div class="btn btn-primary btn-sm btn3" onclick="eliminar_archivo(' . $vacacion[0] . ',\'Vacacion\')"><i class="material-icons">clear</i> Eliminar archivo </div>';
 							}
 
@@ -58,9 +58,8 @@ $html = '<div class="p-2">
 		</div>';
 
 $datos["html"] = $html;
-$datos["fecha1"] = date("d/m/Y", strtotime($vacacion[2]));
-$datos["fecha2"] = date("d/m/Y", strtotime($vacacion[4]));
-$datos["fecha3"] = date("d/m/Y", strtotime($vacacion[5]));
+$datos["fecha2"] = date("d/m/Y", strtotime($vacacion["del"]));
+$datos["fecha3"] = date("d/m/Y", strtotime($vacacion["al"]));
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

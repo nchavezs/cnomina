@@ -52,7 +52,7 @@ if ($total > 0) {
     echo '</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 
 

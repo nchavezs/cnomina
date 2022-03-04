@@ -11,7 +11,7 @@ $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 $sql = "SELECT * FROM Vacacion WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) == 0) {
     echo '<div class="vacia">
@@ -24,7 +24,7 @@ if (mysqli_num_rows($consulta) == 0) {
 				</div>';
 } else {
     echo '<div class="p-2">
-			<h4 class="font-weight-bold text-primary">Lista de vacaciones</h4>
+			<h4 class="negrita text-primary">Lista de vacaciones</h4>
 			<small class="text-muted">Vacaciones de '.$usuario["nombre"].'.</small>
 		</div>
 
@@ -39,7 +39,7 @@ if (mysqli_num_rows($consulta) == 0) {
 			</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 // <select id="ano" class="sources">';
 // 			$ano = date("Y");

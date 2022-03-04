@@ -8,7 +8,7 @@ $nombre = $_POST['nombre'];
 $parentesco = $_POST['parentesco'];
 $url = trim($_POST["url"]);
 $sql = "UPDATE Beneficiario SET beneficiario = '" . $nombre . "', parentesco = '" . $parentesco . "', url = '" . $url . "' WHERE id_beneficiario = " . $id;
-mysqli_query($conexion, $sql);
+$conexion->query($sql);
 
 if ($url !== "") {
     $file = explode("/", $url);
@@ -26,4 +26,4 @@ if ($url !== "") {
 }
 
 echo mysqli_insert_id($conexion);
-mysqli_close($conexion);
+$conexion->close();

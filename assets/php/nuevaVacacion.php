@@ -12,7 +12,7 @@
 	
 	echo '<form id="form-vacacion" autocomplete="off">
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Registrar vacaciones</h4>
+				<h4 class="negrita text-primary">Registrar vacaciones</h4>
 				<small class="text-muted">Completa el siguiente formulario para registrar vacaciones de '.$usuario["nombre"].'.</small>
 			</div>
 			<div class="card">
@@ -49,4 +49,4 @@
 			</div>
 		</form>';
 
-	mysqli_close($conexion);
+	$conexion->close();

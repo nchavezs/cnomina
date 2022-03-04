@@ -9,4 +9,4 @@ $baja = mysqli_fetch_array($consulta);
 $fecha = $baja["fecha"];
 
 echo $fecha;
-mysqli_close($conexion);
+$conexion->close();

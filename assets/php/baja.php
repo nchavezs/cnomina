@@ -74,4 +74,4 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

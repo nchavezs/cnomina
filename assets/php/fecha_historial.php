@@ -9,4 +9,4 @@ $historial = mysqli_fetch_array($consulta);
 $fecha = date("Y-m-d",strtotime($historial["fecha"]."+ 1 days"));
 
 echo $fecha;
-mysqli_close($conexion);
+$conexion->close();

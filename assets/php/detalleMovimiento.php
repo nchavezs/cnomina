@@ -4,7 +4,7 @@
     $id = $_POST['id'];
 
 	$sql = "SELECT * FROM Movimiento WHERE id_movimiento = ".$id;
-	$consulta = mysqli_query($conexion, $sql);
+	$consulta = $conexion->query($sql);
 	$movimiento = mysqli_fetch_array($consulta);
 
 	if(trim($movimiento["observacion"]) === "")
@@ -14,12 +14,12 @@
 
 
 	$sql = "SELECT nombre FROM Usuario WHERE RFC = '".$movimiento["RFC"]."'";
-	$consulta = mysqli_query($conexion, $sql);
+	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
 	$fecha = date("d/m/Y", strtotime($movimiento["fecha"]));
 			
 	echo '<div class="p-2">
-	<h4 class="font-weight-bold text-primary">Detalle de movimiento</h4>
+	<h4 class="negrita text-primary">Detalle de movimiento</h4>
 	<small class="text-muted">Detalle de movimiento de '.$usuario["nombre"].'.</small>
 	</div>
 	<div class="card">
@@ -73,5 +73,5 @@
 			<div class="btn btn-secondary btn-sm" onclick="verMovimientos(\''.$movimiento["RFC"].'\');"><i class="material-icons">arrow_back</i> Regresar </div>
 		</div>';
 
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

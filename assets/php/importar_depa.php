@@ -84,11 +84,11 @@ for ($row = 2; $row <= $highestRow; ++$row) {
     $departamento = eliminar_simbolos($datos[0]);
 
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 0 ) {
         $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             $total_departamentos++;
         }else{
             array_push($errores, "Fila ".$row." : valor no válido.");
@@ -116,4 +116,4 @@ if(sizeof($errores)>0){
 
 echo "</div>";
 
-mysqli_close($conexion);
+$conexion->close();

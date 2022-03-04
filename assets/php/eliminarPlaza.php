@@ -9,11 +9,11 @@ if ($rol != 1) {
     $conexion = conexion();
     $id = $_POST['id'];
     $sql = "SELECT * FROM Plaza WHERE id_plaza = " . $id;
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $plaza = mysqli_fetch_array($consulta);
     if ($plaza["RFC"] == null) {
         $sql = "DELETE FROM Plaza WHERE id_plaza = " . $id;
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             echo 1;
         } else {
             echo 0;
@@ -22,5 +22,5 @@ if ($rol != 1) {
         echo 3;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

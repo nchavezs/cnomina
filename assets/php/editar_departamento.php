@@ -12,8 +12,8 @@ echo '<div class="formulario_caja">
 <div class="formulario">
 	<form id="form">
 		<div class="text-left p-2">
-			<h4 class="font-weight-bold text-primary">Editar departamento</h4>
-			<small class="text-muted">Completa el siguiente formulario para actualiza el nombre del departamento.</small>
+			<h4 class="negrita text-primary">Editar departamento</h4>
+			<small class="text-muted">Completa el siguiente formulario para actualizar el nombre del departamento.</small>
 		</div>
 		<div class="card">	
 			<div class="card-body">

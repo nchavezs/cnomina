@@ -5,7 +5,7 @@
 	$id = $id[0];
 
 	$sql = "SELECT MAX(id_vacacion) FROM Vacacion";
-	$resultado = mysqli_query($conexion, $sql);
+	$resultado = $conexion->query($sql);
 	$res = mysqli_fetch_row($resultado);
 	if(is_null($res[0]))
 		$res[0] = 1;
@@ -19,6 +19,6 @@
 	$ruta = $ruta.'/archivo.'.$ext;
 	move_uploaded_file($_FILES['file'][ 'tmp_name'], $ruta);
 	$ruta2 = 'assets/vacaciones/'.$res[0].'_'.$id.'/archivo.'.$ext;
-	mysqli_close($conexion);
+	$conexion->close();
 	echo $ruta2;
 ?>

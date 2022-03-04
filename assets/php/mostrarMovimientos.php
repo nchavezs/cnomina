@@ -8,7 +8,7 @@ $id = $_POST['id'];
 
 // $sql = "SELECT * FROM Movimiento WHERE YEAR(fecha) = " . $ano . " AND RFC = '" . $id . "'";
 $sql = "SELECT * FROM Movimiento WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
@@ -48,7 +48,7 @@ if (mysqli_num_rows($consulta) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 
 

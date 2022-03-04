@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $('#tabla-nominas').DataTable({
         "lengthChange": false,
-        "pageLength": 8,
+        "pageLength": 10,
         "language": {
             url: "assets/js/datatables/es.json"
         },

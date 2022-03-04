@@ -7,7 +7,7 @@
 	while(!feof($file)){
 		$dato = trim(fgets($file));
 			$sql = "SELECT * FROM ".$categoria." WHERE nombre = '".$dato."'";
-			$consulta = mysqli_query($conexion, $sql);
+			$consulta = $conexion->query($sql);
 			if($consulta && (mysqli_num_rows($consulta) == 0)){
 				if($dato !== ''){
 					$sql1 = "INSERT INTO ".$categoria."(nombre) VALUES('".$dato."')";
@@ -17,5 +17,5 @@
 			}
 	}
 	fclose($file);
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

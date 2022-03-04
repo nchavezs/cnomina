@@ -8,11 +8,9 @@ $del = $_POST["del"];
 $al = $_POST["al"];
 $dias = $_POST["dias"];
 $descripcion = $_POST["descripcion"];
-$hoy = date("Y-m-d");
 
-$sql = "INSERT INTO Vacacion(RFC,fecha,dias,del,al,descripcion,id_prenomina) VALUES(
+$sql = "INSERT INTO Vacacion(RFC,dias,del,al,descripcion,id_prenomina) VALUES(
     '" . $id . "',
-    '" . $hoy . "',
     " . $dias . ",
     STR_TO_DATE('" . $del . "','%d/%m/%Y'),
     STR_TO_DATE('" . $al . "','%d/%m/%Y'),
@@ -20,10 +18,10 @@ $sql = "INSERT INTO Vacacion(RFC,fecha,dias,del,al,descripcion,id_prenomina) VAL
     " . $id_prenomina . "
 )";
 
-if (mysqli_query($conexion, $sql)) {
+if ($conexion->query($sql)) {
     echo 0;
 } else {
     echo 1;
 }
 
-mysqli_close($conexion);
+$conexion->close();

@@ -10,7 +10,7 @@ if ($resultado) {
 
     echo '<div class="modal-archivo">
             <div class="row">
-               <div class="col-5 text-right font-weight-bold">
+               <div class="col-5 text-right negrita">
                   <p>Nombre:</p>
                   <p>RFC:</p>
                   <p>Puesto:</p>
@@ -40,4 +40,4 @@ if ($resultado) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

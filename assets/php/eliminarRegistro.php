@@ -15,5 +15,5 @@ if ($rol == 2) {
         echo 0;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

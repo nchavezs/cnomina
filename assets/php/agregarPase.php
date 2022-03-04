@@ -19,7 +19,7 @@ if ($fecha === "") {
 
     $sql = "INSERT INTO Pase(RFC,fecha,hora,categoria,observacion,id_prenomina) VALUES('" . $id . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y'),'" . $hora . "', " . $categoria . ", '" . $observacion . "',".$id_prenomina.")";
 
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         echo 1;
     } else {
         echo 0;
@@ -27,4 +27,4 @@ if ($fecha === "") {
 
 }
 
-mysqli_close($conexion);
+$conexion->close();

@@ -13,7 +13,7 @@ $consulta2 = mysqli_query($conexion, $sql2);
 $descuento = mysqli_fetch_array($consulta2);
 
 $html = '<div class="p-2">
-		<h4 class="font-weight-bold text-primary">Detalle de descuento</h4>
+		<h4 class="negrita text-primary">Detalle de descuento</h4>
 			<small class="text-muted">Detalle de descuento de '.$usuario["nombre"].'.</small>
 			</div>
 		<div class="row">
@@ -29,18 +29,18 @@ $html = '<div class="p-2">
 				<div class="card">
 					<div class="card-body">
 						<div id="fecha-contenido">
-							<p class="card-category">Fecha de elaboración: <span>' . date("d/m/Y", strtotime($descuento[3])) . '</span></p>
+							<p class="card-category">Fecha de elaboración: <span>' . date("d/m/Y", strtotime($descuento["elaboracion"])) . '</span></p>
 							<p class="card-category">Días de descuento: <span>' . $descuento[2] . '</span></p>
 							<p class="card-category">Fecha(s) de descuento:</p>';
-							$fechas = explode(",", $descuento[4]);
+							$fechas = explode(",", $descuento["fechas"]);
 							foreach ($fechas as $fecha) {
 								$date = date("Y-m-d", strtotime(str_replace('/', '-', $fecha)));
 								$html = $html . '<h5>• ' . strftime("%d de %B de %G", strtotime($date)) . '</h5>';
 							}
 							$html = $html . '<p class="card-category">Descripción:</p>
-							<h5>' . $descuento[5] . '</h5>
-							<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $descuento[0] . ',\'' . $descuento[6] . '\',\'' . $descuento[1] . '\',\'Descuento\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
-							if (!is_null($descuento[6])) {
+							<h5>' . $descuento["motivo"] . '</h5>
+							<div class="btn btn-primary btn-sm btn3" onclick="archivo(' . $descuento[0] . ',\'' . $descuento["url"] . '\',\'' . $descuento["RFC"] . '\',\'Descuento\',1)"><i class="material-icons">play_for_work</i> Descargar archivo </div>';
+							if (!is_null($descuento["url"])) {
 								$html = $html . '<div class="btn btn-primary btn-sm btn3" onclick="eliminar_archivo(' . $descuento[0] . ',\'Descuento\')"><i class="material-icons">clear</i> Eliminar archivo </div>';
 							}
 
@@ -55,8 +55,7 @@ $html = '<div class="p-2">
 		</div>';
 
 $datos["html"] = $html;
-$datos["fecha"] = date("d/m/Y", strtotime($descuento[3]));
-$datos["fechas"] = $descuento[4];
+$datos["fechas"] = $descuento["fechas"];
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

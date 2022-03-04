@@ -4,20 +4,20 @@ $conexion = conexion();
 $id = $_POST['id'];
 
 $sql = "SELECT * FROM Expediente WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $expediente = mysqli_fetch_array($consulta);
 if (mysqli_num_rows($consulta) == 0) {
     $sql = "INSERT INTO Expediente(RFC) VALUES('" . $id . "')";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 } 
 
 $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 echo '
 <div class="p-2">
-    <h4 class="font-weight-bold text-primary">Expediente de usuario</h4>
+    <h4 class="negrita text-primary">Expediente de usuario</h4>
     <small class="text-muted">Expediente de '.$usuario["nombre"].'.</small>
 </div>
 
@@ -220,4 +220,4 @@ echo '</div>
     </div>
 </div>';
 
-mysqli_close($conexion);
+$conexion->close();

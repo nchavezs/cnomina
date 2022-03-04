@@ -5,7 +5,7 @@ $conexion = conexion();
 
 $opciones = [];
 $sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_assoc($consulta)) {
         $opciones[$res['id_departamento']] = $res['nombre'];
@@ -14,4 +14,4 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     
 echo json_encode($opciones);
 
-mysqli_close($conexion);
+$conexion->close();

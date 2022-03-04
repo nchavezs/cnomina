@@ -3,7 +3,7 @@
 	$conexion = conexion();
 	$id = $_POST['id'];
 	$sql = "SELECT * FROM Usuario WHERE RFC = '".$id."'";
-	$consulta = mysqli_query($conexion, $sql);
+	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
 	setlocale(LC_ALL, "spanish");
 	// $hoy = date("d/m/Y");
@@ -17,7 +17,7 @@
 	echo '<form id="form-permiso" autocomplete="off">
 			<div class="">
 				<div class="p-2">
-					<h4 class="font-weight-bold text-primary">Registrar nueva licencia</h4>
+					<h4 class="negrita text-primary">Registrar nueva licencia</h4>
 					<small class="text-muted">Nueva licencia para '.$usuario["nombre"].'.</small>
 				</div>
 				<div class="card">
@@ -71,7 +71,7 @@
 			</div>
 		</form>';
 
-	mysqli_close($conexion);
+	$conexion->close();
 
 
 		//  <div class="col-md-4">

@@ -53,4 +53,4 @@ echo '<form id="formulario-chat">
 			</div>
 		</form>';
 
-mysqli_close($conexion);
+$conexion->close();

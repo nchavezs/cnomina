@@ -34,4 +34,4 @@ if($consulta && mysqli_num_rows($consulta) > 0){
 $datos["del"] = $del;
 $datos["al"] = date("Y-m-d",strtotime($prenomina["al"]."+ 1 days"));
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

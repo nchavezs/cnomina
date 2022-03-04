@@ -18,7 +18,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->getColor()->setRGB('F
 $sheet->setCellValue('A1', 'NOMBRE');
 
 $sql = "SELECT * FROM Departamento";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $i = 2;
     while ($res = mysqli_fetch_array($consulta)) {

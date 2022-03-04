@@ -16,4 +16,4 @@ if (mysqli_query($conexion, $consulta)) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

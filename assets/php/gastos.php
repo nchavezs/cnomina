@@ -10,7 +10,7 @@ $consulta1 = mysqli_query($conexion, $sql1);
 $usuario = mysqli_fetch_array($consulta1);
 
 $sql = "SELECT * FROM Gastos WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 
 if (mysqli_num_rows($consulta) == 0) {
@@ -25,7 +25,7 @@ if (mysqli_num_rows($consulta) == 0) {
 } else {
     echo '
 	<div class="p-2">
-        <h4 class="font-weight-bold text-primary">Lista de gastos médicos</h4>
+        <h4 class="negrita text-primary">Lista de gastos médicos</h4>
         <small class="text-muted">Gastos médicos de '.$usuario["nombre"].'.</small>
     </div>
 	<div class="ver_opciones">
@@ -38,4 +38,4 @@ if (mysqli_num_rows($consulta) == 0) {
 	</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

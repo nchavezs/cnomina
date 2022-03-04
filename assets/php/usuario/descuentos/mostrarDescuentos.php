@@ -8,7 +8,7 @@ $mes = $_POST["mes"];
 setlocale(LC_ALL, "spanish");
 
 $sql = "SELECT * FROM Descuento WHERE fechas LIKE '%" . $mes . "/" . $ano . "%' AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
@@ -59,4 +59,4 @@ if (mysqli_num_rows($consulta) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

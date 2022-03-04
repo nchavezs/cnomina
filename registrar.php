@@ -256,13 +256,12 @@ include "assets/php/comprobar_catalago.php";
                         <table id="tabla-empleado" class="table table-striped" style="width:100%">
                             <thead class="text-primary">
                                 <tr>
-                                    <th class=""># Empleado</th>
+                                    <th class="">Empleado</th>
                                     <th class="">Nombre</th>
-                                    <th class="oculto">RFC</th>
+                                    <th class="oculto">Puesto</th>
                                     <th class="oculto">Departamento</th>
-                                    <th class="oculto">Trabajador</th>
-                                    <th class="">Editar</th>
-                                    <th class="">Eliminar</th>
+                                    <th class="oculto">Categoría</th>
+                                    <th class="oculto">Opciones</th>
                                 </tr>
                             </thead>
                         </table>

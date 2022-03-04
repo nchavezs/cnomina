@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = $_POST['id'];
 
 $sql = "SELECT RFC FROM Descuento WHERE id_descuento = " . $id;
-$res = mysqli_query($conexion, $sql);
+$res = $conexion->query($sql);
 $usuario = mysqli_fetch_row($res);
 echo $usuario[0];
 
@@ -24,6 +24,6 @@ if ($res1[0] != null) {
     }
 }
 $sql = "DELETE FROM Descuento WHERE id_descuento = " . $id;
-mysqli_query($conexion, $sql);
+$conexion->query($sql);
 
-mysqli_close($conexion);
+$conexion->close();

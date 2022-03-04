@@ -4,7 +4,7 @@ include 'conexion.php';
 $conexion = conexion();
 $id = $_SESSION['usuario'];
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if ($consulta && mysqli_num_rows($consulta) == 1) {
     $res = mysqli_fetch_array($consulta);
@@ -23,4 +23,4 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

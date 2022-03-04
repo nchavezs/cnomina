@@ -33,7 +33,7 @@ $del = strftime('Del %d de %B de %Y', strtotime($permiso['del']));
 $al = strftime('Al %d de %B de %Y', strtotime($permiso['al']));
 
 $html = '<div class="p-2">
-			<h4 class="font-weight-bold text-primary">Detalle de permiso</h4>
+			<h4 class="negrita text-primary">Detalle de permiso</h4>
 			<small class="text-muted">Detalle de permiso de '.$usuario["nombre"].'.</small>
 		</div>
 		

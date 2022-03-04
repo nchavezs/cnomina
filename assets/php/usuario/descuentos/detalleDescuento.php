@@ -39,4 +39,4 @@ $datos["fecha"] = date("d/m/Y", strtotime($descuento["fecha"]));
 $datos["fechas"] = $descuento["fechas"];
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

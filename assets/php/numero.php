@@ -5,7 +5,7 @@ $conexion = conexion();
 $id = $_SESSION['usuario'];
 
 $sql = "SELECT COUNT(*) FROM Mensaje WHERE estado = 0 AND receptor = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta) {
     $total = mysqli_fetch_row($consulta);
     echo $total[0];
@@ -13,4 +13,4 @@ if ($consulta) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

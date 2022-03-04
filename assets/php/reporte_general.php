@@ -91,7 +91,7 @@ if ($del == "" || $al == "") {
         " . $extra . "
         ORDER BY Movimiento.RFC";
 
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Movimientos');
         $spreadsheet->addSheet($sheet);
@@ -163,7 +163,7 @@ if ($del == "" || $al == "") {
         FROM Descuento LEFT JOIN Empleado ON Descuento.RFC = Empleado.RFC WHERE
         Descuento.id_descuento >= 0 " . $extra . ' ORDER BY Descuento.RFC';
 
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Descuentos');
         $spreadsheet->addSheet($sheet);
@@ -239,7 +239,7 @@ if ($del == "" || $al == "") {
         (del BETWEEN '".$date1."' AND '".$date2."' OR al BETWEEN '".$date1."' AND '".$date2."') 
         " . $extra . " ORDER BY Vacacion.RFC";
 
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Vacaciones');
         $spreadsheet->addSheet($sheet);
         logo($sheet);
@@ -314,7 +314,7 @@ if ($del == "" || $al == "") {
         Permiso.categoria = 0
         " . $extra . " 
         ORDER BY Permiso.RFC";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Permisos con goce');
         $spreadsheet->addSheet($sheet);
@@ -397,7 +397,7 @@ if ($del == "" || $al == "") {
         Permiso.categoria = 1
         " . $extra . " 
         ORDER BY Permiso.RFC";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Permisos sin goce');
         $spreadsheet->addSheet($sheet);
@@ -466,7 +466,7 @@ if ($del == "" || $al == "") {
         STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $date2 . "'
         " . $extra . "
         ORDER BY Empleado.RFC";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Altas');
         $spreadsheet->addSheet($sheet);
@@ -546,7 +546,7 @@ if ($del == "" || $al == "") {
         fecha <= '" . $date2 . "'
         " . $extra . "
         ORDER BY Baja.RFC";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Bajas');
         $spreadsheet->addSheet($sheet);
@@ -604,7 +604,7 @@ if ($del == "" || $al == "") {
     //     Usuario.nombre
     //     FROM Beneficiario LEFT JOIN Usuario ON Beneficiario.RFC = Usuario.RFC";
 
-    //     $consulta = mysqli_query($conexion, $sql);
+    //     $consulta = $conexion->query($sql);
 
     //     $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Beneficiarios');
     //     $spreadsheet->addSheet($sheet);
@@ -654,7 +654,7 @@ if ($del == "" || $al == "") {
         fecha <= '" . $date2 . "'
         " . $extra . "
         ORDER BY Pase.RFC";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Pases');
         $spreadsheet->addSheet($sheet);

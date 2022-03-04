@@ -9,17 +9,17 @@ $hoy = date("Y-m-d");
 $html = '<div class="row formulario_caja p-4">
 <div class="col-md-12 formulario">
     <div class="text-left p-2">
-        <h4 class="font-weight-bold text-primary">Historial de vacantes</h4>
+        <h4 class="negrita text-primary">Historial de vacantes</h4>
         <small class="text-muted">Usuarios registrados en esta plaza en el año '.$ano.'.</small>
     </div>
 </div>';
 
 $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $id . " AND YEAR(fecha_inicio) = " . $ano;
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta && mysqli_num_rows($consulta) > 0) {
     while ($historial = mysqli_fetch_array($consulta)) {
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $historial["RFC"] . "'";
-        $consulta2 = mysqli_query($conexion, $sql);
+        $consulta2 = $conexion->query($sql);
         $usuario = mysqli_fetch_row($consulta2);
 
         $fecha1 = new DateTime($historial["fecha_inicio"]);
@@ -53,4 +53,4 @@ if ($consulta && mysqli_num_rows($consulta) > 0) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

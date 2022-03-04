@@ -121,7 +121,7 @@ if ($mes12 == $mes) {
 }
 
 $sql = "SELECT * FROM Descuento WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 echo '<div class="container-fluid">
                 <select name="sources" id="ano" class="custom-select sources">';
@@ -159,4 +159,4 @@ echo '<div class="container-fluid">
 				</div>
 			</div>';
 
-mysqli_close($conexion);
+$conexion->close();

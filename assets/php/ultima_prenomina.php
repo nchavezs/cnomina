@@ -5,7 +5,7 @@ $periodo = $_POST["periodo"];
 $ano = date("Y");
 
 $sql = "SELECT * FROM Prenomina WHERE YEAR(al) = ".$ano." AND id_periodo = ".$periodo." ORDER BY al DESC LIMIT 1";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if($consulta && mysqli_num_rows($consulta) > 0){
 	$prenomina = mysqli_fetch_array($consulta);
 	echo date("d/m/Y", strtotime($prenomina["al"]));
@@ -13,4 +13,4 @@ if($consulta && mysqli_num_rows($consulta) > 0){
 	echo "31/12/". ($ano - 1) ;
 }
 
-mysqli_close($conexion);
+$conexion->close();

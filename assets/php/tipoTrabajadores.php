@@ -7,7 +7,7 @@
 				<select id="trabajador" class="custom-select select-empleado trabajador-select">';
 	
 	$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
-	$consulta = mysqli_query($conexion, $sql);
+	$consulta = $conexion->query($sql);
 	if($consulta && (mysqli_num_rows($consulta)) > 0){
 		while($res = mysqli_fetch_row($consulta)){
 			echo '<option value="'.$res[1].'">'.$res[1].'</option>';
@@ -19,5 +19,5 @@
 	echo '</select>
 				</div>';
 
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

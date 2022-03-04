@@ -13,7 +13,7 @@ if ($mensaje === "" || $mensaje == null) {
     echo 0;
 } else {
     $sql = "INSERT INTO Mensaje(id_chat,mensaje,fecha,emisor,receptor) VALUES(" . $chat . ",'" . $mensaje . "','" . $fecha . "','" . $id . "', '" . $receptor . "')";
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         echo '<div class="msn-mensaje msn-derecha">
 					  <h7>' . $mensaje . '</h7>
 					  <h5 class="msn-fecha">' . substr($fecha, 10) . '</h5>
@@ -21,4 +21,4 @@ if ($mensaje === "" || $mensaje == null) {
     }
 }
 
-mysqli_close($conexion);
+$conexion->close();

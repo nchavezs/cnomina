@@ -29,7 +29,7 @@ $(document).ready(function () {
             ADP.show($(".pagina_1 .table-responsive")[0], 'slide-left');
         },
         "columnDefs": [{
-                "className": "font-weight-bold",
+                "className": "negrita",
                 "targets": [0, 1]
             },
             {
@@ -52,6 +52,9 @@ $(document).ready(function () {
                 }
             },
             {
+                "data": "categoria"
+            },
+            {
                 "render": function (data, type, row) {
                     return '<i class="material-icons btn1" onclick="editar_puesto(' + row.id_puesto + ');" >editar</i>';
                 }
@@ -66,7 +69,7 @@ $(document).ready(function () {
 
     $('#tabla-departamento').DataTable({
         "lengthChange": false,
-        "pageLength": 5,
+        "pageLength": 10,
         "order": [
             [0, "desc"]
         ],
@@ -81,7 +84,7 @@ $(document).ready(function () {
         //     $('.main-panel .content').perfectScrollbar('update');
         // },
         "columnDefs": [{
-                "className": "font-weight-bold",
+                "className": "negrita",
                 "targets": [0]
             },
             {
@@ -202,126 +205,83 @@ function exportar_depa() {
     });
 };
 
+function nuevo_departamento() {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/nuevoDepartamento.php",
+        success: function (html) {
+            Swal.fire({
+                html: html,
+                showCancelButton: false,
+                showConfirmButton: false,
+                width: "30em"
+            });
 
-function nuevo_puesto() {
-    $.post("assets/php/opciones_departamento.php").done(function (data) {
-        var opciones = jQuery.parseJSON(data);
-        Swal.mixin({
-            showCancelButton: true,
-            progressSteps: ["1", "2", "3"],
-        }).queue([{
-                title: "Nombre del puesto",
-                confirmButtonText: "Siguiente",
-                input: "text",
-                inputValidator: (value) => {
-                    return !value && "Completa los campos"
-                }
-            },
-            {
-                title: "Departamento",
-                confirmButtonText: "Siguiente",
-                input: "select",
-                inputOptions: opciones,
-                inputValidator: (value) => {
-                    return !value && "Completa los campos"
-                }
-            },
-            // {
-            //     title: "Plazas",
-            //     confirmButtonText: "Guardar",
-            //     input: "number",
-            //     inputValue: 1,
-            //     inputValidator: (value) => {
-            //         if (!value)
-            //             return "Completa los campos"
-            //         else if (value < 1)
-            //             return "Valor no valido"
-            //     }
-            // },
-        ]).then((result) => {
-            if (result.value) {
-                var resultado = JSON.stringify(result.value);
-                var datos = jQuery.parseJSON(resultado);
-                var nombre = datos[0];
-                var departamento = datos[1];
-                // var cantidad = datos[2];
-
-                $.post("assets/php/nuevoPuesto.php", {
-                        nombre: nombre,
-                        departamento: departamento
-                        // cantidad: cantidad
-                    })
-                    .done(function (html) {
-                        if (html == 1) {
-                            Swal.fire({
-                                title: 'Correcto',
-                                text: 'Registro agregado',
-                                type: 'success'
-                            })
-                        } else if (html == 2) {
-                            Swal.fire({
-                                title: 'Advertencia',
-                                text: 'El registro ya se encuentra agregado',
-                                type: 'warning'
-                            })
+            select_estilo();
+    
+            $("#form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "assets/php/agregar_departamento.php",
+                    data: {
+                        nombre: $("#nombre").val(),
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            md.showNotification("top", "right", "Departamento agregado.");
+                            $('#tabla-departamento').DataTable().ajax.reload();
+                            Swal.close();
+                        } else if (data == 2) {
+                            md.showNotification("top", "right", "Ya existe un departamento con este nombre.");
                         } else {
-                            Swal.fire({
-                                title: 'Error',
-                                text: 'Registro no agregado',
-                                type: 'error'
-                            })
+                            md.showNotification("top", "right", "Ocurrio un error.");
                         }
-                        $('#tabla-puesto').DataTable().ajax.reload();
-                    });
-            }
-        });
+                    }
+                });
+            })
+        }
     });
-
-
 };
 
-function nuevo_departamento() {
-    Swal.mixin({
-        showCancelButton: true,
-        progressSteps: ["1"],
-    }).queue([{
-        title: "Nombre del departamento",
-        confirmButtonText: "Guardar",
-        input: "text",
-        inputValidator: (value) => {
-            return !value && "Completa los campos"
-        }
-    }, ]).then((result) => {
-        if (result.value) {
-            var resultado = JSON.stringify(result.value);
-            var datos = jQuery.parseJSON(resultado);
-            var nombre = datos[0];
+function nuevo_puesto() {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/nuevoPuesto.php",
+        success: function (html) {
+            Swal.fire({
+                html: html,
+                showCancelButton: false,
+                showConfirmButton: false,
+                width: "30em"
+            });
 
-            $.post("assets/php/nuevoDepa.php", {
-                    nombre: nombre
-                })
-                .done(function (html) {
-                    if (html == 1) {
-                        Swal.fire({
-                            title: 'Correcto',
-                            text: 'Registro agregado',
-                            type: 'success'
-                        })
-                    } else if (html == 2) {
-                        Swal.fire({
-                            title: 'Advertencia',
-                            text: 'El registro ya se encuentra agregado',
-                            type: 'warning'
-                        })
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Registro no agregado',
-                            type: 'error'
-                        })
+            select_estilo();
+    
+            $("#form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "assets/php/agregar_puesto.php",
+                    data: {
+                        nombre: $("#nombre").val(),
+                        departamento: $("#departamento").val(),
+                        trabajador: $("#trabajador").val()
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            md.showNotification("top", "right", "Puesto agregado.");
+                            $('#tabla-puesto').DataTable().ajax.reload();
+                            $('#tabla-departamento').DataTable().ajax.reload();
+                            Swal.close();
+                        } else if (data == 2) {
+                            md.showNotification("top", "right", "Ya existe un puesto con este nombre.");
+                        } else {
+                            md.showNotification("top", "right", "Ocurrio un error.");
+                        }
                     }
-                    $('#tabla-departamento').DataTable().ajax.reload();
                 });
+            })
         }
     });
 };
@@ -437,7 +397,8 @@ function editar_puesto(id) {
                     data: {
                         id: id,
                         nombre: $("#nombre").val(),
-                        departamento: $("#departamento").val()
+                        departamento: $("#departamento").val(),
+                        trabajador: $("#trabajador").val()
                     },
                     success: function (data) {
                         if (data == 1) {

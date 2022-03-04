@@ -7,9 +7,9 @@ $mensaje = $_POST["mensaje"];
 
 $sql = "INSERT INTO Correos(RFC,mensaje) VALUES('" . $id . "', '" . $mensaje . "')";
 
-if (mysqli_query($conexion, $sql))
+if ($conexion->query($sql))
     echo 1;
 else
     echo 0;
 
-mysqli_close($conexion);
+$conexion->close();

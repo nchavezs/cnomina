@@ -11,13 +11,13 @@ $sql = "SELECT
    nombre,
    (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
-   (SELECT nombre FROM Trabajador WHERE Trabajador.id_trabajador = Empleado.id_trabajador) AS tipoTrabajador,
+   (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador,
    id_empleado
    FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
    id_periodo = ".$id_periodo." AND
    estado = '" . $estado . "'";
 
-$resultado = mysqli_query($conexion, $sql);
+$resultado = $conexion->query($sql);
 if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';
 } else {
@@ -32,4 +32,4 @@ if (mysqli_num_rows($resultado) == 0) {
     echo json_encode($arreglo);
 }
 
-mysqli_close($conexion);
+$conexion->close();

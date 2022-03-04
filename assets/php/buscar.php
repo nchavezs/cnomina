@@ -23,7 +23,7 @@ if (mysqli_num_rows($resultado1) == 0) {
 } else {
     while ($res1 = mysqli_fetch_row($resultado1)) {
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $res1[1] . "'";
-        $nombre = mysqli_fetch_row(mysqli_query($conexion, $sql));
+        $nombre = mysqli_fetch_row($conexion->query($sql));
 
         $sql3 = "SELECT urlFoto FROM Usuario WHERE RFC = '" . $res1[1] . "'";
         $dir = mysqli_fetch_row(mysqli_query($conexion, $sql3));
@@ -96,4 +96,4 @@ if (mysqli_num_rows($resultado1) == 0) {
     }
 }
 
-mysqli_close($conexion);
+$conexion->close();

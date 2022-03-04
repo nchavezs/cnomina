@@ -55,4 +55,4 @@ if ($ano_del == $ano) {
     echo 1;
 }
 
-mysqli_close($conexion);
+$conexion->close();

@@ -5,7 +5,7 @@ $conexion = conexion();
 echo '<div class="formulario_caja">
         <form class="formulario" id="form-plaza">
             <div class="p-2">
-                <h4 class="font-weight-bold text-primary">Registrar nueva plaza</h4>
+                <h4 class="negrita text-primary">Registrar nueva plaza</h4>
                 <small class="text-muted">Completa el siguiente formulario.</small>
             </div>
             <div class="card">
@@ -30,7 +30,7 @@ echo '<div class="formulario_caja">
                                 <div class="select-etiqueta">Departamento</div>
                                 <select id="departamento"">';
                                 $sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-                                $consulta = mysqli_query($conexion, $sql);
+                                $consulta = $conexion->query($sql);
                                 if ($consulta && (mysqli_num_rows($consulta)) > 0) {
                                     while ($res = mysqli_fetch_row($consulta)) {
                                         echo '<option value="' . $res[0] . '">' . $res[1] . '</option>';
@@ -60,4 +60,4 @@ echo '<div class="formulario_caja">
         </form>
     </div>';  
 
-mysqli_close($conexion);
+$conexion->close();

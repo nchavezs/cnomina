@@ -3,7 +3,7 @@ include "conexion.php";
 $conexion = conexion();
 
 $sql = "SELECT * FROM Correos";
-$resultado1 = mysqli_query($conexion, $sql);
+$resultado1 = $conexion->query($sql);
 $html = "";
 $total = mysqli_num_rows($resultado1);
 
@@ -12,7 +12,7 @@ if ($total > 0) {
     $key = 0;
     while ($correo = mysqli_fetch_array($resultado1)) {
         $sql = "SELECT nombre FROM Usuario WHERE RFC ='" . $correo['RFC'] . "'";
-        $nombre = mysqli_fetch_row(mysqli_query($conexion, $sql));
+        $nombre = mysqli_fetch_row($conexion->query($sql));
 
         if ($key == 0) {
             $html .= '<div class="fade_rule"><span>' . strftime("%e de %B de %Y", strtotime($correo["elaboracion"])) . '</span></div>';
@@ -48,4 +48,4 @@ $datos["total"] = $total;
 $datos["html"] = $html;
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

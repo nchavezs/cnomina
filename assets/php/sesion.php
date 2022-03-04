@@ -28,7 +28,7 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
     } else {
         echo 0;
     }
-    mysqli_close($conexion);
+    $conexion->close();
 } else {
     echo 0;
 }

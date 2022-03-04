@@ -19,7 +19,7 @@ $historial = mysqli_fetch_array($consulta);
 
 $sql = "SELECT *,
 (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
-(SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS trabajador,
+(SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador,
 (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento 
 FROM Empleado WHERE RFC = '" . $historial["RFC"] . "'";

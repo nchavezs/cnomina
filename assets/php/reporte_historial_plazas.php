@@ -66,7 +66,7 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     Historial_Plaza.id_plaza IN (" . $plazas . ") AND 
     Historial_Plaza.fecha_inicio BETWEEN '" . $date1 . "' AND '" . $date2 . "'";
 
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
         $ultimo = "G";
         $bandera = true;

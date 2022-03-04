@@ -257,4 +257,4 @@ while ($res1 = mysqli_fetch_row($resultado1)) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

@@ -51,6 +51,6 @@ if ($consulta && $total > 0) {
     }
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 echo json_encode($datos);

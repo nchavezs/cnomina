@@ -7,7 +7,6 @@ $RFC = $_POST['id'];
 $fecha = $_POST['fecha'];
 $observacion = trim($_POST['observacion']);
 $id_plaza = $_POST['plaza'];
-$id_trabajador = $_POST['trabajador'];
 
 $sql = "SELECT * FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE Usuario.RFC = '" . $RFC . "'";
 $consulta = $conexion->query($sql);
@@ -27,8 +26,7 @@ $sql1 = "UPDATE Usuario SET estado = 'alta' WHERE RFC = '" . $RFC . "'";
 
 $sql2 = "UPDATE Empleado SET 
 fechaRelLab = '" . $fechaRelLab . "',
-id_puesto = ".$id_puesto.",
-id_trabajador = ".$id_trabajador." 
+id_puesto = ".$id_puesto." 
 WHERE RFC = '" . $RFC . "'";
 
 $sql3 = "INSERT INTO Reingreso(RFC, fecha, inicio, observacion,id_plaza) VALUES(
@@ -74,4 +72,4 @@ if (count($errors) === 0) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

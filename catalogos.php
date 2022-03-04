@@ -182,6 +182,7 @@ if ($varFoto != null) {
 											<th class="">#</th>
 											<th class="">Puesto</th>
 											<th class="">Plazas</th>
+											<th class="">Categoría</th>
 											<th class="">Editar</th>
 											<th class="">Eliminar</th>
 										</tr>

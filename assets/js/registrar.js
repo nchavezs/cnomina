@@ -125,8 +125,6 @@ $(document).ready(function () {
                     maxDate: new Date(data.al),
                     language: 'es',
                     autoClose: 'true',
-                    position: "top center",
-                    // todayButton: new Date(),
                     toggleSelected: false,
                     onSelect(formattedDate, date, inst) {
                         $("#puesto").change();
@@ -143,7 +141,7 @@ $(document).ready(function () {
 
             $("#form-empleado-2").submit(function (e) {
                 e.preventDefault();
-                if ($("#trabajador").val() == null || $("#plaza").val() == null) {
+                if ($("#plaza").val() == null) {
                     md.showNotification("top", "right", "Completa todos los campos.");
                 } else {
                     let retroactivo = 0;
@@ -163,12 +161,13 @@ $(document).ready(function () {
                             "plaza": $("#plaza").val(),
                             "banca": $("#banca").val(),
                             "afiliacion": $("#afiliacion").val(),
-                            "trabajador": $("#trabajador").val(),
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
                             "plaza": $("#plaza").val(),
                             "periodo": $("#periodo").val(),
+                            "domicilio": $("#domicilio").val(),
+                            "email": $("#email").val(),
                             "retroactivo": retroactivo
                         },
                         success: function (data) {
@@ -181,7 +180,8 @@ $(document).ready(function () {
                                 $('#tabla-empleado').DataTable().ajax.reload();
                             } else if (data == 2) {
                                 md.showNotification("top", "right", "Este RFC ya se encuentra registrado.");
-
+                            } else if (data == 3) {
+                                md.showNotification("top", "right", "Este número de empleado ya se encuentra registrado.");
                             } else {
                                 md.showNotification("top", "right", "Error el empleado no fue registrado.");
                             }
@@ -214,45 +214,39 @@ $(document).ready(function () {
                 "targets": [2, 3, 4]
             },
             {
-                "className": "font-weight-bold",
-                "targets": [0, 1]
+                "className": "negrita",
+                "targets": [0]
             },
             {
                 "orderable": false,
-                "targets": [4, 5, 6]
+                "targets": [4, 5]
             }
         ],
-        "columns": [{
-                "render": function (data, type, row) {
-                    return '<div><i class="material-icons mr-1">fingerprint</i>' + row.id_empleado + '</div>';
+        "columns": [
+            {
+                "render": function(data,type,row){
+                    return "<i class='material-icons'>fingerprint</i> "+row.id_empleado;
                 }
             },
             {
-                "render": function (data, type, row) {
-                    let html = "<div>" + row.nombre + "</div>" +
-                        "<small>" + row.puesto + "</small>";
-                    return html;
-                }
+                "data": "nombre",
             },
             {
-                "data": "RFC"
+                "data": "puesto",
             },
             {
                 "data": "departamento",
             },
             {
                 "render": function (data, type, row) {
-                    return '<a class="tipo ml-3">' + row.tipoTrabajador + '</a>';
+                    return '<a class="tipo">' + row.tipoTrabajador + '</a>';
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onClick="editar_usuario(\'' + row.RFC + '\', event);">edit_note</i>';
-                }
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar_usuario(\'' + row.RFC + '\',event);">delete_sweep</i>';
+
+                    return '<span class="boton_tabla text-primary mr-3" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>'+
+                    '<span class="boton_tabla text-danger" onclick="eliminar_usuario(\'' + row.RFC + '\',event);"><i class="material-icons">delete</i> </span>';
                 }
             }
         ]
@@ -334,7 +328,7 @@ function baja(id) {
                             toggleSelected: false
                         });
                     });
-        
+
                     $("#form-baja").submit(function (e) {
                         e.preventDefault();
                         let fechaBaja = $("#fecha").val();
@@ -343,18 +337,18 @@ function baja(id) {
                         if ($("#retroactivo").is(":checked")) {
                             retroactivo = 1;
                         }
-        
+
                         $("#modal .modal_titulo").html("Confirmar baja de empleado");
                         $("#modal .modal-body").html("¿Seguro que quiere dar de baja a " + $("#nombre").text() + "?");
                         mostrar_modal();
-        
+
                         $("#modal_aceptar").off().click(function () {
                             baja_empleado(fechaBaja, id, razon, retroactivo);
                         })
                     });
                 }
             });
-        }else{
+        } else {
             mensaje_error(data);
         }
     });
@@ -427,7 +421,7 @@ function reingreso(id) {
                     select_estilo();
                     depa_change();
                     puesto_change();
-        
+
                     $.post("assets/php/fecha_movimiento.php", {
                         "id": id
                     }, function (datos) {
@@ -439,23 +433,25 @@ function reingreso(id) {
                             autoClose: 'true',
                             position: "bottom center",
                             // todayButton: new Date(),
-                            toggleSelected: false
+                            toggleSelected: false,
+                            onSelect(formattedDate, date, inst) {
+                                $("#puesto").change();
+                            }
                         });
                     });
-        
+
                     $("#form-reingreso").submit(function (e) {
                         e.preventDefault();
                         var fechaReingreso = $("#fecha").val();
                         var observacion = $("#observacion").val();
                         var plaza = $("#plaza").val();
-                        var trabajador = $("#trabajador").val();
-        
-                        if (trabajador != null && plaza != null) {
+
+                        if (plaza != null) {
                             $("#modal .modal_titulo").html("Confirmar reingreso de empleado");
                             $("#modal .modal-body").html("¿Dar de alta a " + $("#nombre").val() + "?");
-        
+
                             mostrar_modal();
-        
+
                             $("#modal_aceptar").off().click(function () {
                                 $.ajax({
                                     type: "POST",
@@ -464,8 +460,7 @@ function reingreso(id) {
                                         "fecha": fechaReingreso,
                                         "id": id,
                                         "observacion": observacion,
-                                        "plaza": plaza,
-                                        "trabajador": trabajador
+                                        "plaza": plaza
                                     },
                                     success: function (data) {
                                         ocultar_modal();
@@ -485,7 +480,7 @@ function reingreso(id) {
                     });
                 }
             });
-        }else{
+        } else {
             mensaje_error(data);
         }
     });
@@ -1164,10 +1159,9 @@ function movimiento(id) {
                         let puesto = $("#puesto").val();
                         let departamento = $("#departamento").val();
                         let observacion = $("#observacion").val();
-                        let trabajador = $("#trabajador").val();
                         let plaza = $("#plaza").val();
                         let fecha = $("#fecha").val();
-                        if (trabajador == null || plaza == null) {
+                        if (plaza == null) {
                             md.showNotification("top", "right", "Completa todos los campos.");
                         } else {
                             $("#modal .modal_titulo").html("Confirmar movimiento");
@@ -1188,7 +1182,6 @@ function movimiento(id) {
                                         "puesto": puesto,
                                         "departamento": departamento,
                                         "observacion": observacion,
-                                        "trabajador": trabajador,
                                         "plaza": plaza
                                     },
                                     success: function (data) {
@@ -1627,8 +1620,8 @@ function descuento(id) {
                                 if (date == '')
                                     $('#dias').val("0");
                                 else {
-                                    $('#fecha1').val(formattedDate);
-                                    var fechas = $('#fecha1').val().split(",");
+                                    $('#fechas').val(formattedDate);
+                                    var fechas = $('#fechas').val().split(",");
                                     $('#dias').val(fechas.length);
                                 }
                             }
@@ -1646,7 +1639,7 @@ function descuento(id) {
                                 type: "POST",
                                 url: "assets/php/agregarDescuento.php",
                                 data: {
-                                    "fecha1": $("#fecha1").val(),
+                                    "fechas": $("#fechas").val(),
                                     "id": id,
                                     "dias": $("#dias").val(),
                                     "motivo": $("#motivo").val()
@@ -1829,7 +1822,6 @@ function editar_usuario(id, event) {
                 });
 
                 select_estilo();
-                // $("#fecha").blur();
 
                 $('#fecha').datepicker({
                     language: 'es',
@@ -1868,7 +1860,8 @@ function editar_usuario(id, event) {
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),
-                            "trabajador": $("#trabajador").val(),
+                            "domicilio": $("#domicilio").val(),
+                            "email": $("#email").val(),
                             "ingreso": $("#fecha").val(),
                             "periodo": $("#periodo").val()
                         },

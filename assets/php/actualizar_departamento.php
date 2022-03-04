@@ -19,4 +19,4 @@ if(mysqli_num_rows($consulta) == 0){
     echo 2;
 }
 
-mysqli_close($conexion);
+$conexion->close();

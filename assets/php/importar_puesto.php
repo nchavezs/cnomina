@@ -87,11 +87,11 @@ for ($row = 2; $row <= $highestRow; ++$row) {
     $departamento = eliminar_simbolos($datos[1]);
 
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 0) {
         $sql = "INSERT INTO Departamento(nombre) VALUES(NULLIF('" . $departamento . "', ''))";
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             $id_depa = mysqli_insert_id($conexion);
             $total_departamentos++;
         }
@@ -101,11 +101,11 @@ for ($row = 2; $row <= $highestRow; ++$row) {
     }
     
     $sql = "SELECT * FROM Puesto WHERE nombre = '" . $puesto . "' AND id_departamento = ".$id_depa;
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 0) {
         $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             $total_puestos++;
         } else {
             array_push($errores, "Fila ".$row." : error al importar.");
@@ -131,4 +131,4 @@ if(sizeof($errores)>0){
 
 echo "</div>";
 
-mysqli_close($conexion);
+$conexion->close();

@@ -62,7 +62,7 @@ if (($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "im
         $ruta = 'assets/img/perfil/' . $key . ".jpg";
 
         $sql = "SELECT urlFoto FROM Usuario WHERE RFC = '" . $id . "'";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $foto = mysqli_fetch_row($consulta);
         if ($consulta && $foto[0] != null) {
             $foto = explode("/", $foto[0]);
@@ -73,12 +73,12 @@ if (($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "im
         }
 
         $sql = "UPDATE Usuario SET urlFoto = '" . $ruta . "' WHERE RFC = '" . $id . "'";
-        if (mysqli_query($conexion, $sql)) {
+        if ($conexion->query($sql)) {
             echo $ruta;
         } else {
             echo 0;
         }
-        mysqli_close($conexion);
+        $conexion->close();
 
     } else {
         echo 0;

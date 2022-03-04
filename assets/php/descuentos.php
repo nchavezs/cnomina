@@ -24,7 +24,7 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>';
 } else {
     echo '<div class="p-2">
-		<h4 class="font-weight-bold text-primary">Lista de descuentos</h4>
+		<h4 class="negrita text-primary">Lista de descuentos</h4>
 		<small class="text-muted">Descuentos de '.$usuario["nombre"].'.</small>
 	</div>
 	<div class="ver_opciones">
@@ -38,4 +38,4 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

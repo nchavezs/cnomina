@@ -12,7 +12,7 @@ $sql = "SELECT * FROM Beneficiario WHERE RFC = '" . $id."'";
 $resultado = $conexion->query($sql);
 
 echo '<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Lista de beneficiarios</h4>
+				<h4 class="negrita text-primary">Lista de beneficiarios</h4>
 				<small class="text-muted">Beneficiarios de '.$usuario["nombre"].'.</small>
 			</div>
 	<div class="card">
@@ -51,4 +51,4 @@ echo '</tbody>
 	</div>
 </div>';
 
-mysqli_close($conexion);
+$conexion->close();

@@ -25,7 +25,7 @@ if ($id_puesto == 0) {
 }
 
 $sql = "SELECT * FROM Plaza WHERE id_puesto = " . $id_puesto . " " . $estado;
-$resultado = mysqli_query($conexion, $sql);
+$resultado = $conexion->query($sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';
 } else {
@@ -34,7 +34,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     while ($res = mysqli_fetch_array($resultado)) {
         // ------------------------------------------------------------------------------------------------------
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $res["RFC"] . "'";
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             $usuario = mysqli_fetch_row($consulta);
         } else {
@@ -42,11 +42,11 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         }
 
         $sql = "SELECT nombre,id_departamento FROM Puesto WHERE id_puesto = " . $res["id_puesto"];
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $puesto = mysqli_fetch_row($consulta);
 
         $sql = "SELECT nombre FROM Departamento WHERE id_departamento = " . $puesto[1];
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         $departamento = mysqli_fetch_row($consulta);
 
         $ocupados = 0;
@@ -60,7 +60,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         }
 
         $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
-        $consulta = mysqli_query($conexion, $sql);
+        $consulta = $conexion->query($sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             while ($historial = mysqli_fetch_array($consulta)) {
                 $fecha1 = $historial["fecha_inicio"];
@@ -90,4 +90,4 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     }
     echo json_encode($arreglo);
 }
-mysqli_close($conexion);
+$conexion->close();

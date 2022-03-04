@@ -4,9 +4,9 @@ function get_municipio()
 {
     $conexion = conexion();
     $sql = "SELECT * FROM Configuracion";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $res = mysqli_fetch_array($consulta);
-    mysqli_close($conexion);
+    $conexion->close();
     return $res["nombre"];
 }
 
@@ -14,8 +14,8 @@ function get_logo()
 {
     $conexion = conexion();
     $sql = "SELECT * FROM Configuracion";
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $res = mysqli_fetch_array($consulta);
-    mysqli_close($conexion);
+    $conexion->close();
     return "assets/img/".$res["logo"];
 }

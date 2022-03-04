@@ -20,7 +20,7 @@ $sheet->setCellValue('B1', 'DEPARTAMENTO');
 // $sheet->setCellValue('C1', 'PLAZAS');
 
 $sql = "SELECT Puesto.nombre, Departamento.nombre AS 'departamento'FROM Puesto JOIN Departamento ON Puesto.id_departamento = Departamento.id_departamento";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $i = 2;
     while ($res = mysqli_fetch_array($consulta)) {

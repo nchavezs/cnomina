@@ -844,5 +844,5 @@ if ($conexion->query($sql)) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();
 exit();

@@ -1,3 +1,14 @@
+.boton_tabla:hover{
+    background: rgba(57, 69, 173, 0.082);
+}
+
+.boton_tabla{
+    padding: 5px;
+    border-radius: 6px;
+    top: -3px;
+    position: relative;
+}
+
 .cambiar_periodo{
     font-weight: 600 !important;
     background: #0014550a;
@@ -245,7 +256,7 @@ form .card{
     background: #F1F5FB;
     border-radius: 10px;
     margin: 10px 0;
-    padding: 10px;
+    padding: 8px 10px;
     color: #5377DB !important;
 }
 
@@ -1108,7 +1119,10 @@ form .card{
 }
 
 .dataTable td {
-    max-width: 300px !important
+    max-width: 300px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dataTable thead {
@@ -1118,13 +1132,14 @@ form .card{
 }
 
 .dataTable tr:not(.dataTable thead tr) {
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .08);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .05);
     border-radius: 10px;
     transition: all .2s
 }
 
 .dataTable tbody tr:hover {
-    transform: scale(.99)
+    transform:translateY(-3px);
+    box-shadow: 1px 10px 5px rgba(0, 0, 0, .08) !important;
 }
 
 .dataTable tbody tr {
@@ -1575,10 +1590,10 @@ table p {
 }
 
 table i {
-    color: rgba(209, 56, 56, .555);
+    /* color: rgba(209, 56, 56, .555); */
     position: relative;
     top: 6px;
-    font-size: 20px
+    /* font-size: 20px */
 }
 
 .circulo {
@@ -2880,7 +2895,8 @@ label.btn-mostrar {
     }
 
     .formulario_caja .wallpaper {
-        width: 100%
+        width: 100%;
+        max-height: 300px;
     }
 
     .mensajeria_caja,

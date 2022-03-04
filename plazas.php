@@ -187,7 +187,7 @@ if (rol() != 1) {
                                     Departamento.nombre AS departamento 
                                     FROM Puesto LEFT JOIN Departamento ON Puesto.id_departamento = Departamento.id_departamento 
                                     ORDER BY puesto ASC";
-                                    $consulta = mysqli_query($conexion, $sql);
+                                    $consulta = $conexion->query($sql);
                                     if($consulta && (mysqli_num_rows($consulta)) > 0){
                                         while($res = mysqli_fetch_array($consulta)){
                                             echo '<option data-description="'.$res["departamento"].'" value="'.$res[0].'">'.$res[1].'</option>';
@@ -195,7 +195,7 @@ if (rol() != 1) {
                                     }else{
                                         echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
                                     }
-                                    mysqli_close($conexion);
+                                    $conexion->close();
                                 ?>
                             </select>
                             <select id="estado">

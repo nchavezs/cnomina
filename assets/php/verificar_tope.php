@@ -18,6 +18,6 @@ if(date("Y", strtotime($del)) < $ano){
 $datos["del"] = $del;
 $datos["al"] = date("Y-m-d",strtotime($prenomina["al"]."+ 1 days"));
 
-mysqli_close($conexion);
+$conexion->close();
 
 echo json_encode($datos);

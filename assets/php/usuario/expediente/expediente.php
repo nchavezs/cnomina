@@ -5,11 +5,11 @@ $conexion = conexion();
 $id = $_SESSION["usuario"];
 
 $sql = "SELECT * FROM Expediente WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $expediente = mysqli_fetch_array($consulta);
 
 $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $nombre = mysqli_fetch_row($consulta);
 
 echo '<div class="card">
@@ -183,4 +183,4 @@ echo '</div>
 </div>';
 
 
-mysqli_close($conexion);
+$conexion->close();

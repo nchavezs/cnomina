@@ -6,7 +6,7 @@ $id = $_SESSION['usuario'];
 $categoria = $_SESSION['categoria'];
 
 $sql = "SELECT * FROM Mensaje WHERE estado = 0 AND receptor = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if ($consulta) {
 	$total = mysqli_num_rows($consulta);
@@ -22,7 +22,7 @@ if ($consulta) {
 					AND receptor = '" . $id . "' 
 					GROUP BY id_chat";
 
-		$resultado = mysqli_query($conexion, $sql);
+		$resultado = $conexion->query($sql);
 
 		while ($res = mysqli_fetch_row($resultado)) {
 			echo '<a id="' . $res[0] . '-' . $res[2] . '" class="dropdown-item" href="#" onclick="accion(this.id);">' . $res[3] . ' mensaje(s) sin leer en ' . $res[2] . '</a>';
@@ -31,4 +31,4 @@ if ($consulta) {
 } else
 	echo '<a class="dropdown-item" href="#">No tiene notificaciones</a>';
 
-mysqli_close($conexion);
+$conexion->close();

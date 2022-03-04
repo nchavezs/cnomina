@@ -46,4 +46,4 @@ $datos["fecha"] = date("d/m/Y", strtotime($pase[2]));
 $datos["hora"] = $pase[3];
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

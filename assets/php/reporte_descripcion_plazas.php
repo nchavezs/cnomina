@@ -68,7 +68,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
     FROM Plaza WHERE Plaza.id_puesto IN (" . $puestos . ")";
 
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
         $ultimo = "I";
         $bandera = true;
@@ -118,7 +118,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             id_plaza = " . $resultado["id_plaza"] . " AND 
             YEAR(fecha_inicio) = " . $ano;
 
-            $consulta2 = mysqli_query($conexion, $sql);
+            $consulta2 = $conexion->query($sql);
             if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
                 while ($historial = mysqli_fetch_array($consulta2)) {
                     $fecha1 = $historial["fecha_inicio"];
@@ -167,5 +167,5 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         echo "No se encontraron resultados.";
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

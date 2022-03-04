@@ -12,4 +12,4 @@ while ($res = mysqli_fetch_array($consulta1)) {
     mysqli_query($conexion, $sql2);
 }
 
-mysqli_close($conexion);
+$conexion->close();

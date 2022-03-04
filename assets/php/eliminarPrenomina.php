@@ -10,7 +10,7 @@ if ($rol != 1) {
     $id = $_POST['id'];
 
     $sql = "SELECT url FROM Prenomina WHERE id_prenomina = " . $id;
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $prenomina = mysqli_fetch_array($consulta);
     $file = "../prenominas/".$prenomina["url"];
     
@@ -18,11 +18,11 @@ if ($rol != 1) {
         unlink($file);
     }
     $sql = "DELETE FROM Prenomina WHERE id_prenomina = " . $id;
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         echo 1;
     } else {
         echo 0;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

@@ -12,7 +12,7 @@ $nombre = $_POST['nombre'];
 $archivo = $id."_".$nombre;
 
 $sql = "SELECT ".$nombre." FROM Expediente WHERE RFC = '".$id."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $expediente = mysqli_fetch_row($consulta);
 
 if ($expediente[0] != null) {
@@ -31,6 +31,6 @@ move_uploaded_file($_FILES['file']['tmp_name'], $ruta);
 $ruta =  'assets/expediente/' . $archivo . "." . $extension;
 
 $sql = "UPDATE Expediente SET ".$nombre." = '".$ruta."' WHERE RFC = '".$id."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
-mysqli_close($conexion);
+$conexion->close();

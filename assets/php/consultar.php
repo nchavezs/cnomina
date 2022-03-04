@@ -9,7 +9,7 @@
    YEAR(del) = ".$ano." AND 
    id_periodo = ".$id_periodo." 
    ORDER BY del DESC";
-   $resultado = mysqli_query($conexion, $sql);
+   $resultado = $conexion->query($sql);
 	if(mysqli_num_rows($resultado) == 0){
 		 echo '{"data":[]}';
 	}else{
@@ -21,4 +21,4 @@
       echo json_encode($arreglo);
    }
 
-   mysqli_close($conexion);
+   $conexion->close();

@@ -7,7 +7,7 @@
 	
 
    $sql = "SELECT nombre FROM ".$categoria;
-   $resultado = mysqli_query($conexion, $sql);
+   $resultado = $conexion->query($sql);
 	if(mysqli_num_rows($resultado) == 0){
 		echo 0;
 	}else{
@@ -16,5 +16,5 @@
       }
       echo "assets/archivos/archivo_".$hoy.".txt";
    }
-   mysqli_close($conexion);
+   $conexion->close();
 ?>

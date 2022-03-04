@@ -5,7 +5,7 @@ $conexion = conexion();
 $id = $_SESSION["usuario"];
 
 $sql = "SELECT * FROM Pase WHERE RFC = '" . $id."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 // $ano = date("Y");
 // $ano1 = 2018;
@@ -164,4 +164,4 @@ echo '<div class="container-fluid">
 		</div>
 	</div>';
 
-mysqli_close($conexion);
+$conexion->close();

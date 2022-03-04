@@ -4,7 +4,7 @@ $id = $_POST['id'];
 include "conexion.php";
 $conexion = conexion();
 $sql = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Pase WHERE id_pase = " . $id . ")";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 $sql2 = "SELECT * FROM Pase WHERE id_pase = " . $id;
@@ -23,7 +23,7 @@ if ($pase[5] == null) {
 }
 
 $html = '<div class="p-2">
-		<h4 class="font-weight-bold text-primary">Detalle de pase</h4>
+		<h4 class="negrita text-primary">Detalle de pase</h4>
 		<small class="text-muted">Detalle de pase de '.$usuario["nombre"].'.</small>
 		</div>
 		<div class="row">
@@ -62,4 +62,4 @@ $datos["fecha"] = date("d/m/Y", strtotime($pase[2]));
 $datos["hora"] = $pase[3];
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

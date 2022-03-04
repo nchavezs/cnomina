@@ -6,11 +6,11 @@ $conexion = conexion();
 $id = $_POST['id'];
 
 $sql = "SELECT * FROM Usuario WHERE RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 $sql = "SELECT * FROM Pase WHERE id_prenomina =".$id_prenomina." AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 // $mes = date("m");
 // $mes1 = 1;
@@ -109,7 +109,7 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>';
 } else {
 	echo '<div class="p-2">
-			<h4 class="font-weight-bold text-primary">Lista de pases</h4>
+			<h4 class="negrita text-primary">Lista de pases</h4>
 			<small class="text-muted">Pases de entrada y salida de '.$usuario["nombre"].'.</small>
 		</div>
 		<div class="ver_opciones">
@@ -127,7 +127,7 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();
 
 
 // <select id="ano" class="sources">';

@@ -8,7 +8,7 @@ $id = $_POST['id'];
 $categoria = $_POST["categoria"];
 
 $sql = "SELECT * FROM Permiso WHERE id_prenomina=".$id_prenomina." AND categoria = " . $categoria . " AND RFC = '" . $id . "'";
-$resultado = mysqli_query($conexion, $sql);
+$resultado = $conexion->query($sql);
 
 if (($total = mysqli_num_rows($resultado)) > 0) {
     echo '<div class="card">
@@ -26,10 +26,10 @@ if (($total = mysqli_num_rows($resultado)) > 0) {
 							<tbody>';
     while ($res = mysqli_fetch_array($resultado)) {
         echo '<tr>
-				<td>' . date("d/m/Y", strtotime($res[4])) . '</td>
-				<td>' . date("d/m/Y", strtotime($res[5])) . '</td>
-				<td class="oculto">' . $res[3] . '</td>
-				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[8] . '\',\'' . $res[1] . '\',\'Permiso\',0)">attachment</a></td>
+				<td>' . date("d/m/Y", strtotime($res["del"])) . '</td>
+				<td>' . date("d/m/Y", strtotime($res["al"])) . '</td>
+				<td class="oculto">' . $res["dias"] . '</td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $res["RFC"] . '\',\'Permiso\',0)">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle(\''.$res[0].'\')" >visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="borrar(\''.$res[0].'\')">delete</a></td>
 		</tr>';
@@ -58,4 +58,4 @@ if (($total = mysqli_num_rows($resultado)) > 0) {
 			</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

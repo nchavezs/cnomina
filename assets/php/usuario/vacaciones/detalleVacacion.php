@@ -40,6 +40,6 @@
 	$datos["fecha3"] = date("d/m/Y",strtotime($vacacion[5]));
 
 	echo json_encode($datos);
-	mysqli_close($conexion);
+	$conexion->close();
 ?>
 

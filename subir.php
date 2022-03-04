@@ -203,7 +203,7 @@ if (rol() == 2) {
                                             <div class="row">
                                                 <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
                                                 <div class="col-md-8">
-												<h2 class="font-weight-bold mt-3">Selecciona tus archivos CFDI</h2>
+												<h2 class="negrita mt-3">Selecciona tus archivos CFDI</h2>
                                                     <div><p>Arrastra tus archivos en formato <span class="text-danger">PDF</span> aquí o búscalos para cargarlos.</p></div>
                                                     <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar CDFI</button>
                                                 </div>

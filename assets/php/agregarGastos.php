@@ -12,10 +12,10 @@ $nombre = trim($_POST["nombre"]);
 
 $sql = "INSERT INTO Gastos(RFC,fecha,monto,nombre,concepto,id_prenomina) VALUES('" . $id . "', STR_TO_DATE('" . $fecha . "','%d/%m/%Y')," . $monto . ",'" . $nombre . "', '" . $concepto . "',".$id_prenomina.")";
 
-if (mysqli_query($conexion, $sql)) {
+if ($conexion->query($sql)) {
     echo 0;
 } else {
     echo 1;
 }
 
-mysqli_close($conexion);
+$conexion->close();

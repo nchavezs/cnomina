@@ -22,4 +22,4 @@ if ($recogerPass['contrasenia'] === $pass && $newPass === $confirmacion) {
     echo 2;
 }
 
-mysqli_close($conexion);
+$conexion->close();

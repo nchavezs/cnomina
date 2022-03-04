@@ -7,7 +7,7 @@ $id = $_POST['id'];
 // $ano = $_POST["ano"];
 
 $sql = "SELECT * FROM Vacacion WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
@@ -21,12 +21,12 @@ if (mysqli_num_rows($consulta) > 0) {
 					<th class="titulo">Eliminar</th>
 				</thead>
 				<tbody>';
-    while ($res = mysqli_fetch_row($consulta)) {
+    while ($res = mysqli_fetch_array($consulta)) {
         echo '<tr>
-				<td>' . date("d/m/Y", strtotime($res[4])) . '</td>
-				<td>' . date("d/m/Y", strtotime($res[5])) . '</td>
-				<td class="col-puesto">' . $res[3] . '</td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[7] . '\',\'' . $res[1] . '\',\'Vacacion\',0)">attachment</a></td>
+				<td>' . date("d/m/Y", strtotime($res["del"])) . '</td>
+				<td>' . date("d/m/Y", strtotime($res["al"])) . '</td>
+				<td class="col-puesto">' . $res["dias"] . '</td>
+				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $res["RFC"] . '\',\'Vacacion\',0)">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_vacacion(\''.$res[0].'\')" >visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="borrar_vacacion(\''.$res[0].'\')">delete</a></td>
 			</tr>';
@@ -51,4 +51,4 @@ if (mysqli_num_rows($consulta) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

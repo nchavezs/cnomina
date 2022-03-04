@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = $_POST['id'];
 
 $sql = "SELECT RFC FROM Vacacion WHERE id_vacacion = " . $id;
-$res = mysqli_query($conexion, $sql);
+$res = $conexion->query($sql);
 $usuario = mysqli_fetch_row($res);
 
 $sql1 = "SELECT url FROM Vacacion WHERE id_vacacion = " . $id;
@@ -25,6 +25,6 @@ if ($res1[0] != null) {
 
 echo $usuario[0];
 $sql = "DELETE FROM Vacacion WHERE id_vacacion = " . $id;
-mysqli_query($conexion, $sql);
+$conexion->query($sql);
 
-mysqli_close($conexion);
+$conexion->close();

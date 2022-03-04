@@ -39,4 +39,4 @@ $datos["html"] = '<div class="card">
 $datos["fecha"] = date("d/m/Y", strtotime($gastos['fecha']));
 
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

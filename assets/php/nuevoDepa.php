@@ -4,7 +4,7 @@ $conexion = conexion();
 $nombre = trim(mb_strtoupper($_POST['nombre']));
 
 $sql = "SELECT * FROM Departamento WHERE nombre = '" . $nombre . "'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta) == 0)) {
     $sql1 = "INSERT INTO Departamento(nombre) VALUES('" . $nombre . "')";
     if (mysqli_query($conexion, $sql1)) {
@@ -16,4 +16,4 @@ if ($consulta && (mysqli_num_rows($consulta) == 0)) {
     echo 2;
 }
 
-mysqli_close($conexion);
+$conexion->close();

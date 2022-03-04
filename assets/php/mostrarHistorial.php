@@ -48,4 +48,4 @@ if (mysqli_num_rows($consulta) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

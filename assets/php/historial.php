@@ -8,7 +8,7 @@ $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
 echo '<div class="p-2">
-		<h4 class="font-weight-bold text-primary">Historial de altas y bajas</h4>
+		<h4 class="negrita text-primary">Historial de altas y bajas</h4>
 		<small class="text-muted">Altas y bajas de '.$usuario["nombre"].'.</small>
 	</div>
 
@@ -25,7 +25,7 @@ echo '<div class="p-2">
 			</div>
 		</div>';
 
-mysqli_close($conexion);
+$conexion->close();
 
 
 

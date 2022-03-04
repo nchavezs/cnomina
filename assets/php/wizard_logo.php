@@ -55,8 +55,8 @@ if ($tipo == "image/jpeg" || $tipo == "image/png") {
     if ($bandera) {
         $conexion = conexion();
         $sql = "UPDATE Configuracion SET logo = 'logo.png?v=" . uniqid() . "'";
-        mysqli_query($conexion, $sql);
-        mysqli_close($conexion);
+        $conexion->query($sql);
+        $conexion->close();
         echo 1;
     } else {
         echo 0;

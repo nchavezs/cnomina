@@ -3,7 +3,7 @@
 	include("conexion.php");
     $conexion = conexion();
 	setlocale(LC_ALL, "spanish");
-	$hoy = date("d/m/Y");
+	// $hoy = date("d/m/Y");
 	$sql = "SELECT * FROM Usuario WHERE RFC = '".$id."'";
 	$consulta = $conexion->query($sql);
 	$usuario = mysqli_fetch_array($consulta);
@@ -11,7 +11,7 @@
 	
 	echo '<form id="form-descuento">
 				<div class="p-2">
-					<h4 class="font-weight-bold text-primary">Registrar descuentos</h4>
+					<h4 class="negrita text-primary">Registrar descuentos</h4>
 					<small class="text-muted">Nuevo permiso para '.$usuario["nombre"].'.</small>
 				</div>
 				<div class="card">
@@ -19,7 +19,7 @@
 						<div class="row">
 							<div class="col-md-6 fecha-date">
 								<div id="fecha" class="datepicker-here"></div>
-								<input id="fecha1" type="hidden" />
+								<input id="fechas" type="hidden" />
 							</div>
 							<div class="col-md-6">
 								<div class="row">
@@ -46,5 +46,5 @@
 		</div>
 	</form>';
 
-	mysqli_close($conexion);
+	$conexion->close();
 ?>

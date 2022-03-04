@@ -10,9 +10,9 @@ $sql = "SELECT *,
 (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento 
-FROM Empleado WHERE RFC = '" . $id . "'";
+FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE Usuario.RFC = '" . $id . "'";
 
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $res = mysqli_fetch_array($consulta);
 
 echo '<div class="formulario_caja">
@@ -27,7 +27,7 @@ echo '<div class="formulario_caja">
 			<div class="formulario">
 				<form id="form-empleado-1" class="pagina_1">
 					<div class="text-left p-2">
-						<h4 class="font-weight-bold text-primary">Editar información</h4>
+						<h4 class="negrita text-primary">Editar información</h4>
 						<small class="text-muted">Actualiza la información básica del empleado.</small>
 					</div>
 					<div class="card">
@@ -68,20 +68,17 @@ echo '<div class="formulario_caja">
 					<div class="card">
 						<div class="row card-body">
 							<div class="col-md-6">
-								<div class="">
-									<div class="select-etiqueta ">Número de empleado</div>
-									<input id="numero" type="text" class="campo" disabled value="'.$res["id_empleado"].'">
-								</div>
+								<div class="select-etiqueta">Domicilio <cite class="text-danger"> opcional</cite></div>
+								<input id="domicilio" maxlength="100" value="'.$res["domicilio"].'" type="text" class="campo">
 							</div>
 
 							<div class="col-md-6">
-								<div class="">
-									<div class="select-etiqueta ">Fecha de ingreso</div>
-									<input id="fecha" type="text" class="campo" disabled value="'.$res["fechaRelLab"].'" />
-								</div>
+								<div class="select-etiqueta ">E-mail <cite class="text-danger"> opcional</cite></div>
+								<input id="email" maxlength="50" value="'.$res["email"].'" type="email" class="campo">
 							</div>
 						</div>
 					</div>
+
 					<div class="pie">
 						<div class="btn btn-secondary btn-sm" id="salir">Cancelar </div>
 						<button type="submit" class="btn btn-primary pagina_1_boton btn-sm">Siguiente<i class="material-icons">navigate_next</i></button>
@@ -93,51 +90,28 @@ echo '<div class="formulario_caja">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
-									<div class="select">
-										<div class="select-etiqueta">Tipo de trabajador</div>
-										<select id="trabajador">';
-										$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
-										$consulta = mysqli_query($conexion, $sql);
-										if ($consulta && (mysqli_num_rows($consulta)) > 0) {
-											$sql2 = "SELECT * FROM Trabajador WHERE id_trabajador = '" . $res['id_trabajador'] . "'";
-											$consulta2 = mysqli_query($conexion, $sql2);
-											if (mysqli_num_rows($consulta2) == 0) {
-												echo '<option selected value="">SELECCIONA UNA OPCIÓN</option>';
-											}
-
-											while ($res2 = mysqli_fetch_row($consulta)) {
-												echo '<option value="' . $res2[0] . '" ';
-												if ($res['id_trabajador'] == $res2[0]) {
-													echo 'selected';
-												}
-
-												echo '>' . $res2[1] . '</option>';
-											}
-										} else {
-											echo '<option selected value="">NO HAY OPCIONES DISPONIBLES</option>';
-										}
-										echo '</select>
-									</div>
+									<div class="select-etiqueta ">Número de empleado</div>
+									<input type="text" class="campo" disabled value="'.$res["id_empleado"].'">
 								</div>
+
 								<div class="col-md-6">
-									<div class="">
-										<div class="select-etiqueta">Tipo de periodo</div>
-										<input type="text" class="campo" disabled value="'.$res["periodo"].'" />
-									</div>
+									<div class="select-etiqueta ">Fecha de ingreso</div>
+									<input type="text" class="campo" disabled value="'.$res["fechaRelLab"].'" />
 								</div>
+
 								<div class="col-md-12">
 									<div class="">
 										<div class="select-etiqueta ">Departamento</div>
 										<input type="text" class="campo" disabled value="'.$res["departamento"].'" />
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Puesto</div>
 										<input type="text" class="campo" disabled value="'.$res["puesto"].'" />
 									</div>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<div class="">
 										<div class="select-etiqueta ">Plaza</div>
 										<input type="text" class="campo" disabled value="PLAZA #'.$res["plaza"].'" />
@@ -175,4 +149,4 @@ echo '<div class="formulario_caja">
 	</div>
 </div>';
 
-mysqli_close($conexion);
+$conexion->close();

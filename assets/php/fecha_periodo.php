@@ -11,6 +11,6 @@ $prenomina = mysqli_fetch_array($consulta);
 $datos["del"] = date("Y-m-d",strtotime($prenomina["del"]."+ 1 days"));
 $datos["al"] = date("Y-m-d",strtotime($prenomina["al"]."+ 1 days"));
 
-mysqli_close($conexion);
+$conexion->close();
 
 echo json_encode($datos);

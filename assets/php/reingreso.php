@@ -1,7 +1,6 @@
 <?php
 	include("conexion.php");
     $conexion = conexion();
-	// $hoy = date("d/m/Y");
     $RFC = $_POST['id'];
 
 	$sql = "SELECT *,
@@ -16,7 +15,7 @@
 		<input type="hidden" id="nombre" value="'.$usuario["nombre"].'"/>
 		<div>
 			<div class="p-2">
-				<h4 class="font-weight-bold text-primary">Registrar reingreso</h4>
+				<h4 class="negrita text-primary">Registrar reingreso</h4>
 				<small class="text-muted">Completa el siguiente formulario para realizar el reingreso de '.$usuario["nombre"].'.</small>
 			</div>
 			<div class="card">
@@ -29,29 +28,11 @@
 
 					echo '<div class="col-md-6">
 							<div class="select">
-								<div class="select-etiqueta">Tipo de trabajador nuevo</div>
-								<select id="trabajador">';
-									$sql = "SELECT * FROM Trabajador ORDER BY nombre ASC";
-									$consulta = mysqli_query($conexion, $sql);
-									while($trabajador = mysqli_fetch_array($consulta)){
-										if($usuario["id_trabajador"] == $trabajador["id_trabajador"]){
-											echo '<option data-description="ASIGNADO ANTERIORMENTE" selected value="'.$trabajador[0].'">'.$trabajador[1].'</option>';
-										}else{
-											echo '<option value="'.$trabajador[0].'">'.$trabajador[1].'</option>';
-										}
-									}	
-									echo '
-								</select>
-							</div>
-						</div>';
-
-					echo '<div class="col-md-6">
-							<div class="select">
 								<div class="select-etiqueta">Nuevo departamento</div>
 								<select id="departamento" class="custom-select select-empleado departamento-select">';
 
 								$sql = "SELECT * FROM Departamento ORDER BY nombre ASC";
-								$consulta = mysqli_query($conexion, $sql);
+								$consulta = $conexion->query($sql);
 								if($consulta && (mysqli_num_rows($consulta)) > 0){
 									while($departamento = mysqli_fetch_row($consulta)){
 										echo '<option value="'.$departamento[0].'">'.$departamento[1].'</option>';
@@ -94,4 +75,4 @@
 	</form>
 	';
 
-	mysqli_close($conexion);
+	$conexion->close();

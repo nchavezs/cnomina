@@ -59,7 +59,7 @@ if (rol() != 1) {
                             <!-- INICIO -->
                             <div class="wizard_panel">
                                 <div class="wizard_panel_inicio">
-                                    <h2 class="text-primary pb-4 font-weight-bold">Vamos a configurarlo todo</h2>
+                                    <h2 class="text-primary pb-4 negrita">Vamos a configurarlo todo</h2>
                                     <p>Es necesario establecer algunos parámetros, puedes omitir el proceso de
                                         configuración
                                         y dirigirte diréctamente al menú principal para configurar todo manualmente.</p>
@@ -77,7 +77,7 @@ if (rol() != 1) {
                             <!-- PERFIL -->
                             <div class="wizard_panel hide">
                                 <div class="wizard_panel_perfil">
-                                    <h2 class="text-primary pb-4 font-weight-bold">Configura tu información de perfil
+                                    <h2 class="text-primary pb-4 negrita">Configura tu información de perfil
                                     </h2>
                                     <p>Configura tu nombre y establece una contraseña nueva para el inicio de sesión,
                                         antes de continuar presiona <a href="#">guardar información de perfil</a> para
@@ -109,7 +109,7 @@ if (rol() != 1) {
                             <!-- LOGO -->
                             <div class="wizard_panel hide">
                                 <div class="wizard_panel_logo">
-                                    <h2 class="text-primary pb-4 font-weight-bold">Selecciona tu logo</h2>
+                                    <h2 class="text-primary pb-4 negrita">Selecciona tu logo</h2>
                                     <p>Puedes elegir una imagen y establecerla como logo para tus reportes y mostrarla en el panel principal. La imagen deberá estar en formato <span class="text-warning">PNG</span> y deberá pesar menos de <span class="text-warning">5 Mb</span>.</p>
                                     <form action="assets/php/wizard_logo.php" class="dropzone"
                                         id="dropzone-logo">
@@ -117,7 +117,7 @@ if (rol() != 1) {
                                             <div class="row">
                                                 <div class="col-md-4"><img src="assets/img/upload_image.svg" alt=""></div>
                                                 <div class="col-md-8">
-                                                    <h3 class="font-weight-bold">Selecciona tu archivo</h3>
+                                                    <h3 class="negrita">Selecciona tu archivo</h3>
                                                     <div><small>Arrastra tu logo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
                                                     <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar imagen</button>
                                                 </div>
@@ -135,7 +135,7 @@ if (rol() != 1) {
                             <!-- IMPORTAR -->
                             <div class="wizard_panel hide">
                                 <div class="wizard_panel_importar">
-                                    <h2 class="text-primary pb-4 font-weight-bold">Importar plantilla de plazas</h2>
+                                    <h2 class="text-primary pb-4 negrita">Importar plantilla de plazas</h2>
                                     <p>Con esta herramienta puede importar datos desde una hoja de cálculo sin necesidad
                                         de crear los registros manualmente, es necesario seguir los siguientes puntos:
                                     </p>
@@ -152,7 +152,7 @@ if (rol() != 1) {
                                             <div class="row">
                                                 <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
                                                 <div class="col-md-8">
-                                                    <h3 class="font-weight-bold">Selecciona tu archivo</h3>
+                                                    <h3 class="negrita">Selecciona tu archivo</h3>
                                                     <div><small>Arrastra un archivo aquí o <span class="text-info">búscalo</span> para cargarlo.</small></div>
                                                     <button type="button" class="btn btn-sm btn-success mt-4">Seleccionar archivo</button>
                                                 </div>

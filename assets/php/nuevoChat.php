@@ -14,13 +14,13 @@ if ($titulo == null || $titulo == "" || $mensaje == null || $mensaje == "") {
     $fecha = date('d/m/Y h:i a', time());
     $sql = "INSERT INTO Chat(RFC,titulo,fecha) VALUES('" . $id . "','" . $titulo . "','" . $fecha . "')";
 
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         $sql = "SELECT * FROM Chat ORDER BY id_chat DESC LIMIT 1";
-        if ($res = mysqli_query($conexion, $sql)) {
+        if ($res = $conexion->query($sql)) {
             $chat = mysqli_fetch_array($res);
             $sql = "INSERT INTO Mensaje(id_chat,mensaje,fecha,emisor,receptor,estado,url)
 				VALUES(" . $chat[0] . ",'" . $mensaje . "','" . $fecha . "','" . $id . "','admin', 0, NULLIF('" . $url . "','') )";
-            if ($res = mysqli_query($conexion, $sql)) {
+            if ($res = $conexion->query($sql)) {
                 echo '<script>
 							$(".msn-contenido").perfectScrollbar();
 							$(".msn-responder").submit(function(e){
@@ -281,5 +281,5 @@ if ($titulo == null || $titulo == "" || $mensaje == null || $mensaje == "") {
         echo 0;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

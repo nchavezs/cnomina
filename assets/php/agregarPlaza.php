@@ -13,7 +13,7 @@ $dias = 1;
 
 $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $puesto . ", " . $dias . ")";
 for($i=0;$i<$cantidad;$i++){
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
 }
 if ($consulta) {
     echo 1;
@@ -21,4 +21,4 @@ if ($consulta) {
     echo 0;
 }
 
-mysqli_close($conexion);
+$conexion->close();

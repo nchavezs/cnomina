@@ -10,41 +10,37 @@ if ($rol != 1) {
     $id = $_POST['id'];
 
     $sql = "DELETE FROM Usuario WHERE RFC = '" . $id . "' AND categoria = 'user'";
-    if (mysqli_query($conexion, $sql)) {
-        $sql = "DELETE FROM Movimiento WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Baja WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Descuento WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Permiso WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Vacacion WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Beneficiario WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        // $sql = "DELETE FROM Chat WHERE RFC = '" . $id . "'";
-        // mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Mensaje WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Archivo WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Pase WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Reingreso WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
-        // $sql = "DELETE FROM Correo WHERE RFC = '" . $id . "'";
-        // mysqli_query($conexion, $sql);
+    if ($conexion->query($sql)) {
+        // $sql = "DELETE FROM Movimiento WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Baja WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Descuento WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Permiso WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Vacacion WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Beneficiario WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Mensaje WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Archivo WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Pase WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Reingreso WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
+        // $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $id . "'";
+        // $conexion->query($sql);
         $sql = "DELETE FROM Empleado WHERE RFC = '" . $id . "'";
-        mysqli_query($conexion, $sql);
+        $conexion->query($sql);
         echo 1;
     } else {
         echo 0;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

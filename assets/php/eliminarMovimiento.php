@@ -5,14 +5,14 @@ $id = $_POST['id'];
 $condicion = $_POST['condicion'];
 
 $sql = "SELECT RFC FROM Movimiento WHERE id_movimiento = " . $id;
-$res = mysqli_query($conexion, $sql);
+$res = $conexion->query($sql);
 $usuario = mysqli_fetch_row($res);
 $usuario = $usuario[0];
 echo $usuario;
 
 if ($condicion == 1) {
     $sql = "SELECT url, puestoAnterior, departamentoAnterior, tipoTrabajadorAnterior FROM Movimiento WHERE id_movimiento = " . $id;
-    $consulta = mysqli_query($conexion, $sql);
+    $consulta = $conexion->query($sql);
     $res = mysqli_fetch_row($consulta);
     if ($res[0] != null) {
         $dir = explode("/", $res[0]);
@@ -26,10 +26,10 @@ if ($condicion == 1) {
         }
     }
     $sql = "UPDATE Usuario SET puesto = '" . $res[1] . "', departamento = '" . $res[2] . "', tipoTrabajador = '".$res[3]."' WHERE RFC = '" . $usuario."'";
-    mysqli_query($conexion, $sql);
+    $conexion->query($sql);
 
     $sql = "DELETE FROM Movimiento WHERE id_movimiento = " . $id;
-    mysqli_query($conexion, $sql);
+    $conexion->query($sql);
 }
 
-mysqli_close($conexion);
+$conexion->close();

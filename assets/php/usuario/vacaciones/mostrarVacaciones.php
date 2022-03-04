@@ -6,7 +6,7 @@ $id = $_SESSION["usuario"];
 $ano = $_POST["ano"];
 
 $sql = "SELECT * FROM Vacacion WHERE YEAR(del) = " . $ano . " AND RFC = '" . $id."'";
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 
 if (mysqli_num_rows($consulta) > 0) {
     $datos["html"] = '<div class="table-responsive">
@@ -49,7 +49,7 @@ if (mysqli_num_rows($consulta) > 0) {
 }
 
 $sql = "SELECT SUM(dias) FROM Vacacion WHERE RFC = '" . $id . "' AND YEAR(del) = " . $ano;
-$consulta = mysqli_query($conexion, $sql);
+$consulta = $conexion->query($sql);
 $total = mysqli_fetch_row($consulta);
 $total = $total[0];
 if ($total == null) {
@@ -58,4 +58,4 @@ if ($total == null) {
 
 $datos["total"] = 'Dias de vacaciones: ' . $total;
 echo json_encode($datos);
-mysqli_close($conexion);
+$conexion->close();

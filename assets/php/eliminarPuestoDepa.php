@@ -12,11 +12,11 @@ if ($rol != 1) {
 
     $sql = "DELETE FROM " . $categoria . " WHERE id_" . mb_strtolower($categoria) . " = " . $id;
 
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         echo 1;
     } else {
         echo 0;
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }

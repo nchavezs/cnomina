@@ -36,7 +36,7 @@ echo '<div class="formulario_caja">
 			<div class="formulario">
 				<form id="form-prenomina">
 					<div class="text-left p-2">
-						<h4 class="font-weight-bold text-primary">Generar prenómina</h4>
+						<h4 class="negrita text-primary">Generar prenómina</h4>
 						<small class="text-muted">Genera esta prenómina las veces que quieras antes de autorizar el periodo.</small>
 					</div>
 					<div class="card">
@@ -81,7 +81,7 @@ echo '<div class="formulario_caja">
 	</div>
 </div> ';
 
-mysqli_close($conexion);
+$conexion->close();
 
 
 

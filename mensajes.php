@@ -222,7 +222,7 @@ include "assets/php/main_admin.php";
 					</div>
 					<div class="mensajeria_vacio">
 						<img src="assets/img/chat.svg" alt="">
-						<h2 class="text-primary my-4 font-weight-bold">Inicia una conversación</h2>
+						<h2 class="text-primary my-4 negrita">Inicia una conversación</h2>
 						<p>Puedes enviar y recibir mensajes en conversaciones con los usuarios.</p>
 						<hr>
 						<p>No dudes en ponerte en contacto con nosotros diréctamente desde <span class="text-warning soporte" onclick="soporte();">aquí</span> en caso de que tengas alguna duda o sugerencias o envianos un correo a <a class="text-primary" href="mailto:info@consultanominacomonfort.com">info@consultanominacomonfort.com</a> .</p>

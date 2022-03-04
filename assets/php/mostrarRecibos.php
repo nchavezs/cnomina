@@ -49,4 +49,4 @@ if (mysqli_num_rows($resultado) > 0) {
 		</div>';
 }
 
-mysqli_close($conexion);
+$conexion->close();

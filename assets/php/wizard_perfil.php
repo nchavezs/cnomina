@@ -7,7 +7,7 @@ $confirmar = $_POST['confirmar'];
 
 if ($password === $confirmar) {
     $sql = "UPDATE Usuario SET nombre = '" . $nombre . "', contrasenia = '" . $password . "' WHERE RFC = 'admin' AND categoria = 'admin'";
-    if (mysqli_query($conexion, $sql)) {
+    if ($conexion->query($sql)) {
         session_start();
         $_SESSION['nombre'] = $nombre;
         echo 1;
@@ -18,4 +18,4 @@ if ($password === $confirmar) {
     echo 2;
 }
 
-mysqli_close($conexion);
+$conexion->close();

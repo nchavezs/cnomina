@@ -77,7 +77,7 @@ $reader->setReadDataOnly(true);
 $spreadsheet = $reader->load($archivo);
 $sheet = $spreadsheet->getActiveSheet();
 $highestRow = $sheet->getHighestRow();
-$highestColumn = "N";
+$highestColumn = "L";
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
 $formato = false;
@@ -86,7 +86,7 @@ for ($col = 1; $col <= $highestColumnIndex; ++$col) {
     $valor = $sheet->getCellByColumnAndRow($col, 1)->getValue();
     array_push($datos, $valor);
 }
-if ($datos[12] == "PERIODO") {
+if ($datos[11] == "PERIODO") {
     $formato = true;
 }
 
@@ -112,10 +112,9 @@ if ($formato) {
         $fechaRelLab = trim($datos[6]);
         $CURP = eliminar_simbolos(mb_strtoupper($datos[7]));
         $RFC = eliminar_simbolos(mb_strtoupper($datos[8]));
-        $trabajador = eliminar_simbolos(mb_strtoupper($datos[9]));
-        $banca = eliminar_simbolos($datos[10]);
-        $afiliacion = eliminar_simbolos($datos[11]);
-        $periodo = eliminar_simbolos(mb_strtoupper($datos[12]));
+        $banca = eliminar_simbolos($datos[9]);
+        $afiliacion = eliminar_simbolos($datos[10]);
+        $periodo = eliminar_simbolos(mb_strtoupper($datos[11]));
 
         $password = str_pad($datos[0], 5, '0', STR_PAD_LEFT);
         $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
@@ -151,13 +150,6 @@ if ($formato) {
                             $res = mysqli_fetch_array($consulta);
                             $plaza = $res["id_plaza"];
 
-                            $sql = "SELECT * FROM Trabajador WHERE nombre = '" . $trabajador . "'";
-                            $consulta = $conexion->query($sql);
-                            if ($consulta && mysqli_num_rows($consulta) > 0) {
-                                $res = mysqli_fetch_array($consulta);
-                                $trabajador = $res["id_trabajador"];
-                            }
-
                             $sql = "SELECT * FROM Periodo WHERE nombre = '" . $periodo . "'";
                             $consulta = $conexion->query($sql);
                             if ($consulta && mysqli_num_rows($consulta) > 0) {
@@ -184,7 +176,6 @@ if ($formato) {
                                 apellidop,
                                 apellidom,
                                 nombres,
-                                id_trabajador,
                                 id_periodo) VALUES(
                                 " . $id_empleado . ",
                                 '" . $RFC . "',
@@ -196,7 +187,6 @@ if ($formato) {
                                 '" . $apellidop . "' ,
                                 '" . $apellidom . "',
                                 '" . $nombres . "',
-                                " . $trabajador . ",
                                 " . $periodo . ")";
                             // -------------------------------------------------------------------------------------
                             $ano_actual = date("Y");
@@ -278,12 +268,12 @@ if ($formato) {
         }
     }
 
-    mysqli_close($conexion);
+    $conexion->close();
 }
 
 $html = "<div class='formulario_caja'>
             <div class='formulario text-center'>
-                <h2 class='font-weight-bold text-primary'>Información de registro</h2>
+                <h2 class='negrita text-primary'>Información de registro</h2>
                 <p class='text-primary pt-3'> " . $total . " de un total de " . --$highestRow . "</p>";
 if (count($errores) > 0) {
     $html = $html . "<div class='log'>
