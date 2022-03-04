@@ -313,6 +313,9 @@ INSERT INTO
   Trabajador(nombre)
 VALUES('SINDICALIZADO');
 INSERT INTO
+  Trabajador(nombre)
+VALUES('DIETAS');
+INSERT INTO
   Configuracion(logo, nombre)
 VALUES("logo.png", "COMONFORT");
 INSERT INTO

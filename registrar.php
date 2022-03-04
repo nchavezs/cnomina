@@ -261,7 +261,7 @@ include "assets/php/comprobar_catalago.php";
                                     <th class="oculto">Puesto</th>
                                     <th class="oculto">Departamento</th>
                                     <th class="oculto">Categoría</th>
-                                    <th class="oculto">Opciones</th>
+                                    <th class="">Opciones</th>
                                 </tr>
                             </thead>
                         </table>

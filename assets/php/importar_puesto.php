@@ -72,7 +72,7 @@ $spreadsheet = $reader->load($archivo);
 
 $worksheet = $spreadsheet->getActiveSheet();
 $highestRow = $worksheet->getHighestRow();
-$highestColumn = "B";
+$highestColumn = "C";
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
 for ($row = 2; $row <= $highestRow; ++$row) {
@@ -85,6 +85,7 @@ for ($row = 2; $row <= $highestRow; ++$row) {
 
     $puesto = eliminar_simbolos($datos[0]);
     $departamento = eliminar_simbolos($datos[1]);
+    $trabajador = eliminar_simbolos($datos[2]);
 
     $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
     $consulta = $conexion->query($sql);
@@ -104,9 +105,22 @@ for ($row = 2; $row <= $highestRow; ++$row) {
     $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 0) {
-        $sql = "INSERT INTO Puesto(nombre, id_departamento) VALUES(NULLIF('" . $puesto . "', ''), " . $id_depa . ")";
-        if ($conexion->query($sql)) {
-            $total_puestos++;
+        $sql = "SELECT id_trabajador FROM Trabajador WHERE nombre = '".$trabajador."'";
+        $conexion->query($sql);
+        if ($consulta && mysqli_num_rows($consulta) > 0) {
+            $id_trabajador = mysqli_fetch_array($consulta);
+            
+            $sql = "INSERT INTO Puesto(nombre, id_departamento, id_trabajador) VALUES(
+                NULLIF('" . $puesto . "', ''),
+                " . $id_depa . ",
+                ".$id_trabajador."
+            )";
+    
+            if ($conexion->query($sql)) {
+                $total_puestos++;
+            } else {
+                array_push($errores, "Fila ".$row." : error al importar.");
+            }
         } else {
             array_push($errores, "Fila ".$row." : error al importar.");
         }
