@@ -56,6 +56,8 @@ function eliminar_simbolos($string)
         $string
     );
 
+    $string = str_replace('  ', ' ', $string);
+
     return $string;
 }
 
