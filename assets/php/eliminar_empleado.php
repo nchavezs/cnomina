@@ -31,10 +31,10 @@ if ($rol != 1) {
         // $conexion->query($sql);
         // $sql = "DELETE FROM Reingreso WHERE RFC = '" . $id . "'";
         // $conexion->query($sql);
-        // $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $id . "'";
-        // $conexion->query($sql);
-        // $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $id . "'";
-        // $conexion->query($sql);
+        $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $id . "'";
+        $conexion->query($sql);
+        $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $id . "'";
+        $conexion->query($sql);
         $sql = "DELETE FROM Empleado WHERE RFC = '" . $id . "'";
         $conexion->query($sql);
         echo 1;
