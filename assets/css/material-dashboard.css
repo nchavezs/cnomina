@@ -16314,7 +16314,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .dataTable>thead>tr>td,
 .dataTable>thead>tr>th {
     padding: 4px 8px !important;
-    font-size: 13px
+    font-size: 12px
 }
 
 .dataTable>tbody>tr>td:first-child,
@@ -16323,7 +16323,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .dataTable>tfoot>tr>th:first-child,
 .dataTable>thead>tr>td:first-child,
 .dataTable>thead>tr>th:first-child {
-    padding-left: 20px !important
+    text-align: center !important;
 }
 
 body {
