@@ -21,11 +21,11 @@ if (rol() != 1) {
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.5.6" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.5.7" rel="stylesheet" />
 	<link href="assets/js/plugins/datatables/datatables.min.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.5.6" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.5.7" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
 
@@ -249,7 +249,7 @@ if ($varFoto != null) {
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.5.6" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.5.7" type="text/javascript"></script>
 	<script src="assets/js/plugins/datatables/datatables.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
 	<script src="assets/js/plugins/datepicker.es.js"></script>
@@ -257,9 +257,9 @@ if ($varFoto != null) {
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
     <script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
-	<script src="assets/js/catalagos.js?v=3.5.6"></script>
+	<script src="assets/js/catalagos.js?v=3.5.7"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.5.6"></script>
+	<script src="assets/js/sesion.js?v=3.5.7"></script>
 
 </body>
 
