@@ -1119,7 +1119,7 @@ form .card{
 }
 
 .dataTable td {
-    max-width: 300px !important;
+    max-width: 250px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
