@@ -141,7 +141,7 @@ if (rol() != 1) {
                                     </p>
                                     <ol>
                                         <li>Descargue la plantilla para importar datos <a class="text-warning"
-                                                href="./assets/docs/plazas.xlsx" download>aquí</a> .</li>
+                                                href="./assets/docs/plazas.xlsx?v=3.5.8" download>aquí</a> .</li>
                                         <li>Busque la ubicación del archivo, edítelo y carguelo en la siguiente sección.
                                             <i class="material-icons">arrow_downward</i>
                                         </li>

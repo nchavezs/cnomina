@@ -235,8 +235,8 @@ include "assets/php/comprobar_catalago.php";
                                                 <i class="material-icons">line_style</i>Plantilla
                                             </div>
                                             <div class="dropdown-menu">
-                                                <a href="assets/docs/empleado/importar/empleado.xlsx" class="dropdown-item"> <i class="material-icons" >check</i>Por # de plaza</a>
-                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx" class="dropdown-item"> <i class="material-icons" >check</i>Por puesto y departamento</a>
+                                                <a href="assets/docs/empleado/importar/empleado.xlsx?v=3.5.8" class="dropdown-item"> <i class="material-icons" >check</i>Por # de plaza</a>
+                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.5.8" class="dropdown-item"> <i class="material-icons" >check</i>Por puesto y departamento</a>
                                             </div>
                                         </span>
                                     ';

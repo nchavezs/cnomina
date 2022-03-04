@@ -171,7 +171,7 @@ if (rol() != 1) {
                                     for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
                                 <!-- <label onclick="exportar_plazas();" class="btn-mostrar"><i
                                         class="material-icons">file_download</i>Exportar</label> -->
-                                        <a href="./assets/docs/plazas.xlsx" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
+                                        <a href="./assets/docs/plazas.xlsx?v=3.5.8" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
                             </div>
                         </div>
                     </div>
