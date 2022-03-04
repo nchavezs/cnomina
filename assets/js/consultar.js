@@ -109,7 +109,7 @@ function eliminar(id) {
                     } else {
                         error();
                     }
-                    $('#consulta_tabla').DataTable().ajax.reload();
+                    $('#tabla-nominas').DataTable().ajax.reload();
                 }
             });
 

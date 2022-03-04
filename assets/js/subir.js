@@ -57,12 +57,13 @@ Dropzone.options.myAwesomeDropzone = {
         });
 
         this.on("success", function (file, data) {
+            let val = data.charAt(data.length - 1);
             console.log(data);
             Swal.getContent().innerHTML = file.name;
-            if (data == 2) {
+            if (val == 2) {
                 contenido = contenido + "<h5><span class='material-icons info'>info</span>" + file.name + "</h5>";
                 b++;
-            } else if (data == 1) {
+            } else if (val == 1) {
                 contenido = contenido + "<h5><span class='material-icons success'>check_circle</span>" + file.name + "</h5>";
                 a++;
             } else {

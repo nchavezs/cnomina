@@ -3,7 +3,7 @@ session_start();
 setlocale(LC_ALL, "spanish");
 
 include 'conexion.php';
-include '../../pdf/PdfToText.phpclass';
+include '../../pdf/PdfToText.php';
 
 $id_prenomina = $_SESSION["id_prenomina"];
 $registrar_usuario = $_POST['registrar_usuario'];
@@ -97,12 +97,14 @@ function calcular_reversa($string, $pdf, $offset = 0)
     }
 }
 
-$archivo = $_FILES['file']['tmp_name'];
 
+$archivo = $_FILES['file']['tmp_name'];
 $pdf = new PdfToText();
 $pdf->BlockSeparator = "|";
 $pdf->Separator = "|";
-$pdf->Load($archivo);
+$pdf->Options = 0x00000400;
+// $pdf->Options |= 0x00000000;
+$pdf->Load($archivo );
 $pdf = mb_strtoupper($pdf->Text);
 $pdf = str_replace("\n", "|", $pdf);
 // $pdf = str_replace("\r", "|\r", $pdf);
@@ -144,7 +146,7 @@ $dias = calcular("DIAS DE PAGO|", $pdf);
 $pago = fecha(calcular("FECHA PAGO|", $pdf));
 $del = fecha(calcular_reversa("|-|", $pdf));
 $al = fecha(calcular("|-|", $pdf));
-$inicio = calcular("LAB|", $pdf);
+$inicio = fecha(calcular("LAB|", $pdf));
 
 $arraypago = explode("/", $pago);
 $nombreNomina = $id . implode("_", $arraypago) . '.pdf';

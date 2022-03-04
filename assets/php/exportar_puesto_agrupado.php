@@ -22,7 +22,7 @@ $sheet->setCellValue('C1', 'CATEGORIA');
 $sql = "SELECT nombre AS puesto,
 (SELECT nombre FROM Trabajador WHERE id_trabajador = id_trabajador LIMIT 1) AS categoria,
 (SELECT COUNT(*) FROM Plaza WHERE id_puesto IN (SELECT id_puesto FROM Puesto WHERE nombre = puesto AND estado = 1)) AS plazas 
-FROM Puesto GROUP BY nombre";
+FROM Puesto GROUP BY nombre,categoria";
 
 $consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
