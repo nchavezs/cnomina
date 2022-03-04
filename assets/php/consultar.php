@@ -1,7 +1,7 @@
 <?php
    include("conexion.php");
    $conexion = conexion();
-
+   setlocale(LC_ALL, "spanish");
    $ano = $_POST["ano"];
    $id_periodo = $_POST["id_periodo"];
    
@@ -14,8 +14,8 @@
 		 echo '{"data":[]}';
 	}else{
       while($res = mysqli_fetch_assoc($resultado)){
-         $res["del"] = date("d M", strtotime($res["del"]));
-         $res["al"] = date("d M", strtotime($res["al"]));
+         $res["del"] = strftime("%d %B", strtotime($res["del"]));
+         $res["al"] = strftime("%d %B", strtotime($res["al"]));
          $arreglo["data"][] = $res;
       }
       echo json_encode($arreglo);
