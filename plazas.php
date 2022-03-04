@@ -215,7 +215,7 @@ if (rol() != 1) {
                                     <th class="oculto">Por ejercer</th>
                                     <th class="oculto">Presupuestados</th>
 									<th class="oculto">Eliminar</th>
-                                    <th class="oculto">Estado</th>
+                                    <th class="">Estado</th>
 
                                 </tr>
                             </thead>

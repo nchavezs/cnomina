@@ -39,13 +39,16 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            cargar_prenominas();
             if (data != 0) {
+                cargar_prenominas();
+
                 Swal.fire({
                     title: 'Correcto',
                     text: 'Registro agregado',
                     type: 'success'
-                })
+                });
+
+                actualizar_periodo();
             } else {
                 Swal.fire({
                     title: 'Error',
@@ -67,9 +70,10 @@ function autorizar() {
             url: "assets/php/autorizar.php",
             type: "POST",
             success: function (data) {
-                cargar_prenominas();
                 ocultar_modal();
                 if (data != 0) {
+                    cargar_prenominas();
+                    actualizar_periodo();
                     Swal.fire({
                         title: 'Correcto',
                         text: 'Registro agregado',
@@ -86,6 +90,17 @@ function autorizar() {
         });
     });
 
+}
+
+
+function actualizar_periodo(){
+    $.ajax({
+        url:"assets/php/actualizar_periodo",
+        type:"POST",
+        success: function(data){
+            $(".cambiar_periodo").parent().html(data);
+        }
+    })
 }
 
 // function eliminar(id, event) {

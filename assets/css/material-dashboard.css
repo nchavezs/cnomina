@@ -2853,6 +2853,10 @@ label.btn-mostrar {
 }
 
 @media (max-width:768px) {
+    .dataTable td{
+        white-space: normal;
+    }
+
     .periodo::after {
         height: 15%;
     }
@@ -2928,10 +2932,6 @@ label.btn-mostrar {
         background: rgba(70, 105, 219, .068)
     }
 
-    .oculto {
-        display: none !important
-    }
-
     .wizard_caja {
         width: 100% !important;
         height: 100% !important;
@@ -2977,6 +2977,9 @@ label.btn-mostrar {
 }
 
 @media (max-width:992px) {
+    .oculto {
+        display: none !important;
+    }
     .opciones_tabla {
         position: relative !important;
         top: 0;
