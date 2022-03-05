@@ -736,31 +736,7 @@ function tablas(id) {
 
 function archivo2(url, id) {
     if (url === "") {
-        Swal.fire({
-            title: 'Sin archivo',
-            text: 'No se ha encontrado ningún archivo',
-            type: 'warning',
-
-
-        }).then(function () {
-            $.ajax({
-                type: "POST",
-                url: "assets/php/verBeneficiarios.php",
-                data: {
-                    "id": id
-                },
-                success: function (html) {
-                    Swal.fire({
-                        html: html,
-
-                        allowOutsideClick: true,
-                        showCloseButton: true,
-                        showConfirmButton: false,
-
-                    });
-                }
-            });
-        })
+        md.showNotification("top", "right", "No se encontró ningún archivo.");
     } else
         window.open(url, '_blank');
 };

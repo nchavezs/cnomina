@@ -17,12 +17,12 @@ if (rol() != 1) {
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.6.0" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.6.1" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
 	<link href="assets/css/datepicker.min.css" rel="stylesheet" />
 	<link href="assets/js/plugins/animate/adp.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
-	<link href="assets/css/sweetalert2.min.css?v=3.6.0" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.6.1" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -461,7 +461,7 @@ if (rol() != 1) {
 	<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.6.0"></script>
+	<script src="assets/js/material-dashboard.js?v=3.6.1"></script>
 	<script src="assets/js/jquery.dataTables.min.js"></script>
 	<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 	<script src="assets/js/datepicker.min.js"></script>
@@ -475,8 +475,8 @@ if (rol() != 1) {
 	<script src="assets/js/plugins/tailselect/js/tail.select.min.js"></script>
 	<script src="assets/js/plugins/tailselect/lang/tail.select-es.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.6.0"></script>
-	<script src="assets/js/reportes.js?v=3.6.0"></script>
+	<script src="assets/js/sesion.js?v=3.6.1"></script>
+	<script src="assets/js/reportes.js?v=3.6.1"></script>
 
 </body>
 

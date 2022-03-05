@@ -174,7 +174,7 @@ $sql = "SELECT *,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
     FROM Empleado WHERE
     id_periodo = " . $periodo . " AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";

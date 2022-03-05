@@ -39,6 +39,7 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
+            console.log(data);
             if (data != 0) {
                 cargar_prenominas();
 
