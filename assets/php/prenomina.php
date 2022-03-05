@@ -174,8 +174,8 @@ $sql = "SELECT *,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
-    FROM Empleado WHERE
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
+    FROM Empleado WHERE 
     id_periodo = " . $periodo . " AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
 
@@ -616,7 +616,7 @@ $sheet->setCellValue('C2', 'RFC');
 $sheet->setCellValue('D2', 'PUESTO');
 $sheet->setCellValue('E2', 'DEPARTAMENTO');
 $sheet->setCellValue('F2', 'FECHA DE INGRESO');
-$sheet->setCellValue('G2', 'TIPO DE TRABAJADOR');
+$sheet->setCellValue('G2', 'CATEGORIA');
 $sheet->setCellValue('H2', 'ESTADO DEL EMPLEADO');
 $sheet->setCellValue('I2', 'OBSERVACIONES');
 $sheet->setCellValue('J2', 'DIAS A PAGAR');
@@ -627,8 +627,8 @@ $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
-    FROM Empleado WHERE
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
+    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
     id_periodo =  " . $periodo . " AND
     id_trabajador IN(3,4) AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
@@ -728,7 +728,7 @@ $sheet->setCellValue('C2', 'RFC');
 $sheet->setCellValue('D2', 'PUESTO');
 $sheet->setCellValue('E2', 'DEPARTAMENTO');
 $sheet->setCellValue('F2', 'FECHA DE INGRESO');
-$sheet->setCellValue('G2', 'TIPO DE TRABAJADOR');
+$sheet->setCellValue('G2', 'CATEGORIA');
 $sheet->setCellValue('H2', 'ESTADO DEL EMPLEADO');
 $sheet->setCellValue('I2', 'OBSERVACIONES');
 $sheet->setCellValue('J2', 'DIAS A PAGAR');
@@ -739,8 +739,8 @@ $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = Empleado.id_trabajador) AS tipoTrabajador
-    FROM Empleado WHERE
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
+    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
     id_periodo =  " . $periodo . " AND
     id_trabajador NOT IN(3,4) AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
