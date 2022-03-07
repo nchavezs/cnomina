@@ -119,7 +119,7 @@ $pdf = preg_replace('/([|])\1+/', '|', $pdf);
 
 $pos1 = strpos($pdf, 'RFC|');
 if ($pos1 !== false) {
-    $pos1 = strpos($pdf, 'RFC|', strpos($pdf, 'RFC|')) + 4;
+    $pos1 = strpos($pdf, 'RFC|', strpos($pdf, 'RFC|') + 1) + 4;
     $pos2 = strpos($pdf, "|", $pos1);
     $rfc = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
 } else {
