@@ -9,7 +9,7 @@ $mes = $_POST['mes'];
 
 $sql = "SELECT
     Archivo.*,
-    (SELECT nombre FROM periodo WHERE id_periodo = Archivo.id_periodo) AS periodo
+    (SELECT nombre FROM Periodo WHERE id_periodo = Archivo.id_periodo) AS periodo
     FROM Archivo WHERE
     YEAR(del) = " . $ano . " AND
     MONTH(del) = " . $mes . " AND
