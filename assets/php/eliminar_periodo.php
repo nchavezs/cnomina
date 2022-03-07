@@ -11,18 +11,17 @@ $sql = "SELECT id_archivo FROM Archivo";
 $consulta = $conexion->query($sql);
 $total1 = mysqli_num_rows($consulta);
 
-$sql = "SELECT url FROM Archivo WHERE STR_TO_DATE(fecha_pago, '%d/%m/%Y') BETWEEN '".$fecha1. "' AND '". $fecha2."'";
+$sql = "SELECT url FROM Archivo WHERE fecha_pago BETWEEN '".$fecha1. "' AND '". $fecha2."'";
 $consulta = $conexion->query($sql);
 if ($consulta) {
     while($res = mysqli_fetch_row($consulta)){
-        $url = explode("/", $res[0]); 
-        $url = "../".$url[1]."/".$url[2];
+        $url = "../nominas/".$res[0];
         if (is_file($url)) {
             unlink($url);
         }
     }
 
-    $sql = "DELETE FROM Archivo WHERE STR_TO_DATE(fecha_pago, '%d/%m/%Y') BETWEEN '".$fecha1. "' AND '". $fecha2."'";
+    $sql = "DELETE FROM Archivo WHERE fecha_pago BETWEEN '".$fecha1. "' AND '". $fecha2."'";
     if ($conexion->query($sql)) {
         $sql = "SELECT id_archivo FROM Archivo";
         $consulta = $conexion->query($sql);

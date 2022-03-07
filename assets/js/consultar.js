@@ -198,7 +198,7 @@ function eliminar_periodo() {
                     success: function (data) {
                         cerrar();
                         if (data > 0) {
-                            $('#consulta_tabla').DataTable().ajax.reload();
+                            $('#tabla-nominas').DataTable().ajax.reload();
                             Swal.fire({
                                 title: 'Correcto',
                                 text: data + ' recibos de nómina eliminados',
