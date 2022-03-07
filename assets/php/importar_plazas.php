@@ -57,7 +57,7 @@ function eliminar_simbolos($string)
         ' ',
         $string
     );
-    
+
     $string = str_replace('  ', ' ', $string);
 
     return $string;
@@ -65,6 +65,7 @@ function eliminar_simbolos($string)
 
 $total_departamentos = 0;
 $total_puestos = 0;
+$total_plazas = 0;
 $errores = [];
 
 $archivo = $_FILES['file']['tmp_name'];
@@ -131,7 +132,9 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
 
             $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
             for ($i = 0; $i < $cantidad; $i++) {
-                $consulta = $conexion->query($sql);
+                if ($conexion->query($sql)) {
+                    $total_plazas++;
+                }
             }
         } else if ($consulta && $total == 0) {
             $sql = "SELECT * FROM Trabajador WHERE nombre = '" . $trabajador . "'";
@@ -165,8 +168,9 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
     echo "<div class='log'>";
     echo "<div class='log_titulo'>REGISTRO DE IMPORTACIÓN</div>";
     echo "<div class='log_cuerpo'>";
-    echo "<h5> " . $total_puestos . " <span> puestos nuevos importados</span></h5>";
-    echo "<h5> " . $total_departamentos . " <span>departamentos nuevos importados</span></h5>";
+    echo "<h5> Se han agregado " . $total_plazas . " <span>plazas en total.</span></h5>";
+    echo "<h5> Se encontraron " . $total_puestos . " <span> puestos nuevos.</span></h5>";
+    echo "<h5> Se encontraron " . $total_departamentos . " <span> departamentos nuevos.</span></h5>";
 
     if (sizeof($errores) > 0) {
         echo "<h5>La siguiente lista muesta las filas no importadas. </h5>";

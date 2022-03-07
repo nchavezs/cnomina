@@ -108,14 +108,14 @@ for ($row = 2; $row <= $highestRow; ++$row) {
 
     if ($consulta && mysqli_num_rows($consulta) == 0) {
         $sql = "SELECT id_trabajador FROM Trabajador WHERE nombre = '".$trabajador."'";
-        $conexion->query($sql);
+        $consulta = $conexion->query($sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
-            $id_trabajador = mysqli_fetch_array($consulta);
+            $id_trabajador = mysqli_fetch_row($consulta);
             
             $sql = "INSERT INTO Puesto(nombre, id_departamento, id_trabajador) VALUES(
                 NULLIF('" . $puesto . "', ''),
                 " . $id_depa . ",
-                ".$id_trabajador."
+                ".$id_trabajador[0]."
             )";
     
             if ($conexion->query($sql)) {
