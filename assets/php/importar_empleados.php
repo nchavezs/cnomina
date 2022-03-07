@@ -60,7 +60,7 @@ function eliminar_simbolos($string)
     );
 
     $string = str_replace('  ', ' ', $string);
-    
+
     return $string;
 }
 
@@ -126,133 +126,141 @@ if ($formato) {
 
         mysqli_autocommit($conexion, true);
 
-        $sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "'";
+        $sql = "SELECT * FROM Empleado WHERE id_empleado = " . $id_empleado;
         $consulta = $conexion->query($sql);
 
         if ($consulta && mysqli_num_rows($consulta) == 0) {
-            if (validar_fecha($fechaRelLab)) {
-                $sql = "SELECT * FROM Plaza WHERE id_plaza = " . $plaza;
-                $consulta = $conexion->query($sql);
+            $sql = "SELECT * FROM Usuario WHERE RFC = '" . $RFC . "'";
+            $consulta = $conexion->query($sql);
 
-                if ($consulta && mysqli_num_rows($consulta) > 0) {
-                    $res = mysqli_fetch_array($consulta);
+            if ($consulta && mysqli_num_rows($consulta) == 0) {
+                if (validar_fecha($fechaRelLab)) {
+                    $sql = "SELECT * FROM Plaza WHERE id_plaza = " . $plaza;
+                    $consulta = $conexion->query($sql);
 
-                    if ($res["RFC"] == null) {
-                        $puesto = $res["id_puesto"];
+                    if ($consulta && mysqli_num_rows($consulta) > 0) {
+                        $res = mysqli_fetch_array($consulta);
 
-                        $sql = "SELECT id_periodo FROM Periodo WHERE nombre = '" . $periodo . "'";
-                        $consulta = $conexion->query($sql);
-                        if ($consulta && mysqli_num_rows($consulta) > 0) {
-                            $res = mysqli_fetch_row($consulta);
-                            $periodo = $res[0];
-                        }
-                        // -------------------------------------------------------------------------------------
-                        mysqli_autocommit($conexion, false);
+                        if ($res["RFC"] == null) {
+                            $puesto = $res["id_puesto"];
 
-                        $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
-                        'user',
-                        '" . $password . "',
-                        '" . $nombreEmpleado . "',
-                        '" . $RFC . "')";
+                            $sql = "SELECT id_periodo FROM Periodo WHERE nombre = '" . $periodo . "'";
+                            $consulta = $conexion->query($sql);
+                            if ($consulta && mysqli_num_rows($consulta) > 0) {
+                                $res = mysqli_fetch_row($consulta);
+                                $periodo = $res[0];
+                            }
+                            // -------------------------------------------------------------------------------------
+                            mysqli_autocommit($conexion, false);
 
-                        $sql2 = "INSERT INTO Empleado(
-                        id_empleado,
-                        RFC,
-                        CURP,
-                        fechaRelLab,
-                        id_puesto,
-                        banca,
-                        afiliacion,
-                        apellidop,
-                        apellidom,
-                        nombres,
-                        id_periodo) VALUES(
-                        " . $id_empleado . ",
-                        '" . $RFC . "',
-                        '" . $CURP . "',
-                        '" . $fechaRelLab . "',
-                        " . $puesto . ",
-                        NULLIF('" . $banca . "', ''),
-                        NULLIF('" . $afiliacion . "',''),
-                        '" . $apellidop . "' ,
-                        '" . $apellidom . "',
-                        '" . $nombres . "',
-                        " . $periodo . ")";
+                            $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC) VALUES(
+                            'user',
+                            '" . $password . "',
+                            '" . $nombreEmpleado . "',
+                            '" . $RFC . "')";
 
-                        // -------------------------------------------------------------------------------------
-                        $ano_actual = date("Y");
-                        $ano_fecha = date("Y", strtotime(str_replace("/", "-", $fechaRelLab)));
+                            $sql2 = "INSERT INTO Empleado(
+                            id_empleado,
+                            RFC,
+                            CURP,
+                            fechaRelLab,
+                            id_puesto,
+                            banca,
+                            afiliacion,
+                            apellidop,
+                            apellidom,
+                            nombres,
+                            id_periodo) VALUES(
+                            " . $id_empleado . ",
+                            '" . $RFC . "',
+                            '" . $CURP . "',
+                            '" . $fechaRelLab . "',
+                            " . $puesto . ",
+                            NULLIF('" . $banca . "', ''),
+                            NULLIF('" . $afiliacion . "',''),
+                            '" . $apellidop . "' ,
+                            '" . $apellidom . "',
+                            '" . $nombres . "',
+                            " . $periodo . ")";
 
-                        if ($ano_actual == $ano_fecha) {
-                            $fecha_inicio = $fechaRelLab;
+                            // -------------------------------------------------------------------------------------
+                            $ano_actual = date("Y");
+                            $ano_fecha = date("Y", strtotime(str_replace("/", "-", $fechaRelLab)));
+
+                            if ($ano_actual == $ano_fecha) {
+                                $fecha_inicio = $fechaRelLab;
+                            } else {
+                                $fecha_inicio = "01/01/" . $ano_actual;
+                            }
+                            // -------------------------------------------------------------------------------------
+
+                            $sql3 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
+
+                            $sql4 = "INSERT INTO Historial_Plaza(
+                            id_plaza,
+                            fecha_inicio,
+                            RFC) VALUES(
+                            " . $plaza . ",
+                            STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
+                            '" . $RFC . "')";
+
+                            $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina)
+                            VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado'," . $id_prenomina . ")";
+
+                            if (!$conexion->query($sql1)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+                            if (!$conexion->query($sql2)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+                            if (!$conexion->query($sql3)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+                            if (!$conexion->query($sql4)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+
+                            if (!$conexion->query($sql5)) {
+                                $errors[] = $conexion->error;
+                                foreach ($errors as $error) {
+                                    array_push($errores, $error);
+                                }
+                            }
+
+                            if (count($errors) === 0) {
+                                $conexion->commit();
+                                $total++;
+                            } else {
+                                $conexion->rollback();
+                            }
                         } else {
-                            $fecha_inicio = "01/01/" . $ano_actual;
-                        }
-                        // -------------------------------------------------------------------------------------
-
-                        $sql3 = "UPDATE Plaza SET RFC = '" . $RFC . "' WHERE id_plaza = " . $plaza;
-
-                        $sql4 = "INSERT INTO Historial_Plaza(
-                        id_plaza,
-                        fecha_inicio,
-                        RFC) VALUES(
-                        " . $plaza . ",
-                        STR_TO_DATE('" . $fecha_inicio . "','%d/%m/%Y'),
-                        '" . $RFC . "')";
-
-                        $sql5 = "INSERT INTO Historial(RFC,fecha,tipo,descripcion,id_prenomina) 
-                        VALUES('" . $RFC . "', STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y'),'alta', 'alta de empleado',".$id_prenomina.")";
-
-                        if (!$conexion->query($sql1)) {
-                            $errors[] = $conexion->error;
-                            foreach ($errors as $error) {
-                                array_push($errores, $error);
-                            }
-                        }
-                        if (!$conexion->query($sql2)) {
-                            $errors[] = $conexion->error;
-                            foreach ($errors as $error) {
-                                array_push($errores, $error);
-                            }
-                        }
-                        if (!$conexion->query($sql3)) {
-                            $errors[] = $conexion->error;
-                            foreach ($errors as $error) {
-                                array_push($errores, $error);
-                            }
-                        }
-                        if (!$conexion->query($sql4)) {
-                            $errors[] = $conexion->error;
-                            foreach ($errors as $error) {
-                                array_push($errores, $error);
-                            }
-                        }
-
-                        if (!$conexion->query($sql5)) {
-                            $errors[] = $conexion->error;
-                            foreach ($errors as $error) {
-                                array_push($errores, $error);
-                            }
-                        }
-
-                        if (count($errors) === 0) {
-                            $conexion->commit();
-                            $total++;
-                        } else {
-                            $conexion->rollback();
+                            array_push($errores, 'FILA ' . $row . ': plaza ocupada');
                         }
                     } else {
-                        array_push($errores, 'FILA ' . $row . ': plaza ocupada');
+                        array_push($errores, 'FILA ' . $row . ': plaza no encontrada');
                     }
                 } else {
-                    array_push($errores, 'FILA ' . $row . ': plaza no encontrada');
+                    array_push($errores, 'FILA ' . $row . ': formato de fecha inválida');
                 }
             } else {
-                array_push($errores, 'FILA ' . $row . ': formato de fecha inválida');
+                array_push($errores, 'FILA ' . $row . ': ya existe un empleado con este RFC');
             }
         } else {
-            array_push($errores, 'FILA ' . $row . ': ya existe un empleado con este RFC');
+            array_push($errores, 'FILA ' . $row . ': ya existe un empleado con este ID de empleado');
         }
+
     }
 
     $conexion->close();

@@ -79,7 +79,7 @@ if ($query && $total > 0) {
             while ($beneficiario = mysqli_fetch_array($consulta)) {
                 $html = $html . '<tr>
                                     <td class="desc">' . ++$contador . '</td>
-                                    <td class="desc">' . ucwords(mb_strtolower($beneficiario["nombre"])) . '</td>
+                                    <td class="desc">' . ucwords(mb_strtolower($beneficiario["beneficiario"])) . '</td>
                                     <td class="desc">' . ucfirst(mb_strtolower($beneficiario["parentesco"])) . '</td>
                                 </tr>';
             }
@@ -327,7 +327,7 @@ if ($query && $total > 0) {
             while ($baja = mysqli_fetch_array($consulta)) {
                 $html = $html . '<tr>
                                     <td class="desc">' . strftime("%d de %B de %G", strtotime($baja["fecha"])) . '</td>
-                                    <td class="desc">' . ucfirst($baja["descripcion"]) . '</td>
+                                    <td class="desc">' . ucfirst($baja["razon"]) . '</td>
                                 </tr>';
             }
             $html = $html . '</tbody>
@@ -344,7 +344,7 @@ if ($query && $total > 0) {
         }
     }
     if ($bandera) {
-        $nombre = "reporte_".time().".xlsx";
+        $nombre = "reporte_".time().".pdf";
         $mpdf->Output('../archivos/'.$nombre, 'F');
         echo 'assets/archivos/'.$nombre;
     } else {
