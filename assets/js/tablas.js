@@ -18,6 +18,7 @@ function tablas() {
             "mes": mes
         },
         success: function(html) {
+            console.log(html);
             $("#tablas").html(html);
         },
         error: function() {}
