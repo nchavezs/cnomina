@@ -20,9 +20,10 @@ $sheet->setCellValue('B1', 'PLAZAS');
 $sheet->setCellValue('C1', 'CATEGORIA');
 
 $sql = "SELECT nombre AS puesto,
-(SELECT nombre FROM Trabajador WHERE id_trabajador = Puesto.id_trabajador LIMIT 1) AS categoria,
-(SELECT COUNT(*) FROM Plaza WHERE id_puesto IN (SELECT id_puesto FROM Puesto WHERE nombre = puesto AND estado = 1)) AS plazas 
-FROM Puesto GROUP BY nombre,categoria";
+id_trabajador AS trabajador,
+(SELECT nombre FROM Trabajador WHERE id_trabajador = trabajador LIMIT 1) AS categoria,
+(SELECT COUNT(*) FROM Plaza WHERE id_puesto IN (SELECT id_puesto FROM Puesto WHERE nombre = puesto AND estado = 1 AND id_trabajador = trabajador)) AS plazas 
+FROM Puesto GROUP BY nombre,categoria,trabajador";
 
 $consulta = $conexion->query($sql);
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {

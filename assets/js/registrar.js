@@ -95,101 +95,109 @@ $(document).ready(function () {
     });
 
     $("#nuevo-empleado").click(function () {
-        mensaje_cargar();
-        $.post("assets/php/nuevoEmpleado.php", function (html) {
-            Swal.fire({
-                position: 'center',
-                html: html,
-                width: '60em',
-                showCloseButton: true,
-                allowOutsideClick: false,
-                showConfirmButton: false
-            });
+        $.post("assets/php/verificar_periodo.php", function (datos) {
+            let data = JSON.parse(datos);
+            if (data.success) {
+                mensaje_cargar();
+                $.post("assets/php/nuevoEmpleado.php", function (html) {
+                    Swal.fire({
+                        position: 'center',
+                        html: html,
+                        width: '60em',
+                        showCloseButton: true,
+                        allowOutsideClick: false,
+                        showConfirmButton: false
+                    });
 
-            $(".pagina_2_boton").click(function () {
-                $(".pagina_2").addClass("adp-hide");
-                ADP.show($(".pagina_1")[0], 'fade');
-                $(".pagina_1").removeClass("adp-hide");
-            });
+                    $(".pagina_2_boton").click(function () {
+                        $(".pagina_2").addClass("adp-hide");
+                        ADP.show($(".pagina_1")[0], 'fade');
+                        $(".pagina_1").removeClass("adp-hide");
+                    });
 
-            select_estilo();
-            depa_change();
-            puesto_change();
-            $("#nombre").blur();
+                    select_estilo();
+                    depa_change();
+                    puesto_change();
+                    $("#nombre").blur();
 
 
-            $.post("assets/php/verificar_tope", function (datos) {
-                let data = JSON.parse(datos);
-                $('#fecha').datepicker({
-                    minDate: new Date(data.del),
-                    maxDate: new Date(data.al),
-                    language: 'es',
-                    autoClose: 'true',
-                    toggleSelected: false,
-                    onSelect(formattedDate, date, inst) {
-                        $("#puesto").change();
-                    }
-                });
-            });
-
-            $("#form-empleado-1").submit(function (e) {
-                e.preventDefault();
-                $(".pagina_1").addClass("adp-hide");
-                ADP.show($(".pagina_2")[0], 'fade');
-                $(".pagina_2").removeClass("adp-hide");
-            });
-
-            $("#form-empleado-2").submit(function (e) {
-                e.preventDefault();
-                if ($("#plaza").val() == null) {
-                    md.showNotification("top", "right", "Completa todos los campos.");
-                } else {
-                    let retroactivo = 0;
-                    if ($("#retroactivo").is(":checked")) {
-                        retroactivo = 1;
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: "assets/php/agregarEmpleado.php",
-                        data: {
-                            "ingreso": $("#fecha").val(),
-                            "numero": $("#numero").val(),
-                            "nombre": $("#nombre").val(),
-                            "rfc": $("#rfc").val(),
-                            "curp": $("#curp").val(),
-                            "puesto": $("#puesto").val(),
-                            "plaza": $("#plaza").val(),
-                            "banca": $("#banca").val(),
-                            "afiliacion": $("#afiliacion").val(),
-                            "nombres": $("#nombres").val(),
-                            "apellidop": $("#apellidop").val(),
-                            "apellidom": $("#apellidom").val(),
-                            "plaza": $("#plaza").val(),
-                            "periodo": $("#periodo").val(),
-                            "domicilio": $("#domicilio").val(),
-                            "email": $("#email").val(),
-                            "retroactivo": retroactivo
-                        },
-                        success: function (data) {
-                            if (data == 1) {
-                                Swal.fire({
-                                    title: 'Correcto',
-                                    text: 'Empleado registrado',
-                                    type: 'success',
-                                });
-                                $('#tabla-empleado').DataTable().ajax.reload();
-                            } else if (data == 2) {
-                                md.showNotification("top", "right", "Este RFC ya se encuentra registrado.");
-                            } else if (data == 3) {
-                                md.showNotification("top", "right", "Este número de empleado ya se encuentra registrado.");
-                            } else {
-                                md.showNotification("top", "right", "Error el empleado no fue registrado.");
+                    $.post("assets/php/verificar_tope", function (datos) {
+                        let data = JSON.parse(datos);
+                        $('#fecha').datepicker({
+                            minDate: new Date(data.del),
+                            maxDate: new Date(data.al),
+                            language: 'es',
+                            autoClose: 'true',
+                            toggleSelected: false,
+                            onSelect(formattedDate, date, inst) {
+                                $("#puesto").change();
                             }
+                        });
+                    });
+
+                    $("#form-empleado-1").submit(function (e) {
+                        e.preventDefault();
+                        $(".pagina_1").addClass("adp-hide");
+                        ADP.show($(".pagina_2")[0], 'fade');
+                        $(".pagina_2").removeClass("adp-hide");
+                    });
+
+                    $("#form-empleado-2").submit(function (e) {
+                        e.preventDefault();
+                        if ($("#plaza").val() == null) {
+                            md.showNotification("top", "right", "Completa todos los campos.");
+                        } else {
+                            let retroactivo = 0;
+                            if ($("#retroactivo").is(":checked")) {
+                                retroactivo = 1;
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: "assets/php/agregarEmpleado.php",
+                                data: {
+                                    "ingreso": $("#fecha").val(),
+                                    "numero": $("#numero").val(),
+                                    "nombre": $("#nombre").val(),
+                                    "rfc": $("#rfc").val(),
+                                    "curp": $("#curp").val(),
+                                    "puesto": $("#puesto").val(),
+                                    "plaza": $("#plaza").val(),
+                                    "banca": $("#banca").val(),
+                                    "afiliacion": $("#afiliacion").val(),
+                                    "nombres": $("#nombres").val(),
+                                    "apellidop": $("#apellidop").val(),
+                                    "apellidom": $("#apellidom").val(),
+                                    "plaza": $("#plaza").val(),
+                                    "periodo": $("#periodo").val(),
+                                    "domicilio": $("#domicilio").val(),
+                                    "email": $("#email").val(),
+                                    "retroactivo": retroactivo
+                                },
+                                success: function (data) {
+                                    if (data == 1) {
+                                        Swal.fire({
+                                            title: 'Correcto',
+                                            text: 'Empleado registrado',
+                                            type: 'success',
+                                        });
+                                        $('#tabla-empleado').DataTable().ajax.reload();
+                                    } else if (data == 2) {
+                                        md.showNotification("top", "right", "Este RFC ya se encuentra registrado.");
+                                    } else if (data == 3) {
+                                        md.showNotification("top", "right", "Este número de empleado ya se encuentra registrado.");
+                                    } else {
+                                        md.showNotification("top", "right", "Error el empleado no fue registrado.");
+                                    }
+                                }
+                            });
                         }
                     });
-                }
-            });
+                });
+            } else {
+                mensaje_error(data);
+            }
         });
+
     });
 
     let table = $('#tabla-empleado').DataTable({
@@ -222,10 +230,9 @@ $(document).ready(function () {
                 "targets": [4, 5]
             }
         ],
-        "columns": [
-            {
-                "render": function(data,type,row){
-                    return "<i class='material-icons'>fingerprint</i> "+row.id_empleado;
+        "columns": [{
+                "render": function (data, type, row) {
+                    return "<i class='material-icons'>fingerprint</i> " + row.id_empleado;
                 }
             },
             {
@@ -245,8 +252,8 @@ $(document).ready(function () {
             {
                 "render": function (data, type, row) {
 
-                    return '<span class="boton_tabla text-primary mr-3" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>'+
-                    '<span class="boton_tabla text-danger" onclick="eliminar_usuario(\'' + row.RFC + '\',event);"><i class="material-icons">delete</i> </span>';
+                    return '<span class="boton_tabla text-primary mr-3" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>' +
+                        '<span class="boton_tabla text-danger" onclick="eliminar_usuario(\'' + row.RFC + '\',event);"><i class="material-icons">delete</i> </span>';
                 }
             }
         ]
@@ -301,9 +308,7 @@ function mensaje_error(data) {
 
 
 function baja(id) {
-    $.post("assets/php/verificar_periodo.php", {
-        "id": id
-    }, function (datos) {
+    $.post("assets/php/verificar_periodo.php", function (datos) {
         let data = JSON.parse(datos);
         if (data.success) {
             $.ajax({
@@ -405,9 +410,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
 };
 
 function reingreso(id) {
-    $.post("assets/php/verificar_periodo.php", {
-        "id": id
-    }, function (datos) {
+    $.post("assets/php/verificar_periodo.php", function (datos) {
         let data = JSON.parse(datos);
         if (data.success) {
             $.ajax({
