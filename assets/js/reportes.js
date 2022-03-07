@@ -61,7 +61,6 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-               alert(data);
                // let verificar = data.includes("assets/archivos/");
 
                // if (verificar) {
