@@ -1371,6 +1371,14 @@ function expediente_menu(id) {
         nombre = 'constancia';
         $("#expediente_file").click();
     });
+    $(".recomendacion").click(function () {
+        nombre = 'recomendacion';
+        $("#expediente_file").click();
+    });
+    $(".estudios").click(function () {
+        nombre = 'estudios';
+        $("#expediente_file").click();
+    });
 }
 
 function descargar_expediente(id, nombre) {

@@ -216,6 +216,60 @@ if (isset($expediente['constancia'])) {
         </div>';
 }
 
+if (isset($expediente['recomendacion'])) {
+    echo '<div class="col-md-4">
+            <div class="expediente_caja">
+                <button name="recomendacion" class="descargar" data-hover="descargar">
+                    <div><i class="material-icons done">download_for_offline</i></div>
+                </button>
+                <p>Recomendación</p>
+                <div class="opciones_expediente_caja">
+                    <div class="opciones_expediente_icono constancia"><i class="material-icons">upload_file</i>Cargar</div>
+                    <div onclick="eliminar_expediente(\''.$id.'\', \'recomendacion\');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
+                </div>
+            </div>
+        </div>';
+} else {
+    echo '<div class="col-md-4">
+            <div class="expediente_caja">
+                <button class="recomendacion" data-hover="Cargar archivo">
+                    <div><i class="material-icons">manage_search</i></div>
+                </button>
+                <p>Recomendación</p>
+                <div class="opciones_expediente_caja">
+                    <div class="opciones_expediente_vacio recomendacion"><i class="material-icons">upload_file</i>Seleccionar archivo  </div>
+                </div>
+            </div>
+        </div>';
+}
+
+if (isset($expediente['estudios'])) {
+    echo '<div class="col-md-4">
+            <div class="expediente_caja">
+                <button name="estudios" class="descargar" data-hover="descargar">
+                    <div><i class="material-icons done">download_for_offline</i></div>
+                </button>
+                <p>últimos estudios</p>
+                <div class="opciones_expediente_caja">
+                    <div class="opciones_expediente_icono estudios"><i class="material-icons">upload_file</i>Cargar</div>
+                    <div onclick="eliminar_expediente(\''.$id.'\', \'estudios\');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
+                </div>
+            </div>
+        </div>';
+} else {
+    echo '<div class="col-md-4">
+            <div class="expediente_caja">
+                <button class="estudios" data-hover="Cargar archivo">
+                    <div><i class="material-icons">manage_search</i></div>
+                </button>
+                <p>últimos estudios</p>
+                <div class="opciones_expediente_caja">
+                    <div class="opciones_expediente_vacio estudios"><i class="material-icons">upload_file</i>Seleccionar archivo  </div>
+                </div>
+            </div>
+        </div>';
+}
+
 echo '</div>
     </div>
 </div>';

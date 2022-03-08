@@ -14,7 +14,7 @@ if (rol() != 1) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Consulta Nómina</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
 	<link href="assets/css/material-dashboard.css?v=3.6.3" rel="stylesheet" />
