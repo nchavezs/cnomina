@@ -132,9 +132,8 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
 
             $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
             for ($i = 0; $i < $cantidad; $i++) {
-                if ($conexion->query($sql)) {
-                    $total_plazas++;
-                }
+                $conexion->query($sql);
+                $total_plazas++;
             }
         } else if ($consulta && $total == 0) {
             $sql = "SELECT * FROM Trabajador WHERE nombre = '" . $trabajador . "'";
@@ -150,7 +149,8 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
                     $id_puesto = mysqli_insert_id($conexion);
                     $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
                     for ($i = 0; $i < $cantidad; $i++) {
-                        $consulta = $conexion->query($sql);
+                        $conexion->query($sql);
+                        $total_plazas++;
                     }
                     $total_puestos++;
                 } else {

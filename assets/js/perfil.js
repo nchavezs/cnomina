@@ -14,13 +14,14 @@ $(document).ready(function () {
                 Swal.fire({
                     html: html,
                     width: '50em',
+                    background: "#EEEEEE",
                     showConfirmButton: false,
                     showCloseButton: true
                 });
+                expediente_menu($("#id").val());
 
                 $(".descargar").click(function () {
-                    var id = $("#id").val();
-                    descargar_expediente(id, this.name);
+                    descargar_expediente($("#id").val(), this.name);
                 })
             }
         });
@@ -32,9 +33,29 @@ $(document).ready(function () {
             type: "POST",
             url: "assets/php/datosUsuario.php",
             data: {
-                nombre: $("#nombre").val(),
                 telefono: $("#telefono").val(),
-                email: $("#email").val()
+                email: $("#email").val(),
+                nombre: $("#nombre").val(),
+            },
+            success: function (data) {
+                if (data == 1) {
+                    ok2();
+                }
+            }
+        });
+    });
+
+    $("#form-empleado").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "assets/php/datos_empleado.php",
+            data: {
+                telefono: $("#telefono").val(),
+                email: $("#email").val(),
+                banca: $("#banca").val(),
+                domicilio: $("#domicilio").val(),
+                afiliacion: $("#afiliacion").val()
             },
             success: function (data) {
                 if (data == 1) {
@@ -56,8 +77,8 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonText: 'Si, continuar',
             cancelButtonText: 'Cancelar',
-            
-            
+
+
         }).then(function (result) {
             if (result.value) {
                 eliminando();
@@ -72,7 +93,7 @@ $(document).ready(function () {
                                 text: 'Recibos de nómina eliminados',
                                 type: 'success',
 
-                                
+
                             })
                         } else {
                             Swal.fire({
@@ -80,7 +101,7 @@ $(document).ready(function () {
                                 text: 'No fue posible eliminar los recibos de nómina',
                                 type: 'error',
 
-                                
+
                             })
                         }
                     }
@@ -95,7 +116,7 @@ $(document).ready(function () {
             message: "<div class='circulo'></div><h5>Cargando foto de perfil ...</h5>",
         });
         var formData = new FormData();
-        var files = $('#archivo')[0].files[0];  
+        var files = $('#archivo')[0].files[0];
         formData.append('file', files);
         $.ajax({
             url: 'assets/php/foto_perfil.php',
@@ -149,7 +170,7 @@ function eliminando() {
         title: 'Eliminando',
         html: 'Espere porfavor',
         allowOutsideClick: false,
-        
+
 
         onBeforeOpen: () => {
             Swal.showLoading()
@@ -171,7 +192,7 @@ function error() {
         text: 'No se actualizó tu contraseña',
         type: 'error',
 
-        
+
     })
 };
 
@@ -181,7 +202,7 @@ function formato() {
         text: 'Formato de archivo no válido',
         type: 'error',
 
-        
+
     })
 };
 
@@ -191,7 +212,7 @@ function ok() {
         text: 'Contraseña actualizada',
         type: 'success',
 
-        
+
     })
 };
 
@@ -201,7 +222,7 @@ function ok2() {
         text: 'Datos actualizados',
         type: 'success',
 
-        
+
     })
 };
 
@@ -211,7 +232,7 @@ function imagen() {
         text: 'Foto de perfil actualizada',
         type: 'success',
 
-        
+
     })
 };
 
@@ -221,7 +242,7 @@ function warning() {
         text: 'Los campos no coinciden',
         type: 'error',
 
-        
+
     })
 };
 
@@ -251,4 +272,130 @@ function descargar_expediente(id, nombre) {
             descargar(url, nombre);
         }
     });
+};
+
+
+function expediente_menu(id) {
+    var nombre = "";
+    $("#expediente_file").on('change', function () {
+        if ($(this).val() !== "" && nombre !== "") {
+            $.blockUI({
+                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+            });
+
+            var formData = new FormData();
+            var files = $(this)[0].files[0];
+            formData.append("file", files);
+            formData.append("nombre", nombre);
+            formData.append("id", id);
+
+            $.ajax({
+                url: "assets/php/expedienteArchivo.php",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $("#expediente_file").val("");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/php/usuario/expediente/expediente.php",
+                        data: {
+                            "id": id
+                        },
+                        success: function (html) {
+                            $(".expediente").html(html);
+                            expediente_menu(id);
+                        }
+                    });
+
+                    $.unblockUI();
+                    md.showNotification("top", "right", "Archivo cargado correctamente.");
+
+                }
+            });
+        }
+    });
+
+    $(".descargar").click(function () {
+        nombre = this.name + "";
+        descargar_expediente(id, nombre);
+    });
+
+    $(".acta").click(function () {
+        nombre = 'acta';
+        $("#expediente_file").click();
+    });
+
+    $(".curp").click(function () {
+        nombre = 'curp';
+        $("#expediente_file").click();
+    });
+
+    $(".curriculum").click(function () {
+        nombre = 'curriculum';
+        $("#expediente_file").click();
+    });
+
+    $(".antecedentes").click(function () {
+        nombre = 'antecedentes';
+        $("#expediente_file").click();
+    });
+
+    $(".disciplinarios").click(function () {
+        nombre = 'disciplinarios';
+        $("#expediente_file").click();
+    });
+
+    $(".identificacion").click(function () {
+        nombre = 'identificacion';
+        $("#expediente_file").click();
+    });
+
+    $(".constancia").click(function () {
+        nombre = 'constancia';
+        $("#expediente_file").click();
+    });
+    $(".recomendacion").click(function () {
+        nombre = 'recomendacion';
+        $("#expediente_file").click();
+    });
+    $(".estudios").click(function () {
+        nombre = 'estudios';
+        $("#expediente_file").click();
+    });
+}
+
+function eliminar_expediente(id, nombre) {
+    $("#modal .modal_titulo").html("Eliminar archivo");
+    $("#modal .modal-body").html('¿Seguro que quieres eliminar este archivo?');
+    mostrar_modal();
+    $("#modal_aceptar").off().click(function () {
+        $.ajax({
+            type: "POST",
+            url: "assets/php/eliminarExpediente.php",
+            data: {
+                "id": id,
+                "nombre": nombre
+            },
+            success: function (data) {
+                md.showNotification("top", "right", "Archivo eliminado correctamente.");
+                ocultar_modal();
+                $.ajax({
+                    type: "POST",
+                    url: "assets/php/usuario/expediente/expediente.php",
+                    data: {
+                        "id": id
+                    },
+                    success: function (html) {
+                        $(".expediente").html(html);
+                        expediente_menu(id);
+                    }
+                });
+
+            }
+        });
+    })
 };

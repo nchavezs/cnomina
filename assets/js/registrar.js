@@ -691,32 +691,27 @@ function verNominas(id) {
         },
         success: function (html) {
             $(".ver_contenedor").html(html);
-
             select_estilo_3();
-
-            tablas_nominas(id);
-            $(".sources").change(function () {
-                tablas_nominas(id);
-            });
-        }
-    });
-};
-
-function tablas_nominas(id) {
-    var ano = $("#ano :selected").val();
-    $.ajax({
-        type: "POST",
-        url: "assets/php/mostrarRecibos.php",
-        data: {
-            "ano": ano,
-            "id": id
-        },
-        success: function (html) {
             $(".caja-recibos").perfectScrollbar();
-            $(".caja-recibos").html(html);
         }
     });
 };
+
+// function tablas_nominas(id) {
+//     var ano = $("#ano :selected").val();
+//     $.ajax({
+//         type: "POST",
+//         url: "assets/php/mostrarRecibos.php",
+//         data: {
+//             "ano": ano,
+//             "id": id
+//         },
+//         success: function (html) {
+//             $(".caja-recibos").perfectScrollbar();
+//             $(".caja-recibos").html(html);
+//         }
+//     });
+// };
 
 
 function tablas(id) {
@@ -1414,8 +1409,6 @@ function eliminar_expediente(id, nombre) {
             }
         });
     })
-
-
 };
 
 function verGastos(id) {

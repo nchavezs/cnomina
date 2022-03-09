@@ -61,13 +61,9 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-               // let verificar = data.includes("assets/archivos/");
-
-               // if (verificar) {
-                  window.open(data, '_blank');
-               // } else {
-               //    md.showNotification("top", "right", data);
-               // }
+             
+               descargar(data, "Reporte Usuario");
+              
 
                $("#reporte_usuario").prop("disabled", false);
                Swal.close();
@@ -155,7 +151,7 @@ $(document).ready(function () {
                let verificar = data.includes("assets/archivos/");
 
                if (verificar) {
-                  window.open(data, '_blank');
+                  descargar(data, "Reporte General");
                } else {
                   md.showNotification("top", "right", data);
                }
@@ -195,7 +191,7 @@ function reporte_historial(del, al, puestos, departamentos, plazas, boton) {
             let verificar = data.includes("assets/archivos/");
 
             if (verificar) {
-               window.open(data, '_blank');
+               descargar(data, "Reporte Historial");
             } else {
                md.showNotification("top", "right", data);
             }
@@ -223,7 +219,7 @@ function reporte_descripcion(del, al, puestos, departamentos, boton) {
          let verificar = data.includes("assets/archivos/");
 
          if (verificar) {
-            window.open(data, '_blank');
+            descargar(data, "Reporte Plazas");
          } else {
             md.showNotification("top", "right", data);
          }
