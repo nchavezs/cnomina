@@ -19,9 +19,9 @@ include "assets/php/main_user.php";
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
 	<link href="assets/css/animate.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.6.3" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.6.4" rel="stylesheet" />
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.6.3" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.6.4" rel="stylesheet" />
 
 </head>
 
@@ -162,9 +162,9 @@ include "assets/php/main_user.php";
 					<div class="mensajeria_vacio">
 						<img src="assets/img/chat.svg" alt="">
 						<h2 class="text-primary my-4 negrita">Inicia una conversación</h2>
-						<p>Puedes enviar y recibir mensajes en conversaciones con los usuarios.</p>
-						<hr>
-						<p>No dudes en ponerte en contacto con nosotros diréctamente desde <span class="text-warning soporte" onclick="soporte();">aquí</span> en caso de que tengas alguna duda o sugerencias o envianos un correo a <a class="text-primary" href="mailto:info@consultanominacomonfort.com">info@consultanominacomonfort.com</a> .</p>
+						<p>Envía y recibe mensajes, cualquier duda o aclaración, comunícate con tu administrador.</p>
+						<!-- <hr> -->
+						<!-- <p>No dudes en ponerte en contacto con nosotros diréctamente desde <span class="text-warning soporte" onclick="soporte();">aquí</span> en caso de que tengas alguna duda o sugerencias o envianos un correo a <a class="text-primary" href="mailto:info@consultanominacomonfort.com">info@consultanominacomonfort.com</a> .</p> -->
 					</div>
 					<div class="mensajeria_caja adp-hide">
 						<div class="mensajeria_usuario"><i class="material-icons regresar">keyboard_backspace</i> <img src="assets/img/user.png" alt=""><span></span></div>
@@ -192,12 +192,12 @@ include "assets/php/main_user.php";
 	<script src="assets/js/plugins/sweetalert2.min.js"></script>
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.6.3" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.6.4" type="text/javascript"></script>
 	<script src="assets/js/block.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.6.3"></script>
-	<script src="assets/js/mensajes-user.js?v=3.6.3"></script>
+	<script src="assets/js/sesion.js?v=3.6.4"></script>
+	<script src="assets/js/mensajes-user.js?v=3.6.4"></script>
 
 </body>
 
