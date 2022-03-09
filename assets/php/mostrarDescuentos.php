@@ -14,7 +14,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<thead class=" text-primary">
 					<th class="titulo">Descuentos</th>
 					<th class="titulo">Motivo</th>
-					<th class="col-puesto">Archivo</th>
+					<th class="oculto">Archivo</th>
 					<th class="titulo">Detalle</th>
 					<th class="titulo">Eliminar</th>
 				</thead>
@@ -24,7 +24,7 @@ if (mysqli_num_rows($consulta) > 0) {
         echo '<tr>
 				<td>' . $res["dias"] . '</td>
 				<td class="text-left">' . $res["motivo"] . '</td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $res["RFC"] . '\',\'Descuento\',0)">attachment</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $res["RFC"] . '\',\'Descuento\',0)">attachment</a></td>
 				<td> <a class="material-icons btn1"  onclick="detalle_descuento('.$res[0].')" >visibility</a></td>
 				<td> <a class="material-icons btn1"  onclick="borrar_descuento('.$res[0].')">delete</a></td>
 			</tr>';

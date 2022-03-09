@@ -24,7 +24,7 @@ $html = '<div class="card card-profile">
 							$fechas = explode(",", $descuento["fechas"]);
 							foreach ($fechas as $fecha) {
 								$date = date("Y-m-d", strtotime(str_replace('/', '-', $fecha)));
-								$html = $html . '<h5>• ' . strftime("%d de %B de %G", strtotime($date)) . '</h5>';
+								$html = $html . '<h5>• ' . strftime("%d de %B de %Y", strtotime($date)) . '</h5>';
 							}
 							$html = $html . '<p class="card-category">Descripción:</p>
 							<h5>' . $descuento["motivo"] . '</h5>
@@ -35,7 +35,6 @@ $html = '<div class="card card-profile">
 		</div>';
 
 $datos["html"] = $html;
-$datos["fecha"] = date("d/m/Y", strtotime($descuento["fecha"]));
 $datos["fechas"] = $descuento["fechas"];
 
 echo json_encode($datos);

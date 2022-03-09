@@ -15,8 +15,7 @@ if (mysqli_num_rows($consulta) > 0) {
 			<table class="table">
 				<thead class=" text-primary">
 					<th class="oculto">Dias</th>
-					<th >Fecha del</th>
-					<th >Fecha al</th>
+					<th >Motivo</th>
 					<th >Archivo</th>
 					<th >Detalle</th>
 				</thead>
@@ -33,8 +32,7 @@ if (mysqli_num_rows($consulta) > 0) {
         $min = date_format(date_create(min($fechas)), "d/m/Y");
         echo '<tr>
 				<td class="oculto">' . $res["dias"] . '</td>
-				<td>' . $min . '</td>
-				<td>' . $max . '</td>
+				<td>' . $res["motivo"] . '</td>
 				<td> <a class="material-icons btn1" onclick="archivo(\''.$res["url"].'\')">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_descuento('.$res["id_descuento"].')" >visibility</a></td>
 			</tr>';

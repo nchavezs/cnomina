@@ -12,7 +12,7 @@ if (mysqli_num_rows($consulta) > 0) {
     $html = '<div class="table-responsive">
 				<table class="table">
 					<thead class=" text-primary">
-						<th class="col-puesto">Dias</th>
+						<th class="oculto">Dias</th>
 						<th class="titulo">Fecha del</th>
 						<th class="titulo">Fecha al</th>
 						<th class="titulo">Archivo</th>
@@ -21,7 +21,7 @@ if (mysqli_num_rows($consulta) > 0) {
 					<tbody>';
     while ($res = mysqli_fetch_array($consulta)) {
         $html = $html . '<tr>
-				<td class="col-puesto">' . $res["dias"] . '</td>
+				<td class="oculto">' . $res["dias"] . '</td>
 				<td>' . date("d/m/Y", strtotime($res["del"])) . '</td>
 				<td>' . date("d/m/Y", strtotime($res["al"])) . '</td>
 				<td> <a class="material-icons btn1" onclick="archivo(\'' . $res["url"] . '\')">attachment</a></td>

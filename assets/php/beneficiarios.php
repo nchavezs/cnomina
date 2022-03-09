@@ -34,9 +34,9 @@ if ($total == 0) {
     echo '<div class="card-body table-responsive">
 			<table class="table table-hover">
 			<thead class="text-primary">
-				<th class="col-puesto">#</th>
+				<th class="oculto">#</th>
 				<th>Nombre</th>
-				<th class="col-puesto">Parentesco</th>
+				<th class="oculto">Parentesco</th>
 				<th>Archivo</th>';
 				if($baja == 0){
 					echo '<th>Editar</th>
@@ -49,9 +49,9 @@ if ($total == 0) {
     $resultado = mysqli_query($conexion, $sql2);
     while ($res = mysqli_fetch_row($resultado)) {
         echo '<tr>
-				<td class="col-puesto">' . $c . '</td>
+				<td class="oculto">' . $c . '</td>
 				<td class="bene-nombre">' . mb_strtoupper($res[2]) . '</td>
-				<td class="col-puesto">' . mb_strtoupper($res[3]) . '</td>
+				<td class="oculto">' . mb_strtoupper($res[3]) . '</td>
 				<td> <a class="material-icons btn1" id="'.$res[5].'" onclick="archivo(this.id)">attachment</a></td>';
 				if($baja == 0){
 					echo '<td><a class="material-icons btn1 editar" name="' . $res[2] . '-' . $res[3] . '-' . $res[5] . '" id="' . $res[0] . '">edit</a></td>

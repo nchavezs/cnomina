@@ -12,9 +12,9 @@ if (mysqli_num_rows($consulta) > 0) {
     echo '<div class="table-responsive">
 			<table class="table">
 				<thead class=" text-primary">
-					<th class="titulo">Fecha cambio</th>
-					<th class="col-puesto">Puesto actual</th>
-					<th class="col-puesto">Departamento actual</th>
+					<th class="titulo">Fecha</th>
+					<th class="oculto">Puesto actual</th>
+					<th class="oculto">Departamento actual</th>
 					<th class="titulo">Archivo</th>
 					<th class="titulo">Detalle</th>
 				</thead>
@@ -22,8 +22,8 @@ if (mysqli_num_rows($consulta) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
         echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res[2])) . '</td>
-				<td class="col-puesto">' . $res["puesto"] . '</td>
-				<td class="col-puesto">' . $res["departamento"] . '</td>
+				<td class="oculto">' . $res["puesto"] . '</td>
+				<td class="oculto">' . $res["departamento"] . '</td>
 				<td> <a class="material-icons btn1" onclick="archivo(\''.$res["url"].'\')">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_movimiento('.$res["id_movimiento"].')" >visibility</a></td>
 			</tr>';

@@ -15,7 +15,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<thead class=" text-primary">
 					<th class="titulo">Fecha</th>
 					<th class="titulo">Monto</th>
-					<th class="col-puesto">Archivo</th>
+					<th class="oculto">Archivo</th>
 					<th class="titulo">Detalle</th>
 				</thead>
 				<tbody>';
@@ -23,7 +23,7 @@ if (mysqli_num_rows($consulta) > 0) {
 		echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res['fecha'])) . '</td>
 				<td>$ ' . $res['monto'] . '</td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(\'' . $res['url'] . '\')">attachment</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(\'' . $res['url'] . '\')">attachment</a></td>
 				<td> <a class="material-icons btn1" id="' . $res[0] . '-" onclick="detalle_gastos(this.id)" >visibility</a></td>
 			</tr>';
     }

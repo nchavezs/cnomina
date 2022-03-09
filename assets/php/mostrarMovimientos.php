@@ -25,7 +25,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td>' . date("d/m/Y", strtotime($res[2])) . '</td>
 				<td> <a class="material-icons btn1" onclick="detalle_movimiento('.$res[0].')">visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="formato_movimiento(' . $res[0] . ')">play_for_work</a></td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $id . '\',\'Movimiento\',0)">attachment</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $id . '\',\'Movimiento\',0)">attachment</a></td>
 			</tr>';
     }
     echo '</tbody>

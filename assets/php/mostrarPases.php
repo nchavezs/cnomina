@@ -19,7 +19,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 				<thead class=" text-primary">
 					<th class="titulo">Fecha</th>
 					<th class="titulo">Hora</th>
-					<th class="col-puesto">Archivo</th>
+					<th class="oculto">Archivo</th>
 					<th class="titulo">Detalle</th>
 					<th class="titulo">Eliminar</th>
 				</thead>
@@ -28,7 +28,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res[2])) . '</td>
 				<td>' . $res[3] . '</td>
-				<td class="col-puesto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[6] . '\',\'' . $res[1] . '\',\'Pase\',0)">attachment</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res[6] . '\',\'' . $res[1] . '\',\'Pase\',0)">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_pase('.$res[0].')" >visibility</a></td>
 				<td> <a class="material-icons btn1" onclick="borrar_pase('.$res[0].')">delete</a></td>
 			</tr>';

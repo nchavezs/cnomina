@@ -38,35 +38,29 @@ function detalle(id) {
 		"id": id
 	}, function (datos) {
 		var data = JSON.parse(datos);
-		Swal.fire({
+        Swal.fire({
 			position: 'center',
 			html: data.html,
 			allowOutsideClick: true,
 			showCloseButton: true,
+			background: "#EEEEEE",
 			showConfirmButton: false
 		});
 
-		var fecha2 = data.fecha2.split("/");
-		var fecha3 = data.fecha3.split("/");
-		$('#fecha').datepicker({
-			startDate: new Date(fecha2[2], fecha2[1] - 1, fecha2[0]),
-			language: 'es',
-			minDate: new Date(fecha2[2], fecha2[1] - 1, fecha2[0]),
-			maxDate: new Date(fecha3[2], fecha3[1] - 1, fecha3[0]),
-			onRenderCell: function (date, cellType) {
-				var ano = date.getFullYear();
-				var mes = date.getMonth() + 1;
-				var dia = date.getDay();
-				var fecha = date.getDate();
-
-				if (cellType == 'day' && comprobarFecha(data.fecha2, data.fecha3, date)) {
-					return {
-						html: '<div class="celda-fecha2"><p>' + fecha + '</p></div>'
-					}
-				}
-			},
-			onSelect: function onSelect(fd, date) {}
-		});
+        $('#fecha').datepicker({
+            language: 'es',
+            minDate: new Date(data.del),
+            maxDate: new Date(data.al),
+            startDate: new Date(data.del),
+            onRenderCell: function (date, cellType) {
+                if (cellType == 'day' && comprobarFecha(data.del, data.al, date)) {
+                    return {
+                        html: '<div class="celda-fecha"><p>' + date.getDate() + '</p></div>'
+                    }
+                }
+            },
+            onSelect: function onSelect(fd, date) {}
+        });
 	});
 };
 
