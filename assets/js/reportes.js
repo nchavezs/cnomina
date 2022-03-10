@@ -13,6 +13,7 @@ $(document).ready(function () {
    select_estilo();
    depa_change_multiple();
    puestos_change_multiple();
+  
    $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
 
    $("#descripcion_plaza").change(function () {
