@@ -2,46 +2,48 @@
 include "../../conexion.php";
 $conexion = conexion();
 setlocale(LC_ALL, "spanish");
-$elemento = explode("-", $_POST['id']);
-$id = $elemento[0];
+$id = $_POST['id'];
 
-$sql2 = "SELECT * FROM Pase WHERE id_pase = " . $id;
-$consulta2 = mysqli_query($conexion, $sql2);
-$pase = mysqli_fetch_array($consulta2);
-
+$sql = "SELECT * FROM Pase WHERE id_pase = " . $id;
+$consulta = mysqli_query($conexion, $sql);
+$pase = mysqli_fetch_array($consulta);
 if ($pase[4] == 0) {
-    $categoria = 'ENTRADA';
+    $categoria = 'entrada';
 } else {
-    $categoria = 'SALIDA';
+    $categoria = 'salida';
 }
 
 if ($pase[5] == null) {
-    $obs = 'Sin descripción';
+    $obs = 'Sin observación';
 } else {
     $obs = $pase[5];
 }
 
-$datos["html"] = '<div class="card card-profile">
-					<div class="card-header card-header-primary">
-						<h4 class="card-title">PASE DE ' . $categoria . '</h4>
-						<p class="card-category">' . strftime("%d de %B de %G", strtotime($pase[2])) . '</p>
+$html = '<div class="p-2">
+		<h4 class="negrita text-primary">Detalle de pase</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body centrado">
+						<div id="fecha" class="datepicker-here"></div>
 					</div>
-					<div class="card-body">
-						<div class="row fecha-caja">
-							<div class="col-md-6 fecha-date">
-								<div id="fecha" class="datepicker-here"></div>
-							</div>
-							<div class="col-md-6">
-								<div id="fecha-contenido">
-									<p class="card-category">Hora de pase: <span>' . $pase[3] . '</span></p>
-									<p class="card-category mt-4">Descripción:</p>
-									<h5>' . $obs . '</h5>
-								</div>
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body text-left" id="fecha-contenido">
+						<p class="card-category">Fecha de pase: <span>' . date("d/m/Y", strtotime($pase[2])) . '</span> </p>
+						<p class="card-category">Hora: <span>' . $pase[3] . '</span></p>
+						<br>
+						<p>Observación:</p>
+						<h5>' . $obs . '</h5>
 					</div>
-					</div>';
+				</div>
+			</div>
+		</div>';
 
+$datos["html"] = $html;
 $datos["fecha"] = date("d/m/Y", strtotime($pase[2]));
 $datos["hora"] = $pase[3];
 

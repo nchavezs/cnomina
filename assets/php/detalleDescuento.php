@@ -19,7 +19,7 @@ $html = '<div class="p-2">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card">
-					<div class="card-body">
+					<div class="card-body centrado">
 						<div id="fecha" class="datepicker-here"></div>
 					</div>
 				</div>

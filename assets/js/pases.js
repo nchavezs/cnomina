@@ -60,6 +60,7 @@ function detalle_pase(id) {
 			html: data.html,
 			customClass: 'swal3-width',
 			allowOutsideClick: true,
+			background: "#EEEEEE",
 			showCloseButton: true,
 			showConfirmButton: false
 		});

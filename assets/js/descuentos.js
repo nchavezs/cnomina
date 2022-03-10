@@ -52,9 +52,9 @@ function detalle_descuento(id) {
 		Swal.fire({
 			position: 'center',
 			html: data.html,
-			customClass: 'swal2-width',
 			allowOutsideClick: true,
 			showCloseButton: true,
+			background: "#EEEEEE",
 			showConfirmButton: false
 		});
 

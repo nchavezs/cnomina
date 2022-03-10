@@ -52,7 +52,7 @@ function detalle_gastos(id) {
 		Swal.fire({
 			position: 'center',
 			html: data.html,
-			customClass: 'swal3-width',
+			background: "#EEEEEE",
 			allowOutsideClick: true,
 			showCloseButton: true,
 			showConfirmButton: false

@@ -1327,8 +1327,9 @@ function expediente_menu(id) {
         }
     });
 
-    $(".descargar").click(function () {
-        nombre = this.name + "";
+    $(".descargar").click(function (e) {
+        e.preventDefault();
+        nombre = this.name;
         descargar_expediente(id, nombre);
     });
 

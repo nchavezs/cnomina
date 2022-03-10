@@ -30,6 +30,7 @@ function detalle_movimiento(id) {
             html: html,
             allowOutsideClick: true,
             showCloseButton: true,
+            background: "#EEEEEE",
             showConfirmButton: false,
         });
     });

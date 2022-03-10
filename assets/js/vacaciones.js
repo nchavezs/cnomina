@@ -51,6 +51,7 @@ function detalle_vacacion(id) {
 			html: data.html,
 			allowOutsideClick: true,
 			showCloseButton: true,
+			background: "#EEEEEE",
 			showConfirmButton: false
 		});
 

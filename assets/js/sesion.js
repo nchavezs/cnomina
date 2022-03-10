@@ -219,11 +219,12 @@ function isNumberKey(evt) {
 };
 
 
-function descargar(uri, name) {
+function descargar(url, name) {
    var link = document.createElement("a");
-   link.download = name;
-   link.href = uri;
+   link.download = "";
+   link.href = url;
    link.click();
+   link.remove();
 }
 
 function descargar_php(direccion) {

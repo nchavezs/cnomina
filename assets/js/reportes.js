@@ -3,11 +3,11 @@
 //    tail.select("#"+id).open();
 // });
 
-$(document).on("mouseleave", ".tail-select", function () {
-   let id = $(this).prev().prop("id");
-   tail.select("#" + id).close();
-   $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
-});
+// $(document).on("mouseleave", ".tail-select", function () {
+//    let id = $(this).prev().prop("id");
+//    tail.select("#" + id).close();
+//    $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
+// });
 
 $(document).ready(function () {
    select_estilo();

@@ -1,71 +1,54 @@
 <?php
-    $id = $_POST['id'];
-	include("../../conexion.php");
-    $conexion = conexion();
+$id = $_POST['id'];
+include "../../conexion.php";
+$conexion = conexion();
 
-	$sql1 = "SELECT * FROM Movimiento WHERE id_movimiento = ".$id;
-	$consulta1 = mysqli_query($conexion, $sql1);
-	$resultado1 = mysqli_fetch_array($consulta1);
+$sql = "SELECT * FROM Movimiento WHERE id_movimiento = " . $id;
+$consulta = $conexion->query($sql);
+$movimiento = mysqli_fetch_array($consulta);
 
+if (trim($movimiento["observacion"]) === "") {
+    $obs = "Sin observación";
+} else {
+    $obs = $movimiento["observacion"];
+}
 
-	if(trim($resultado1["observacion"]) === "")
-		$obs = "Sin observación";
-	else
-		$obs = $resultado1["observacion"];
+$fecha = date("d/m/Y", strtotime($movimiento["fecha"]));
 
-	setlocale(LC_ALL, "spanish");
-	$fecha = date("d/m/Y", strtotime($resultado1["fecha"]));
-			
-	echo '<div class="card">
-				<div class="card-header card-header-primary">
-					<h4 class="card-title ">Movimiento</h4>
-					<p class="card-category">'.strftime("%d de %B de %Y", strtotime($resultado1["fecha"])).'</p>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						
-						<div class="col-md-12">
-							<div class="form-group">
-							  <label class="bmd-label-floating">Fecha de movimiento</label>
-							  <input id="fecha1" type="text" class="form-control datepicker-here" disabled value="'.$fecha.'"/> 
-							</div>
-						</div>
-						
-						<div class="col-md-12">
-							<div class="form-group">
-							  	<label class="bmd-label-floating">Puesto anterior</label>
-								<input type="text" class="form-control" disabled value="'.$resultado1["puestoAnterior"].'"/> 
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-							  	<label class="bmd-label-floating">Puesto actual</label>
-								<input type="text" class="form-control" disabled value="'.$resultado1["puesto"].'"/> 
-							</div>
-						</div>
-						
-						<div class="col-md-12">
-							<div class="form-group">
-							  	<label class="bmd-label-floating">Departamento anterior</label>
-								<input type="text" class="form-control" disabled value="'.$resultado1["departamentoAnterior"].'"/> 
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-							  	<label class="bmd-label-floating">Departamento actual</label>
-								<input type="text" class="form-control" disabled value="'.$resultado1["departamento"].'"/> 
-							</div>
-						</div>
-						<div class="col-md-12">
-						  <div class="form-group">
-							 <label class="bmd-label-floating">Observación </label>
-							 <textarea id="observacion" disabled class="form-control" rows="3">'.$obs.'</textarea>
-						  </div>
-                  </div>
-						
+echo '<div class="p-2">
+		<h4 class="negrita text-primary">Detalle de movimiento</h4>
+		</div>
+		<div class="card">
+			<div class="card-body text-left">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="select-etiqueta">Fecha de movimiento</div>
+						<input id="fecha1" type="text" class="campo datepicker-here" readonly value="' . $fecha . '" />
+					</div>
+
+					<div class="col-md-6">
+						<div class="select-etiqueta">Puesto anterior</div>
+						<input type="text" class="campo" readonly value="' . $movimiento["puestoAnterior"] . '" />
+					</div>
+					<div class="col-md-6">
+						<div class="select-etiqueta">Puesto actual</div>
+						<input type="text" class="campo" readonly value="' . $movimiento["puesto"] . '" />
+					</div>
+
+					<div class="col-md-6">
+						<div class="select-etiqueta">Departamento anterior</div>
+						<input type="text" class="campo" readonly value="' . $movimiento["departamentoAnterior"] . '" />
+					</div>
+					<div class="col-md-6">
+						<div class="select-etiqueta">Departamento actual</div>
+						<input type="text" class="campo" readonly value="' . $movimiento["departamento"] . '" />
+					</div>
+					<div class="col-md-12">
+						<div class="select-etiqueta">Observaciones</div>
+						<textarea id="observacion" readonly class="campo" rows="3">' . $obs . '</textarea>
 					</div>
 				</div>
-			</div>';
+			</div>
+		</div>';
 
-	$conexion->close();
-?>
+$conexion->close();
