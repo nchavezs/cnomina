@@ -35,7 +35,7 @@ $query = $conexion->query($sql);
 $total = mysqli_num_rows($query);
 
 if ($query && $total > 0) {
-    $snappy = new Pdf('wkhtmltopdf');
+    $snappy = new Pdf('wkhtmltopdf-amd64');
     $snappy->setOptions([
         "enable-local-file-access" => true,
         // "disable-smart-shrinking" => true,
