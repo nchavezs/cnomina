@@ -51,7 +51,7 @@ $(document).ready(function () {
          md.showNotification("top", "right", "Completa todos los campos.");
       } else {
          $(this).prop("disabled", true);
-         // mensaje_cargar();;
+         mensaje_cargar();
 
          $.ajax({
             url: "assets/php/reporte_usuario.php",
@@ -62,10 +62,8 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-             
                descargar(data, "Reporte Usuario");
               
-
                $("#reporte_usuario").prop("disabled", false);
                Swal.close();
             }
@@ -166,7 +164,7 @@ $(document).ready(function () {
 
    $('.reportes input[type="text"].campo').datepicker({
       language: 'es',
-      maxDate: new Date(),
+      // maxDate: new Date(),
       autoClose: 'true',
       todayButton: new Date()
    });

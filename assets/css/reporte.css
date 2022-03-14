@@ -1,183 +1,132 @@
-.clearfix:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-a {
-	color: #5D6975;
-	text-decoration: underline;
-}
-
-h2{
-	color: #555;
-}
 
 body {
 	position: relative;
-	width: 21cm;
-	height: 29.7cm;
-	margin: 0 auto;
-	color: #444;
-	background: #FFFFFF;
-	font-family: sans-serif;
+	color: #333;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 10px;
 }
 
-header {
+.cabecera {
+	position: relative;
 	border-top: 3px solid #eee;
-	border-bottom: 1px solid rgb(245,245,245);
-	padding: 10px;
+	border: 2px solid #eee;
+	display: flex;
+	align-items: center;
 	margin-bottom: 30px;
 	background-color: rgb(250, 250, 250);
+	font-size: 11px;
+	padding: 10px;
 }
 
 .logo {
+	background: url("../img/logo.png");
 	background-repeat: no-repeat;
-	background: url(../img/logo.png);
 	background-size: contain;
-	width: 100px;
-	height: 100px;
-	float: right;
-	margin-top: 0px;
-	margin-right: 0px;
-}
-
-#imagen {
-	border-radius: 50px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	width: 100px;
-	height: 100px;
-	float: right;
-	margin-top: 20px;
-	margin-right: 20px;
-}
-
-.ok {
-	margin: 0;
-	height: 50px;
-	border-top: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	background-color: rgb(250, 250, 250);
-}
-
-.error {
-	margin: 30px 0;
-	height: 50px;
-	border: 1px solid #ccc;
-	background-color: rgb(250, 250, 250);
+	width: 180px;
+	height: 80px;
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	display: block;
 }
 
 .titulo {
-	height: 30px;
 	color: #5D6975;
-	font-size: 1.2em;
-	font-weight: normal;
-	float: right;
+	font-size: 13px;
+	font-weight: bold;
 	text-align: left;
-	padding-top: 3px;
-	padding-left: 20px;
+	margin: 0 0 20px 0;
+	border: 1px solid #ddd;
+	background-color: rgb(250, 250, 250);
+	padding: 15px 50px;
+	position: relative;
 }
 
-
-.icono {
+.titulo.error::before {
+	content:"";
+	position: absolute;
+	display: block;
 	background: url("../img/error.png");
 	background-repeat: no-repeat;
 	background-size: contain;
-	width: 26px;
+	width: 25px;
 	height: 25px;
-	float: left;
-	margin-top: 11px;
-	margin-left: 10px;
+	left: 13px;
+	top: 11px;
 }
 
-.icono2 {
+.titulo.ok::before {
+	content:"";
+	position: absolute;
+	display: block;
 	background: url("../img/ok.png");
 	background-repeat: no-repeat;
 	background-size: contain;
-	width: 26px;
+	width: 25px;
 	height: 25px;
-	float: left;
-	margin-top: 11px;
-	margin-left: 10px;
+	left: 13px;
+	top: 11px;
 }
 
-#project {
-	float: left;
-	margin-top: -60px;
-	padding-top: 0px;
-	padding-bottom: 5px;
-}
-
-#project span {
-	color: #5D6975;
-	font-size: 0.85em;
-}
-
-#company {
-	float: right;
-	text-align: right;
-	margin-top: 60px;
-	padding-bottom: -90px;
-	margin-right: -130px;
-}
-
-#company span {
-	color: #5D6975;
-	font-size: 0.85em;
-}
-
-#project div,
-#company div {
-	white-space: nowrap;
-}
-
-table {
+.tabla {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
-	margin-bottom: 20px;
-	border-bottom: 1px solid #C1CED9;
+	top: -21px;
+	position: relative;
 }
 
 
-table th {
+.tabla th {
 	padding: 5px;
-	color: #5D6975;
-	border-bottom: 1px solid #C1CED9;
+	color: #444;
 	white-space: nowrap;
-	font-weight: normal;
-	border-right: 1px solid #C1CED9;
-	border-left: 1px solid #C1CED9;
-	border-top: 1px solid #ccc;
+	font-weight: bold;
+	background: rgb(235, 235, 235);
+	border: 1px solid #ddd;
 }
 
-table .desc {
-	text-align: justify;
-}
-
-table td {
-	padding: 5px 10px;
-	text-align: right;
-	border-right: 1px solid #C1CED9;
-	border-left: 1px solid #C1CED9;
-	font-size: 11px;
-}
-
-table td.desc {
+.tabla td {
 	vertical-align: middle;
+	padding: 5px;
+	text-align: left;
+	border: 1px solid #ddd;
 }
 
-.footer {
-	width: 100%;
-	border-top: 1px solid #ddd;
-	padding-top: 0px;
-	text-align: center;
+.page {
+	overflow: hidden;
+	page-break-after: always;
 }
 
-.footer p {
-	color: #444 !important;
-	font-size: 1em;
+table, .titulo {page-break-inside: avoid !important;}
+
+html{
+	height: 0;
+}
+
+.datos{
+	width: 40% !important;
+}
+
+.titulos{
+	position: absolute;
+	right: 10px;
+	bottom: 20px;
+	text-align: right;
+}
+
+.text-center{
+	text-align: center !important;
+}
+
+.text-left{
+	text-align: left !important;
+}
+
+.text-right{
+	text-align: right !important;
+}
+
+.negrita{
+	font-weight: bold !important;
 }
