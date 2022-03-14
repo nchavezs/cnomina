@@ -3,6 +3,7 @@
         "phpoffice/phpspreadsheet": "^1.10",
         "mpdf/mpdf": "^8.0",
         "knplabs/knp-snappy": "^1.4",
-        "h4cc/wkhtmltopdf-amd64": "0.12.x"
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-i386": "^0.12.4"
     }
 }
