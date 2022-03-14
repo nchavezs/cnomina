@@ -5,7 +5,9 @@ require_once "../../vendor/autoload.php";
 setlocale(LC_ALL, "spanish");
 use Knp\Snappy\Pdf;
 
-$path = "http://localhost/cnomina/";
+// $path = "http://localhost/cnomina/";
+$path = "https://consultanominacomonfort.com/";
+
 $conexion = conexion();
 $hoy = date('d/m/Y');
 $bandera = true;
