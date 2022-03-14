@@ -6,7 +6,7 @@ setlocale(LC_ALL, "spanish");
 use Knp\Snappy\Pdf;
 
 // $path = "http://localhost/cnomina/";
-$path = "https://consultanominacomonfort.com/";
+$path = __DIR__;
 
 $conexion = conexion();
 $hoy = date('d/m/Y');
@@ -35,7 +35,7 @@ $query = $conexion->query($sql);
 $total = mysqli_num_rows($query);
 
 if ($query && $total > 0) {
-    $snappy = new Pdf('wkhtmltopdf-amd64');
+    $snappy = new Pdf($path.'/../../vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64');
     $snappy->setOptions([
         "enable-local-file-access" => true,
         // "disable-smart-shrinking" => true,
@@ -46,7 +46,7 @@ if ($query && $total > 0) {
     $html = '<!DOCTYPE HTML><html lang="en">
                 <head>
                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                    <link href="' . $path . 'assets/css/reporte.css" rel="stylesheet" />
+                    <link href="' . $path . '/../css/reporte.css" rel="stylesheet" />
                 </head>
                 
                 <body>';
