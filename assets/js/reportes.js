@@ -41,35 +41,37 @@ $(document).ready(function () {
 
    $("#reporte_usuario").click(function (e) {
       e.preventDefault();
-      var usuarios = $("#usuario_3").val();
-      var del = $("#del_3").val();
-      var al = $("#al_3").val();
+      // var usuarios = $("#usuario_3").val();
+      // var del = $("#del_3").val();
+      // var al = $("#al_3").val();
 
-      let usuario_size = document.getElementById("usuario_3").selectedOptions.length;
+      // let usuario_size = document.getElementById("usuario_3").selectedOptions.length;
 
-      if (usuario_size < 1) {
-         md.showNotification("top", "right", "Completa todos los campos.");
-      } else {
-         $(this).prop("disabled", true);
-         mensaje_cargar();
+      // if (usuario_size < 1) {
+      //    md.showNotification("top", "right", "Completa todos los campos.");
+      // } else {
+      //    $(this).prop("disabled", true);
+      //    mensaje_cargar();
 
-         $.ajax({
-            url: "assets/php/reporte_usuario.php",
-            type: "POST",
-            data: {
-               "del": del,
-               "al": al,
-               "usuarios": usuarios
-            },
-            success: function (data) {
-               console.log(data);
-               descargar(data, "Reporte Usuario");
+      //    $.ajax({
+      //       url: "assets/php/reporte_usuario.php",
+      //       type: "POST",
+      //       data: {
+      //          "del": del,
+      //          "al": al,
+      //          "usuarios": usuarios
+      //       },
+      //       success: function (data) {
+      //          console.log(data);
+      //          descargar(data, "Reporte Usuario");
               
-               $("#reporte_usuario").prop("disabled", false);
-               Swal.close();
-            }
-         });
-      }
+      //          $("#reporte_usuario").prop("disabled", false);
+      //          Swal.close();
+      //       }
+      //    });
+      // }
+      md.showNotification("top", "right", "Intenta más tarde.");
+
    });
 
    $("#reporte_plazas").click(function (e) {
