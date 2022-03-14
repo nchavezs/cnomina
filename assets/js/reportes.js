@@ -62,7 +62,6 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-               alert(data);
                console.log(data);
                descargar(data, "Reporte Usuario");
               
