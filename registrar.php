@@ -19,12 +19,12 @@ include "assets/php/comprobar_catalago.php";
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans"/>
     
     <link rel="stylesheet" href="assets/js/plugins/datatables/datatables.min.css"/>
-    <link rel="stylesheet" href="assets/css/material-dashboard.css?v=3.6.9"/>
+    <link rel="stylesheet" href="assets/css/material-dashboard.css?v=3.7.0"/>
     <link rel="stylesheet" href="assets/css/animate.css"/>
     <link rel="stylesheet" href="assets/css/datepicker.min.css"/>
     <link rel="stylesheet" href="assets/js/plugins/tailselect/css/default/tail.select-light.css">
     <link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
-    <link rel="stylesheet" href="assets/css/sweetalert2.min.css?v=3.6.9"/>
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css?v=3.7.0"/>
 
 </head>
 
@@ -219,6 +219,7 @@ include "assets/php/comprobar_catalago.php";
 
                                         <input type="file" id="importar-empleado" accept=".xlsx" />
                                         <input type="file" id="importar-empleado-puesto" accept=".xlsx" />
+                                        <input type="file" id="actualizar" accept=".xlsx" />
                                         
                                         <span class="dropdown">
                                             <div class="btn-mostrar" data-toggle="dropdown">
@@ -226,7 +227,7 @@ include "assets/php/comprobar_catalago.php";
                                             </div>
                                             <div class="dropdown-menu">
                                                 <label class="dropdown-item" for="importar-empleado"> <i class="material-icons">check</i> Por # de plaza</label>
-                                                <label class="dropdown-item" for="importar-empleado-puesto">  <i class="material-icons">check</i> Por puesto y departamento</label>
+                                                <label class="dropdown-item" for="importar-empleado-puesto"> <i class="material-icons">check</i> Por puesto y departamento</label>
                                             </div>
                                         </span>
                                         <span class="dropdown">
@@ -234,8 +235,17 @@ include "assets/php/comprobar_catalago.php";
                                                 <i class="material-icons">line_style</i>Plantilla
                                             </div>
                                             <div class="dropdown-menu">
-                                                <a href="assets/docs/empleado/importar/empleado.xlsx?v=3.6.9" class="dropdown-item"> <i class="material-icons" >check</i>Por # de plaza</a>
-                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.6.9" class="dropdown-item"> <i class="material-icons" >check</i>Por puesto y departamento</a>
+                                                <a href="assets/docs/empleado/importar/empleado.xlsx?v=3.7.0" class="dropdown-item"> <i class="material-icons" >check</i>Por # de plaza</a>
+                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.7.0" class="dropdown-item"> <i class="material-icons" >check</i>Por puesto y departamento</a>
+                                            </div>
+                                        </span>
+                                        <span class="dropdown">
+                                            <div class="btn-mostrar" data-toggle="dropdown">
+                                                <i class="material-icons">refresh</i>Actualizar
+                                            </div>
+                                            <div class="dropdown-menu">
+                                                <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.7.0" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla</a>
+                                                <label class="dropdown-item" for="actualizar"> <i class="material-icons" >check</i>Actualizar empleados</label>
                                             </div>
                                         </span>
                                     ';
@@ -296,7 +306,7 @@ include "assets/php/comprobar_catalago.php";
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/material-dashboard.js?v=3.6.9" type="text/javascript"></script>
+    <script src="assets/js/material-dashboard.js?v=3.7.0" type="text/javascript"></script>
     <script src="assets/js/plugins/datatables/datatables.min.js"></script>
     <script src="assets/js/datepicker.min.js"></script>
     <script src="assets/js/plugins/datepicker.es.js"></script>
@@ -306,8 +316,8 @@ include "assets/php/comprobar_catalago.php";
     <script src="assets/js/moment.js"></script>
     <script src="assets/js/plugins/animate/adp.js"></script>
     <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-    <script src="assets/js/sesion.js?v=3.6.9"></script>
-    <script src="assets/js/registrar.js?v=3.6.9"></script>
+    <script src="assets/js/sesion.js?v=3.7.0"></script>
+    <script src="assets/js/registrar.js?v=3.7.0"></script>
 </body>
 
 </html>

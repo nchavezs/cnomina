@@ -1163,7 +1163,8 @@ form .card {
 .dataTable td:last-child,
 .dataTable thead th:last-child {
     border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px
+    border-top-right-radius: 10px;
+    white-space: nowrap;
 }
 
 .sidebar .sidebar-wrapper {

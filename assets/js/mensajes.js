@@ -36,6 +36,11 @@ $(document).ready(function () {
         }
     });
 
+    $('.archivo').on('click', function (e) {
+      e.preventDefault();
+      
+    });
+
 });
 
 function limpiar_lista() {

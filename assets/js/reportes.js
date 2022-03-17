@@ -62,7 +62,6 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
-               console.log(data);
                descargar(data, "Reporte Usuario");
               
                $("#reporte_usuario").prop("disabled", false);

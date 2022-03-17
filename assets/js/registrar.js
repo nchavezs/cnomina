@@ -94,6 +94,42 @@ $(document).ready(function () {
         }
     });
 
+    $("#actualizar").change(function () {
+        if ($(this).val() !== "") {
+            mensaje_cargar();
+
+            var formData = new FormData();
+            var files = $(this)[0].files[0];
+            formData.append("file", files);
+
+            $.ajax({
+                url: "assets/php/actualizar_empleados.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (datos) {
+                    var data = JSON.parse(datos);
+                    if (data.formato == true) {
+                        Swal.fire({
+                            position: 'center',
+                            html: data.html,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                        });
+                        $(".log").perfectScrollbar();
+                        $('#tabla-empleado').DataTable().ajax.reload();
+                    } else {
+                        Swal.close();
+                        md.showNotification("top", "right", "Formato de archivo incorrecto.");
+                    }
+                    $("#actualizar").val("");
+                }
+            });
+        }
+    });
+
     $("#nuevo-empleado").click(function () {
         $.post("assets/php/verificar_periodo.php", function (datos) {
             let data = JSON.parse(datos);
@@ -252,7 +288,7 @@ $(document).ready(function () {
             {
                 "render": function (data, type, row) {
 
-                    return '<span class="boton_tabla text-primary mr-3" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>' +
+                    return '<span class="boton_tabla text-primary mr-2" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>' +
                         '<span class="boton_tabla text-danger" onclick="eliminar_usuario(\'' + row.RFC + '\',event);"><i class="material-icons">delete</i> </span>';
                 }
             }
