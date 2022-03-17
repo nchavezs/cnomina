@@ -124,8 +124,6 @@ if ($formato) {
             $fechaRelLab = gmdate("d/m/Y", \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($datos[5]));
         }
 
-        mysqli_autocommit($conexion, true);
-
         if (validar_fecha($fechaRelLab)) {
             $sql = "SELECT * FROM Departamento WHERE nombre = '" . $departamento . "'";
             $consulta = $conexion->query($sql);
@@ -166,7 +164,7 @@ if ($formato) {
                                 $consulta = $conexion->query($sql);
 
                             } else {
-                                $sql = "INSERT INTO Plaza(id_puesto, RFC, dias) VALUES (" . $puesto . "," . $RFC . ",365)";
+                                $sql = "INSERT INTO Plaza(id_puesto, RFC, dias) VALUES (" . $puesto . ",'" . $RFC . "',365)";
                                 $consulta = $conexion->query($sql);
                                 $plaza = mysqli_insert_id($conexion);
                             }
@@ -200,13 +198,15 @@ if ($formato) {
 
                         }
                         // -------------------------------------------------------------------------------------
+                        $sql = "UPDATE Historial SET fecha = STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y') WHERE tipo = 'alta' AND RFC = '" . $RFC . "'";
+                        $consulta = $conexion->query($sql);
 
-                        $sql = "UPDATE Usuario SET
-                                nombre = '" . $nombreEmpleado . "',
+                        $sql = "UPDATE Usuario SET 
+                                nombre = '" . $nombreEmpleado . "' 
                                 WHERE RFC = '" . $RFC . "'";
                         $consulta = $conexion->query($sql);
 
-                        $sql = "UPDATE Empleado SET
+                        $sql = "UPDATE Empleado SET 
                                 id_empleado = " . $id_empleado . ",
                                 CURP = '" . $CURP . "',
                                 fechaRelLab = '" . $fechaRelLab . "',
@@ -216,14 +216,11 @@ if ($formato) {
                                 apellidop = '" . $apellidop . "' ,
                                 apellidom = '" . $apellidom . "',
                                 nombres = '" . $nombres . "',
-                                id_periodo = " . $periodo . "
+                                id_periodo = " . $periodo . " 
                                 WHERE RFC = '" . $RFC . "'";
                         $consulta = $conexion->query($sql);
 
-                        $sql = "UPDATE Historial SET fecha = STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y') WHERE tipo = 'alta' AND RFC = '" . $RFC . "'";
-                        $consulta = $conexion->query($sql);
-
-                        $total++;
+                        if($consulta){$total++;}
 
                     } else {
                         array_push($errores, 'FILA' . $row . ': tipo de periodo inválido');

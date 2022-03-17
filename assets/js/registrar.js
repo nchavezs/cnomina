@@ -46,8 +46,8 @@ $(document).ready(function () {
                             showCloseButton: true,
                             showConfirmButton: false,
                         });
-                        $(".log").perfectScrollbar();
                         $('#tabla-empleado').DataTable().ajax.reload();
+                        $(".log").perfectScrollbar();
                     } else {
                         Swal.close();
                         md.showNotification("top", "right", "Formato de archivo incorrecto.");
@@ -82,8 +82,8 @@ $(document).ready(function () {
                             showCloseButton: true,
                             showConfirmButton: false,
                         });
-                        $(".log").perfectScrollbar();
                         $('#tabla-empleado').DataTable().ajax.reload();
+                        $(".log").perfectScrollbar();
                     } else {
                         Swal.close();
                         md.showNotification("top", "right", "Formato de archivo incorrecto.");
@@ -118,8 +118,8 @@ $(document).ready(function () {
                             showCloseButton: true,
                             showConfirmButton: false,
                         });
-                        $(".log").perfectScrollbar();
                         $('#tabla-empleado').DataTable().ajax.reload();
+                        $(".log").perfectScrollbar();
                     } else {
                         Swal.close();
                         md.showNotification("top", "right", "Formato de archivo incorrecto.");
