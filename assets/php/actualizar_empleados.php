@@ -154,6 +154,17 @@ if ($formato) {
                             // $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC . "'";
                             // $consulta = $conexion->query($sql);
 
+                               // DELETE THIS
+                               $sql = "SELECT * FROM Plaza WHERE RFC = '" . $RFC . "'";
+                               $consulta = $conexion->query($sql);
+                               $res = mysqli_fetch_array($consulta);
+                               $plaza = $res["id_plaza"];
+                               $sql = "DELETE FROM Historial_Plaza WHERE id_plaza = " . $plaza;
+                               $consulta = $conexion->query($sql);
+                               $sql = "DELETE FROM Plaza WHERE id_plaza = " . $plaza;
+                               $consulta = $conexion->query($sql);
+                               
+
                             $sql = "SELECT * FROM Plaza WHERE id_puesto = " . $puesto . " AND RFC IS NULL LIMIT 1";
                             $consulta = $conexion->query($sql);
                             if ($consulta && mysqli_num_rows($consulta) > 0) {
@@ -182,13 +193,6 @@ if ($formato) {
 
                             // $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $RFC . "' AND id_plaza = " . $plaza;
                             // $consulta = $conexion->query($sql);
-
-                            // DELETE THIS
-                            $sql = "DELETE FROM Historial_Plaza WHERE id_plaza = " . $plaza;
-                            $consulta = $conexion->query($sql);
-                            
-                            $sql = "DELETE FROM Plaza WHERE RFC = '" . $RFC . "'";
-                            $consulta = $conexion->query($sql);
 
                             $sql = "INSERT INTO Historial_Plaza(
                                     id_plaza,
