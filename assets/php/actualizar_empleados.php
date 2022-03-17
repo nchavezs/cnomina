@@ -180,10 +180,13 @@ if ($formato) {
                                 $fecha_inicio = "01/01/" . $ano_actual;
                             }
 
-                            $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $RFC . "' AND id_plaza = " . $plaza;
-                            $consulta = $conexion->query($sql);
+                            // $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $RFC . "' AND id_plaza = " . $plaza;
+                            // $consulta = $conexion->query($sql);
 
                             // DELETE THIS
+                            $sql = "DELETE FROM Historial_Plaza WHERE id_plaza = " . $plaza;
+                            $consulta = $conexion->query($sql);
+                            
                             $sql = "DELETE FROM Plaza WHERE RFC = '" . $RFC . "'";
                             $consulta = $conexion->query($sql);
 
