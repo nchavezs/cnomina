@@ -151,19 +151,18 @@ if ($formato) {
 
                         if ($consulta && mysqli_num_rows($consulta) == 0) {
 
-                            // $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC . "'";
-                            // $consulta = $conexion->query($sql);
+                            $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC . "'";
+                            $consulta = $conexion->query($sql);
 
-                               // DELETE THIS
-                               $sql = "SELECT * FROM Plaza WHERE RFC = '" . $RFC . "'";
-                               $consulta = $conexion->query($sql);
-                               $res = mysqli_fetch_array($consulta);
-                               $plaza = $res["id_plaza"];
-                               $sql = "DELETE FROM Historial_Plaza WHERE id_plaza = " . $plaza;
-                               $consulta = $conexion->query($sql);
-                               $sql = "DELETE FROM Plaza WHERE id_plaza = " . $plaza;
-                               $consulta = $conexion->query($sql);
-                               
+                            // DELETE THIS
+                            //    $sql = "SELECT * FROM Plaza WHERE RFC = '" . $RFC . "'";
+                            //    $consulta = $conexion->query($sql);
+                            //    $res = mysqli_fetch_array($consulta);
+                            //    $plaza = $res["id_plaza"];
+                            //    $sql = "DELETE FROM Historial_Plaza WHERE id_plaza = " . $plaza;
+                            //    $consulta = $conexion->query($sql);
+                            //    $sql = "DELETE FROM Plaza WHERE id_plaza = " . $plaza;
+                            //    $consulta = $conexion->query($sql);
 
                             $sql = "SELECT * FROM Plaza WHERE id_puesto = " . $puesto . " AND RFC IS NULL LIMIT 1";
                             $consulta = $conexion->query($sql);
@@ -191,8 +190,8 @@ if ($formato) {
                                 $fecha_inicio = "01/01/" . $ano_actual;
                             }
 
-                            // $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $RFC . "' AND id_plaza = " . $plaza;
-                            // $consulta = $conexion->query($sql);
+                            $sql = "DELETE FROM Historial_Plaza WHERE RFC = '" . $RFC . "' AND id_plaza = " . $plaza;
+                            $consulta = $conexion->query($sql);
 
                             $sql = "INSERT INTO Historial_Plaza(
                                     id_plaza,
@@ -208,12 +207,12 @@ if ($formato) {
                         $sql = "UPDATE Historial SET fecha = STR_TO_DATE('" . $fechaRelLab . "','%d/%m/%Y') WHERE tipo = 'alta' AND RFC = '" . $RFC . "'";
                         $consulta = $conexion->query($sql);
 
-                        $sql = "UPDATE Usuario SET 
-                                nombre = '" . $nombreEmpleado . "' 
+                        $sql = "UPDATE Usuario SET
+                                nombre = '" . $nombreEmpleado . "'
                                 WHERE RFC = '" . $RFC . "'";
                         $consulta = $conexion->query($sql);
 
-                        $sql = "UPDATE Empleado SET 
+                        $sql = "UPDATE Empleado SET
                                 id_empleado = " . $id_empleado . ",
                                 CURP = '" . $CURP . "',
                                 fechaRelLab = '" . $fechaRelLab . "',
@@ -223,11 +222,11 @@ if ($formato) {
                                 apellidop = '" . $apellidop . "' ,
                                 apellidom = '" . $apellidom . "',
                                 nombres = '" . $nombres . "',
-                                id_periodo = " . $periodo . " 
+                                id_periodo = " . $periodo . "
                                 WHERE RFC = '" . $RFC . "'";
                         $consulta = $conexion->query($sql);
 
-                        if($consulta){$total++;}
+                        if ($consulta) {$total++;}
 
                     } else {
                         array_push($errores, 'FILA' . $row . ': tipo de periodo inválido');

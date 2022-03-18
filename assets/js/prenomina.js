@@ -29,6 +29,8 @@ function nueva_prenomina() {
 };
 
 function prenomina() {
+    md.showNotification("top", "right", "Generando prenómina ...");
+    Swal.close();
     $.ajax({
         url: "assets/php/prenomina.php",
         type: "POST",
@@ -39,13 +41,12 @@ function prenomina() {
             periodo: $("#periodo").val()
         },
         success: function (data) {
-            console.log(data);
             if (data != 0) {
                 cargar_prenominas();
 
                 Swal.fire({
                     title: 'Correcto',
-                    text: 'Registro agregado',
+                    text: 'Prenómina generada',
                     type: 'success'
                 });
 
@@ -77,7 +78,7 @@ function autorizar() {
                     actualizar_periodo();
                     Swal.fire({
                         title: 'Correcto',
-                        text: 'Registro agregado',
+                        text: 'Periodo actualizado',
                         type: 'success'
                     })
                 } else {
