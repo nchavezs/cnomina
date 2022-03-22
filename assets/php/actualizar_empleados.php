@@ -118,6 +118,7 @@ if ($formato) {
         $banca = eliminar_simbolos($datos[9]);
         $afiliacion = eliminar_simbolos($datos[10]);
         $periodo = eliminar_simbolos(mb_strtoupper($datos[11]));
+        $password = str_pad($datos[0], 5, '0', STR_PAD_LEFT);
 
         $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
         if ($types[6] == "n") {
@@ -208,8 +209,10 @@ if ($formato) {
                         $consulta = $conexion->query($sql);
 
                         $sql = "UPDATE Usuario SET
-                                nombre = '" . $nombreEmpleado . "'
+                                nombre = '" . $nombreEmpleado . "',
+                                contrasenia =  '" . $password . "' 
                                 WHERE RFC = '" . $RFC . "'";
+
                         $consulta = $conexion->query($sql);
 
                         $sql = "UPDATE Empleado SET
