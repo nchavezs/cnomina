@@ -309,7 +309,7 @@ if ($resultadoUsuario) {
                                  ?>
                               </div>
                            </div> -->
-                           <div class="card">
+                           <!-- <div class="card">
                               <div class="card-body">
                                  <h5>Manual de usuario.</span></h5>
                                  <p>Descarga el manual usuario.</p>
@@ -326,7 +326,7 @@ if ($resultadoUsuario) {
                                     <a href="./documentos/administrador.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
                                  </div>
                               </div>
-                           </div>
+                           </div> -->
                         </div>
                      </div>
 
