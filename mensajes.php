@@ -232,8 +232,9 @@ include "assets/php/main_admin.php";
 						<div class="mensajeria_chat"></div>
 						<div class="mensajeria_enviar">
 							<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
-							<!-- <i class="material-icons archivo">attach_file</i> -->
-							<i class="material-icons" onclick="enviar_mensaje();">send</i>
+							<input type="file" id="file" class="oculto">
+							<i class="material-icons" onclick="archivo();">attach_file</i>
+							<i class="material-icons" onclick="enviar();">send</i>
 						</div>
 					</div>
 				</div>
@@ -249,6 +250,7 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
+	<script src="assets/js/block.js"></script>
 	<script src="assets/js/material-dashboard.js?v=3.7.0" type="text/javascript"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 	<script src="assets/js/sesion.js?v=3.7.0"></script>

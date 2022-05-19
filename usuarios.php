@@ -50,10 +50,10 @@ if ($resultadoUsuario) {
          }
 
          ?>
-               <a href="./perfil"><img src="<?php echo $foto ?>"></a>
-                <!-- <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p> -->
-               <p><?php echo $varName ?></p>
-               <a href="mailto:"><?php echo $varEmail ?></a>
+            <a href="./perfil"><img src="<?php echo $foto ?>"></a>
+               <!-- <p class="logo_titulo">MUNICIPIO DE <?php echo get_municipio() ?></p> -->
+            <p><?php echo $varName ?></p>
+            <a href="mailto:"><?php echo $varEmail ?></a>
          </div>
          <div class="sidebar-wrapper">
             <ul class="nav">
@@ -64,12 +64,24 @@ if ($resultadoUsuario) {
                   </a>
                </li>
 
-               <li id="link1" class="nav-item active">
+               <li class="nav-item">
                   <a class="nav-link" href="./perfil">
                      <i class="material-icons">person_pin</i>
                      <p>Perfil</p>
                   </a>
                </li>
+
+               <?php
+                if (rol() == 1) {
+                  echo ' <li id="link1" class="nav-item active">
+                           <a class="nav-link" href="./usuarios">
+                              <i class="material-icons">supervised_user_circle</i>
+                              <p>Usuarios</p>
+                           </a>
+                        </li>';
+                   }
+               ?>
+              
                <?php
                 if (rol() == 2) {
                   echo '<li class="nav-item">

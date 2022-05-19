@@ -23,7 +23,7 @@ $(document).ready(function () {
     $('.mensajeria textarea').on('keydown', function (e) {
         if (e.which === 13 && !e.shiftKey) {
             e.preventDefault();
-            enviar_mensaje();
+            enviar_mensaje($(".mensajeria textarea").val(), null);
         }
     });
 
@@ -36,9 +36,31 @@ $(document).ready(function () {
         }
     });
 
-    $('.archivo').on('click', function (e) {
-      e.preventDefault();
-      
+    $("#file").change(function () {
+        if ($("#file").val() !== "") {
+            $.blockUI({
+                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+            });
+            var formData = new FormData();
+            var files = $("#file")[0].files[0];
+            formData.append("id", contacto_seleccionado);
+            formData.append("file", files);
+
+            $.ajax({
+                url: "assets/php/archivo_mensaje.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $.unblockUI();
+                    md.showNotification("top", "right", "Archivo cargado correctamente.");
+                    $("#file").val("");
+                    enviar_mensaje(null, data);
+                }
+            });
+        }
     });
 
 });
@@ -107,12 +129,17 @@ function contactos(texto) {
     });
 }
 
-function enviar_mensaje() {
+function enviar(){
+    enviar_mensaje($(".mensajeria textarea").val(), null);
+}
+
+function enviar_mensaje(texto,url) {
     $.ajax({
         url: "assets/php/enviar_mensaje.php",
         type: "POST",
         data: {
-            mensaje: $(".mensajeria textarea").val(),
+            mensaje: texto,
+            url: url,
             id: contacto_seleccionado
         },
         success: function (data) {
@@ -123,4 +150,8 @@ function enviar_mensaje() {
             }
         }
     });
+}
+
+function archivo(){
+    $("#file").click();
 }

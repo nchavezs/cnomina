@@ -14,6 +14,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<thead class=" text-primary">
 					<th class="">Tipo</th>
 					<th class="">Fecha</th>
+					<th class="">Archivo</th>
 					<th class="oculto">Descripción</th>
 					<th class="">Formato</th>
 				</thead>
@@ -24,8 +25,9 @@ if (mysqli_num_rows($consulta) > 0) {
         echo '<tr>
 				<td>'.$res["tipo"].'</td>
 				<td>' . date("d/m/Y", strtotime($res["fecha"])) . '</td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $id . '\',\'Historial\',0)">attachment</a></td>
 				<td class="oculto">' . $res["descripcion"] . '</td>
-				<td class=""> <i onclick="formato_historial('.$res["id_historial"].');" class="material-icons btn1">attachment</i></td>
+				<td class=""> <i onclick="formato_historial('.$res["id_historial"].');" class="material-icons btn1">play_for_work</i></td>
 			</tr>';
     }
     echo '</tbody>

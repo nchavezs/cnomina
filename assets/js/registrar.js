@@ -832,6 +832,8 @@ function ventanaRegresar(tabla, condicion, id, usuario) {
             verVacaciones(usuario);
         else if (condicion == 1)
             detalle_vacacion(id);
+    }else if (tabla === "Historial") {
+        verHistorial(usuario);
     } else if (tabla === "Movimiento") {
         if (condicion == 0)
             verMovimientos(usuario);
