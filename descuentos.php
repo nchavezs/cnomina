@@ -98,7 +98,7 @@ include "assets/php/main_user.php";
 					<li id="link2" class="nav-item ">
 						<a class="nav-link" href="./mensajes_user">
 							<i class="material-icons">message</i>
-							<p>Mensajes <span class="material-icons comprobar_mensajeria animate__animated animate__heartBeat animate__infinite animate__slower hide">markunread</span></p>
+							<p>Mensajes <span class="material-icons comprobar_mensajeria animate__animated animate__swing animate__infinite animate__slower hide">markunread</span></p>
 						</a>
 					</li>
 
