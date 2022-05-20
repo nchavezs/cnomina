@@ -46,13 +46,14 @@ if ($consulta && $total > 0) {
         if($mensaje["url"] == ""){
             $contenido_mensaje = $mensaje["mensaje"] . '<div class="mensajeria_hora">' . $hora . '</div>';
         }else{
-            $contenido_mensaje = '<a class="negrita text-info" target="_blank" href="assets/mensajes/'.$id.'/'.$mensaje["url"].'">
-            <i class="material-icons">file_present</i>'.$mensaje["url"].'</a>';
+            $contenido_mensaje = '<a class="negrita text-white file_contenido" target="_blank" href="assets/mensajes/'.$id.'/'.$mensaje["url"].'">
+            <i class="material-icons">file_present</i>'.$mensaje["url"].'<div class="mensajeria_hora">' . $hora . '</a>';
         }
 
         $datos["html"] = $datos["html"] . '<div class="mensajeria_mensaje ' . $clase . '">
                 <img src="assets/img/user.png" alt="">
                 <div class="mensajeria_contenido">'.$contenido_mensaje.'</div>
+                </div>
             </div>';
     }
 }

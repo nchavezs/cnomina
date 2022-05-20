@@ -50,7 +50,7 @@ if ($url == "") {
             echo '<div class="mensajeria_mensaje mio">
                     <div class="mensajeria_contenido">
                         
-                        <a class="negrita text-info" target="_blank" href="assets/mensajes/'.$id.'/'.$res["url"].'">
+                        <a class="negrita text-white file_contenido" target="_blank" href="assets/mensajes/'.$id.'/'.$res["url"].'">
                             <i class="material-icons">file_present</i>'.$res["url"].'
                         </a>
                         <div class="mensajeria_hora">' . $hora . '</div>

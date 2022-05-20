@@ -4,6 +4,24 @@ var contactos_evento = null;
 var total_mensajes = -1;
 var total_nuevos = -1;
 
+function contactos(texto) {
+    $.ajax({
+        url: "assets/php/buscar_contacto.php",
+        type: "POST",
+        data: {
+            texto: texto
+        },
+        success: function (datos) {
+            let data = JSON.parse(datos);
+            if (data.total != total_nuevos) {
+                $(".mensajeria_contactos").html(data.html);
+                total_nuevos = data.total;
+                limpiar_lista();
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
     $(".mensajeria_contactos").perfectScrollbar();
     $(".mensajeria_chat").perfectScrollbar();
@@ -27,7 +45,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.mensajeria input').on('input', function (e) {
+    $('.mensajeria input[type="text"]').on('input', function (e) {
         total_nuevos = -1;
         contactos(this.value);
         clearTimeout(contactos_evento);
@@ -36,30 +54,38 @@ $(document).ready(function () {
         }
     });
 
-    $("#file").change(function () {
+    $("#file").change(function (e) {
         if ($("#file").val() !== "") {
-            $.blockUI({
-                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-            });
-            var formData = new FormData();
-            var files = $("#file")[0].files[0];
-            formData.append("id", contacto_seleccionado);
-            formData.append("file", files);
+            const megas = 5;
+            const maxAllowedSize = megas * 1024 * 1024;
+            if (e.target.files[0].size > maxAllowedSize) {
+                md.showNotification("top", "right", "Seleccione un archivo menor a " + megas + " Mb");
+                e.target.value = "";
+            } else {
+                $.blockUI({
+                    message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+                });
+                var formData = new FormData();
+                var files = $("#file")[0].files[0];
+                formData.append("id", contacto_seleccionado);
+                formData.append("file", files);
 
-            $.ajax({
-                url: "assets/php/archivo_mensaje.php",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    $.unblockUI();
-                    md.showNotification("top", "right", "Archivo cargado correctamente.");
-                    $("#file").val("");
-                    enviar_mensaje(null, data);
-                }
-            });
+                $.ajax({
+                    url: "assets/php/archivo_mensaje.php",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        $.unblockUI();
+                        md.showNotification("top", "right", "Archivo cargado correctamente.");
+                        $("#file").val("");
+                        enviar_mensaje(null, data);
+                    }
+                });
+            }
+
         }
     });
 
@@ -111,29 +137,12 @@ function chat(id) {
     });
 }
 
-function contactos(texto) {
-    $.ajax({
-        url: "assets/php/buscar_contacto.php",
-        type: "POST",
-        data: {
-            texto: texto
-        },
-        success: function (datos) {
-            let data = JSON.parse(datos);
-            if (data.total != total_nuevos) {
-                $(".mensajeria_contactos").html(data.html);
-                total_nuevos = data.total;
-                limpiar_lista();
-            }
-        }
-    });
-}
 
-function enviar(){
+function enviar() {
     enviar_mensaje($(".mensajeria textarea").val(), null);
 }
 
-function enviar_mensaje(texto,url) {
+function enviar_mensaje(texto, url) {
     $.ajax({
         url: "assets/php/enviar_mensaje.php",
         type: "POST",
@@ -152,6 +161,6 @@ function enviar_mensaje(texto,url) {
     });
 }
 
-function archivo(){
+function archivo() {
     $("#file").click();
 }

@@ -5,6 +5,14 @@
     src: url(../fonts/material.woff2) format('woff2')
 }
 
+.mensajeria .mio .file_contenido{
+    color: rgb(128, 150, 229) !important;
+}
+
+.mensajeria .mio .file_contenido:hover{
+    color: rgb(67, 120, 211) !important;
+}
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: 400;

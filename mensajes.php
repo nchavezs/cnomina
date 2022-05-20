@@ -231,8 +231,8 @@ include "assets/php/main_admin.php";
 						<div class="mensajeria_usuario"><i class="material-icons regresar">keyboard_backspace</i> <img src="assets/img/user.png" alt=""><span></span></div>
 						<div class="mensajeria_chat"></div>
 						<div class="mensajeria_enviar">
-							<textarea placeholder="Escribe tu mensaje ..." maxlength="255" rows="1"></textarea>
-							<input type="file" id="file" class="oculto">
+							<textarea placeholder="Escribe tu mensaje ..." maxlength="500" rows="1"></textarea>
+							<input type="file" id="file" class="oculto" accept=".xls,.xlsx,.doc,.docx,.pdf,.zip,.rar,image/*">
 							<i class="material-icons" onclick="archivo();">attach_file</i>
 							<i class="material-icons" onclick="enviar();">send</i>
 						</div>
