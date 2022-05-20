@@ -5,6 +5,13 @@
     src: url(../fonts/material.woff2) format('woff2')
 }
 
+.comprobar_mensajeria{
+    position: absolute;
+    right: 0;
+    top: 4px;
+    color: #dde1eae8;
+}
+
 .mensajeria .mio .file_contenido{
     color: rgb(128, 150, 229) !important;
 }

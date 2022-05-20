@@ -1,9 +1,27 @@
 var timer = null;
 var total = -1;
 
-var numero_evento = null;
+var mensajes_evento = null;
+
+function mensajes() {
+   $.ajax({
+       url: "assets/php/comprobar_mensajeria.php",
+       type: "POST",
+       success: function (data) {
+           if (data > 0) {
+               $(".comprobar_mensajeria").show();
+           }else{
+               $(".comprobar_mensajeria").hide();
+           }
+       }
+   });
+}
 
 $(document).ready(function () {
+
+   mensajes();
+   mensajes_evento = setInterval("mensajes();", 5000);
+
    $('.dataTable').DataTable.ext.pager.numbers_length = 5;
 
    $(document).on("click", ".ver_panel p", function () {

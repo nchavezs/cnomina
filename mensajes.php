@@ -16,10 +16,10 @@ include "assets/php/main_admin.php";
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	
 	<link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.7.0" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.7.1" rel="stylesheet" />
 	<link href="assets/css/select.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet" />
-	<link href="assets/css/sweetalert2.min.css?v=3.7.0" rel="stylesheet" />
+	<link href="assets/css/sweetalert2.min.css?v=3.7.1" rel="stylesheet" />
 	<link type="text/css" rel="stylesheet" href="assets/js/plugins/animate/adp.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
@@ -232,7 +232,7 @@ include "assets/php/main_admin.php";
 						<div class="mensajeria_chat"></div>
 						<div class="mensajeria_enviar">
 							<textarea placeholder="Escribe tu mensaje ..." maxlength="500" rows="1"></textarea>
-							<input type="file" id="file" class="oculto" accept=".xls,.xlsx,.doc,.docx,.pdf,.zip,.rar,image/*">
+							<input type="file" id="file" class="hide" accept=".xls,.xlsx,.doc,.docx,.pdf,.zip,.rar,image/*">
 							<i class="material-icons" onclick="archivo();">attach_file</i>
 							<i class="material-icons" onclick="enviar();">send</i>
 						</div>
@@ -251,10 +251,10 @@ include "assets/php/main_admin.php";
 	<script src="assets/js/plugins/bootstrap-notify.js"></script>
 	<script src="assets/js/plugins/animate/adp.js"></script>
 	<script src="assets/js/block.js"></script>
-	<script src="assets/js/material-dashboard.js?v=3.7.0" type="text/javascript"></script>
+	<script src="assets/js/material-dashboard.js?v=3.7.1" type="text/javascript"></script>
 	<script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-	<script src="assets/js/sesion.js?v=3.7.0"></script>
-	<script src="assets/js/mensajes.js?v=3.7.0"></script>
+	<script src="assets/js/sesion.js?v=3.7.1"></script>
+	<script src="assets/js/mensajes.js?v=3.7.1"></script>
 </body>
 
 </html>
