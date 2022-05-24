@@ -48,17 +48,19 @@
     position: relative
 }
 
-.cambiar_periodo {
+.cambiar_periodo,.nombre_periodo {
     font-weight: 600 !important;
     background: #a2aac525;
     border-radius: 6px !important;
-    padding: 5px 20px !important;
-    margin-right: 20px;
-    transition: all .3s
+    padding: 5px 15px !important;
+    transition: all .3s;
+    position: relative;
+    font-size: 13px !important;
+    color: #436fcf !important;
 }
 
 .cambiar_periodo:hover {
-    transform: scale(.98)
+    transform: translateX(5px)
 }
 
 .cambiar_periodo::after {
@@ -679,7 +681,7 @@ form .card {
     background: rgba(255, 255, 255, .6);
     box-shadow: 0 0 50px 20px rgba(0, 0, 0, .08);
     border-radius: 2px;
-    height: 95%;
+    height: 80vh;
     width: 100%;
     position: relative;
     display: flex;
@@ -1195,7 +1197,8 @@ form .card {
 .sidebar .nav li .dropdown-menu a:hover,
 .sidebar .nav li.active>[data-toggle=collapse],
 .sidebar .nav li:hover>a {
-    background-color: rgba(0, 0, 0, .04) !important
+    background-color: rgba(0, 0, 0, .04) !important;
+    padding-left: 40px !important;
 }
 
 .municipio {
@@ -1229,7 +1232,8 @@ form .card {
 .sidebar .nav li.active>a {
     background: rgb(0, 0, 0, .1);
     color: #eee !important;
-    font-weight: 700 !important
+    font-weight: 700 !important;
+    border-left: 3px solid #fff;
 }
 
 .sidebar .nav p:not(.nav .active p) {
@@ -14213,11 +14217,10 @@ fieldset[disabled] .form-group .form-control {
     position: relative;
     color: inherit;
     height: 50px;
-    font-size: 1.125rem;
+    font-size: .9rem;
     line-height: 30px;
     padding: .625rem 0;
     font-weight: 300;
-    margin-left: 1rem
 }
 
 .navbar>.container {

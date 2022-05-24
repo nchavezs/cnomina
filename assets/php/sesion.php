@@ -17,6 +17,7 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
         $_SESSION['nombre'] = $res["nombre"];
         $_SESSION['email'] = $res["email"];
         $_SESSION['foto'] = $res["urlFoto"];
+        $_SESSION['telefono'] = $res["telefono"];
 
         if ($res["categoria"] === 'user') {
             echo './tablas';

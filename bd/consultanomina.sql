@@ -44,15 +44,15 @@ DROP TABLE IF EXISTS Empleado;
 
 DROP TABLE IF EXISTS Usuario;
 
-DROP TABLE IF EXISTS Permiso;
+DROP TABLE IF EXISTS Autorizacion;
 
 DROP TABLE IF EXISTS Rol;
 
-DROP TABLE IF EXISTS Permiso_Usuario;
+DROP TABLE IF EXISTS Autorizacion_Usuario;
 
 DROP TABLE IF EXISTS Rol_Usuario;
 
-DROP TABLE IF EXISTS Rol_Permiso;
+DROP TABLE IF EXISTS Rol_Autorizacion;
 
 CREATE TABLE Periodo(
     id_periodo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -326,8 +326,8 @@ CREATE TABLE Historial_Plaza(
     FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE
 );
 
-CREATE TABLE Permiso(
-    id_permiso INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Autorizacion(
+    id_autorizacion INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     descripcion VARCHAR(50) NOT NULL
 );
 
@@ -344,20 +344,20 @@ CREATE TABLE Rol_Usuario(
     FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE,
 );
 
-CREATE TABLE Rol_Permiso(
+CREATE TABLE Rol_Autorizacion(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_permiso INT NOT NULL,
+    id_autorizacion INT NOT NULL,
     id_rol INT NOT NULL,
     FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE,
-    FOREIGN KEY(id_permiso) REFERENCES Permiso(id_permiso) ON DELETE CASCADE
+    FOREIGN KEY(id_autorizacion) REFERENCES Permiso(id_autorizacion) ON DELETE CASCADE
 );
 
-CREATE TABLE Permiso_Usuario(
+CREATE TABLE Autorizacion_Usuario(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_permiso INT NOT NULL,
+    id_autorizacion INT NOT NULL,
     RFC VARCHAR(13) NOT NULL,
     FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE,
-    FOREIGN KEY(id_permiso) REFERENCES Permiso(id_permiso) ON DELETE CASCADE
+    FOREIGN KEY(id_autorizacion) REFERENCES Permiso(id_autorizacion) ON DELETE CASCADE
 );
 
 INSERT INTO
@@ -410,4 +410,12 @@ INSERT INTO Periodo(nombre, dias) VALUES("OTRA PERIODICIDAD", 0);
 INSERT INTO
     Role(nombre)
 VALUES('administrador');
+
+
+INSERT INTO Autorizacion("descripcion") VALUES("ver página de empleados");
+INSERT INTO Autorizacion("descripcion") VALUES("registrar empleados");
+INSERT INTO Autorizacion("descripcion") VALUES("exportar de empleados");
+INSERT INTO Autorizacion("descripcion") VALUES("importar empleados");
+INSERT INTO Autorizacion("descripcion") VALUES("actualizar empleados");
+INSERT INTO Autorizacion("descripcion") VALUES("eliminar empleados");
 

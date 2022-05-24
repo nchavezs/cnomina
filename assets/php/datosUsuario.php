@@ -12,6 +12,7 @@ email = '" . $email . "' WHERE RFC = '" . $id . "'";
 if ($conexion->query($sql)) {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['email'] = $email;
+    $_SESSION['telefono'] = $telefono;
     echo 1;
 } else {
     echo 0;
