@@ -1,9 +1,5 @@
 <?php
 include "assets/php/main_admin.php";
-
-if (rol() != 1) {
-    header('location:./registrar');
-}
 ?>
 
 <!DOCTYPE html>

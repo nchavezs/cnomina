@@ -1,6 +1,10 @@
 <?php
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
+
+if(!in_array(30, rol())){
+	header("location: ./perfil");
+}
 ?>
 
 <!DOCTYPE html>

@@ -313,7 +313,7 @@ function eliminar(id, categoria) {
                             type: 'success'
                         })
                     } else if (html == 2) {
-                        no_pasar();
+                        bloqueo();
                     } else {
                         Swal.fire({
                             title: 'Error',

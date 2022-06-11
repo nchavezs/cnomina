@@ -1804,7 +1804,7 @@ function eliminar_usuario(id, event) {
 
                         })
                     } else if (data == 2) {
-                        no_pasar();
+                        bloqueo();
                     } else {
                         Swal.fire({
                             title: 'Error',
@@ -1893,7 +1893,7 @@ function editar_usuario(id, event) {
                                     type: 'success'
                                 })
                             } else if (data == 2) {
-                                no_pasar();
+                                bloqueo();
                             } else {
                                 Swal.fire({
                                     title: 'Error',

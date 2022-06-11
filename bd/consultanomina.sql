@@ -54,6 +54,13 @@ DROP TABLE IF EXISTS Rol_Usuario;
 
 DROP TABLE IF EXISTS Rol_Autorizacion;
 
+DROP TABLE IF EXISTS Categoria;
+
+CREATE TABLE Categoria(
+    id_categoria INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE Periodo(
     id_periodo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
@@ -326,9 +333,17 @@ CREATE TABLE Historial_Plaza(
     FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE
 );
 
+
+
+
+
+
+
 CREATE TABLE Autorizacion(
     id_autorizacion INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(50) NOT NULL
+    descripcion VARCHAR(50) NOT NULL,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY(id_categoria) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );
 
 CREATE TABLE Rol(
@@ -340,8 +355,7 @@ CREATE TABLE Rol_Usuario(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_rol INT NOT NULL,
     RFC VARCHAR(13) NOT NULL,
-    FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE,
-    FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE,
+    FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE
 );
 
 CREATE TABLE Rol_Autorizacion(
@@ -349,15 +363,14 @@ CREATE TABLE Rol_Autorizacion(
     id_autorizacion INT NOT NULL,
     id_rol INT NOT NULL,
     FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE,
-    FOREIGN KEY(id_autorizacion) REFERENCES Permiso(id_autorizacion) ON DELETE CASCADE
+    FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 );
 
 CREATE TABLE Autorizacion_Usuario(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_autorizacion INT NOT NULL,
     RFC VARCHAR(13) NOT NULL,
-    FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE,
-    FOREIGN KEY(id_autorizacion) REFERENCES Permiso(id_autorizacion) ON DELETE CASCADE
+    FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 );
 
 INSERT INTO
@@ -405,17 +418,73 @@ INSERT INTO Periodo(nombre, dias) VALUES("MENSUAL", 30);
 INSERT INTO Periodo(nombre, dias) VALUES("OTRA PERIODICIDAD", 0);
 
 
+INSERT INTO Rol(nombre) VALUES('ADMINISTRADOR');
 
+INSERT INTO Categoria(id_categoria, nombre) VALUES(1, 'empleados');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(2, 'usuarios');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(3, 'prenomina');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(4, 'CDFI');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(5, 'nominas');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(6, 'catalogos');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(7, 'plazas');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(8, 'mensajes');
+INSERT INTO Categoria(id_categoria, nombre) VALUES(9, 'reportes');
 
-INSERT INTO
-    Role(nombre)
-VALUES('administrador');
+-- ALTER TABLE Autorizacion AUTO_INCREMENT=0;
 
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Empleados", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Alta y baja de empleados", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Importar Empleados", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Exportar Empleados", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Actualizar Empleados", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar información del Empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar perfil de empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña del empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar incidencias", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Registrar incidencias y cargar archivos", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Cargar archivos de expediente del empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar CFDI del empleado", 1);
 
-INSERT INTO Autorizacion("descripcion") VALUES("ver página de empleados");
-INSERT INTO Autorizacion("descripcion") VALUES("registrar empleados");
-INSERT INTO Autorizacion("descripcion") VALUES("exportar de empleados");
-INSERT INTO Autorizacion("descripcion") VALUES("importar empleados");
-INSERT INTO Autorizacion("descripcion") VALUES("actualizar empleados");
-INSERT INTO Autorizacion("descripcion") VALUES("eliminar empleados");
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar Usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear roles de usuario", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar roles de usuario", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar roles de usuario", 2);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Prenómina", 3);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar prenómina", 3);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Autorizar prenómina", 3);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Descargar prenómina", 3);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Importar CFDI", 4);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Cargar archivos CFDI", 4);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Registrar empleados por CFDI", 4);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Nominas", 5);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar registro de CFDI", 5);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Catálogos", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear puesto y departamento", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Importar puestos y departamentos", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Exportar puestos y departamentos", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Descargar reporte de puestos agrupados", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar puesto y departamento", 6);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar puesto y departamento", 6);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Plazas", 7);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear plaza", 7);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Importar plazas", 7);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar plaza", 7);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Suspender y activar plazas", 7);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Mensajes", 8);
+
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Reportes", 9);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte General", 9);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Plazas", 9);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Usuarios", 9);
+
 

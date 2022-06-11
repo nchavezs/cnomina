@@ -14,6 +14,15 @@ $empleados = '
 </li>
 ';
 
+$usuarios = '
+<li id="tab-usuarios" class="nav-item">
+    <a class="nav-link" href="./usuarios">
+        <i class="material-icons">groups</i>
+        <p>Usuarios</p>
+    </a>
+</li>
+';
+
 $perfil = '
 <li id="tab-perfil" class="nav-item">
     <a class="nav-link" href="./perfil">
@@ -101,6 +110,7 @@ $nav = '
 <ul class="nav">' .
     $empleados .
     $perfil .
+    $usuarios .
     $prenomina .
     $cfdi .
     $nominas .

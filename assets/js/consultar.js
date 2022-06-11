@@ -105,7 +105,7 @@ function eliminar(id) {
                     if (a == 1) {
                         ok();
                     } else if (a == 2) {
-                        no_pasar();
+                        bloqueo();
                     } else {
                         error();
                     }

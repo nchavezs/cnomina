@@ -1,10 +1,6 @@
 <?php
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
-
-if(!in_array(21, rol())){
-	header("location: ./perfil");
-}
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +19,8 @@ if(!in_array(21, rol())){
 			
 			<div class="content">
 				<div class="container-fluid">
-					<div class="prenominas"></div>
+
+
 				</div>
 			</div>
 
@@ -33,8 +30,8 @@ if(!in_array(21, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/prenomina.js?v=3.7.2"></script>
-   <script>$("#tab-prenomina").addClass("active");</script>
+
+	<script>$("#tab-usuarios").addClass("active");</script>
 
 </body>
 </html>

@@ -70,7 +70,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "I";
+        $ultimo = "J";
         $bandera = true;
         $i = 3;
 
@@ -94,7 +94,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
         $sheet->setCellValue('G2', 'DIAS POR EJERCER');
         $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
         $sheet->setCellValue('I2', 'ESTADO');
-        // $sheet->setCellValue('J2', 'ELABORACION');
+        $sheet->setCellValue('J2', 'FECHA ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
             $presupuestados = $resultado["dias"];
@@ -146,7 +146,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
             $sheet->setCellValue('G' . $i, $vacantes);
             $sheet->setCellValue('H' . $i, $presupuestados);
             $sheet->setCellValue('I' . $i, $estado);
-            // $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
+            $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }

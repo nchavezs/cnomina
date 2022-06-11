@@ -81,7 +81,7 @@ $(document).ready(function () {
    });
 });
 
-function no_pasar() {
+function bloqueo() {
    md.showNotification("top", "right", "No cuenta con los permisos suficientes.");
 }
 

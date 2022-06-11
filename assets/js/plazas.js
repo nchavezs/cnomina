@@ -252,7 +252,7 @@ function eliminar(id, event) {
                             type: 'success'
                         })
                     } else if (html == 2) {
-                        no_pasar();
+                        bloqueo();
                     } else if (html == 3) {
                         md.showNotification("top", "right", "No puedes eliminar esta plaza mientras esté ocupada.");
 
