@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(43, rol())){
+if(!in_array(41, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -27,7 +27,14 @@ if(!in_array(43, rol())){
 						<div class="pagina pagina_1">
 							<div class="row">
 								<div class="col-md-4">
-									<div class="card" onclick="pagina(2);">
+									<?php
+									if(in_array( 42, rol())){
+										echo '<div class="card" onclick="pagina(2);">';
+									}else{
+										echo '<div class="card" onclick="bloqueo();">';
+									}
+									?>
+								
 										<div class="card-body text-center">
 											<h3 class="text-primary">General</h3>
 											<img src="assets/img/reportes.svg" alt="">
@@ -36,7 +43,13 @@ if(!in_array(43, rol())){
 									</div>
 								</div>
 								<div class="col-md-4">
-									<div class="card" onclick="pagina(3);">
+									<?php
+									if(in_array( 43, rol())){
+										echo '<div class="card" onclick="pagina(3);">';
+									}else{
+										echo '<div class="card" onclick="bloqueo();">';
+									}
+									?>
 										<div class="card-body text-center">
 											<h3 class="text-primary">Plazas</h3>
 											<img src="assets/img/plazas.svg" alt="">
@@ -45,7 +58,13 @@ if(!in_array(43, rol())){
 									</div>
 								</div>
 								<div class="col-md-4">
-									<div class="card" onclick="pagina(4);">
+									<?php
+									if(in_array( 44, rol())){
+										echo '<div class="card" onclick="pagina(4);">';
+									}else{
+										echo '<div class="card" onclick="bloqueo();">';
+									}
+									?>
 										<div class="card-body text-center">
 											<h3 class="text-primary">Usuarios</h3>
 											<img src="assets/img/usuarios.svg" alt="">

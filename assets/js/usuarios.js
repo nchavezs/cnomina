@@ -29,6 +29,25 @@ function nuevo_usuario(){
 	});
 }
 
+function editar_usuario(id){
+	$.ajax({
+		url: "assets/php/editar_usuario.php",
+		type: "POST",
+		data: {
+			id: id
+		},
+		success: function(data){
+			Swal.fire({
+				html: data,
+				allowOutsideClick: false,
+				showConfirmButton: false
+			});
+			select_estilo();
+			actualizar_usuario(id);
+		}
+	});
+}
+
 function nuevo_rol(){
 	$.ajax({
 		url: "assets/php/nuevo_rol.php",
@@ -90,6 +109,33 @@ function guardar_usuario(){
 			success: function(data){
 				if(data == 1){
 					md.showNotification("top", "right", "Usuario creado correctamente.");
+					usuarios();
+					Swal.close();
+				}else{
+					md.showNotification("top", "right", data);
+				}
+			}
+		});
+		
+	})
+}
+
+function actualizar_usuario(id){
+	$("#form").submit(function(e){
+		e.preventDefault();
+		$.ajax({
+			url: "assets/php/actualizar_usuario.php",
+			type: "POST",
+			data: {
+				nombre: $("#nombre").val(),
+				alias: $("#alias").val(),
+				email: $("#email").val(),
+				rol: $("#rol").val(),
+				id: id
+			},
+			success: function(data){
+				if(data == 1){
+					md.showNotification("top", "right", "Datos de usuario actualizados.");
 					usuarios();
 					Swal.close();
 				}else{

@@ -4,28 +4,38 @@ include 'conexion.php';
 $conexion = conexion();
 
 $html = '';
-$sql = "SELECT * FROM Usuario WHERE categoria = 'admin'";
+$sql = "SELECT *,
+(SELECT nombre FROM Rol WHERE id_rol = (SELECT id_rol FROM Rol_Usuario WHERE RFC = Usuario.RFC)) AS rol 
+FROM Usuario WHERE categoria = 'admin'";
 $consulta = $conexion->query($sql);
 
+
+
 while($usuario = mysqli_fetch_array($consulta)){
+    
+    if($usuario["urlFoto"] == null){
+        $usuario["urlFoto"] = "assets/img/user.png";
+    }
+    
+    $estado = '<div class="estado_usuario"><i class="material-icons">done</i> </div>';
+    if($usuario["estado"] == "baja"){
+        $estado = '<div class="estado_usuario baja"><i class="material-icons">close</i> </div>';
+    }
+
     $html = $html. '
     <div class="col-lg-4 col-md-6">
-        <div class="card">
+        <div class="card caja_usuario" onclick="editar_usuario(\''.$usuario["RFC"].'\');">
             <div class="card-body">
                 <div class="d-flex">
-                    <div class="d-flex align-items-center mr-4">
-                        <img src="assets/img/user.png" class="rounded-circle" width="60px" height="60px" alt="">
+                    <div class="p-1 mr-4 foto_usuario">
+                        <img src="'.$usuario["urlFoto"].'" alt="">
                     </div>
                     <div class="w-100">
                         <p class="negrita mb-1">'.$usuario["nombre"].'</p>
                         <p class="text-secondary m-0">'.$usuario["email"].'</p>
-                        <p class="">Administrador</p>
-                       
-                        <div class="text-right w-100">
-                            <button class="btn btn-sm btn-primary">Editar</button>
-                        </div>
-
-                    </div>
+                        <small class="text-secondary negrita">'.$usuario["rol"].'</small>'.
+                        $estado.   
+                    '</div>
                 </div>
             </div>
         </div>

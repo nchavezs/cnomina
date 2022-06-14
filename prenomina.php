@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(21, rol())){
+if(!in_array(20, rol())){
 	header("location: ./perfil");
 }
 ?>

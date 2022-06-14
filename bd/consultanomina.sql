@@ -439,13 +439,11 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Exportar Empleados",
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Actualizar Empleados", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar información del Empleado", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar empleado", 1);
-INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar perfil de empleado", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña del empleado", 1);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar CFDI del empleado", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar incidencias", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Registrar incidencias y cargar archivos", 1);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Cargar archivos de expediente del empleado", 1);
-INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar CFDI del empleado", 1);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Usuarios", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear usuarios", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar usuarios", 2);
@@ -453,19 +451,14 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar Usuarios", 
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear roles de usuario", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar roles de usuario", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar roles de usuario", 2);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Prenómina", 3);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar prenómina", 3);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Autorizar prenómina", 3);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Descargar prenómina", 3);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Importar CFDI", 4);
-INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Cargar archivos CFDI", 4);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Registrar empleados por CFDI", 4);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Nominas", 5);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar registro de CFDI", 5);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Catálogos", 6);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear puesto y departamento", 6);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Importar puestos y departamentos", 6);
@@ -473,18 +466,16 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Exportar puestos y d
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Descargar reporte de puestos agrupados", 6);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Editar puesto y departamento", 6);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar puesto y departamento", 6);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Plazas", 7);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Crear plaza", 7);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Importar plazas", 7);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Eliminar plaza", 7);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Suspender y activar plazas", 7);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Mensajes", 8);
-
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página Reportes", 9);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte General", 9);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Plazas", 9);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Usuarios", 9);
-
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Baja de usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña de usuario", 2);
 

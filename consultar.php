@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(28, rol())){
+if(!in_array(26, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -26,9 +26,16 @@ if(!in_array(28, rol())){
 					<div class="card">
 						<div class="card-body">
 							<div class="msn-mostrar">
-								<button onclick="eliminar_periodo();" class="btn-mostrar">
-								<i class="material-icons">delete</i>Eliminar por periodo</button>
-								<a href="./subir" class="btn-mostrar"><i class="material-icons">file_upload</i>Impotar CFDI</a>
+							<?php
+							if(in_array(27 , rol())){
+								echo '<button onclick="eliminar_periodo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button>';
+							}else{
+								echo '<button onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">delete</i>Eliminar por periodo</button>';
+							}
+							if(in_array(24 , rol())){
+								echo '<a href="./subir" class="btn-mostrar"><i class="material-icons">file_upload</i>Impotar CFDI</a>';
+							}
+							?>
 							</div>
 						</div>
 					</div>

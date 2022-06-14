@@ -1,5 +1,8 @@
 <?php
 include "conexion.php";
+session_start();
+include "rol.php";
+
 $conexion = conexion();
 $id = $_POST['id'];
 
@@ -93,25 +96,51 @@ if ($resultado = $conexion->query($sql)) {
 
     echo '<div class="ver_caja">
 			<div class="ver_panel">
+
 				<div class="foto-caja">
 					<img class="foto-empleado foto" src="' . $imagen . '" />
 					<input class="hidden" type="file" id="input-foto" accept="image/jpg, image/png, iamge/jpeg" >
 				</div>
 
-				<p onclick="verPerfil(\''.$res["RFC"].'\')"class="activo">Perfil</p>
-				<p onclick="verNominas(\''.$res["RFC"].'\')">CFDI</p>
-				<p onclick="verBeneficiarios(\''.$res["RFC"].'\')">Beneficiarios</p>
-				<p onclick="verMovimientos(\''.$res["RFC"].'\')">Movimientos</p>
-				<p onclick="verPases(\''.$res["RFC"].'\')">Pases</p>
-				<p onclick="verVacaciones(\''.$res["RFC"].'\')">Vacaciones</p>
-				<p onclick="verPermisos(\''.$res["RFC"].'\')">Licencias</p>
-                <p onclick="verDescuentos(\''.$res["RFC"].'\')">Descuentos</p>
-				<p onclick="verGastos(\''.$res["RFC"].'\')">Gastos médicos</p>
-				<p onclick="verExpediente(\''.$res["RFC"].'\')">Expediente</p>
-				<p onclick="verHistorial(\''.$res["RFC"].'\')">Altas y Bajas</p>
+				<p onclick="verPerfil(\''.$res["RFC"].'\')"class="activo">Perfil</p>';
+                if(in_array(9, rol())){
+                    echo '<p onclick="verNominas(\''.$res["RFC"].'\')">CFDI</p>';
+                }else{
+                    echo '<p onclick="bloqueo()">CFDI</p>';
+                }
+                if(in_array(10, rol())){
+                    echo '
+                    <p onclick="verBeneficiarios(\''.$res["RFC"].'\')">Beneficiarios</p>
+                    <p onclick="verMovimientos(\''.$res["RFC"].'\')">Movimientos</p>
+                    <p onclick="verPases(\''.$res["RFC"].'\')">Pases</p>
+                    <p onclick="verVacaciones(\''.$res["RFC"].'\')">Vacaciones</p>
+                    <p onclick="verPermisos(\''.$res["RFC"].'\')">Licencias</p>
+                    <p onclick="verDescuentos(\''.$res["RFC"].'\')">Descuentos</p>
+                    <p onclick="verGastos(\''.$res["RFC"].'\')">Gastos médicos</p>
+                    <p onclick="verHistorial(\''.$res["RFC"].'\')">Altas y Bajas</p>
+                    ';
+                }else{
+                    echo '
+                    <p onclick="bloqueo()">Beneficiarios</p>
+                    <p onclick="bloqueo()">Movimientos</p>
+                    <p onclick="bloqueo()">Pases</p>
+                    <p onclick="bloqueo()">Vacaciones</p>
+                    <p onclick="bloqueo()">Licencias</p>
+                    <p onclick="bloqueo()">Descuentos</p>
+                    <p onclick="bloqueo()">Gastos médicos</p>
+                    <p onclick="bloqueo()">Altas y Bajas</p>
+                    ';
+                }
+                
+                if(in_array(12, rol())){
+                    echo '<p onclick="verExpediente(\''.$res["RFC"].'\')">Expediente</p>';
+                }else{
+                    echo '<p onclick="bloqueo()">Expediente</p>';
+                }
 
-			</div>
+               
 
+			echo '</div>
 
             <div class="ver_boton"><i class="material-icons regresar">menu</i></div>
 			<div class="ver_contenedor"></div>

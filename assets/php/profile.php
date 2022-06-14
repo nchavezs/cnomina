@@ -3,6 +3,10 @@ include "conexion.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
+session_start();
+include "rol.php";
+
+
 $sql = "SELECT *,
 (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
@@ -55,9 +59,22 @@ echo '<div class="p-2">
                                 </div>
                             </div>
                         </div>
-                        <div class="d-block centrado">
-                           <button class="btn btn3 btn-primary foto_usuario"><i class="material-icons">wallpaper</i> Cambiar foto</button>
-                           <button onclick="password(\''.$usuario["RFC"].'\');" class="btn btn3 btn-secondary"><i class="material-icons">vpn_key</i> Restablecer contraseña</button>
+                        <div class="d-block centrado">';
+
+                        if(in_array(6 , rol())){
+                            echo '<button class="btn btn3 btn-primary foto_usuario"><i class="material-icons">wallpaper</i> Cambiar foto</button>';
+                        }else{
+                            echo '<button onclick="bloqueo();" class="btn btn3 btn-primary"><i class="material-icons">wallpaper</i> Cambiar foto</button>';
+                        }
+
+                        if(in_array(8, rol())){
+                            echo '<button onclick="password(\''.$usuario["RFC"].'\');" class="btn btn3 btn-secondary"><i class="material-icons">vpn_key</i> Restablecer contraseña</button>';
+                        }else{
+                            echo '<button onclick="bloqueo();" class="btn btn3 btn-secondary"><i class="material-icons">vpn_key</i> Restablecer contraseña</button>';
+                        }
+                           
+                        
+                        echo '
                         </div>
                     </div>
                 </div>

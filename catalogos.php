@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(30, rol())){
+if(!in_array(28, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -29,15 +29,34 @@ if(!in_array(30, rol())){
 
 								<div class="card-body">
 									<div class="msn-mostrar">
-										<button onclick="nuevo_puesto();" class="btn-mostrar"><i
-												class="material-icons">add_circle_outline</i>Nuevo puesto</button>
-										<input type="file" id="importar-puestos" accept=".xlsx" /><label
-											class="btn-mostrar" for="importar-puestos"><i
-												class="material-icons">file_upload</i>Importar</label>
-										<button onclick="exportar_puesto();" class="btn-mostrar"><i
-												class="material-icons">file_download</i>Exportar</button>
-										<button onclick="exportar_puesto_agrupado();" class="btn-mostrar"><i
-												class="material-icons">file_download</i>Puestos agrupados</button>
+										<input type="file" id="importar-puestos" accept=".xlsx" />
+
+										<?php
+										if(in_array( 29, rol())){
+											echo '<button onclick="nuevo_puesto();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo puesto</button>';
+										}else{
+											echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo puesto</label>';
+										}
+									
+										if(in_array( 30, rol())){
+											echo '<label class="btn-mostrar" for="importar-puestos"><i class="material-icons">file_upload</i>Importar</label>';
+										}else{
+											echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">file_upload</i>Importar</label>';
+										}
+									
+										if(in_array( 31, rol())){
+											echo '<button onclick="exportar_puesto();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>';
+										}else{
+											echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">file_download</i>Exportar</label>';
+										}
+									
+										if(in_array( 32, rol())){
+											echo '<button onclick="exportar_puesto_agrupado();" class="btn-mostrar"><i class="material-icons">file_download</i>Puestos agrupados</button>';
+										}else{
+											echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">file_download</i>Puestos agrupados</label>';
+										}
+										?>
+										
 									</div>
 								</div>
 							</div>
@@ -65,13 +84,25 @@ if(!in_array(30, rol())){
 							<div class="card">
 								<div class="card-body">
 									<div class="msn-mostrar">
-										<button onclick="nuevo_departamento();" class="btn-mostrar"><i
-												class="material-icons">add_circle_outline</i>Nuevo departamento</button>
-										<input type="file" id="importar-departamentos" accept=".xlsx" /><label
-											class="btn-mostrar" for="importar-departamentos"><i
-												class="material-icons">file_upload</i>Importar</label>
-										<button onclick="exportar_depa();" class="btn-mostrar"><i
-												class="material-icons">file_download</i>Exportar</button>
+									<input type="file" id="importar-departamentos" accept=".xlsx" />
+									<?php
+									if(in_array( 29, rol())){
+										echo '<button onclick="nuevo_departamento();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nuevo departamento</button>';
+									}else{
+										echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">add_circle_outline</i>Nuevo departamento</label>';
+									}
+									if(in_array( 30, rol())){
+										echo '<label class="btn-mostrar" for="importar-departamentos"><i class="material-icons">file_upload</i>Importar</label>';
+									}else{
+										echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">file_upload</i>Importar</label>';
+									}
+									if(in_array( 31, rol())){
+										echo '<button onclick="exportar_depa();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</button>';
+									}else{
+										echo '<label class="btn-mostrar" onclick="bloqueo();"><i class="material-icons">file_download</i>Exportar</label>';
+									}
+									?>
+											
 									</div>
 								</div>
 							</div>

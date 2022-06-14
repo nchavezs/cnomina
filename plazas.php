@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(37, rol())){
+if(!in_array(35, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -29,13 +29,26 @@ if(!in_array(37, rol())){
                         </div> -->
                         <div class="card-body">
                             <div class="msn-mostrar">
-                                <label onclick="nueva_plaza();" class="btn-mostrar"><i
-                                        class="material-icons">add_circle_outline</i>Nueva plaza</label>
-                                <input type="file" id="importar-plazas" accept=".xlsx" /><label class="btn-mostrar"
-                                    for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
-                                <!-- <label onclick="exportar_plazas();" class="btn-mostrar"><i
-                                        class="material-icons">file_download</i>Exportar</label> -->
+                                <input type="file" id="importar-plazas" accept=".xlsx" />
+
+                                <?php
+                                if(in_array(36 , rol())){
+                                    echo '<label onclick="nueva_plaza();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva plaza</label>';
+                                }else{
+                                    echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">add_circle_outline</i>Nueva plaza</label>';
+                                }
+
+                                if(in_array( 37, rol())){
+                                    echo '
+                                        <label class="btn-mostrar" for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
                                         <a href="./assets/docs/plazas.xlsx?v=3.7.2" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
+                                    ';
+                                }else{
+                                    echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">file_upload </i>Importar</label>';
+                                }
+                                ?>
+                              
+                                <!-- <label onclick="exportar_plazas();" class="btn-mostrar"><i class="material-icons">file_download</i>Exportar</label> -->
                             </div>
                         </div>
                     </div>

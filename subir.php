@@ -2,7 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
-if(!in_array(25, rol())){
+if(!in_array(24, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -26,6 +26,9 @@ if(!in_array(25, rol())){
 
 					<div class="row">
 						<div class="col-md-12 col-xl-8">
+						<?php
+						if(in_array(25, rol())){
+							echo '
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
@@ -46,6 +49,10 @@ if(!in_array(25, rol())){
 									</div>
 								</div>
 							</div>
+							';
+						}
+						?>
+							
 						</div>
 						<div class="col-md-12">
 							<div class="card">

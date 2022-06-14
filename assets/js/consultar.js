@@ -73,7 +73,7 @@ function ver(x) {
                 html: html,
                 allowOutsideClick: false,
                 confirmButtonText: 'Salir',
-                customClass: 'animated fadeIn faster',
+                width: "40em"
                 
             });
         }
@@ -152,7 +152,7 @@ function eliminar_periodo() {
                 html: html,
                 showConfirmButton: false,
                 allowOutsideClick: false,
-                customClass: 'swal0-width animated fadeIn faster',
+                width: "35em"
                 
             });
             $('#fecha_del').datepicker({

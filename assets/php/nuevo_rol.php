@@ -8,7 +8,7 @@ echo '
 		<form id="form">
 			<div class="text-left p-2">
 				<h4 class="negrita text-primary">Nuevo rol de usuario</h4>
-				<small class="text-muted">Ingresa el nombre del rol y selecciona los permisos.</small>
+				<small class="text-muted">Para identificar el rol y poder usarlo con otros usuarios ingresa un nombre que lo identifique, despúes asigna los permisos que se habilitarán.</small>
 			</div>
 			<div class="card">
 				<div class="card-body">

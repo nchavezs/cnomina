@@ -3,7 +3,7 @@ include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 
 
-if(!in_array(14, rol())){
+if(!in_array(13, rol())){
 	header("location: ./perfil");
 }
 ?>
@@ -28,7 +28,7 @@ if(!in_array(14, rol())){
                         <div class="card-body">
                             <div class="msn-mostrar">
 								<label onclick="nuevo_usuario();" class="btn-mostrar">
-                                    <i class="material-icons">add_circle_outline</i>Nuevo empleado
+                                    <i class="material-icons">add_circle_outline</i>Nuevo usuario
                                 </label>
                             </div>
                         </div>
