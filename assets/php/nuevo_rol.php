@@ -8,7 +8,7 @@ echo '
 		<form id="form">
 			<div class="text-left p-2">
 				<h4 class="negrita text-primary">Nuevo rol de usuario</h4>
-				<small class="text-muted">Para identificar el rol y poder usarlo con otros usuarios ingresa un nombre que lo identifique, despúes asigna los permisos que se habilitarán.</small>
+				<small class="text-muted">Ingresa un nombre de rol y para poder asignarlo a usuarios, despúes selecciona los permisos que se habilitarán para el rol.</small>
 			</div>
 			<div class="card">
 				<div class="card-body">
@@ -18,7 +18,7 @@ echo '
 					<div class="checklist">';
 						$sql = "SELECT *, 
 							(SELECT nombre FROM Categoria WHERE id_categoria = Autorizacion.id_categoria) AS categoria 
-							FROM Autorizacion ORDER BY id_categoria";
+							FROM Autorizacion ORDER BY id_categoria, id_autorizacion";
 							$consulta = $conexion->query($sql);
 							$categoria = 0;
 							while ($autorizacion = mysqli_fetch_array($consulta)) {
