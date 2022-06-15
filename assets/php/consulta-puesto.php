@@ -1,4 +1,6 @@
 <?php
+session_start();
+include "rol.php";
 include "conexion.php";
 $conexion = conexion();
 
@@ -10,16 +12,43 @@ Puesto.nombre AS puesto,
 (SELECT nombre FROM Trabajador WHERE id_trabajador = Puesto.id_trabajador) AS categoria 
 FROM Puesto";
 
+if (in_array(34, rol())) {
+    $bandera_eliminar = true;
+} else {
+    $bandera_eliminar = false;
+}
+
+if (in_array(33, rol())) {
+    $bandera_editar = true;
+} else {
+    $bandera_editar = false;
+}
+
 $resultado = $conexion->query($sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';
 } else {
     $i = 1;
     while ($res = mysqli_fetch_array($resultado)) {
-        $sql = "SELECT COUNT(*) FROM Plaza WHERE id_puesto = ".$res["id_puesto"];
-        $consulta = $conexion->query($sql);
-        $plazas = mysqli_fetch_row($consulta);
         $res['numero'] = $i++;
+
+        if ($bandera_eliminar) {
+            $eliminar = "eliminar(".$res["id_puesto"].",'Puesto')";
+        } else {
+            $eliminar = "bloqueo(event)";
+        }
+
+        if ($bandera_editar) {
+            $editar = "editar_puesto(".$res['id_puesto'].")";
+        } else {
+            $editar = "bloqueo(event)";
+        }
+
+        $res["opciones"] = '
+        <i class="material-icons btn1" onclick="'.$editar.'" >editar</i>
+        <i class="material-icons btn1-danger" onClick="'.$eliminar.'">delete</i>';
+
+
         $arreglo["data"][] = $res;
     }   
     echo json_encode($arreglo);

@@ -28,42 +28,40 @@ $(document).ready(function () {
             $('.main-panel .content').perfectScrollbar('update');
             ADP.show($(".pagina_1 .table-responsive")[0], 'slide-left');
         },
-        "columnDefs": [{
-                "className": "negrita",
-                "targets": [0, 1]
-            },
+        "columnDefs": [
             {
                 "orderable": false,
                 "targets": [3]
             }
         ],
         "columns": [{
-                "data": "numero"
-            },
-            {
-                "render": function (data, type, row) {
-                    let html = "<div>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
-                    return html;
-                }
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<a class="tipo">' + row.plazas + '</a>';
-                }
-            },
-            {
-                "data": "categoria"
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onclick="editar_puesto(' + row.id_puesto + ');" >editar</i>';
-                }
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_puesto + ', \'Puesto\');">delete</i>';
-                }
+            "render": function (data, type, row) {
+                return '<span class="negrita">' + row.numero + '</span>';
             }
+        },
+        {
+            "render": function (data, type, row) {
+                return "<span class='negrita'>" + row.puesto + "</span>";
+            }
+        },
+        {
+            "render": function (data, type, row) {
+                return "<span>" + row.departamento + "</span>";
+            }
+        },
+        {
+            "render": function (data, type, row) {
+                return '<span class="tipo">' + row.plazas + '</span>';
+            }
+        },
+        {
+            "data": "categoria"
+        },
+        {
+            "render": function (data, type, row) {
+                return row.opciones
+            }
+        }
         ]
     });
 
@@ -84,30 +82,26 @@ $(document).ready(function () {
         //     $('.main-panel .content').perfectScrollbar('update');
         // },
         "columnDefs": [{
-                "className": "negrita",
-                "targets": [0]
-            },
-            {
-                "orderable": false,
-                "targets": [2]
-            }
+            "className": "text-center",
+            "orderable": false,
+            "targets": [2],
+        }
         ],
         "columns": [{
-                "data": "numero"
-            },
-            {
-                "data": "nombre"
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" onclick="editar_departamento(' + row.id_departamento + ');" >editar</i>';
-                }
-            },
-            {
-                "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onclick="eliminar(' + row.id_departamento + ', \'Departamento\');">delete</i>';
-                }
+            "render": function (data, type, row) {
+                return '<span class="negrita">' + row.numero + '</span>';
             }
+        },
+        {
+            "render": function (data, type, row) {
+                return '<span class="negrita">' + row.nombre + '</span>';
+            }
+        },
+        {
+            "render": function (data, type, row) {
+                return row.opciones;
+            }
+        }
         ]
     });
 
@@ -218,7 +212,7 @@ function nuevo_departamento() {
             });
 
             select_estilo();
-    
+
             $("#form").submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -257,7 +251,7 @@ function nuevo_puesto() {
             });
 
             select_estilo();
-    
+
             $("#form").submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -388,7 +382,7 @@ function editar_puesto(id) {
             });
 
             select_estilo();
-    
+
             $("#form").submit(function (e) {
                 e.preventDefault();
                 $.ajax({

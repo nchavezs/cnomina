@@ -287,9 +287,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-
-                    return '<span class="boton_tabla text-primary mr-2" onclick="editar_usuario(\'' + row.RFC + '\', event);"> <i class="material-icons">edit</i>  </span>' +
-                        '<span class="boton_tabla text-danger" onclick="eliminar_usuario(\'' + row.RFC + '\',event);"><i class="material-icons">delete</i> </span>';
+                    return row.opciones;
                 }
             }
         ]

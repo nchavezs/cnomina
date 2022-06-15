@@ -70,10 +70,10 @@ if(!in_array(28, rol())){
 										<tr>
 											<th class="">#</th>
 											<th class="">Puesto</th>
+											<th class="">Departamento</th>
 											<th class="">Plazas</th>
 											<th class="">Categoría</th>
-											<th class="">Editar</th>
-											<th class="">Eliminar</th>
+											<th class="">Opciones</th>
 										</tr>
 									</thead>
 								</table>
@@ -116,8 +116,7 @@ if(!in_array(28, rol())){
 										<tr>
 											<th class="">#</th>
 											<th class="">Departamento</th>
-											<th class="">Editar</th>
-											<th class="">Eliminar</th>
+											<th class="">Opciones</th>
 										</tr>
 									</thead>
 								</table>

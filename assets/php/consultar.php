@@ -1,24 +1,53 @@
 <?php
-   include("conexion.php");
-   $conexion = conexion();
-   setlocale(LC_ALL, "spanish");
-   $ano = $_POST["ano"];
-   $id_periodo = $_POST["id_periodo"];
-   
-   $sql = "SELECT * FROM Archivo WHERE 
-   YEAR(del) = ".$ano." AND 
-   id_periodo = ".$id_periodo." 
-   ORDER BY del DESC";
-   $resultado = $conexion->query($sql);
-	if(mysqli_num_rows($resultado) == 0){
-		 echo '{"data":[]}';
-	}else{
-      while($res = mysqli_fetch_assoc($resultado)){
-         $res["del"] = strftime("%d %B", strtotime($res["del"]));
-         $res["al"] = strftime("%d %B", strtotime($res["al"]));
-         $arreglo["data"][] = $res;
-      }
-      echo json_encode($arreglo);
-   }
+session_start();
+include "conexion.php";
+include "rol.php";
+$conexion = conexion();
+setlocale(LC_ALL, "spanish");
+$ano = $_POST["ano"];
+$id_periodo = $_POST["id_periodo"];
 
-   $conexion->close();
+if (in_array(7, rol())) {
+    $bandera_eliminar = true;
+} else {
+    $bandera_eliminar = false;
+}
+
+if (in_array(9, rol())) {
+    $bandera_ver = true;
+} else {
+    $bandera_ver = false;
+}
+
+$sql = "SELECT * FROM Archivo WHERE
+   YEAR(del) = " . $ano . " AND
+   id_periodo = " . $id_periodo . "
+   ORDER BY del DESC";
+$resultado = $conexion->query($sql);
+if (mysqli_num_rows($resultado) == 0) {
+    echo '{"data":[]}';
+} else {
+    while ($res = mysqli_fetch_array($resultado)) {
+        $res["del"] = strftime("%d %B", strtotime($res["del"]));
+        $res["al"] = strftime("%d %B", strtotime($res["al"]));
+
+        if ($bandera_eliminar) {
+            $eliminar = "eliminar($res[0])";
+        } else {
+            $eliminar = "bloqueo(event)";
+        }
+
+        if ($bandera_ver) {
+            $ver = "ver($res[0])";
+        } else {
+            $ver = "bloqueo(event)";
+        }
+
+        $res["eliminar"] = '<i class="material-icons btn1-danger" onClick="' . $eliminar . '" >delete</i>';
+        $res["ver"] = '<i class="material-icons btn1" onClick="' . $ver . '">assignment</i>';
+        $arreglo["data"][] = $res;
+    }
+    echo json_encode($arreglo);
+}
+
+$conexion->close();

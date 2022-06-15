@@ -45,12 +45,12 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1" id="' + row.id_archivo + "x" + '" onClick="ver(this.id);">assignment</i>';
+                    return row.ver;
                 }
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" id="' + row.id_archivo + '" onClick="eliminar(this.id);" >delete</i>';
+                    return row.eliminar;
                 }
             }
 
@@ -58,8 +58,7 @@ $(document).ready(function () {
     });
 });
 
-function ver(x) {
-    var id = x.replace("x", "");
+function ver(id) {
     $.ajax({
         type: "POST",
         url: "assets/php/verRegistro.php",
@@ -74,7 +73,6 @@ function ver(x) {
                 allowOutsideClick: false,
                 confirmButtonText: 'Salir',
                 width: "40em"
-                
             });
         }
     });
@@ -104,12 +102,10 @@ function eliminar(id) {
                 success: function (a) {
                     if (a == 1) {
                         ok();
-                    } else if (a == 2) {
-                        bloqueo();
+                        $('#tabla-nominas').DataTable().ajax.reload();
                     } else {
                         error();
                     }
-                    $('#tabla-nominas').DataTable().ajax.reload();
                 }
             });
 
@@ -124,8 +120,6 @@ function ok() {
         position: 'center',
         type: 'success',
         title: 'Eliminado',
-        
-        
     });
 };
 
@@ -134,8 +128,6 @@ function error() {
         position: 'center',
         type: 'error',
         title: 'No eliminado',
-        
-        
     });
 }
 

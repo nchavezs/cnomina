@@ -1,8 +1,24 @@
 <?php
+session_start();
+include "rol.php";
 include "conexion.php";
 $conexion = conexion();
 $id_puesto = $_POST["id_puesto"];
 $estado = $_POST["estado"];
+
+
+if (in_array(38, rol())) {
+    $bandera_eliminar = true;
+} else {
+    $bandera_eliminar = false;
+}
+
+if (in_array(39, rol())) {
+    $bandera_estado = true;
+} else {
+    $bandera_estado = false;
+}
+
 
 function diferencia($fecha1, $fecha2)
 {
@@ -86,6 +102,38 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
         $res['vacantes'] = $vacantes;
         $res["ocupados"] = $ocupados_total;
         $res["desocupados"] = $desocupados;
+
+
+        // ------------------------------------------------------------------------------------------------------
+        if ($bandera_eliminar) {
+            $eliminar = "eliminar(".$res["id_plaza"].", event)";
+        } else {
+            $eliminar = "bloqueo(event)";
+        }
+
+      
+        if($res["estado"] == 1){
+            $checked = "checked";
+            $activo = "active";
+        }else{
+            $checked = "";
+            $activo = "";
+        }
+
+        if ($bandera_estado) {
+            $estado = "";
+        } else {
+            $estado = 'onclick="bloqueo(event);"';
+        }
+
+        $res["eliminar"] = '<i class="material-icons btn1-danger" onClick="'.$eliminar.'">delete</i>';
+        $res["estado"] = '
+        <div '.$estado.' class="toggle-btn '.$activo.'"><input id="'.$res["id_plaza"].'" type="checkbox" class="cb-value" '.$checked.'/>
+            <span class="round-btn"></span>
+        </div>';
+
+        // ------------------------------------------------------------------------------------------------------
+
         $arreglo["data"][] = $res;
     }
     echo json_encode($arreglo);

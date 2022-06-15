@@ -81,19 +81,11 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    return '<i class="material-icons btn1-danger" onClick="eliminar(' + row.id_plaza + ', event);">delete</i>';
+                    return row.eliminar;
                 }
             },{
                 "render": function (data, type, row) {
-                    let estado = "";
-                    let activo = "";
-                    if(row.estado == 1){
-                        estado = "checked";
-                        activo = "active"
-
-                    }
-                    return '<div class="toggle-btn '+activo+'"><input id="'+row.id_plaza+'" type="checkbox" class="cb-value" '+estado+'/>'+
-                    '<span class="round-btn"></span></div>';
+                    return row.estado;
                 }
             }
         ]
