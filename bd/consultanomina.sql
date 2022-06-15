@@ -56,11 +56,6 @@ DROP TABLE IF EXISTS Rol_Autorizacion;
 
 DROP TABLE IF EXISTS Categoria;
 
-CREATE TABLE Categoria(
-    id_categoria INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE Periodo(
     id_periodo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
@@ -336,7 +331,12 @@ CREATE TABLE Historial_Plaza(
 
 
 
+-------------------------------------------------------------------------------------------------
 
+CREATE TABLE Categoria(
+    id_categoria INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
+);
 
 
 CREATE TABLE Autorizacion(
@@ -372,6 +372,7 @@ CREATE TABLE Autorizacion_Usuario(
     RFC VARCHAR(13) NOT NULL,
     FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 );
+-------------------------------------------------------------------------------------------------
 
 INSERT INTO
     Usuario(categoria, contrasenia, nombre, RFC, email)
@@ -417,6 +418,7 @@ INSERT INTO Periodo(nombre, dias) VALUES("MENSUAL", 30);
 
 INSERT INTO Periodo(nombre, dias) VALUES("OTRA PERIODICIDAD", 0);
 
+----------------------------------------------------------------------------------
 
 INSERT INTO Rol(nombre) VALUES('ADMINISTRADOR');
 
