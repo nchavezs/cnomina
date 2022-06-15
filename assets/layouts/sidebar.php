@@ -5,6 +5,7 @@ if ($varFoto != null) {
     $foto = $varFoto;
 }
 
+
 $empleados = '
 <li id="tab-empleados" class="nav-item">
     <a class="nav-link" href="./registrar">
@@ -81,8 +82,7 @@ $mensajes = '
 <li id="tab-mensajes" class="nav-item">
     <a class="nav-link" href="./mensajes">
         <i class="material-icons">message</i>
-        <p>Mensajes <span class="material-icons comprobar_mensajeria animate__animated animate__swing animate__infinite animate__slower hide">markunread</span>
-        </p>
+        <p>Mensajes <span class="material-icons comprobar_mensajeria animate__animated animate__swing animate__infinite animate__slower hide">markunread</span></p>
     </a>
 </li>
 ';
@@ -104,6 +104,55 @@ $sesion = '
     </a>
 </li>
 ';
+
+function pestana($nombre, $icono){
+    return '
+    <li class="nav-item">
+        <a onclick="bloqueo();" class="nav-link" href="#">
+            <i class="material-icons">'.$icono.'</i>
+            <p>'.$nombre.'</p>
+        </a>
+    </li>
+    ';
+}
+
+
+if(!in_array(1, rol())){
+    $empleados = pestana("Empleados", "people");
+}
+
+if(!in_array(13, rol())){
+    $usuarios = pestana("Usuarios", "groups");
+}
+
+if(!in_array(20, rol())){
+    $prenomina = pestana("Prenómina", "receipt_long");
+}
+
+if(!in_array(24, rol())){
+    $cfdi = pestana("Impotar CFDI", "cloud_upload");
+}
+
+if(!in_array(26, rol())){
+    $nominas = pestana("Nóminas", "text_snippet");
+}
+
+if(!in_array(28, rol())){
+    $catalogos = pestana("Catálogos", "table_view");
+}
+
+if(!in_array(35, rol())){
+    $plazas = pestana("Plazas", "auto_awesome_motion");
+}
+
+if(!in_array(40, rol())){
+    $mensajes = pestana('Mensajes <span class="material-icons comprobar_mensajeria animate__animated animate__swing animate__infinite animate__slower hide">markunread</span>', "message");
+}
+
+if(!in_array(41, rol())){
+    $reportes = pestana("Reportes", "summarize");
+}
+
 
 
 $nav = '

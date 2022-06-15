@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'conexion.php';
+include 'rol.php';
 $conexion = conexion();
 
 $html = '';
@@ -22,9 +23,14 @@ while($usuario = mysqli_fetch_array($consulta)){
         $estado = '<div class="estado_usuario baja"><i class="material-icons">close</i> </div>';
     }
 
+    $bloqueo = "bloqueo()";
+    if(in_array( 15, rol())){
+        $bloqueo = 'editar_usuario(\''.$usuario["RFC"].'\')';
+    }   
+
     $html = $html. '
     <div class="col-lg-4 col-md-6">
-        <div class="card caja_usuario" onclick="editar_usuario(\''.$usuario["RFC"].'\');">
+        <div class="card caja_usuario" onclick="'.$bloqueo.'">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="p-1 mr-4 foto_usuario">

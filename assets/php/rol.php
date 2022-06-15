@@ -24,3 +24,14 @@ function rol(){
     $conexion->close();
     return $autorizaciones;
 }
+
+function id_rol(){
+    $RFC = $_SESSION['usuario'];
+    $conexion = conexion();
+    $sql = "SELECT id_rol FROM Rol_Usuario WHERE RFC = '".$RFC."'";
+    $consulta = $conexion->query($sql);
+    $res = mysqli_fetch_row($consulta);
+    $rol = $res[0];
+
+    return $rol;
+}

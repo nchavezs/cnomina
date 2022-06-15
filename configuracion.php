@@ -1,5 +1,9 @@
 <?php
 include "assets/php/main_admin.php";
+
+if( id_rol() != 1){
+	header("location: ./perfil");
+}
 ?>
 
 <!DOCTYPE html>
