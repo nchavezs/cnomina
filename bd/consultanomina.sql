@@ -476,6 +476,6 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Visualizar página R
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte General", 9);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Plazas", 9);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Usuarios", 9);
-INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Baja de usuarios", 2);
+INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Baja de usuario", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña de usuario", 2);
 

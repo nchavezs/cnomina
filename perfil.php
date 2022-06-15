@@ -19,47 +19,47 @@ include "assets/php/comprobar_periodo.php";
 			<div class="content">
 				<div class="container-fluid">
             <div class="row">
-                  <div class="col-xl-4">
-                     <div class="card card-profile">
-                        <div class="card-avatar">
-                           <div id="subir">
-                              <img id="foto" class="img" src="<?php echo $foto ?>" />
-                           </div>
-                           <input class="hidden" type="file" id="archivo" accept="image/jpg, image/png, image/jpeg">
+               <div class="col-xl-4 mt-4">
+                  <div class="card card-profile">
+                     <div class="card-avatar">
+                        <div id="subir">
+                           <img id="foto" class="img" src="<?php echo $foto ?>" />
                         </div>
-                        <form  class="text-left px-3" id="form-user">
-                           <div class="card-body">
-                              <h6 class="card-category text-gray text-center">Mi perfil</h6>
-                              <div class="row">
-                                    <div class="col-md-12">
-                                    <label class="select-etiqueta">Nombre</label>
-                                          <input id="nombre" type="text" name="nombre" required class="campo" value="<?php echo $varName ?>">
-                                    </div>
-
-                                 </div>
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                    <label class="select-etiqueta">Correo</label>
-                                          <input id="email" type="email" class="campo" required name="email" value="<?php echo $varEmail ?>">
-                                    </div>
-
-                                 </div>
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                    <label class="select-etiqueta">Teléfono</label>
-                                          <input id="telefono" class="campo" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 required name="telefono" value="<?php echo $varTel ?>">
-                                    </div>
-
-                                 </div>
-                           </div>
-                           <div class="card-footer text-center">
-                           <button type="submit" id="editar" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
-                           </div>
-                        </form>
+                        <input class="hidden" type="file" id="archivo" accept="image/jpg, image/png, image/jpeg">
                      </div>
-                  </div>
+                     <form  class="text-left px-3" id="form-user">
+                        <div class="card-body">
+                           <h6 class="card-category text-gray text-center">Mi perfil</h6>
+                           <div class="row">
+                                 <div class="col-md-12">
+                                 <label class="select-etiqueta">Nombre</label>
+                                       <input id="nombre" type="text" name="nombre" required class="campo" value="<?php echo $varName ?>">
+                                 </div>
 
-                  <div class="col-xl-4">
+                              </div>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                 <label class="select-etiqueta">Correo</label>
+                                       <input id="email" type="email" class="campo" required name="email" value="<?php echo $varEmail ?>">
+                                 </div>
+
+                              </div>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                 <label class="select-etiqueta">Teléfono</label>
+                                       <input id="telefono" class="campo" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 required name="telefono" value="<?php echo $varTel ?>">
+                                 </div>
+
+                              </div>
+                        </div>
+                        <div class="card-footer text-center">
+                        <button type="submit" id="editar" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+
+               <div class="col-xl-4 mt-4">
                   <div class="card card-profile">
                         <div class="card-avatar">
                            <div id="subir">
@@ -84,11 +84,11 @@ include "assets/php/comprobar_periodo.php";
                                           <input type="password" name="confirmacion" id="confirmacion" class="campo" required autocomplete="off">
                                  </div>
                               </div>
-                             
+                           
                            </div>
                            <div class="card-footer text-center">
-                             <button type="submit" class="btn btn-success btn-sm btn-sm"><i class="material-icons">save</i> Guardar</button>
-                             </div>
+                           <button type="submit" class="btn btn-success btn-sm btn-sm"><i class="material-icons">save</i> Guardar</button>
+                           </div>
                         </form>
                      </div>
                   </div>
@@ -119,7 +119,6 @@ include "assets/php/comprobar_periodo.php";
 
                   </div> -->
                </div>
-
 				</div>
 			</div>
 

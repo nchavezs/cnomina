@@ -781,40 +781,48 @@ function archivo(id, url, usuario, tabla, condicion) {
             type: "POST",
             url: "assets/php/form_archivo.php",
             success: function (html) {
-                $("#modal .modal_titulo").html("Archivo");
-                $("#modal .modal-body").html(html);
-                mostrar_modal();
-                $("#modal .modal-footer").hide();
+                var data = JSON.parse(html);
+                
+                if(data.estado == 1){
+                    $("#modal .modal_titulo").html("Archivo");
+                    $("#modal .modal-body").html(data.html);
+                    mostrar_modal();
+                    $("#modal .modal-footer").hide();
+    
+                    $("#file").change(function () {
+                        if ($("#file").val() !== "") {
+                            $.blockUI({
+                                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+                            });
+    
+                            var formData = new FormData();
+                            var files = $("#file")[0].files[0];
+                            formData.append("file", files);
+                            formData.append("usuario", usuario);
+                            formData.append("id", id);
+                            formData.append("tabla", tabla);
+    
+                            $.ajax({
+                                url: "assets/php/subirArchivo.php",
+                                type: "post",
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                success: function () {
+                                    $.unblockUI();
+                                    md.showNotification("top", "right", "Archivo cargado correctamente.");
+                                    ocultar_modal();
+                                    ventanaRegresar(tabla, condicion, id, usuario);
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    md.showNotification("top", "right", data.html);
+                }
 
-                $("#file").change(function () {
-                    if ($("#file").val() !== "") {
-                        $.blockUI({
-                            message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-                        });
-
-                        var formData = new FormData();
-                        var files = $("#file")[0].files[0];
-                        formData.append("file", files);
-                        formData.append("usuario", usuario);
-                        formData.append("id", id);
-                        formData.append("tabla", tabla);
-
-                        $.ajax({
-                            url: "assets/php/subirArchivo.php",
-                            type: "post",
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            cache: false,
-                            success: function (html) {
-                                $.unblockUI();
-                                md.showNotification("top", "right", "Archivo cargado correctamente.");
-                                ocultar_modal();
-                                ventanaRegresar(tabla, condicion, id, usuario);
-                            }
-                        });
-                    }
-                });
+               
             }
         });
     } else

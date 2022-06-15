@@ -2,6 +2,7 @@
 session_start();
 $id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
+include "rol.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
@@ -13,13 +14,22 @@ $usuario = mysqli_fetch_array($consulta);
 $sql = "SELECT * FROM Vacacion WHERE id_prenomina = ".$id_prenomina." AND RFC = '" . $id . "'";
 $consulta = $conexion->query($sql);
 
+// ----------------------------------------------------
+$bloqueo = 'bloqueo()';
+
+if(in_array(11 , rol())){
+	$bloqueo = 'vacacion(\''.$id.'\')';
+}
+// ----------------------------------------------------
+
+
 if (mysqli_num_rows($consulta) == 0) {
     echo '<div class="vacia">
                <i class="material-icons btn2">sms_failed</i>
                <h2>Nada registrado</h2>
 					<div class="chat-nuevo">
 						<i id="chat-icono" class="material-icons">add</i>
-						<p onclick="vacacion(\''.$id.'\');">Asignar dias</p>
+						<p onclick="'.$bloqueo.'">Asignar dias</p>
 					</div>
 				</div>';
 } else {
@@ -29,7 +39,7 @@ if (mysqli_num_rows($consulta) == 0) {
 		</div>
 
 		<div class="ver_opciones">
-			<div class="btn btn-secondary btn-sm" onclick="vacacion(\''.$id.'\')"><i class="material-icons">add</i> Nuevo </div>
+			<div class="btn btn-secondary btn-sm" onclick="'.$bloqueo.'"><i class="material-icons">add</i> Nuevo </div>
 
 			</div>
 			<div class="card">

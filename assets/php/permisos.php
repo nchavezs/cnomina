@@ -2,6 +2,7 @@
 session_start();
 $id_prenomina = $_SESSION["id_prenomina"];
 include "conexion.php";
+include "rol.php";
 $conexion = conexion();
 $id = $_POST['id'];
 
@@ -12,13 +13,22 @@ $usuario = mysqli_fetch_array($consulta);
 $sql = "SELECT * FROM Permiso WHERE id_prenomina=".$id_prenomina." AND RFC = '" . $id."'";
 $resultado = $conexion->query($sql);
 
+// ----------------------------------------------------
+$bloqueo = 'bloqueo()';
+
+if(in_array(11 , rol())){
+	$bloqueo = 'permiso(\''.$id.'\')';
+}
+// ----------------------------------------------------
+
+
 if (mysqli_num_rows($resultado) == 0) {
     echo '<div class="vacia">
 			<i class="material-icons btn2">sms_failed</i>
 			<h2>Nada registrado</h2>
 			<div class="chat-nuevo">
 				<i id="chat-icono" class="material-icons">add</i>
-				<p onclick="permiso(\''.$id.'\');">Nueva licencia</p>
+				<p onclick="'.$bloqueo.'">Nueva licencia</p>
 			</div>
 		</div>';
 } else {
@@ -31,7 +41,7 @@ if (mysqli_num_rows($resultado) == 0) {
 				<option value="0" selected="true">CON GOCE DE SUELDO</option>
 				<option value="1">SIN GOCE DE SUELDO</option>
 			</select>
-			<div class="btn btn-secondary btn-sm" onclick="permiso(\''.$id.'\');"><i class="material-icons">add</i> Nuevo </div>
+			<div class="btn btn-secondary btn-sm" onclick="'.$bloqueo.'"><i class="material-icons">add</i> Nueva licencia </div>
 	</div>
 	
 	<div id="caja-permiso"></div>';

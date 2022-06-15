@@ -3008,7 +3008,8 @@ label.btn-mostrar {
 
     .pagination {
         justify-content: center !important;
-        width: 97% !important
+        width: 97% !important;
+        padding-right: 15%;
     }
 
     .fecha-caja {
@@ -7080,7 +7081,7 @@ tbody.collapse.show {
 
 .pagination {
     display: flex;
-    padding-left: 0;
+    align-items: center;
     list-style: none;
     border-radius: .25rem
 }
@@ -7088,18 +7089,19 @@ tbody.collapse.show {
 .page-link {
     position: relative;
     display: block;
-    padding: .5rem .7rem;
-    margin-left: 0;
+    padding: 5px 10px;
+    margin-left: 5px;
     line-height: 1.25;
     color: #6c757d;
-    border-radius: 50px;
-    background-color: transparent
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0, .1);
 }
 
 .page-link:hover {
     color: #6c757d;
     text-decoration: none;
-    background-color: #e4ecef
+    background: #F4F5F9;
 }
 
 .page-link:not(:disabled):not(.disabled) {
@@ -7108,7 +7110,7 @@ tbody.collapse.show {
 
 .page-item:first-child .page-link:hover,
 .page-item:last-child .page-link:hover {
-    background-color: #e9ecef
+    background-color: #F4F5F9
 }
 
 .page-item.active .page-link {
@@ -7121,7 +7123,7 @@ tbody.collapse.show {
     color: #6c757d;
     pointer-events: none;
     cursor: auto;
-    background-color: transparent;
+    /* background-color: transparent; */
     border-color: #dee2e6
 }
 
@@ -18385,10 +18387,6 @@ label {
     padding: 20px;
     color: #4a5d5faf;
     text-transform: uppercase
-}
-
-.pagination {
-    padding: 0 20px
 }
 
 .cargando_tabla {

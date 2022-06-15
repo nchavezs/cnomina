@@ -108,9 +108,11 @@ if ($resultado = $conexion->query($sql)) {
                 }else{
                     echo '<p onclick="bloqueo()">CFDI</p>';
                 }
+
+                echo '<p onclick="verBeneficiarios(\''.$res["RFC"].'\')">Beneficiarios</p>';
+                
                 if(in_array(10, rol())){
                     echo '
-                    <p onclick="verBeneficiarios(\''.$res["RFC"].'\')">Beneficiarios</p>
                     <p onclick="verMovimientos(\''.$res["RFC"].'\')">Movimientos</p>
                     <p onclick="verPases(\''.$res["RFC"].'\')">Pases</p>
                     <p onclick="verVacaciones(\''.$res["RFC"].'\')">Vacaciones</p>
@@ -121,7 +123,6 @@ if ($resultado = $conexion->query($sql)) {
                     ';
                 }else{
                     echo '
-                    <p onclick="bloqueo()">Beneficiarios</p>
                     <p onclick="bloqueo()">Movimientos</p>
                     <p onclick="bloqueo()">Pases</p>
                     <p onclick="bloqueo()">Vacaciones</p>

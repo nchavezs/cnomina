@@ -27,9 +27,22 @@ if(!in_array(13, rol())){
 				<div class="card">
                         <div class="card-body">
                             <div class="msn-mostrar">
-								<label onclick="nuevo_usuario();" class="btn-mostrar">
-                                    <i class="material-icons">add_circle_outline</i>Nuevo usuario
-                                </label>
+								<?php
+								if(in_array( 14, rol())){
+									echo '
+									<label onclick="nuevo_usuario();" class="btn-mostrar">
+										<i class="material-icons">add_circle_outline</i>Nuevo usuario
+									</label>
+									';
+								}else{
+									echo '
+									<label onclick="bloqueo();" class="btn-mostrar">
+										<i class="material-icons">add_circle_outline</i>Nuevo usuario
+									</label>
+									';
+								}
+								?>
+								
                             </div>
                         </div>
                     </div>

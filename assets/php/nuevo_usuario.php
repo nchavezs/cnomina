@@ -2,6 +2,14 @@
 include "conexion.php";
 $conexion = conexion();
 
+session_start();
+include "rol.php";
+
+$bloqueo = "bloqueo();";
+if (in_array(17, rol())) {
+    $bloqueo = "nuevo_rol();";
+}
+
 echo '
 <div class="formulario_caja">
 	<div class="formulario">
@@ -28,12 +36,12 @@ echo '
 						$consulta = $conexion->query($sql);
 
 						while ($rol = mysqli_fetch_array($consulta)) {
-                            echo '<option value="' . $rol[0] . '">' . $rol["nombre"] . '</option>';
+							echo '<option value="' . $rol[0] . '">' . $rol["nombre"] . '</option>';
 						}
 
 						echo '</select>
 					</div>
-					<p class="text-muted my-2">Puedes crear tu propio rol desde <i class="text-warning nuevo_rol" onclick="nuevo_rol();"> aquí</i> .</p>
+					<p class="text-muted my-2">Puedes crear tu propio rol desde <i class="text-warning nuevo_rol" onclick="' . $bloqueo . '"> aquí</i> .</p>
 				</div>
 			</div>
 			<div class="pie">
