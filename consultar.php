@@ -75,7 +75,7 @@ if(!in_array(26, rol())){
 	</div>
 
 	<?php include 'assets/layouts/scripts.php'?>
-	<script src="assets/js/consultar.js?v=3.7.2"></script>
+	<script src="assets/js/consultar.js?v=3.7.3"></script>
 	<script>$("#tab-nominas").addClass("active");</script>
 
 </body>
