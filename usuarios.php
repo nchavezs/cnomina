@@ -31,13 +31,32 @@ if(!in_array(13, rol())){
 								if(in_array( 14, rol())){
 									echo '
 									<label onclick="nuevo_usuario();" class="btn-mostrar">
-										<i class="material-icons">add_circle_outline</i>Nuevo usuario
+										<i class="material-icons">person_add_alt_1</i>Nuevo usuario
 									</label>
 									';
 								}else{
 									echo '
 									<label onclick="bloqueo();" class="btn-mostrar">
-										<i class="material-icons">add_circle_outline</i>Nuevo usuario
+										<i class="material-icons">person_add_alt_1</i>Nuevo usuario
+									</label>
+									';
+								}
+
+								if(in_array( 17, rol())){
+									echo '
+									<span class="dropdown">
+										<div class="btn-mostrar" data-toggle="dropdown">
+											<i class="material-icons">data_saver_on</i>Roles de usuario
+										</div>
+										<div class="dropdown-menu">
+											<label onclick="nuevo_rol();" class="dropdown-item"> <i class="material-icons">check</i> Nuevo rol de usuario</label>
+										</div>
+									</span>
+									';
+								}else{
+									echo '
+									<label onclick="bloqueo();" class="btn-mostrar">
+										<i class="material-icons">data_saver_on</i>Nuevo rol de usuario
 									</label>
 									';
 								}
@@ -47,7 +66,9 @@ if(!in_array(13, rol())){
                         </div>
                     </div>
 
-					<div class="row usuarios_caja mt-3"></div>
+					<div class="row usuarios_caja mt-3">
+						<?php include 'assets/layouts/usuarios_loading.php'?>
+					</div>
 				</div>
 			</div>
 

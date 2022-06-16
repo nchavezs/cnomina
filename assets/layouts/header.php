@@ -16,5 +16,7 @@ echo '
 <link href="assets/js/plugins/tailselect/css/default/tail.select-light.css" rel="stylesheet" type="text/css">
 <link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/dropzone.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/skeletons.min.css" rel="stylesheet" type="text/css"/>
+
 <link href="assets/css/material-dashboard.css?v=3.7.3" rel="stylesheet" type="text/css" />
 ';

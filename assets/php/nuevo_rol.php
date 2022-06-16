@@ -41,7 +41,7 @@ echo '
 				</div>
 			</div>
 			<div class="pie">
-				<div onclick="nuevo_usuario();"class="btn btn-sm btn-secondary">Cancelar</div>
+				<div onclick="cerrar();"class="btn btn-sm btn-secondary">Cancelar</div>
 				<button type="submit" class="btn btn-sm btn-success"><i class="material-icons">save</i> Guardar</button>
 			</div>
 		</form>

@@ -24,26 +24,35 @@
     transition: all 0.2s;
     cursor: pointer;
 }
+.contenido_usuario {
+    overflow: hidden;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+}
+
 
 .caja_usuario:hover{
     transform: scale(.95);
 }
 
 .estado_usuario{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 50px;
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
     background: #5377db;
     color: #fff;
-    right: 15px;
-    bottom: 15px;
+    right: 10px;
+    bottom: 10px;
+    font-size: 10px !important;
 }
 
-.estado_usuario.baja{
+.estado_usuario .material-icons{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.estado_usuario.baja_usuario{
     background:#E94B4B !important;
 }
 
@@ -660,7 +669,7 @@ form .card {
 .dropdown-menu a:active,
 .dropdown-menu a:focus,
 .dropdown-menu a:hover {
-    background-color: #e6e6e663;
+    /* background-color: #e6e6e663; */
     font-weight: 700;
     transform: scale(1.1);
     cursor: pointer
@@ -5785,15 +5794,15 @@ tbody.collapse.show {
     display: none;
     float: left;
     min-width: 10rem;
-    margin: .5rem 0 0;
+    margin-top: 20px;
     font-size: 1rem;
     color: #868686;
     text-align: left;
     list-style: none;
-    background-color: rgba(255, 255, 255, .97);
+    background: rgba(255, 255, 255, .95);
     background-clip: padding-box;
-    border-radius: 2px;
-    box-shadow: 0 0 8px rgb(0, 0, 0, .15)
+    border-radius: 6px;
+    box-shadow: 0 20px 30px rgb(0, 0, 0, .2)
 }
 
 .dropup .dropdown-menu {

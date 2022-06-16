@@ -18,9 +18,9 @@ while($usuario = mysqli_fetch_array($consulta)){
         $usuario["urlFoto"] = "assets/img/user.png";
     }
     
-    $estado = '<div class="estado_usuario"><i class="material-icons">done</i> </div>';
+    $estado = '<div class="estado_usuario centrado"><i class="material-icons centrado">done</i> </div>';
     if($usuario["estado"] == "baja"){
-        $estado = '<div class="estado_usuario baja"><i class="material-icons">close</i> </div>';
+        $estado = '<div class="estado_usuario centrado baja_usuario"><i class="material-icons">close</i> </div>';
     }
 
     $bloqueo = "bloqueo()";
@@ -29,14 +29,14 @@ while($usuario = mysqli_fetch_array($consulta)){
     }   
 
     $html = $html. '
-    <div class="col-lg-4 col-md-6">
+    <div class="col-xl-4 col-md-6">
         <div class="card caja_usuario" onclick="'.$bloqueo.'">
             <div class="card-body">
                 <div class="d-flex">
                     <div class="p-1 mr-4 foto_usuario">
                         <img src="'.$usuario["urlFoto"].'" alt="">
                     </div>
-                    <div class="w-100">
+                    <div class="contenido_usuario">
                         <p class="negrita mb-1">'.$usuario["nombre"].'</p>
                         <p class="text-secondary m-0">'.$usuario["email"].'</p>
                         <small class="text-secondary negrita">'.$usuario["rol"].'</small>'.
