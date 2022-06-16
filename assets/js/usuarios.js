@@ -146,3 +146,81 @@ function actualizar_usuario(id){
 		
 	})
 }
+
+function eliminar_usuario(id){
+	$("#modal .modal_titulo").html("Eliminar usuario");
+	$("#modal .modal-body").html("¿Seguro que quiere eliminar este usuario?");
+	mostrar_modal();
+
+	$("#modal_aceptar").off().click(function () {
+		$.ajax({
+			url: "assets/php/eliminar_usuario.php",
+			type: "POST",
+			data: {
+				id: id
+			},
+			success: function(data){
+				ocultar_modal();
+				if(data == 1){
+					usuarios();
+					md.showNotification("top", "right", "Usuario eliminado.");
+					Swal.close();
+				}else{
+					md.showNotification("top", "right", data);
+				}
+			}
+		});
+	});
+}
+
+function baja_usuario(id){
+	$("#modal .modal_titulo").html("Baja de usuario");
+	$("#modal .modal-body").html("¿Seguro que quiere dar de baja a este usuario?, una vez dado de baja no podrá acceder al sistema.");
+	mostrar_modal();
+
+	$("#modal_aceptar").off().click(function () {
+		$.ajax({
+			url: "assets/php/baja_usuario.php",
+			type: "POST",
+			data: {
+				id: id
+			},
+			success: function(data){
+				ocultar_modal();
+				if(data == 1){
+					md.showNotification("top", "right", "Usuario dado de baja.");
+					usuarios();
+					Swal.close();
+				}else{
+					md.showNotification("top", "right", data);
+				}
+			}
+		});
+	});
+}
+
+function password_usuario(id){
+	$("#modal .modal_titulo").html("Restablecer contraseña");
+	$("#modal .modal-body").html("¿Desea restablecer contraseña de este usuario?");
+	mostrar_modal();
+
+	$("#modal_aceptar").off().click(function () {
+		$.ajax({
+			url: "assets/php/password_usuario.php",
+			type: "POST",
+			data: {
+				id: id
+			},
+			success: function(data){
+				ocultar_modal();
+				if(data == 1){
+					md.showNotification("top", "right", "Contraseña restablecida.");
+					usuarios();
+					Swal.close();
+				}else{
+					md.showNotification("top", "right", data);
+				}
+			}
+		});
+	});
+}

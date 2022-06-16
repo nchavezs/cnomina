@@ -1,5 +1,7 @@
 <?php
+session_start();
 include "conexion.php";
+include "rol.php";
 $conexion = conexion();
 $id = $_POST["id"];
 
@@ -9,6 +11,32 @@ FROM Usuario WHERE categoria = 'admin' AND RFC = '".$id."'";
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
+
+
+if(in_array(16, rol())){
+	$eliminar = "eliminar_usuario('".$id."');";
+}else{
+	$eliminar = "bloqueo();";
+}
+
+if(in_array(45, rol())){
+	$baja = "baja_usuario('".$id."');";
+}else{
+	$baja = "bloqueo();";
+}
+
+if(in_array(46, rol())){
+	$reset = "password_usuario('".$id."');";
+}else{
+	$reset = "bloqueo();";
+}
+
+
+if($usuario["estado"] == "alta"){
+	$comprobar_baja = '<label onclick="'.$baja.'" class="btn-mostrar"><i class="material-icons">thumb_down</i> Dar de baja</label>';
+}else{
+	$comprobar_baja = "";
+}
 
 echo '
 <div class="formulario_caja">
@@ -52,9 +80,9 @@ echo '
 			
 			<div class="card">
 				<div class="card-body msn-mostrar">
-					<label class="btn-mostrar"><i class="material-icons">delete</i> Eliminar usuario</label>
-					<label class="btn-mostrar"><i class="material-icons">thumb_down</i> Dar de baja</label>
-					<label class="btn-mostrar"><i class="material-icons">refresh</i> Restablecer contraseña</label>
+					<label onclick="'.$eliminar.'" class="btn-mostrar"><i class="material-icons">delete</i> Eliminar usuario</label>
+					'.$comprobar_baja.'
+					<label onclick="'.$reset.'" class="btn-mostrar"><i class="material-icons">refresh</i> Restablecer contraseña</label>
 				</div>	
 			</div>
 
