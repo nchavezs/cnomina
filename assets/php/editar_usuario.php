@@ -1,5 +1,6 @@
 <?php
 session_start();
+$my_id = $_SESSION["usuario"];
 include "conexion.php";
 include "rol.php";
 $conexion = conexion();
@@ -38,6 +39,23 @@ if($usuario["estado"] == "alta"){
 	$comprobar_baja = "";
 }
 
+
+if($my_id != $id){
+	$comprobar_id = '
+	<hr></hr>	
+	<div class="card">
+		<div class="card-body msn-mostrar">
+			<label onclick="'.$eliminar.'" class="btn-mostrar"><i class="material-icons">delete</i> Eliminar usuario</label>
+			'.$comprobar_baja.'
+			<label onclick="'.$reset.'" class="btn-mostrar"><i class="material-icons">refresh</i> Restablecer contraseña</label>
+		</div>	
+	</div>
+	';
+}else{
+	$comprobar_id = '';
+}
+
+
 echo '
 <div class="formulario_caja">
 	<div class="formulario">
@@ -75,17 +93,7 @@ echo '
 					</div>
 				</div>
 			</div>
-
-			<hr></hr>
-			
-			<div class="card">
-				<div class="card-body msn-mostrar">
-					<label onclick="'.$eliminar.'" class="btn-mostrar"><i class="material-icons">delete</i> Eliminar usuario</label>
-					'.$comprobar_baja.'
-					<label onclick="'.$reset.'" class="btn-mostrar"><i class="material-icons">refresh</i> Restablecer contraseña</label>
-				</div>	
-			</div>
-
+			'.$comprobar_id.'
 			<div class="pie">
 				<div id="salir" class="btn btn-sm btn-secondary">Cancelar</div>
 				<button type="submit" class="btn btn-sm btn-success"><i class="material-icons">save</i> Actualizar información</button>

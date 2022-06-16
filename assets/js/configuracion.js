@@ -64,7 +64,7 @@ $(document).on("submit", "#form_wizard_perfil", function (e) {
                 md.showNotification("top", "right", "Datos actualizados correctamente.");
             } else if (data == 2) {
                 md.showNotification("top", "right", "Las contraseñas no coinciden.");
-            } else if (data == 0) {
+            } else {
                 md.showNotification("top", "right", "Error al actualizar.");
             }
         }
