@@ -33,7 +33,7 @@ while($usuario = mysqli_fetch_array($consulta)){
         <div class="card caja_usuario" onclick="'.$bloqueo.'">
             <div class="card-body">
                 <div class="d-flex">
-                    <div class="p-1 mr-4 foto_usuario">
+                    <div class="p-2 mr-2 foto_usuario">
                         <img src="'.$usuario["urlFoto"].'" alt="">
                     </div>
                     <div class="contenido_usuario">

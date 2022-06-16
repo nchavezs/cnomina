@@ -9,7 +9,7 @@ for($i = 0;$i<5;$i++){
                     --c-s: 60px;
                     --c-pos: top;
                     --lines: 3;
-                    --l-h: 12px;
+                    --l-h: 13px;
                   "></div>
                 </div>
             </div>
