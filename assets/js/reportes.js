@@ -147,6 +147,7 @@ $(document).ready(function () {
                "bajas": bajas
             },
             success: function (data) {
+               console.log(data);
                let verificar = data.includes("assets/archivos/");
 
                if (verificar) {
