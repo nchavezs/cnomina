@@ -40,6 +40,8 @@ $(document).ready(function () {
    });
 
    $("#reporte_usuario").click(function (e) {
+      clearInterval(mensajes_evento);
+
       e.preventDefault();
       var usuarios = $("#usuario_3").val();
       var del = $("#del_3").val();
@@ -62,6 +64,8 @@ $(document).ready(function () {
                "usuarios": usuarios
             },
             success: function (data) {
+               mensajes_evento = setInterval("mensajes();", 5000);
+
                descargar(data, "Reporte Usuario");
               
                $("#reporte_usuario").prop("disabled", false);
@@ -72,6 +76,8 @@ $(document).ready(function () {
    });
 
    $("#reporte_plazas").click(function (e) {
+      clearInterval(mensajes_evento);
+
       e.preventDefault();
       let puestos = $("#puestos_2").val();
       let departamentos = $("#departamentos_2").val();
@@ -94,6 +100,7 @@ $(document).ready(function () {
    });
 
    $("#reporte_general").click(function (e) {
+      clearInterval(mensajes_evento);
       e.preventDefault();
       var puestos = $("#puestos_1").val();
       var departamentos = $("#departamentos_1").val();
@@ -147,6 +154,7 @@ $(document).ready(function () {
                "bajas": bajas
             },
             success: function (data) {
+               mensajes_evento = setInterval("mensajes();", 5000);
                console.log(data);
                let verificar = data.includes("assets/archivos/");
 
@@ -188,6 +196,8 @@ function reporte_historial(del, al, puestos, departamentos, plazas, boton) {
             "plazas": plazas
          },
          success: function (data) {
+            mensajes_evento = setInterval("mensajes();", 5000);
+
             let verificar = data.includes("assets/archivos/");
 
             if (verificar) {
@@ -216,6 +226,8 @@ function reporte_descripcion(del, al, puestos, departamentos, boton) {
          "puestos": puestos
       },
       success: function (data) {
+         mensajes_evento = setInterval("mensajes();", 5000);
+
          let verificar = data.includes("assets/archivos/");
 
          if (verificar) {
