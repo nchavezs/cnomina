@@ -8,7 +8,7 @@ echo '
 <script src="assets/js/plugins/sweetalert2.min.js"></script>
 <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
 <script src="assets/js/plugins/bootstrap-notify.js"></script>
-<script src="assets/js/material-dashboard.js?v=3.7.4" type="text/javascript"></script>
+<script src="assets/js/material-dashboard.js?v=3.7.5" type="text/javascript"></script>
 <script src="assets/js/plugins/datatables/datatables.min.js"></script>
 <script src="assets/js/datepicker.min.js"></script>
 <script src="assets/js/plugins/datepicker.es.js"></script>
@@ -19,5 +19,5 @@ echo '
 <script src="assets/js/moment.js"></script>
 <script src="assets/js/plugins/animate/adp.js"></script>
 <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
-<script src="assets/js/sesion.js?v=3.7.4"></script>
+<script src="assets/js/sesion.js?v=3.7.5"></script>
 ';

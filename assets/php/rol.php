@@ -13,7 +13,7 @@ function rol(){
         $sql = "SELECT id_autorizacion FROM Autorizacion";
         $consulta = $conexion->query($sql);
     }else{
-        $sql = "SELECT id_autorizacion FROM Autorizacion_Usuario WHERE RFC = '" . $RFC . "'";
+        $sql = "SELECT id_autorizacion FROM Rol_Autorizacion WHERE id_rol = (SELECT id_rol FROM Rol_Usuario WHERE RFC = '" . $RFC . "')";
         $consulta = $conexion->query($sql);
     }
 

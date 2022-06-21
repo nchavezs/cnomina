@@ -13,7 +13,7 @@ $sql = "SELECT *,
     FROM Usuario LEFT JOIN Empleado ON Usuario.RFC = Empleado.RFC WHERE 
     nombre LIKE '%" . $texto . "%' AND 
     categoria = 'admin' AND 
-    Usuario.RFC NOT IN('".$myid."', 'nomina')
+    Usuario.RFC NOT IN('".$myid."', 'develop')
     ORDER BY ultimo DESC";
 
 $datos["total"] = 0;

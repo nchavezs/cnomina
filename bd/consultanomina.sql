@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS Autorizacion;
 
 DROP TABLE IF EXISTS Rol;
 
-DROP TABLE IF EXISTS Autorizacion_Usuario;
+-- DROP TABLE IF EXISTS Autorizacion_Usuario;
 
 DROP TABLE IF EXISTS Rol_Usuario;
 
@@ -355,7 +355,7 @@ CREATE TABLE Rol_Usuario(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_rol INT NOT NULL,
     RFC VARCHAR(13) NOT NULL,
-    FOREIGN KEY(id_rol) REFERENCES Rol(id_rol) ON DELETE CASCADE
+    FOREIGN KEY(id_rol) REFERENCES Rol(id_rol)
 );
 
 CREATE TABLE Rol_Autorizacion(
@@ -366,12 +366,12 @@ CREATE TABLE Rol_Autorizacion(
     FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 );
 
-CREATE TABLE Autorizacion_Usuario(
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_autorizacion INT NOT NULL,
-    RFC VARCHAR(13) NOT NULL,
-    FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
-);
+-- CREATE TABLE Autorizacion_Usuario(
+--     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--     id_autorizacion INT NOT NULL,
+--     RFC VARCHAR(13) NOT NULL,
+--     FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
+-- );
 -------------------------------------------------------------------------------------------------
 
 INSERT INTO
@@ -390,10 +390,10 @@ INSERT INTO
 VALUES
     (
         'admin',
-        'nomina',
+        'palabra1',
         'Consulta Nomina',
-        'nomina',
-        'admin@admin.com'
+        'develop',
+        'info@consultanomina.com'
     );
 
 INSERT INTO Trabajador(nombre) VALUES('BASE');

@@ -7,7 +7,7 @@ $conexion = conexion();
 $html = '';
 $sql = "SELECT *,
 (SELECT nombre FROM Rol WHERE id_rol = (SELECT id_rol FROM Rol_Usuario WHERE RFC = Usuario.RFC)) AS rol 
-FROM Usuario WHERE categoria = 'admin' AND RFC <> 'nomina'";
+FROM Usuario WHERE categoria = 'admin' AND RFC <> 'develop'";
 $consulta = $conexion->query($sql);
 
 
