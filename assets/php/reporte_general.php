@@ -461,7 +461,11 @@ if ($del == "" || $al == "") {
         (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
         (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
         (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
-        FROM Empleado";
+        FROM Empleado WHERE
+        STR_TO_DATE(fechaRelLab,'%d/%m/%Y') >= '" . $date1 . "' AND
+        STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $date2 . "'
+        " . $extra . "
+        ORDER BY Empleado.RFC";
         $consulta = $conexion->query($sql);
 
         $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Altas');
