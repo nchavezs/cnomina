@@ -294,11 +294,9 @@ function eliminar_rol() {
 }
 
 function editar_permisos() {
-	var id=$("#rol").val();
-
 	$("#form").submit(function (e) {
 		e.preventDefault();
-
+		var id = $("#rol").val();
 		$.ajax({
 			url: "assets/php/editar_rol.php",
 			type: "POST",
@@ -306,6 +304,7 @@ function editar_permisos() {
 				id: id
 			},
 			success: function (data) {
+				
 				Swal.fire({
 					html: data,
 					allowOutsideClick: false,
