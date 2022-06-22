@@ -34,7 +34,7 @@ $sql = "SELECT *,
 (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador
-FROM Empleado".$extra;
+FROM Empleado ".$extra;
 
 $query = $conexion->query($sql);
 $total = mysqli_num_rows($query);

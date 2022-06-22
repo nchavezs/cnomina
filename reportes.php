@@ -66,9 +66,9 @@ if(!in_array(41, rol())){
 									}
 									?>
 										<div class="card-body text-center">
-											<h3 class="text-primary">Usuarios</h3>
+											<h3 class="text-primary">Empleados</h3>
 											<img src="assets/img/usuarios.svg" alt="">
-											<p class="text-muted">Realiza reportes de usuarios.</p>
+											<p class="text-muted">Realiza reportes de empleados.</p>
 										</div>
 									</div>
 								</div>
