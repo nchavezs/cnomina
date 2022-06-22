@@ -34,8 +34,8 @@ $bajas = $_POST["bajas"];
 $del = $_POST["del"];
 $al = $_POST["al"];
 
-$puestos = $_POST["puestos"];
-$departamentos = $_POST["departamentos"];
+$puestos = $_POST["puestos"] ?? [];
+$departamentos = $_POST["departamentos"] ?? [];
 
 if ($del == "" || $al == "") {
     echo "Perido de fecha incorrecta.";
@@ -43,6 +43,22 @@ if ($del == "" || $al == "") {
     if (sizeof($puestos) > 0) {
         $array_puestos = implode(",", $puestos);
         $extra = " AND Empleado.id_puesto IN (" . $array_puestos . ") ";
+    }else{
+        if (sizeof($departamentos) > 0) {
+            $array_depa = implode(",", $departamentos);
+            $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (".$array_depa.")";
+            $consulta = $conexion->query($sql);
+            while($res = mysqli_fetch_row($consulta)){
+                $puestos[] = $res[0];
+            }
+            $array_puestos = implode(",", $puestos);
+
+            $extra = " AND Empleado.id_puesto IN (" . $array_puestos . ") ";
+
+        }else{
+            $extra = " ";
+   
+        }
     }
 
     $titulos = [

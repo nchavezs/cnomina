@@ -350,7 +350,7 @@ if(!in_array(41, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/reportes.js?v=3.7.7"></script>
+   <script src="assets/js/reportes.js?v=3.7.8"></script>
    <script>$("#tab-reportes").addClass("active");</script>
 
 </body>

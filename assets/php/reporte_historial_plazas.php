@@ -26,14 +26,56 @@ function diferencia($fecha1, $fecha2)
 
 $del = $_POST["del"];
 $al = $_POST["al"];
+$plazas = $_POST["plazas"] ?? [];
+$puestos = $_POST["puestos"] ?? [];
+$departamentos = $_POST["departamentos"] ?? [];
 
-if ($del != "" || $al != "" || isset($_POST["plazas"])) {
+if ($del != "" || $al != "") {
     $conexion = conexion();
-    $plazas = implode(",", $_POST["plazas"]);
     $bandera = false;
 
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+
+    if (sizeof($departamentos) > 0) {
+        $array_depa = implode(",", $departamentos);
+        if (sizeof($puestos) > 0) {
+            $array_puestos = implode(",", $puestos);
+            if (sizeof($plazas) > 0) {
+                $array_plazas = implode(",", $plazas);
+            }else{
+                $sql = "SELECT id_plaza FROM Plaza WHERE id_puesto IN (".$array_puestos.")";
+                $consulta = $conexion->query($sql);
+                while($res = mysqli_fetch_row($consulta)){
+                    $plazas[] = $res[0];
+                }
+                $array_plazas = implode(",", $plazas);
+            }
+        }else{
+            $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (".$array_depa.")";
+            $consulta = $conexion->query($sql);
+            while($res = mysqli_fetch_row($consulta)){
+                $puestos[] = $res[0];
+            }
+            $array_puestos = implode(",", $puestos);
+            if (sizeof($plazas) > 0) {
+                $array_plazas = implode(",", $plazas);
+            }else{
+                $sql = "SELECT id_plaza FROM Plaza WHERE id_puesto IN (".$array_puestos.")";
+                $consulta = $conexion->query($sql);
+                while($res = mysqli_fetch_row($consulta)){
+                    $plazas[] = $res[0];
+                }
+                $array_plazas = implode(",", $plazas);
+            }
+        }
+       
+        $extra = " AND Historial_Plaza.id_plaza IN (" . $array_plazas . ")";
+
+    }else{
+        $extra = "";
+    }
+
 
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
@@ -63,8 +105,8 @@ if ($del != "" || $al != "" || isset($_POST["plazas"])) {
     (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza)) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza))) AS departamento 
     FROM Historial_Plaza WHERE 
-    Historial_Plaza.id_plaza IN (" . $plazas . ") AND 
-    Historial_Plaza.fecha_inicio BETWEEN '" . $date1 . "' AND '" . $date2 . "'";
+    Historial_Plaza.fecha_inicio BETWEEN '" . $date1 . "' AND '" . $date2 . "' 
+    ".$extra;
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {

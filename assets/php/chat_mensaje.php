@@ -40,7 +40,7 @@ if ($consulta && $total > 0) {
         if ($mensaje["emisor"] == $myid) {
             $clase = "mio";
         }
-        $hora = date("h:i A", strtotime($mensaje["elaboracion"]));
+        $hora = date("h:i A", strtotime ( '-5 hour' , strtotime ($mensaje["elaboracion"])));
 
 
         if($mensaje["url"] == ""){

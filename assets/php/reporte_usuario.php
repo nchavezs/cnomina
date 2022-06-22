@@ -13,15 +13,20 @@ $hoy = date('d/m/Y');
 $bandera = true;
 $del = $_POST["del"];
 $al = $_POST["al"];
-$usuarios = $_POST["usuarios"];
+$usuarios = $_POST["usuarios"] ?? [];
 
 $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
-foreach ($usuarios as $key => $item) {
-    $usuarios[$key] = "'" . $item . "'";
+if(sizeof($usuarios) > 0){
+    foreach ($usuarios as $key => $item) {
+        $usuarios[$key] = "'" . $item . "'";
+    }
+    $usuarios = implode(',', $usuarios);
+    $extra = "WHERE RFC IN (" . $usuarios . ")";
+}else{
+    $extra = "";
 }
-$usuarios = implode(',', $usuarios);
 
 $sql = "SELECT *,
 (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
@@ -29,7 +34,7 @@ $sql = "SELECT *,
 (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador
-FROM Empleado WHERE RFC IN (" . $usuarios . ")";
+FROM Empleado".$extra;
 
 $query = $conexion->query($sql);
 $total = mysqli_num_rows($query);

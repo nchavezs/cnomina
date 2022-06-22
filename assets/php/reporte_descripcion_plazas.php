@@ -29,10 +29,12 @@ $del = $_POST["del"];
 $al = $_POST["al"];
 $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 $al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
+$puestos = $_POST["puestos"] ?? [];
+$departamentos = $_POST["departamentos"] ?? [];
 
-if ($del != "" || $al != "" || isset($_POST["puestos"])) {
+if ($del != "" || $al != "") {
     $conexion = conexion();
-    $puestos = implode(",", $_POST["puestos"]);
+
     $del_explode = explode("/", $del);
     $ano = array_pop($del_explode);
     $bandera = false;
@@ -40,6 +42,21 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
+
+    if (sizeof($departamentos) > 0) {
+        $array_depa = implode(",", $departamentos);
+        $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (".$array_depa.")";
+        $consulta = $conexion->query($sql);
+        while($res = mysqli_fetch_row($consulta)){
+            $puestos[] = $res[0];
+        }
+        $array_puestos = implode(",", $puestos);
+
+        $extra = " WHERE Plaza.id_puesto IN (" . $array_puestos . ") ";
+
+    }else{
+        $extra = " ";
+    }
 
     $titulos = [
         'font' => [
@@ -66,7 +83,7 @@ if ($del != "" || $al != "" || isset($_POST["puestos"])) {
     (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE Plaza.id_puesto IN (" . $puestos . ")";
+    FROM Plaza ".$extra;
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {

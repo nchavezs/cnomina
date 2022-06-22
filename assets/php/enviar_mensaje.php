@@ -23,7 +23,7 @@ if ($url == "") {
             $sql = "SELECT * FROM Mensaje WHERE id_mensaje = " . $id_mensaje;
             $consulta = $conexion->query($sql);
             $res = mysqli_fetch_array($consulta);
-            $hora = date("h:i A", strtotime($res["elaboracion"]));
+            $hora = date("h:i A", strtotime ( '-5 hour' , strtotime ($res["elaboracion"])));
             echo '<div class="mensajeria_mensaje mio">
                     <div class="mensajeria_contenido">' . $mensaje . '
                         <div class="mensajeria_hora">' . $hora . '</div>
@@ -46,7 +46,7 @@ if ($url == "") {
             $sql = "SELECT * FROM Mensaje WHERE id_mensaje = " . $id_mensaje;
             $consulta = $conexion->query($sql);
             $res = mysqli_fetch_array($consulta);
-            $hora = date("h:i A", strtotime($res["elaboracion"]));
+            $hora = date("h:i A", strtotime ( '-5 hour' , strtotime ($res["elaboracion"])));
             echo '<div class="mensajeria_mensaje mio">
                     <div class="mensajeria_contenido">
                         
