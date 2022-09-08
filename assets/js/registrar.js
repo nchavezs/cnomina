@@ -726,7 +726,7 @@ function verNominas(id) {
         success: function (html) {
             $(".ver_contenedor").html(html);
             select_estilo_3();
-            $(".caja-recibos").perfectScrollbar();
+            // $(".caja-recibos").perfectScrollbar();
         }
     });
 };

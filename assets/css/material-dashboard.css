@@ -1696,7 +1696,7 @@ input:read-only {
 }
 
 .caja-recibos {
-    max-height: 350px;
+    max-height: 380px;
     overflow: hidden;
     position: relative
 }
