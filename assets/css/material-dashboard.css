@@ -452,7 +452,7 @@ form .card {
 
 .ver_contenedor .table-responsive {
     min-height: auto !important;
-    max-height: 400px !important;
+    max-height: 430px !important;
     overflow: auto
 }
 
@@ -1695,11 +1695,11 @@ input:read-only {
     position: absolute
 }
 
-.caja-recibos {
-    max-height: 380px;
+/* .caja-recibos {
+    max-height: 400px;
     overflow: hidden;
     position: relative
-}
+} */
 
 .flecha {
     width: auto;

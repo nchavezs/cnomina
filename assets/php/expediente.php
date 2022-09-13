@@ -23,7 +23,7 @@ echo '
 
 <div class="">
         <input class="hidden" type="file" id="expediente_file" accept=".pdf"/>
-        <div class="card-body">';
+        <div class="card-body p-0">';
 
 echo '<div class="row">';
 

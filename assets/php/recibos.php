@@ -16,27 +16,29 @@ echo '<div class="p-2">
 	</div>
 
 <div class="card">
-		<div class="card-body">
-			<div class="caja-recibos">';
+		<div class="card-body">';
 			$sql = "SELECT *,
 			(SELECT nombre FROM Periodo WHERE id_periodo = Archivo.id_periodo) AS periodo
-			FROM Archivo WHERE RFC = '" . $id . "' AND YEAR(del) = " . $ano;
+			FROM Archivo WHERE RFC = '" . $id . "' AND YEAR(del) = " . $ano ." ORDER BY del DESC";
 			$resultado = $conexion->query($sql);
 
 			if (mysqli_num_rows($resultado) > 0) {
 				echo '<div class="table-responsive">
 						<table class="table">
 							<thead class=" text-primary">
-									<th>Periodo</th>
-									<th>Fecha</th>
-									<th>Días pagados</th>
-									<th>Descargar</th>
+								<th>#</th>
+								<th>Periodo</th>
+								<th>Fecha</th>
+								<th>Días pagados</th>
+								<th>Descargar</th>
 							</thead>
 							<tbody>';
+				$i = mysqli_num_rows($resultado);
 				while ($res = mysqli_fetch_array($resultado)) {
 					$del = strftime("%d %b", strtotime($res["del"]));
 					$al = strftime("%d %b", strtotime($res["al"]));
 					echo '<tr>
+							<td class="negrita">'.$i--.'</td>
 							<td>' . $res["periodo"] . '</td>
 							<td>' . $del . ' al ' . $al . '</td>
 							<td>' . $res["dias_pago"].'</td>
@@ -62,7 +64,6 @@ echo '<div class="p-2">
 			}
 
 		echo '</div>
-		</div>
 	</div>';
 
 $conexion->close();
