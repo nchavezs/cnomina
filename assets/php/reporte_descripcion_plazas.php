@@ -18,7 +18,7 @@ function logo($sheet)
 }
 
 function diferencia($fecha1, $fecha2)
-{   
+{
     $fecha1 = new DateTime($fecha1);
     $fecha2 = new DateTime($fecha2);
     $diff = $fecha1->diff($fecha2);
@@ -27,41 +27,39 @@ function diferencia($fecha1, $fecha2)
 
 $del = $_POST["del"];
 $al = $_POST["al"];
-$date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-$al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
+
 $puestos = $_POST["puestos"] ?? [];
 $departamentos = $_POST["departamentos"] ?? [];
 
 if ($del != "" || $al != "") {
     $conexion = conexion();
-
-    $del_explode = explode("/", $del);
-    $ano = array_pop($del_explode);
+    $ano = date("Y", strtotime(str_replace('/', '-', $del)));
     $bandera = false;
+    $extra = "";
+
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+    $al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
+
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
 
     if (sizeof($departamentos) > 0) {
         $array_depa = implode(",", $departamentos);
-        $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (".$array_depa.")";
+        $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (" . $array_depa . ")";
         $consulta = $conexion->query($sql);
-        while($res = mysqli_fetch_row($consulta)){
+        while ($res = mysqli_fetch_row($consulta)) {
             $puestos[] = $res[0];
         }
         $array_puestos = implode(",", $puestos);
 
-        $extra = " WHERE Plaza.id_puesto IN (" . $array_puestos . ") ";
-
-    }else{
-        $extra = " ";
+        $extra = " AND Plaza.id_puesto IN (" . $array_puestos . ") ";
     }
-
+    // --------------------------------------------
     $titulos = [
         'font' => [
             'size' => 14,
-            "bold" => true
+            "bold" => true,
         ],
         'alignment' => [
             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -78,12 +76,12 @@ if ($del != "" || $al != "") {
             'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
         ],
     ];
-// ----------------- PLAZA --------------------
+    // ----------------- PLAZA --------------------
     $sql = "SELECT Plaza.*,
     (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza ".$extra;
+    FROM Plaza WHERE (elaboracion BETWEEN '" . $date1 . "' AND '" . $date2 . "') " . $extra;
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
@@ -97,7 +95,7 @@ if ($del != "" || $al != "") {
         $sheet->mergeCells('A1:B1');
         $sheet->mergeCells('C1:' . $ultimo . '1');
         $sheet->getStyle("C1")->applyFromArray($titulos);
-        $sheet->setCellValue('C1', "MUNICIPIO DE ".get_municipio()."\nREPORTE DE PLAZAS AL ".$al_letra);
+        $sheet->setCellValue('C1', "MUNICIPIO DE " . get_municipio() . "\nREPORTE DE PLAZAS AL " . $al_letra);
         $sheet->getStyle('C1')->getAlignment()->setWrapText(true);
         $sheet->getRowDimension('1')->setRowHeight(40);
         $sheet->getStyle('A2:' . $ultimo . '2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('5377DB');
@@ -128,11 +126,11 @@ if ($del != "" || $al != "") {
             }
 
             if ($resultado["estado"] == 0) {
-               $estado = "SUSPENDIDA";
+                $estado = "SUSPENDIDA";
             }
 
             $sql = "SELECT * FROM Historial_Plaza WHERE
-            id_plaza = " . $resultado["id_plaza"] . " AND 
+            id_plaza = " . $resultado["id_plaza"] . " AND
             YEAR(fecha_inicio) = " . $ano;
 
             $consulta2 = $conexion->query($sql);
@@ -172,14 +170,14 @@ if ($del != "" || $al != "") {
         foreach (range('A', $ultimo) as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
-        $sheet->setAutoFilter('A2:'.$ultimo.'2');
+        $sheet->setAutoFilter('A2:' . $ultimo . '2');
     }
 
     if ($bandera) {
-        $nombre = "reporte_plaza_".time().".xlsx";
+        $nombre = "reporte_plaza_" . time() . ".xlsx";
         $writer = new Xlsx($spreadsheet);
-        $writer->save('../archivos/'.$nombre);
-        echo "assets/archivos/".$nombre;
+        $writer->save('../archivos/' . $nombre);
+        echo "assets/archivos/" . $nombre;
     } else {
         echo "No se encontraron resultados.";
     }

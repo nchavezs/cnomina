@@ -40,7 +40,9 @@ if ($id_puesto == 0) {
     $id_puesto = "ANY(SELECT id_puesto FROM Puesto)";
 }
 
-$sql = "SELECT * FROM Plaza WHERE id_puesto = " . $id_puesto . " " . $estado;
+$ano = date("Y");
+
+$sql = "SELECT * FROM Plaza WHERE YEAR(elaboracion) = ".$ano." AND id_puesto = " . $id_puesto . " " . $estado;
 $resultado = $conexion->query($sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';

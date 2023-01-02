@@ -4,9 +4,9 @@ echo '
 <nav class="navbar navbar-expand-lg navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-        '.numero_periodo().'
-        <a href="#" class="ml-3 nombre_periodo oculto">'.tipo_periodo().'</a>
-        <a href="#" class="ml-3 nombre_periodo oculto"><i class="material-icons mr-2">bubble_chart</i>'.nombre_periodo().'</a>
+            '.numero_periodo().'
+            <a href="#" class="ml-3 nombre_periodo oculto">'.tipo_periodo().'</a>
+            <a href="#" class="ml-3 nombre_periodo oculto"><i class="material-icons mr-2">bubble_chart</i>'.nombre_periodo().'</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>

@@ -31,10 +31,10 @@ $(document).ready(function () {
 
       if ($(this).is(":checked")) {
          ADP.show($("#plazas_2").parent()[0], 'flip-down');
-         $("#del_2").prop("disabled", false);
+         // $("#del_2").prop("disabled", false);
       } else {
          ADP.hide($("#plazas_2").parent()[0], 'flip-up');
-         $("#del_2").prop("disabled", true);
+         // $("#del_2").prop("disabled", true);
          $("#del_2").val(moment().startOf('year').format('MM/DD/YYYY'));
       }
    });
