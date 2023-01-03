@@ -54,17 +54,7 @@ include "assets/php/main_admin.php";
                 <h3>Selecciona el año del periodo</h3>
             </div>
             <div class="row centrado mt-4">
-            <?php
-            for ($i = 2022; $i <= date("Y"); $i++) {
-                echo '<div class="col-xl-2 col-4">
-                        <div onclick="seleccionar_periodo(' . $i . ');" class="card periodo_elemento">
-                            <div class="card-body text-center">
-                                <p>' . $i . '</p>
-                            </div>
-                        </div>
-                    </div>';
-            }
-            ?>
+            <?php include("assets/php/consulta_ano.php");?>
             </div>
             <div class="periodo_boton centrado"><button onclick="seleccionar_tipoperiodo();" class="btn"><i class="material-icons">keyboard_backspace</i> Regresar</button></div>
         </div>

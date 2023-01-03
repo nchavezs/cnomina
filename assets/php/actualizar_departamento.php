@@ -8,6 +8,7 @@ $sql = "SELECT * FROM Departamento WHERE nombre = '".$nombre."' AND id_departame
 $consulta = $conexion->query($sql);
 
 if(mysqli_num_rows($consulta) == 0){
+    // NI LO USO WHAT??
     $departamento = mysqli_fetch_array($consulta);
     $sql = "UPDATE Departamento  SET nombre = '".$nombre."' WHERE id_departamento = " . $id;
     if($conexion->query($sql)){

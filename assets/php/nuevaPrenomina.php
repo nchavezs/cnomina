@@ -2,7 +2,7 @@
 session_start();
 // $id_prenomina = $_SESSION["id_prenomina"];
 $id_periodo = $_SESSION["id_periodo"];
-$ano = date("Y");
+$ano = $_SESSION["ano"];
 
 
 setlocale(LC_ALL, "spanish");

@@ -3,22 +3,9 @@ var total = -1;
 
 var mensajes_evento = null;
 
-function mensajes() {
-   $.ajax({
-       url: "assets/php/comprobar_mensajeria.php",
-       type: "POST",
-       success: function (data) {
-           if (data > 0) {
-               $(".comprobar_mensajeria").show();
-           }else{
-               $(".comprobar_mensajeria").hide();
-           }
-       }
-   });
-}
-
 $(document).ready(function () {
 
+   // comprobar_plaza();
    mensajes();
    mensajes_evento = setInterval("mensajes();", 5000);
 
@@ -80,6 +67,38 @@ $(document).ready(function () {
       });
    });
 });
+
+function comprobar_plaza(){
+   $.ajax({
+      url: "assets/php/comprobar_plaza.php",
+      type: "POST",
+      success: function(datos){
+         let data = JSON.parse(datos);
+         if(data.success){
+            Swal.fire({
+               html: data.html,
+               showCloseButton: true,
+               showConfirmButton: false,
+               background: "#EEEEEE",
+            });
+         }
+      } 
+   })
+}
+
+function mensajes() {
+   $.ajax({
+       url: "assets/php/comprobar_mensajeria.php",
+       type: "POST",
+       success: function (data) {
+           if (data > 0) {
+               $(".comprobar_mensajeria").show();
+           }else{
+               $(".comprobar_mensajeria").hide();
+           }
+       }
+   });
+}
 
 function bloqueo(event) {
    if(event){
