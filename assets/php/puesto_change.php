@@ -9,7 +9,8 @@ $fecha_movimiento = date("Y-m-d", strtotime(str_replace("/", "-", $fecha_movimie
 
 $sql = "SELECT * FROM Plaza LEFT JOIN Usuario ON Plaza.RFC = Usuario.RFC WHERE 
 Plaza.id_puesto = " . $puesto . " AND 
-Plaza.estado = 1 
+Plaza.estado = 1 AND
+YEAR(Plaza.elaboracion) = ".$ano." 
 ORDER BY Plaza.id_plaza";
 
 $consulta = $conexion->query($sql);

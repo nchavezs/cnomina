@@ -41,14 +41,13 @@ if ($id_puesto == 0) {
 }
 
 $ano = date("Y");
+$hoy = date("Y-m-d");
 
 $sql = "SELECT * FROM Plaza WHERE YEAR(elaboracion) = ".$ano." AND id_puesto = " . $id_puesto . " " . $estado;
 $resultado = $conexion->query($sql);
 if ($resultado && (mysqli_num_rows($resultado) == 0)) {
     echo '{"data":[]}';
 } else {
-    $ano = date("Y");
-    $hoy = date("Y-m-d");
     while ($res = mysqli_fetch_array($resultado)) {
         // ------------------------------------------------------------------------------------------------------
         $sql = "SELECT nombre FROM Usuario WHERE RFC = '" . $res["RFC"] . "'";

@@ -279,7 +279,6 @@ function depa_change_multiple() {
 function puestos_change_multiple() {
 
    $(".puestos").change(function () {
-      console.log(2);
       let elemento = $(this);
       let select_plaza = elemento.closest(".pagina").find(".plazas").prop("id");
       $.ajax({
