@@ -1,9 +1,31 @@
 <?php
 include "conexion.php";
+session_start();
 $conexion = conexion();
 $puesto = $_POST["puesto"];
-$ano = date("Y");
+
+function diferencia($fecha1, $fecha2)
+{
+    $fecha1 = new DateTime($fecha1);
+    $fecha2 = new DateTime($fecha2);
+    $diff = $fecha2->diff($fecha1);
+    return $diff->format('%a');
+}
+
+
+// -------------------------------------------------------------------------------
+$ano = $_SESSION["ano"];
 $hoy = date("Y-m-d");
+
+if($ano != date("Y")){
+    $id_prenomina = $_SESSION["id_prenomina"];
+    $sql = "SELECT * FROM Prenomina WHERE id_prenomina =".$id_prenomina;
+    $consulta = $conexion->query($sql);
+    $prenomina = mysqli_fetch_array($consulta);
+
+    $hoy = $prenomina["al"];
+}
+// -------------------------------------------------------------------------------
 $fecha_movimiento = $_POST["fecha"];
 $fecha_movimiento = date("Y-m-d", strtotime(str_replace("/", "-", $fecha_movimiento))); 
 
@@ -18,7 +40,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
         $ocupados = 0;
         $ocupados_total = 0;
-        $vacantes = $res["dias"];
+        // $vacantes = $res["dias"];
 
         $ultimo_historial = "";
         $sql = "SELECT fecha_fin FROM Historial_Plaza WHERE 
@@ -31,27 +53,24 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
             $ultimo_historial =  $ultimo_historial[0];
         }
 
-        $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
-        $consulta2 = $conexion->query($sql);
-
         $fin_ano = date("Y-m-d", strtotime($ano . "-12-31"));
-        // $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".$res["dias"]." days"));
         $fecha_presupuestada = date("Y-m-d",strtotime($fin_ano."- ".($res["dias"] - 1)." days"));
 
-
+        $sql = "SELECT * FROM Historial_Plaza WHERE id_plaza = " . $res["id_plaza"] . " AND YEAR(fecha_inicio) = " . $ano;
+        $consulta2 = $conexion->query($sql);
+        
         if ($consulta2 && mysqli_num_rows($consulta2) > 0) {
             while ($historial = mysqli_fetch_array($consulta2)) {
-                $fecha1 = new DateTime($historial["fecha_inicio"]);
-                if ($historial["fecha_fin"] != "") {
-                    $fecha2 = new DateTime($historial["fecha_fin"]);
-                }else{
-                    $fecha2 = new DateTime($hoy);
+                $fecha1 = $historial["fecha_inicio"];
+                if ($historial["fecha_fin"] != null) {
+                    $fecha2 = $historial["fecha_fin"];
+                } else {
+                    $fecha2 = $hoy;
                 }
-                $diff = $fecha2->diff($fecha1);
-                $ocupados = $diff->format('%a');
-                $ocupados_total = $ocupados_total + $ocupados;
+                $ocupados = diferencia($fecha1, $fecha2);
+                $ocupados_total = $ocupados_total + $ocupados + 1;
             }
-            $vacantes = $res["dias"] - $ocupados_total;
+            // $vacantes = $res["dias"] - $ocupados_total;
         }
 
         if($fecha_movimiento < $fecha_presupuestada){
@@ -59,7 +78,7 @@ if ($consulta && (mysqli_num_rows($consulta)) > 0) {
         }else if($fecha_movimiento <= $ultimo_historial){
             $description = 'data-description="Seleccione una fecha mayor a '.$ultimo_historial.'" disabled';
         }else{
-            $description = 'data-description="'.$vacantes.' días por ejercer"';
+            $description = 'data-description="'.$ocupados_total.' días ocupados"';
         }
 
         if($res["RFC"] != null){

@@ -2,6 +2,9 @@
 include "conexion.php";
 $conexion = conexion();
 
+session_start();
+$ano = $_SESSION["ano"];
+
 echo '<div class="formulario_caja">
         <form class="formulario" id="form-plaza">
             <div class="p-2">
@@ -17,7 +20,7 @@ echo '<div class="formulario_caja">
                         </div>
                         <div class="col-md-6">
                             <div class="select-etiqueta">Fecha aprobación presupuesto</div>
-                            <input id="fecha" type="text" class="campo" disabled value="01/01/'.date("Y").'"/>
+                            <input id="fecha" type="text" class="campo" disabled value="01/01/'.$ano.'"/>
                         </div>
 
                         <div class="col-md-12">

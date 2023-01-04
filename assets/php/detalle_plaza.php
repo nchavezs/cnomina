@@ -1,10 +1,22 @@
 <?php
 include "conexion.php";
+session_start();
 $conexion = conexion();
 $id = $_POST["id"];
 
-$ano = date("Y");
+// -------------------------------------------------------------------------------
+$ano = $_SESSION["ano"];
 $hoy = date("Y-m-d");
+
+if($ano != date("Y")){
+    $id_prenomina = $_SESSION["id_prenomina"];
+    $sql = "SELECT * FROM Prenomina WHERE id_prenomina =".$id_prenomina;
+    $consulta = $conexion->query($sql);
+    $prenomina = mysqli_fetch_array($consulta);
+
+    $hoy = $prenomina["al"];
+}
+// -------------------------------------------------------------------------------
 
 $html = '<div class="row formulario_caja p-4">
 <div class="col-md-12 formulario">

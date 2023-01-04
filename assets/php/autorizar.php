@@ -4,7 +4,7 @@ $conexion = conexion();
 session_start();
 // $id_prenomina = $_SESSION["id_prenomina"];
 $id_periodo = $_SESSION["id_periodo"];
-$ano = date("Y");
+$ano = $_SESSION["ano"];
 
 $sql = "SELECT *,
 (SELECT dias FROM Periodo WHERE id_periodo = Prenomina.id_periodo) AS dias

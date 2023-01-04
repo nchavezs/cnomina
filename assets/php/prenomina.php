@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $conexion = conexion();
 $observacion = trim($_POST["observacion"]) ?: 'Sin observaciones';
 $periodo = $_SESSION["id_periodo"];
-$ano = date("Y");
+$ano =  $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
 function cabecera($titulo, $col, $sheet)
