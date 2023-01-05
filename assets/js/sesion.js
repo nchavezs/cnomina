@@ -3,334 +3,336 @@ var total = -1;
 
 var mensajes_evento = null;
 
-$(document).ready(function () {
+$.fn.DataTable.ext.pager.numbers_length = 5;
 
-   // comprobar_plaza();
-   mensajes();
-   mensajes_evento = setInterval("mensajes();", 5000);
-
-   $('.dataTable').DataTable.ext.pager.numbers_length = 5;
-
-   $(document).on("click", ".ver_panel p", function () {
-      $(".ver_panel p").removeClass("activo");
-      $(this).addClass("activo");
-   });
-
-
-   $(document).on("click", "#salir", function () {
-      Swal.close();
-   });
-
-   $('#cerrar').click(function () {
-      Swal.fire({
-         position: 'center',
-         type: 'question',
-         title: '¿Desea cerrar sesión?',
-         reverseButtons: true,
-         showCancelButton: true,
-         confirmButtonText: 'SI',
-         cancelButtonText: 'NO',
-
-
-      }).then((result) => {
-         if (result.value) {
-            $.post("assets/php/cerrarSesion.php", function (data) {
-               window.location.href = data;
-            });
-
-         } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-         }
-      });
-   });
-
-   $('#cerrar-btn').click(function () {
-      Swal.fire({
-         position: 'center',
-         type: 'question',
-         title: '¿Desea cerrar sesión?',
-         reverseButtons: true,
-         showCancelButton: true,
-         confirmButtonText: 'SI',
-         cancelButtonText: 'NO',
-
-
-      }).then((result) => {
-         if (result.value) {
-            $.post("assets/php/cerrarSesion.php", function (data) {
-               window.location.href = data;
-            });
-
-         } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-         }
-      });
-   });
+$.extend(true, $.fn.dataTable.defaults, {
+  autoWidth: false,
+  orderClasses: false,
+  deferRender: true,
+  lengthChange: false,
+  pageLength: 7,
+  language: {
+    url: "assets/js/datatables/es.json",
+  },
 });
 
-function comprobar_plaza(){
-   $.ajax({
-      url: "assets/php/comprobar_plaza.php",
-      type: "POST",
-      success: function(datos){
-         let data = JSON.parse(datos);
-         if(data.success){
-            Swal.fire({
-               html: data.html,
-               showCloseButton: true,
-               showConfirmButton: false,
-               background: "#EEEEEE",
-            });
-         }
-      } 
-   })
+$(document).ready(function () {
+  // comprobar_plaza();
+  mensajes();
+  mensajes_evento = setInterval("mensajes();", 5000);
+
+  $(".dataTable").DataTable.ext.pager.numbers_length = 5;
+
+  $(document).on("click", ".ver_panel p", function () {
+    $(".ver_panel p").removeClass("activo");
+    $(this).addClass("activo");
+  });
+
+  $(document).on("click", "#salir", function () {
+    Swal.close();
+  });
+
+  $("#cerrar").click(function () {
+    Swal.fire({
+      position: "center",
+      type: "question",
+      title: "¿Desea cerrar sesión?",
+      reverseButtons: true,
+      showCancelButton: true,
+      confirmButtonText: "SI",
+      cancelButtonText: "NO",
+    }).then((result) => {
+      if (result.value) {
+        $.post("assets/php/cerrarSesion.php", function (data) {
+          window.location.href = data;
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  });
+
+  $("#cerrar-btn").click(function () {
+    Swal.fire({
+      position: "center",
+      type: "question",
+      title: "¿Desea cerrar sesión?",
+      reverseButtons: true,
+      showCancelButton: true,
+      confirmButtonText: "SI",
+      cancelButtonText: "NO",
+    }).then((result) => {
+      if (result.value) {
+        $.post("assets/php/cerrarSesion.php", function (data) {
+          window.location.href = data;
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  });
+});
+
+function comprobar_plaza() {
+  $.ajax({
+    url: "assets/php/comprobar_plaza.php",
+    type: "POST",
+    success: function (datos) {
+      let data = JSON.parse(datos);
+      if (data.success) {
+        Swal.fire({
+          html: data.html,
+          showCloseButton: true,
+          showConfirmButton: false,
+          background: "#EEEEEE",
+        });
+      }
+    },
+  });
 }
 
 function mensajes() {
-   $.ajax({
-       url: "assets/php/comprobar_mensajeria.php",
-       type: "POST",
-       success: function (data) {
-           if (data > 0) {
-               $(".comprobar_mensajeria").show();
-           }else{
-               $(".comprobar_mensajeria").hide();
-           }
-       }
-   });
+  $.ajax({
+    url: "assets/php/comprobar_mensajeria.php",
+    type: "POST",
+    success: function (data) {
+      if (data > 0) {
+        $(".comprobar_mensajeria").show();
+      } else {
+        $(".comprobar_mensajeria").hide();
+      }
+    },
+  });
 }
 
 function bloqueo(event) {
-   if(event){
-      event.stopPropagation();
-   }
-   md.showNotification("top", "right", "No cuenta con los permisos suficientes.");
+  if (event) {
+    event.stopPropagation();
+  }
+  md.showNotification(
+    "top",
+    "right",
+    "No cuenta con los permisos suficientes."
+  );
 }
 
 function cerrar() {
-   Swal.close();
+  Swal.close();
 }
 
-
 function send_mail(mensaje) {
-   $.ajax({
-      url: "assets/php/new_mensaje.php",
-      method: "POST",
-      data: {
-         mensaje: mensaje
-      },
-      success: function (data) {
-         if (data == 1) {
-            $("#chat-input").val("");
-            cargar_mensajes();
-            mensaje_enviado();
-         }
+  $.ajax({
+    url: "assets/php/new_mensaje.php",
+    method: "POST",
+    data: {
+      mensaje: mensaje,
+    },
+    success: function (data) {
+      if (data == 1) {
+        $("#chat-input").val("");
+        cargar_mensajes();
+        mensaje_enviado();
       }
-   })
+    },
+  });
 }
 
 function cargar_mensajes() {
-   $.post("assets/php/load_mensajes.php",
-      function (datos) {
-         let data = JSON.parse(datos);
-         if (data.total != total) {
-            $(".chat_cuerpo").html(data.html);
-            $(".chat_cuerpo").scrollTop($(".chat_cuerpo")[0].scrollHeight);
-            $(".chat_cuerpo .chat_msg").last().css("animation-name", "fadeIn");
-            $(".chat_cuerpo .chat_msg").last().css("animation-duration", "2s");
-            total = data.total;
-         }
-      });
+  $.post("assets/php/load_mensajes.php", function (datos) {
+    let data = JSON.parse(datos);
+    if (data.total != total) {
+      $(".chat_cuerpo").html(data.html);
+      $(".chat_cuerpo").scrollTop($(".chat_cuerpo")[0].scrollHeight);
+      $(".chat_cuerpo .chat_msg").last().css("animation-name", "fadeIn");
+      $(".chat_cuerpo .chat_msg").last().css("animation-duration", "2s");
+      total = data.total;
+    }
+  });
 }
 
 function notificaciones() {
-   $.ajax({
-      url: "assets/php/notificaciones.php",
-      success: function (html) {
-         $(".noti-caja").html(html);
-      }
-   });
-};
+  $.ajax({
+    url: "assets/php/notificaciones.php",
+    success: function (html) {
+      $(".noti-caja").html(html);
+    },
+  });
+}
 
 function mensaje_enviado() {
-   Swal.fire({
-      title: "Correcto",
-      text: "Enviado",
-      type: "success"
-   })
+  Swal.fire({
+    title: "Correcto",
+    text: "Enviado",
+    type: "success",
+  });
 }
 
 function mensaje_cargar() {
-   let timerInterval
-   Swal.fire({
-      title: 'Cargando',
-      html: 'Espere porfavor',
-      allowOutsideClick: false,
-      onBeforeOpen: () => {
-         Swal.showLoading()
-      },
-      onClose: () => {
-         clearInterval(timerInterval)
-      }
-   }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {}
-   })
-};
+  let timerInterval;
+  Swal.fire({
+    title: "Cargando",
+    html: "Espere porfavor",
+    allowOutsideClick: false,
+    onBeforeOpen: () => {
+      Swal.showLoading();
+    },
+    onClose: () => {
+      clearInterval(timerInterval);
+    },
+  }).then((result) => {
+    if (result.dismiss === Swal.DismissReason.timer) {
+    }
+  });
+}
 
 function select_estilo() {
-   tail.select("select", {
-      locale: "es",
-      animate: true,
-      classNames: ["campo"],
-      width: "100%",
-      search: true,
-      descriptions: true,
-      placeholder: "SELECCIONA UNA OPCIÓN",
-      // multiSelectAll: true,
-      multiContainer: true,
-      multiShowCount: false,
-   });
-};
+  tail.select("select", {
+    locale: "es",
+    animate: true,
+    classNames: ["campo"],
+    width: "100%",
+    search: true,
+    descriptions: true,
+    placeholder: "SELECCIONA UNA OPCIÓN",
+    // multiSelectAll: true,
+    multiContainer: true,
+    multiShowCount: false,
+  });
+}
 
 function select_estilo_2() {
-   tail.select("select", {
-      locale: "es",
-      animate: true,
-      classNames: ["campo"],
-      width: "100%",
-      search: false,
-      descriptions: true,
-      placeholder: "SELECCIONA UNA OPCIÓN"
-   });
-};
+  tail.select("select", {
+    locale: "es",
+    animate: true,
+    classNames: ["campo"],
+    width: "100%",
+    search: false,
+    descriptions: true,
+    placeholder: "SELECCIONA UNA OPCIÓN",
+  });
+}
 
 function select_estilo_3() {
-   tail.select("select", {
-      locale: "es",
-      animate: true,
-      classNames: ["select_estilo"],
-      search: false,
-      // width: "200px"
-   });
-};
+  tail.select("select", {
+    locale: "es",
+    animate: true,
+    classNames: ["select_estilo"],
+    search: false,
+    // width: "200px"
+  });
+}
 
 function depa_change() {
-   $("#departamento").on("change", function () {
-      $.ajax({
-         url: "assets/php/depa_change.php",
-         type: "POST",
-         data: {
-            departamento: $("#departamento").val(),
-         },
-         success: function (data) {
-            $("#puesto").html(data);
-            tail.select("#puesto").reload();
-            $("#puesto").change();
-            if (document.getElementById("plaza")) {
-               tail.select("#plaza").reload();
-            }
-         }
-      });
-   });
+  $("#departamento").on("change", function () {
+    $.ajax({
+      url: "assets/php/depa_change.php",
+      type: "POST",
+      data: {
+        departamento: $("#departamento").val(),
+      },
+      success: function (data) {
+        $("#puesto").html(data);
+        tail.select("#puesto").reload();
+        $("#puesto").change();
+        if (document.getElementById("plaza")) {
+          tail.select("#plaza").reload();
+        }
+      },
+    });
+  });
 
-   $("#departamento").change();
+  $("#departamento").change();
 }
 
 function puesto_change() {
-   $("#puesto").on("change", function () {
-      $.ajax({
-         url: "assets/php/puesto_change.php",
-         type: "POST",
-         data: {
-            puesto: $("#puesto").val(),
-            fecha: $("#fecha").val()
-         },
-         success: function (data) {
-            $("#plaza").html(data);
-            tail.select("#plaza").reload();
-         }
-      });
-   });
+  $("#puesto").on("change", function () {
+    $.ajax({
+      url: "assets/php/puesto_change.php",
+      type: "POST",
+      data: {
+        puesto: $("#puesto").val(),
+        fecha: $("#fecha").val(),
+      },
+      success: function (data) {
+        $("#plaza").html(data);
+        tail.select("#plaza").reload();
+      },
+    });
+  });
 }
 
 function isNumberKey(evt) {
-   var charCode = (evt.which) ? evt.which : evt.keyCode
-   return !(charCode > 31 && (charCode < 48 || charCode > 57));
-};
-
+  var charCode = evt.which ? evt.which : evt.keyCode;
+  return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
 
 function descargar(url, name) {
-   var link = document.createElement("a");
-   link.download = "";
-   link.href = url;
-   link.click();
-   link.remove();
+  var link = document.createElement("a");
+  link.download = "";
+  link.href = url;
+  link.click();
+  link.remove();
 }
 
 function descargar_php(direccion) {
-   window.location = "assets/php/download.php?filename=" + direccion;
-};
-
-function log_show(html) {
-   Swal.fire({
-      html: html,
-      allowOutsideClick: false,
-      allowEscapeKey: false
-   });
+  window.location = "assets/php/download.php?filename=" + direccion;
 }
 
-$(document).on("click", '.cb-value', function () {
-   var mainParent = $(this).parent('.toggle-btn');
-   if ($(mainParent).find('input.cb-value').is(':checked')) {
-      $(mainParent).addClass('active');
-   } else {
-      $(mainParent).removeClass('active');
-   }
+function log_show(html) {
+  Swal.fire({
+    html: html,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+  });
+}
+
+$(document).on("click", ".cb-value", function () {
+  var mainParent = $(this).parent(".toggle-btn");
+  if ($(mainParent).find("input.cb-value").is(":checked")) {
+    $(mainParent).addClass("active");
+  } else {
+    $(mainParent).removeClass("active");
+  }
 });
 
 function soporte() {
-   $("#nomina").click();
+  $("#nomina").click();
 }
-
 
 function mensaje(titulo, texto, color) {
-   iziToast.show({
-      title: titulo,
-      message: texto,
-      color: color,
-      theme: "dark",
-      position: "bottomCenter",
-      transitionIn: 'revealIn',
-   });
+  iziToast.show({
+    title: titulo,
+    message: texto,
+    color: color,
+    theme: "dark",
+    position: "bottomCenter",
+    transitionIn: "revealIn",
+  });
 }
-
 
 function ocultar_modal() {
-   $("#modal_aceptar").prop("disabled", true);
-   $("#modal").modal("hide");
+  $("#modal_aceptar").prop("disabled", true);
+  $("#modal").modal("hide");
 }
 
-
 function mostrar_modal() {
-   $("#modal .modal-footer").show();
-   $("#modal_aceptar").prop("disabled", false);
-   $("#modal").modal("show");
+  $("#modal .modal-footer").show();
+  $("#modal_aceptar").prop("disabled", false);
+  $("#modal").modal("show");
 }
 
 function validate(evt) {
-   var theEvent = evt || window.event;
+  var theEvent = evt || window.event;
 
-   // Handle paste
-   if (theEvent.type === 'paste') {
-      key = event.clipboardData.getData('text/plain');
-   } else {
-      // Handle key press
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode(key);
-   }
-   var regex = /[0-9]|\./;
-   if (!regex.test(key)) {
-      theEvent.returnValue = false;
-      if (theEvent.preventDefault) theEvent.preventDefault();
-   }
+  // Handle paste
+  if (theEvent.type === "paste") {
+    key = event.clipboardData.getData("text/plain");
+  } else {
+    // Handle key press
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if (!regex.test(key)) {
+    theEvent.returnValue = false;
+    if (theEvent.preventDefault) theEvent.preventDefault();
+  }
 }

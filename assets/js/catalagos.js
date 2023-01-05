@@ -12,14 +12,11 @@ $(document).ready(function () {
     });
 
     $('#tabla-puesto').DataTable({
-        "lengthChange": false,
-        "pageLength": 10,
+        
         "order": [
             [0, "desc"]
         ],
-        "language": {
-            url: "assets/js/datatables/es.json"
-        },
+       
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-puesto.php"
@@ -66,14 +63,11 @@ $(document).ready(function () {
     });
 
     $('#tabla-departamento').DataTable({
-        "lengthChange": false,
-        "pageLength": 10,
+        
         "order": [
             [0, "desc"]
         ],
-        "language": {
-            url: "assets/js/datatables/es.json"
-        },
+        
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-departamento.php"

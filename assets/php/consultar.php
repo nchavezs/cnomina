@@ -29,9 +29,6 @@ if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';
 } else {
     while ($res = mysqli_fetch_array($resultado)) {
-        $res["del"] = strftime("%d %B", strtotime($res["del"]));
-        $res["al"] = strftime("%d %B", strtotime($res["al"]));
-
         if ($bandera_eliminar) {
             $eliminar = "eliminar($res[0])";
         } else {
@@ -43,12 +40,20 @@ if (mysqli_num_rows($resultado) == 0) {
         } else {
             $ver = "bloqueo(event)";
         }
-
-        $res["eliminar"] = '<i class="material-icons btn1-danger" onClick="' . $eliminar . '" >delete</i>';
-        $res["ver"] = '<i class="material-icons btn1" onClick="' . $ver . '">assignment</i>';
-        $arreglo["data"][] = $res;
+        
+        $arreglo[] = [
+            "nombre" => $res["nombre"],
+            "del" => strftime("%d %B", strtotime($res["del"])),
+            "al" => strftime("%d %B", strtotime($res["al"])),
+            "eliminar" => '<i class="material-icons btn1-danger" onClick="' . $eliminar . '" >delete</i>',
+            "ver" => '<i class="material-icons btn1" onClick="' . $ver . '">assignment</i>',
+            "dias" => $res["dias_pago"]
+        ];
     }
-    echo json_encode($arreglo);
+
+    $datos = ["data" => $arreglo];
+
+    echo json_encode($datos);
 }
 
 $conexion->close();

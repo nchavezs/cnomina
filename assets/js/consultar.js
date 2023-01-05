@@ -6,11 +6,7 @@ $(document).ready(function () {
     });
 
     $('#tabla-nominas').DataTable({
-        "lengthChange": false,
-        "pageLength": 10,
-        "language": {
-            url: "assets/js/datatables/es.json"
-        },
+        
         "ajax": {
             "type": "POST",
             "url": "assets/php/consultar.php",

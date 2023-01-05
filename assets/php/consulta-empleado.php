@@ -35,11 +35,6 @@ if (mysqli_num_rows($resultado) == 0) {
     echo '{"data":[]}';
 } else {
     while ($res = mysqli_fetch_array($resultado)) {
-        $res["id_empleado"] = str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT);
-        if ($res["tipoTrabajador"] == null) {
-            $res["tipoTrabajador"] = "N/A";
-        }
-
 
         if($bandera_eliminar){
             $eliminar = "eliminar_usuario('". $res["RFC"]. "', event)";
@@ -53,14 +48,25 @@ if (mysqli_num_rows($resultado) == 0) {
             $editar = "bloqueo(event)";
         }
 
-        $res["opciones"] = '
+        $opciones = '
         <span class="boton_tabla text-primary mr-2" onclick="'.$editar.'"> <i class="material-icons">edit</i>  </span>
         <span class="boton_tabla text-danger" onclick="'.$eliminar.'"><i class="material-icons">delete</i> </span>
         ';
 
-        $arreglo["data"][] = $res;
+        $arreglo[] = [
+            "id_empleado" => str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT),
+            "nombre" => $res["nombre"],
+            "puesto" => $res["puesto"],
+            "departamento" => $res["departamento"],
+            "tipoTrabajador" => $res["tipoTrabajador"] ?? "N/A",
+            "opciones" => $opciones
+        ];
     }
-    echo json_encode($arreglo);
+
+
+    $datos = ["data" => $arreglo];
+
+    echo json_encode($datos);
 }
 
 $conexion->close();

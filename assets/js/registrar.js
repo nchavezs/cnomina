@@ -237,11 +237,7 @@ $(document).ready(function () {
     });
 
     let table = $('#tabla-empleado').DataTable({
-        "lengthChange": false,
-        "pageLength": 10,
-        "language": {
-            url: "assets/js/datatables/es.json"
-        },
+        
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-empleado.php",

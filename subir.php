@@ -89,7 +89,7 @@ if(!in_array(24, rol())){
 	</div>
 
 	<?php include 'assets/layouts/scripts.php' ?>
-	<script src="assets/js/subir.js?v=3.8.0"></script>
+	<script src="assets/js/subir.js?v=3.8.2"></script>
 	<script>$("#tab-subir").addClass("active");</script>
 
 </body>

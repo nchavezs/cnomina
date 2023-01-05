@@ -15,14 +15,11 @@ $(document).ready(function () {
   
 
     var tabla = $('#tabla-plaza').DataTable({
-        "lengthChange": false,
-        "pageLength": 10,
+        // "pageLength": 10,
         "order": [
             [0, "desc"]
         ],
-        "language": {
-            url: "assets/js/datatables/es.json"
-        },
+    
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-plaza.php",
