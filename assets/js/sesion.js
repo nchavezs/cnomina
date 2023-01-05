@@ -6,9 +6,9 @@ var mensajes_evento = null;
 $.fn.DataTable.ext.pager.numbers_length = 5;
 
 $.extend(true, $.fn.dataTable.defaults, {
-  autoWidth: false,
-  orderClasses: false,
-  deferRender: true,
+  // autoWidth: false,
+  // orderClasses: false,
+  // deferRender: true,
   lengthChange: false,
   pageLength: 7,
   language: {

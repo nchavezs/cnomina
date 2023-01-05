@@ -237,7 +237,6 @@ $(document).ready(function () {
     });
 
     let table = $('#tabla-empleado').DataTable({
-        
         "ajax": {
             "type": "POST",
             "url": "assets/php/consulta-empleado.php",
@@ -291,7 +290,8 @@ $(document).ready(function () {
 
     $(document).on("click", "#tabla-empleado tbody tr", function (e) {
         var data = table.row(this).data();
-        ver(data[0], 0);
+        console.log(data);
+        ver(data["RFC"], 0);
         //error consola en empty row
     });
 

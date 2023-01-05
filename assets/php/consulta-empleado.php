@@ -54,6 +54,7 @@ if (mysqli_num_rows($resultado) == 0) {
         ';
 
         $arreglo[] = [
+            "RFC" => $res["RFC"],
             "id_empleado" => str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT),
             "nombre" => $res["nombre"],
             "puesto" => $res["puesto"],
