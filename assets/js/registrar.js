@@ -1165,6 +1165,8 @@ function movimiento(id) {
                                 $("#puesto").change();
                             }
                         });
+
+                        $("#fecha").focus();
                     });
 
 
