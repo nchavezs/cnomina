@@ -4,7 +4,8 @@ include "conexion.php";
 include "rol.php";
 $conexion = conexion();
 setlocale(LC_ALL, "spanish");
-$ano = $_POST["ano"];
+// $ano = $_POST["ano"];
+$ano = $_SESSION["ano"];
 $id_periodo = $_POST["id_periodo"];
 
 if (in_array(7, rol())) {

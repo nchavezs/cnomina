@@ -55,7 +55,7 @@ $nominas = '
 <li id="tab-nominas" class="nav-item">
     <a class="nav-link" href="./consultar">
         <i class="material-icons">text_snippet</i>
-        <p>Nóminas</p>
+        <p>CFDI</p>
     </a>
 </li>
 ';

@@ -41,12 +41,12 @@ if(!in_array(26, rol())){
 					</div>
 					<div class="table-responsive adp-hide">
 						<div class="opciones_tabla">
-							<select id="ano">
+							<!-- <select id="ano">
 								<option value="2022">2022</option>
 								<option value="2023">2023</option>
 								<option value="2024">2024</option>
 								<option value="2025">2025</option>
-							</select>
+							</select> -->
 							<select id="id_periodo">
 								<option value="1">CATORCENAL</option>
 								<option value="2">MENSUAL</option>

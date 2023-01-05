@@ -40,7 +40,7 @@ if ($id_puesto == 0) {
     $id_puesto = "ANY(SELECT id_puesto FROM Puesto)";
 }
 
-$ano = date("Y");
+$ano = $_SESSION["ano"];
 $hoy = date("Y-m-d");
 
 $sql = "SELECT * FROM Plaza WHERE YEAR(elaboracion) = ".$ano." AND id_puesto = " . $id_puesto . " " . $estado;

@@ -57,7 +57,7 @@ if ($conexion->query($sql)) {
                     <li class="nav-item  ">
                         <a class="nav-link" href="./tablas">
                             <i class="material-icons">content_paste</i>
-                            <p>Nóminas</p>
+                            <p>CFDI</p>
                         </a>
                     </li>
                     <li id="link1" class="nav-item active">

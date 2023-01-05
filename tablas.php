@@ -43,7 +43,7 @@ include "assets/php/main_user.php";
 					<li id="link1" class="nav-item active ">
 						<a class="nav-link" href="./tablas">
 							<i class="material-icons">text_snippet</i>
-							<p>Nóminas</p>
+							<p>CFDI</p>
 						</a>
 					</li>
 					<li class="nav-item ">
