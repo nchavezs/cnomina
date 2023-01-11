@@ -3,7 +3,7 @@ session_start();
 include "conexion.php";
 $conexion = conexion();
 $id_prenomina = $_SESSION["id_prenomina"];
-$ano = date("Y");
+$ano = $_SESSION["ano"];
 
 $sql = "SELECT * FROM Prenomina WHERE id_prenomina = " . $id_prenomina;
 $consulta = $conexion->query($sql);

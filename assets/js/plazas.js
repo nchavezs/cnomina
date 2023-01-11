@@ -183,8 +183,6 @@ function guardar_plaza() {
 
 function suspender(id, event) {
     event.stopPropagation();
-
-    
 };
 
 $(document).on("click", ".cb-value", function(e){

@@ -2,6 +2,7 @@
 include "assets/php/main_admin.php";
 include "assets/php/comprobar_periodo.php";
 include "assets/php/comprobar_catalago.php";
+include "assets/php/comprobar_plaza.php";
 
 if(!in_array(1, rol())){
 	header("location: ./perfil");

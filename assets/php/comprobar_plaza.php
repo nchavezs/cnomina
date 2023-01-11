@@ -1,19 +1,11 @@
 <?php
-$success = true;
+$conexion = conexion();
 
-$html = '
-<div class="p-2">
-        <h4 class="negrita text-primary">Detalle de gastos económicos</h4>
-        <small class="text-muted">Detalle de gastos económicos de </small>
-    </div>
-    <div class="card">
-        <div class="card-body">
-        </div>
-    </div>
-</div>    
-';
+$omitir = $_GET["pass"] ?? null;
+$ano = $_SESSION["ano"];
+$sql = "SELECT * FROM Plaza WHERE YEAR(elaboracion) = ".$ano;
+$consulta = $conexion->query($sql);
 
-$datos["html"] = $html;
-$datos["success"] = $success;
-
-echo json_encode($datos);
+if (mysqli_num_rows($consulta) == 0 && $omitir == null) {
+    header("location: ./configuracion_plaza");
+}

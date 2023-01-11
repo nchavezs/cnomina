@@ -130,11 +130,46 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
             $id_puesto = mysqli_fetch_row($consulta);
             $id_puesto = $id_puesto[0];
 
-            $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
-            for ($i = 0; $i < $cantidad; $i++) {
-                $conexion->query($sql);
-                $total_plazas++;
+            // --------------------------------------------------------------------------------------------------
+            $sql = "SELECT * FROM Plaza WHERE RFC IS NOT NULL AND id_puesto = " . $id_puesto;
+            $consulta = $conexion->query($sql);
+            if ($consulta) {
+                while ($plaza = mysqli_fetch_array($consulta)) {
+                    $sql = "INSERT INTO Plaza(id_puesto, dias, RFC) VALUES(" . $id_puesto . ", 365, '" . $plaza["RFC"] . "')";
+                    $conexion->query($sql);
+
+                    $sql = "UPDATE Plaza SET RFC = NULL WHERE id_plaza = " . $plaza["id_plaza"];
+                    $conexion->query($sql);
+
+                    $ano = date("Y", strtotime($plaza["elaboracion"]));
+                    $sql = "UPDATE Historial_Plaza SET fecha_fin = '" . $ano . "-12-31'
+                    WHERE id_historial_plaza = (SELECT id_historial_plaza WHERE RFC = '" . $plaza["RFC"] . "'
+                    ORDER BY elaboracion desc LIMIT 1)";
+                    $conexion->query($sql);
+                    $id_plaza = mysqli_insert_id($conexion);
+
+                    $ano = date("Y");
+                    $sql = "INSERT INTO Historial_Plaza(id_plaza,fecha_inicio,RFC) VALUES(
+                        " . $id_plaza . ",'" . $ano . "-01-01','" . $plaza["RFC"] . "')";
+                    $conexion->query($sql);
+                }
             }
+
+            if ($plazas_usadas < $cantidad) {
+                $cantidad = $cantidad - $plazas_usadas;
+                $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
+                for ($i = 0; $i < $cantidad; $i++) {
+                    $conexion->query($sql);
+                    $total_plazas++;
+                }
+            }
+            // --------------------------------------------------------------------------------------------------
+
+            // $sql = "INSERT INTO Plaza(id_puesto, dias) VALUES(" . $id_puesto . ", " . $dias . ")";
+            // for ($i = 0; $i < $cantidad; $i++) {
+            //     $conexion->query($sql);
+            //     $total_plazas++;
+            // }
         } else if ($consulta && $total == 0) {
             $sql = "SELECT * FROM Trabajador WHERE nombre = '" . $trabajador . "'";
             $consulta = $conexion->query($sql);
@@ -163,6 +198,8 @@ if ($datos[0] != "PUESTO" && $datos[1] != "DEPARTAMENTO" && $datos[2] != "DIAS P
             array_push($errores, "Fila " . $row . " : error al importar.");
         }
     }
+
+    // --------------------------------------------------------------------------------------------------
 
     $highestRow--;
     echo "<div class='log'>";

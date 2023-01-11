@@ -156,7 +156,6 @@ $(document).ready(function () {
                     puesto_change();
                     $("#nombre").blur();
 
-
                     $.post("assets/php/verificar_tope", function (datos) {
                         let data = JSON.parse(datos);
                         $('#fecha').datepicker({

@@ -3,7 +3,7 @@ include "conexion.php";
 $conexion = conexion();
 
 session_start();
-$ano = $_SESSION["ano"];
+$ano = date("Y");
 
 echo '<div class="formulario_caja">
         <form class="formulario" id="form-plaza">
@@ -14,17 +14,17 @@ echo '<div class="formulario_caja">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="select-etiqueta">Días presupuestados</div>
-                            <input id="dias" type="text" maxlength="3" min="1" class="campo" required onkeydown="return isNumberKey(event)"/>
+                            <input id="dias" type="number" maxlength="3" min="1" class="campo" required onkeydown="return isNumberKey(event)"/>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="select-etiqueta">Fecha aprobación presupuesto</div>
                             <input id="fecha" type="text" class="campo" disabled value="01/01/'.$ano.'"/>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="select-etiqueta">Cantidad de plazas</div>
+                        <div class="col-md-3">
+                            <div class="select-etiqueta"># de plazas</div>
                             <input id="cantidad" step="1" type="number" min="1" max="999" class="campo" value="1" required/>
                         </div>
 

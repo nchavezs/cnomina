@@ -6,9 +6,9 @@ var mensajes_evento = null;
 $.fn.DataTable.ext.pager.numbers_length = 5;
 
 $.extend(true, $.fn.dataTable.defaults, {
-  // autoWidth: false,
-  // orderClasses: false,
-  // deferRender: true,
+  autoWidth: false,
+  orderClasses: false,
+  deferRender: true,
   lengthChange: false,
   pageLength: 7,
   language: {
@@ -17,7 +17,6 @@ $.extend(true, $.fn.dataTable.defaults, {
 });
 
 $(document).ready(function () {
-  // comprobar_plaza();
   mensajes();
   mensajes_evento = setInterval("mensajes();", 5000);
 
@@ -70,24 +69,6 @@ $(document).ready(function () {
     });
   });
 });
-
-function comprobar_plaza() {
-  $.ajax({
-    url: "assets/php/comprobar_plaza.php",
-    type: "POST",
-    success: function (datos) {
-      let data = JSON.parse(datos);
-      if (data.success) {
-        Swal.fire({
-          html: data.html,
-          showCloseButton: true,
-          showConfirmButton: false,
-          background: "#EEEEEE",
-        });
-      }
-    },
-  });
-}
 
 function mensajes() {
   $.ajax({
