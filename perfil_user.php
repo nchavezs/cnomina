@@ -263,16 +263,16 @@ if ($conexion->query($sql)) {
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label class="bmd-label-floating">Contraseña actual</label>
-                                            <input type="password" name="pass" id="pass" class="campo" required autocomplete="off">
+                                            <input type="password" maxlength="20" minlength="3" name="pass" id="pass" class="campo" required autocomplete="off">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="bmd-label-floating">Nueva contraseña</label>
-                                            <input type="password" name="newPass" id="newPass" class="campo" required
+                                            <input type="password" maxlength="20" minlength="3" name="newPass" id="newPass" class="campo" required
                                                 autocomplete="off">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="bmd-label-floating">Confirmar contraseña</label>
-                                            <input type="password" name="confirmacion" id="confirmacion" class="campo" required
+                                            <input type="password" maxlength="20" minlength="3" name="confirmacion" id="confirmacion" class="campo" required
                                                 autocomplete="off">
                                         </div>
                                     </div>

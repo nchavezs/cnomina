@@ -33,7 +33,7 @@ include "assets/php/comprobar_periodo.php";
                            <div class="row">
                                  <div class="col-md-12">
                                  <label class="select-etiqueta">Nombre</label>
-                                       <input id="nombre" type="text" name="nombre" required class="campo" value="<?php echo $varName ?>">
+                                       <input maxlength="20" minlength="3" id="nombre" type="text" name="nombre" required class="campo" value="<?php echo $varName ?>">
                                  </div>
 
                               </div>
@@ -73,15 +73,15 @@ include "assets/php/comprobar_periodo.php";
                               <div class="row">
                                  <div class="col-md-12">
                                  <label class="select-etiqueta">Contraseña actual</label>
-                                          <input type="password" name="pass" id="pass" class="campo" required autocomplete="off">
+                                          <input type="password" maxlength="20" minlength="3" name="pass" id="pass" class="campo" required autocomplete="off">
                                  </div>
                                  <div class="col-md-12">
                                  <label class="select-etiqueta">Nueva contraseña</label>
-                                          <input type="password" name="newPass" id="newPass" class="campo" required autocomplete="off">
+                                          <input type="password" maxlength="20" minlength="3" name="newPass" id="newPass" class="campo" required autocomplete="off">
                                  </div>
                                  <div class="col-md-12">
                                  <label class="select-etiqueta">Confirmar contraseña</label>
-                                          <input type="password" name="confirmacion" id="confirmacion" class="campo" required autocomplete="off">
+                                          <input type="password" maxlength="20" minlength="3" name="confirmacion" id="confirmacion" class="campo" required autocomplete="off">
                                  </div>
                               </div>
                            
