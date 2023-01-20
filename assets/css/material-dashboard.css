@@ -1043,10 +1043,12 @@ form .card {
 }
 
 .select-dropdown {
-    background-color: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(255, 255, 255, 0.75) !important;
     margin-top: 10px !important;
     border-radius: 6px !important;
-    box-shadow: 1px 3px 20px 10px rgb(0, 0, 0, .1) !important
+    box-shadow: 1px 3px 20px 10px rgb(0, 0, 0, .1) !important;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px)
 }
 
 .dropdown-inner,
