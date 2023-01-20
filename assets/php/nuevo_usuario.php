@@ -21,10 +21,10 @@ echo '
 			<div class="card">
 				<div class="card-body">
 					<div class="select-etiqueta">Nombre</div>
-					<input id="nombre" required type="text" class="campo">
+					<input id="nombre" maxlength="50" minlength="3" required type="text" class="campo">
 
 					<div class="select-etiqueta">Alias</div>
-					<input id="alias" required type="text" class="campo">
+					<input id="alias" maxlength="20" minlength="3" required type="text" class="campo">
 
 					<div class="select-etiqueta">Email</div>
 					<input id="email" required type="email" class="campo">
