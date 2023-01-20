@@ -16,7 +16,8 @@ echo '
 		<form id="form">
 			<div class="text-left p-2">
 				<h4 class="negrita text-primary">Nuevo usuario</h4>
-				<small class="text-muted">Registra un nuevo usuario, asigna un rol con permisos.</small>
+				<small class="text-muted">Registra un nuevo usuario, asigna un rol con sus respectivos permisos. </small> <br>
+				<small>Nota: <cite>El usuario deberá ingresar con su alias, su contraseña será la misma que el alias.</cite></small> 	
 			</div>
 			<div class="card">
 				<div class="card-body">
