@@ -74,7 +74,7 @@ if(!in_array(1, rol())){
                                 }
                                 ?>
                                 
-                                <?php
+                                <!-- <?php
                                 if(in_array(5, rol())){
                                     echo '
                                     <span class="dropdown">
@@ -90,7 +90,7 @@ if(!in_array(1, rol())){
                                 }else{
                                     echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">refresh</i>Actualizar</label>';
                                 }
-                                ?>
+                                ?> -->
 
                               
                             </div>

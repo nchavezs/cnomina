@@ -47,7 +47,7 @@ if (mysqli_num_rows($resultado) == 0) {
             "al" => strftime("%d %B", strtotime($res["al"])),
             "eliminar" => '<i class="material-icons btn1-danger" onClick="' . $eliminar . '" >delete</i>',
             "ver" => '<i class="material-icons btn1" onClick="' . $ver . '">assignment</i>',
-            "dias" => $res["dias_pago"]
+            "dias_pago" => $res["dias_pago"]
         ];
     }
 
