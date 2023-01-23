@@ -12,10 +12,10 @@ include "assets/php/comprobar_periodo.php";
 
 <body>
 	<div class="wrapper ">
-		<?php include "assets/layouts/sidebar.php"; ?>
+		<?php include "assets/layouts/sidebar.php";?>
 		<div class="main-panel">
 			<?php include "assets/layouts/navbar.php"?>
-			
+
 			<div class="content">
 				<div class="container-fluid">
             <div class="row">
@@ -68,7 +68,7 @@ include "assets/php/comprobar_periodo.php";
                         </div>
                         <form class="text-left px-3" id="form-cambiar">
                            <div class="card-body">
-                              
+
                            <h6 class="card-category text-gray text-center">Cambiar contraseña</h6>
                               <div class="row">
                                  <div class="col-md-12">
@@ -84,7 +84,7 @@ include "assets/php/comprobar_periodo.php";
                                           <input type="password" maxlength="20" minlength="3" name="confirmacion" id="confirmacion" class="campo" required autocomplete="off">
                                  </div>
                               </div>
-                           
+
                            </div>
                            <div class="card-footer text-center">
                            <button type="submit" class="btn btn-success btn-sm btn-sm"><i class="material-icons">save</i> Guardar</button>
@@ -92,32 +92,27 @@ include "assets/php/comprobar_periodo.php";
                         </form>
                      </div>
                   </div>
-               
-                  <!-- <div class="col-xl-4">
-                     <div class="row">
-                        <div class="col-md 12">
-                           <div class="card">
+
+                  <div class="col-xl-4 pt-2">
+                     <!-- <div class="card">
                               <div class="card-body">
                                  <h5>Manual de usuario.</span></h5>
                                  <p>Descarga el manual usuario.</p>
                                  <div class="text-right w-100">
                                     <a href="./documentos/usuario.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
-                                 </div> 
-                              </div> 
-                           </div>
-                           <div class="card">
-                              <div class="card-body">
-                                 <h5>Manual de administrador.</span></h5>
-                                 <p>Descarga el manual de administrador.</p>
-                                 <div class="text-right w-100">
-                                    <a href="./documentos/administrador.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
                                  </div>
                               </div>
+                           </div> -->
+                     <div class="card mt-5">
+                        <div class="card-body">
+                           <h5>Manual de administrador.</span></h5>
+                           <p>Descarga el manual de administrador.</p>
+                           <div class="text-right w-100">
+                              <a href="./documentos/administrador.pdf" download class="btn btn-primary btn-sm px-3"><i class="material-icons">download</i> Descargar</a>
                            </div>
                         </div>
                      </div>
-
-                  </div> -->
+                  </div>
                </div>
 				</div>
 			</div>
@@ -127,7 +122,7 @@ include "assets/php/comprobar_periodo.php";
 		</div>
 	</div>
 
-   <?php include 'assets/layouts/scripts.php' ?>
+   <?php include 'assets/layouts/scripts.php'?>
    <script src="assets/js/perfil.js?v=3.8.2"></script>
 
    <script>$("#tab-perfil").addClass("active");</script>
