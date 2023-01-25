@@ -21,10 +21,10 @@ if( id_rol() != 1){
         name='viewport' />
     
     <link href="assets/js/plugins/izitoast/css/iziToast.css" rel="stylesheet" />
-	<link href="assets/css/material-dashboard.css?v=3.8.2" rel="stylesheet" />
+	<link href="assets/css/material-dashboard.css?v=3.8.3" rel="stylesheet" />
     <link href="assets/css/animate.css" rel="stylesheet" />
     <link href="assets/css/dropzone.min.css" rel="stylesheet" />
-    <link href="assets/css/sweetalert2.min.css?v=3.8.2" rel="stylesheet" />
+    <link href="assets/css/sweetalert2.min.css?v=3.8.3" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
 </head>
@@ -141,7 +141,7 @@ if( id_rol() != 1){
                                     </p>
                                     <ol>
                                         <li>Descargue la plantilla para importar datos <a class="text-warning"
-                                                href="./assets/docs/plazas.xlsx?v=3.8.2" download>aquí</a> .</li>
+                                                href="./assets/docs/plazas.xlsx?v=3.8.3" download>aquí</a> .</li>
                                         <li>Busque la ubicación del archivo, edítelo y carguelo en la siguiente sección.
                                             <i class="material-icons">arrow_downward</i>
                                         </li>
@@ -181,9 +181,9 @@ if( id_rol() != 1){
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <script src="assets/js/plugins/sweetalert2.min.js"></script>
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <script src="assets/js/material-dashboard.js?v=3.8.2" type="text/javascript"></script>
+    <script src="assets/js/material-dashboard.js?v=3.8.3" type="text/javascript"></script>
     <script src="assets/js/dropzone.js"></script>
-    <script src="assets/js/configuracion.js?v=3.8.2"></script>
+    <script src="assets/js/configuracion.js?v=3.8.3"></script>
 </body>
 
 </html>
