@@ -151,7 +151,7 @@ $(document).on("click", ".editar", function () {
             }
         }, {
             title: 'Sobreescribir archivo',
-            html: '<div class="col-md-12"><p>Seleccione un archivo, podrá modificar el archivo en cualquier momento.</p></div><div class="col-md-12"><input type="file" accept=".pdf, .xlsx" id="file" /><label for="file" class="btn-3"><span><i class="material-icons">cloud_upload</i>Subir archivo</span></label></div>',
+            html: '<div class="col-md-12"><p>Seleccione un archivo, podrá solicitar el cambio de datos del beneficiario son su administrador.</p></div><div class="col-md-12"><input type="file" accept=".pdf, .xlsx" id="file" /><label for="file" class="btn-3"><span><i class="material-icons">cloud_upload</i>Subir archivo</span></label></div>',
             confirmButtonText: "Guardar &rarr;",
             onOpen: function () {
                 $("#file").change(function () {
@@ -239,7 +239,7 @@ $(document).on("click", ".eliminar", function () {
     })
 });
 
-function archivo(url) {
+function archivos(url) {
     if (url === "") {
         Swal.fire(
             'Sin archivo',

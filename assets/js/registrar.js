@@ -260,7 +260,8 @@ $(document).ready(function () {
                 "targets": [4, 5]
             }
         ],
-        "columns": [{
+        "columns": [
+            {
                 "render": function (data, type, row) {
                     return "<i class='material-icons'>fingerprint</i> " + row.id_empleado;
                 }
@@ -269,10 +270,13 @@ $(document).ready(function () {
                 "data": "nombre",
             },
             {
-                "data": "puesto",
+                "data": "RFC",
             },
             {
-                "data": "departamento",
+                "render": function (data, type, row) {
+                    let html = "<div class='negrita'>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
+                    return html;
+                }
             },
             {
                 "render": function (data, type, row) {

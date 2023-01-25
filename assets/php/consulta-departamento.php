@@ -23,7 +23,7 @@ if ($resultado && (mysqli_num_rows($resultado) == 0)) {
 } else {
     $i = 1;
     while ($res = mysqli_fetch_array($resultado)) {
-        $res['numero'] = $i++;
+        $res['numero'] = $res["id_departamento"];
 
         if ($bandera_eliminar) {
             $eliminar = "eliminar(" . $res["id_departamento"] . ",'Departamento')";

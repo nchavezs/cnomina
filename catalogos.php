@@ -68,7 +68,7 @@ if(!in_array(28, rol())){
 								<table id="tabla-puesto" class="table table-striped" style="width:100%">
 									<thead class="text-primary">
 										<tr>
-											<th class="">#</th>
+											<th class="">ID</th>
 											<th class="">Puesto</th>
 											<th class="">Departamento</th>
 											<th class="">Plazas</th>
@@ -114,7 +114,7 @@ if(!in_array(28, rol())){
 								<table id="tabla-departamento" class="table table-striped" style="width:100%">
 									<thead class="text-primary">
 										<tr>
-											<th class="">#</th>
+											<th class="">ID</th>
 											<th class="">Departamento</th>
 											<th class="">Opciones</th>
 										</tr>

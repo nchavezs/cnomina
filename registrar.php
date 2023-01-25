@@ -109,8 +109,8 @@ if(!in_array(1, rol())){
                                 <tr>
                                     <th class="">Empleado</th>
                                     <th class="">Nombre</th>
+                                    <th class="oculto">RFC</th>
                                     <th class="oculto">Puesto</th>
-                                    <th class="oculto">Departamento</th>
                                     <th class="oculto">Categoría</th>
                                     <th class="">Opciones</th>
                                 </tr>

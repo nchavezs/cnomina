@@ -9,6 +9,7 @@ $total = mysqli_num_rows($conexion->query($sql));
 
 $comprobar_baja = "SELECT * FROM Usuario WHERE RFC = '" . $id."' and estado = 'baja'";
 $baja = mysqli_num_rows(mysqli_query($conexion, $comprobar_baja));
+$bloquear = true;
 
 if ($total == 0) {
     echo '<div class="chat-nuevo">';
@@ -38,7 +39,7 @@ if ($total == 0) {
 				<th>Nombre</th>
 				<th class="oculto">Parentesco</th>
 				<th>Archivo</th>';
-				if($baja == 0){
+				if(!$bloquear){
 					echo '<th>Editar</th>
 					<th>Eliminar</th>';
 				}
@@ -52,8 +53,8 @@ if ($total == 0) {
 				<td class="oculto">' . $c . '</td>
 				<td class="bene-nombre">' . mb_strtoupper($res[2]) . '</td>
 				<td class="oculto">' . mb_strtoupper($res[3]) . '</td>
-				<td> <a class="material-icons btn1" id="'.$res[5].'" onclick="archivo(this.id)">attachment</a></td>';
-				if($baja == 0){
+				<td> <div class="material-icons btn1" onclick="archivos(\''.$res[5].'\');">attachment</div></td>';
+				if(!$bloquear){
 					echo '<td><a class="material-icons btn1 editar" name="' . $res[2] . '-' . $res[3] . '-' . $res[5] . '" id="' . $res[0] . '">edit</a></td>
 				 	<td><a class="material-icons btn1 eliminar" id="' . $res[0] . '">delete</a></td>';
 				}

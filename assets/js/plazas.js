@@ -49,7 +49,7 @@ $(document).ready(function () {
             },
             {
                 "render": function (data, type, row) {
-                    let html = "<div>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
+                    let html = "<div class='negrita'>" + row.puesto + "</div>" + "<small>" + row.departamento + "</small>";
                     return html;
                 }
             },
