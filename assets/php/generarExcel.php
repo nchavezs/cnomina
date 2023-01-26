@@ -7,7 +7,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $id_periodo = $_SESSION["id_periodo"];
 $conexion = conexion();
-$estado = $_POST["estado"];
+$estado = "alta";
+if(isset($_POST["estado"])){
+    $estado = $_POST["estado"];
+}
 
 $ruta = '../archivos/';
 if (!file_exists($ruta)) {
