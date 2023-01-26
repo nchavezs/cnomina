@@ -24,15 +24,14 @@ $contenido = [
 	],
 ];
 
-$sql = "SELECT Empleado.*,
-    Usuario.estado AS estado,
+$sql = "SELECT *,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador 
 	FROM Empleado LEFT JOIN Usuario ON Usuario.RFC = Empleado.RFC WHERE 
-    Empleado.id_periodo = ".$id_periodo." AND 
+    id_periodo = ".$id_periodo." AND 
     estado = '".$estado."'";
 
 $consulta = $conexion->query($sql);
@@ -84,6 +83,8 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     foreach (range('A', $ultimo) as $columnID) {
         $sheet->getColumnDimension($columnID)->setAutoSize(true);
     }
+}else{
+    echo mysql_error($conexion);
 }
 
 $conexion->close();
