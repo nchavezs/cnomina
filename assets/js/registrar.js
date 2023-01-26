@@ -1929,7 +1929,6 @@ function generar_empleados() {
         },
         type: "POST",
         success: function (data) {
-            console.log(data);
             Swal.close();
             if (data !== 0) {
                 descargar(data, 'Empleados');

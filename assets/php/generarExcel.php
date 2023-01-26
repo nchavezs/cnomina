@@ -24,7 +24,8 @@ $contenido = [
 	],
 ];
 
-$sql = "SELECT *,
+$sql = "SELECT Empleado.*,
+    Empleado.RFC AS RFC,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
@@ -87,7 +88,7 @@ $conexion->close();
 
 $writer = new Xlsx($spreadsheet);
 
-$nombre = 'empleados_'.uniqid().'.xlsx';
+$nombre = 'empleados_'.time().'.xlsx';
 $writer->save('../archivos/'.$nombre);
 echo "assets/archivos/".$nombre;
 exit();
