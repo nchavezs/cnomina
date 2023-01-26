@@ -56,7 +56,7 @@ $sheet->setCellValue('L1', 'CUENTA BANCARIA');
 $sheet->setCellValue('M1', '# DE AFILIACIÓN');
 $sheet->setCellValue('N1', 'PERIODO');
 
-if ((mysqli_num_rows($consulta) > 0)) {
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $i = 2;
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res["id_empleado"], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
