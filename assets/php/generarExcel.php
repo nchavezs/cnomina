@@ -84,7 +84,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->getColumnDimension($columnID)->setAutoSize(true);
     }
 }else{
-    echo mysql_error($conexion);
+    echo mysqli_error();
 }
 
 $conexion->close();
