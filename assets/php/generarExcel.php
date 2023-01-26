@@ -25,7 +25,6 @@ $contenido = [
 ];
 
 $sql = "SELECT *,
-    Usuario.estado,
     (SELECT nombre FROM Periodo WHERE id_periodo = Empleado.id_periodo) AS periodo,
 	(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
@@ -33,7 +32,7 @@ $sql = "SELECT *,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador 
 	FROM Empleado LEFT JOIN Usuario ON Usuario.RFC = Empleado.RFC WHERE 
     id_periodo = ".$id_periodo." AND 
-    Usuario.estado = '".$estado."'";
+    estado = 'alta'";
 
 $consulta = $conexion->query($sql);
 
