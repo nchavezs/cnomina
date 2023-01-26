@@ -30,7 +30,7 @@ $sql = "SELECT *,
 	(SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC) AS plaza,
 	(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
 	(SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto )) AS trabajador 
-	FROM Empleado LEFT JOIN Usuario ON Usuario.RFC = Empleado.RFC WHERE 
+	FROM Empleado LEFT JOIN Usuario ON Empleado.RFC = Usuario.RFC WHERE 
     id_periodo = ".$id_periodo." AND 
     estado = '".$estado."'";
 
