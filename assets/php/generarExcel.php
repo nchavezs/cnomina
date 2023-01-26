@@ -89,7 +89,7 @@ $conexion->close();
 
 $writer = new Xlsx($spreadsheet);
 
-$nombre = 'empleados_'.time().'.xlsx';
+$nombre = 'empleados_'.uniqid().'.xlsx';
 $writer->save('../archivos/'.$nombre);
 echo "assets/archivos/".$nombre;
 exit();
