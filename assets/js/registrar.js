@@ -458,7 +458,7 @@ function reingreso(id) {
                     depa_change();
                     puesto_change();
 
-                    $.post("assets/php/fecha_movimiento.php", {
+                    $.post("assets/php/fecha_reingreso.php", {
                         "id": id
                     }, function (datos) {
                         let data = JSON.parse(datos);
