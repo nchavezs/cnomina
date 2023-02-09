@@ -27,7 +27,13 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
         if ($dias >= 1) {
             $sql = "SELECT * FROM Plaza WHERE RFC = '".$RFC."'";
             $consulta = $conexion->query($sql);
-            $plaza = mysqli_fetch_array($consulta);
+            if($consulta && mysqli_num_rows($consulta) == 1){
+                $plaza = mysqli_fetch_array($consulta);
+                $plaza = $plaza["id_plaza"];
+            }else{
+                $plaza = -1;
+            }
+           
 
             $sql = "UPDATE Usuario SET estado = 'baja' WHERE RFC = '" . $RFC . "'";
             if ($conexion->query($sql)) {
@@ -35,11 +41,11 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
                     '" . $RFC . "', 
                     STR_TO_DATE('" . $fecha . "','%d/%m/%Y'), 
                     '" . $razon . "',
-                    ".$plaza["id_plaza"]."
+                    NULLIF(".$plaza.",-1)
                 )";
 
                 if ($conexion->query($sql)) {
-
+                    if($plaza != NULL ){
                     // -----------------------------------------------------------------------
                     $sql = "UPDATE Plaza SET RFC = NULL WHERE RFC = '" . $RFC."'";
                     $consulta = $conexion->query($sql);
@@ -56,13 +62,14 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
                     $consulta = $conexion->query($sql);
 
                     // -----------------------------------------------------------------------
+                    }
 
                     echo 1;
                 } else {
-                    echo 0;
+                    echo 8;
                 }
             } else {
-                echo 0;
+                echo 7;
             }
         } else {
             echo 2;
@@ -71,7 +78,7 @@ if ($consulta && mysqli_num_rows($consulta) == 1) {
         echo 3;
     }
 } else {
-    echo 0;
+    echo 6;
 }
 
 $conexion->close();

@@ -429,6 +429,7 @@ function baja_empleado(fechaBaja, id, razon, condicion) {
         },
         success: function (html) {
             ocultar_modal();
+            console.log(html);
             if (html == 1) {
                 $('#tabla-empleado').DataTable().ajax.reload();
                 md.showNotification("top", "right", "Empleado dado de baja correctamente.");
