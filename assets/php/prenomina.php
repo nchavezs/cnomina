@@ -367,8 +367,8 @@ $sheet->setCellValue('I2', 'DIAS A PAGAR');
 
 $sql = "SELECT *,
 (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-(SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
-(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento
+(SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Empleado.RFC ))) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Empleado.RFC )))) AS departamento
 FROM Historial LEFT JOIN Baja ON Historial.RFC = Baja.RFC LEFT JOIN Empleado ON Baja.RFC = Empleado.RFC WHERE id_prenomina = " . $id_prenomina . " AND tipo = 'baja'";
 
 $consulta = $conexion->query($sql);
