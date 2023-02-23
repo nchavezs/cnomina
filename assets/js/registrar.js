@@ -205,6 +205,8 @@ $(document).ready(function () {
                                     "plaza": $("#plaza").val(),
                                     "periodo": $("#periodo").val(),
                                     "domicilio": $("#domicilio").val(),
+                                    "postal": $("#postal").val(),
+                                    "telefono": $("#telefono").val(),
                                     "email": $("#email").val(),
                                     "retroactivo": retroactivo
                                 },
@@ -647,7 +649,7 @@ function ver(id, ventana, event) {
                     html: html,
                     allowOutsideClick: true,
                     padding: 0,
-                    width: "60em",
+                    width: "65em",
                     showCloseButton: true,
                     showConfirmButton: false,
                 });
@@ -1843,6 +1845,7 @@ function editar_usuario(id, event) {
                 Swal.fire({
                     position: 'center',
                     html: html,
+                    showCloseButton: true,
                     allowOutsideClick: false,
                     showConfirmButton: false,
                     width: '60em'
@@ -1884,6 +1887,8 @@ function editar_usuario(id, event) {
                             // "departamento": $("#departamento").val(),
                             "banca": $("#banca").val(),
                             "afiliacion": $("#afiliacion").val(),
+                            "postal": $("#postal").val(),
+                            "telefono": $("#telefono").val(),
                             "nombres": $("#nombres").val(),
                             "apellidop": $("#apellidop").val(),
                             "apellidom": $("#apellidom").val(),

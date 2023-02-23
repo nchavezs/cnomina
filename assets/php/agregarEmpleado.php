@@ -15,6 +15,8 @@ $nombres = trim(ucwords(mb_strtolower($_POST["nombres"])));
 $apellidom = trim(ucfirst(mb_strtolower($_POST["apellidom"])));
 $apellidop = trim(ucfirst(mb_strtolower($_POST["apellidop"])));
 $domicilio =  mb_strtoupper(trim($_POST["domicilio"]));
+$postal =  trim($_POST["postal"]);
+$telefono =  trim($_POST["telefono"]);
 $email =  trim($_POST["email"]);
 $nombreEmpleado = $apellidop . " " . $apellidom . " " . $nombres;
 $password = str_pad($id_empleado, 5, '0', STR_PAD_LEFT);
@@ -35,13 +37,15 @@ if ($consulta && mysqli_num_rows($consulta) == 0) {
     if ($consulta && mysqli_num_rows($consulta) == 0) {
         mysqli_autocommit($conexion, false);
 
-        $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC,email,domicilio) VALUES(
+        $sql1 = "INSERT INTO Usuario(categoria,contrasenia, nombre, RFC,email,domicilio,postal,telefono) VALUES(
             'user',
             '" . $password . "',
             '" . $nombreEmpleado . "',
             '" . $RFC . "',
             '" . $email . "',
-            '" . $domicilio . "'
+            '" . $domicilio . "',
+            '" . $postal . "',
+            '" . $telefono . "'
         )";
 
         $sql2 = "INSERT INTO Empleado(

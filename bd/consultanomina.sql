@@ -81,7 +81,7 @@ CREATE TABLE Configuracion(
 
 CREATE TABLE Archivo(
     id_archivo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     dias_pago INT NOT NULL,
     url VARCHAR(50) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE Archivo(
 );
 
 CREATE TABLE Usuario(
-    RFC VARCHAR(13) PRIMARY KEY NOT NULL,
+    RFC VARCHAR(20) PRIMARY KEY NOT NULL,
     categoria VARCHAR(10) NOT NULL,
     contrasenia VARCHAR(30) NOT NULL,
     email VARCHAR(50),
@@ -109,7 +109,7 @@ CREATE TABLE Usuario(
 
 CREATE TABLE Empleado(
     id_empleado INT NOT NULL,
-    RFC VARCHAR(13) PRIMARY KEY NOT NULL,
+    RFC VARCHAR(20) PRIMARY KEY NOT NULL,
     CURP VARCHAR(18) NOT NULL,
     fechaRelLab VARCHAR(10) NOT NULL,
     apellidop VARCHAR(50) NOT NULL,
@@ -119,13 +119,14 @@ CREATE TABLE Empleado(
     id_puesto INT NOT NULL,
     banca VARCHAR(30),
     afiliacion VARCHAR(30),
+    postal VARCHAR(10),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(RFC) REFERENCES Usuario(RFC) ON DELETE CASCADE
 );
 
 CREATE TABLE Historial(
     id_historial INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     descripcion VARCHAR(255),
@@ -138,7 +139,7 @@ CREATE TABLE Historial(
 
 CREATE TABLE Gastos(
     id_gastos INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     concepto VARCHAR(500) NOT NULL,
     fecha DATE NOT NULL,
     monto DECIMAL(8, 2) NOT NULL,
@@ -151,7 +152,7 @@ CREATE TABLE Gastos(
 );
 
 CREATE TABLE Expediente(
-    RFC VARCHAR(13) NOT NULL PRIMARY KEY,
+    RFC VARCHAR(20) NOT NULL PRIMARY KEY,
     acta VARCHAR(100) NULL,
     antecedentes VARCHAR(100) NULL,
     disciplinarios VARCHAR(100) NULL,
@@ -167,7 +168,7 @@ CREATE TABLE Expediente(
 
 CREATE TABLE Reingreso(
     id_reingreso INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     inicio DATE NOT NULL,
     id_plaza INT,
@@ -188,7 +189,7 @@ CREATE TABLE Mensaje(
 
 CREATE TABLE Beneficiario(
     id_beneficiario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     beneficiario VARCHAR(50) NOT NULL,
     parentesco VARCHAR(20) NOT NULL,
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -198,7 +199,7 @@ CREATE TABLE Beneficiario(
 
 CREATE TABLE Permiso(
     id_permiso INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     -- fecha DATE NOT NULL,
     dias INT NOT NULL,
     del DATE NOT NULL,
@@ -215,7 +216,7 @@ CREATE TABLE Permiso(
 
 CREATE TABLE Vacacion(
     id_vacacion INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     -- fecha DATE NOT NULL,
     dias INT NOT NULL,
     del DATE NOT NULL,
@@ -230,7 +231,7 @@ CREATE TABLE Vacacion(
 
 CREATE TABLE Descuento(
     id_descuento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     dias INT NOT NULL,
     -- fecha DATE NOT NULL,
     fechas VARCHAR(500) NOT NULL,
@@ -244,7 +245,7 @@ CREATE TABLE Descuento(
 
 CREATE TABLE Movimiento(
     id_movimiento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     puesto VARCHAR(100) NOT NULL,
     departamento VARCHAR(100) NOT NULL,
@@ -264,7 +265,7 @@ CREATE TABLE Movimiento(
 
 CREATE TABLE Baja(
     id_baja INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     razon VARCHAR(100) NOT NULL,
     id_plaza INT,
@@ -295,7 +296,7 @@ CREATE TABLE Trabajador(
 
 CREATE TABLE Pase(
     id_pase INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     hora VARCHAR(10) NOT NULL,
     categoria INT NOT NULL,
@@ -310,7 +311,7 @@ CREATE TABLE Pase(
 CREATE TABLE Plaza(
     id_plaza INT PRIMARY KEY AUTO_INCREMENT,
     id_puesto INT NOT NULL,
-    RFC VARCHAR(13),
+    RFC VARCHAR(20),
     dias INT NOT NULL,
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado INT DEFAULT 1,
@@ -320,7 +321,7 @@ CREATE TABLE Plaza(
 CREATE TABLE Historial_Plaza(
     id_historial_plaza INT PRIMARY KEY AUTO_INCREMENT,
     id_plaza INT NOT NULL,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -354,7 +355,7 @@ CREATE TABLE Rol(
 CREATE TABLE Rol_Usuario(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_rol INT NOT NULL,
-    RFC VARCHAR(13) NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
     FOREIGN KEY(id_rol) REFERENCES Rol(id_rol)
 );
 
@@ -369,7 +370,7 @@ CREATE TABLE Rol_Autorizacion(
 -- CREATE TABLE Autorizacion_Usuario(
 --     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 --     id_autorizacion INT NOT NULL,
---     RFC VARCHAR(13) NOT NULL,
+--     RFC VARCHAR(20) NOT NULL,
 --     FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 -- );
 -------------------------------------------------------------------------------------------------
@@ -481,3 +482,4 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Generar reporte Usua
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Baja de usuario", 2);
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña de usuario", 2);
 
+ALTER TABLE Usuario ADD postal VARCHAR(10) AFTER estado;

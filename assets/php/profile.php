@@ -6,6 +6,15 @@ $id = $_POST['id'];
 session_start();
 include "rol.php";
 
+$ano = $_SESSION["ano"];
+$sql = "SELECT id_plaza FROM Plaza WHERE RFC = '".$id."' AND YEAR(elaboracion) = ".$ano." ORDER BY elaboracion DESC LIMIT 1";
+$query = $conexion->query($sql);
+$plaza = "Sin plaza";
+if($query && mysqli_num_rows($query) > 0){
+    $plaza = mysqli_fetch_row($query);
+    $plaza = $plaza[0];
+}   
+
 
 $sql = "SELECT *,
 (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
@@ -36,6 +45,10 @@ if ($usuario["banca"] == null) {
 
 if ($usuario["domicilio"] == null) {
     $usuario["domicilio"] = "No configurado";
+}
+
+if ($usuario["postal"] == null) {
+    $usuario["postal"] = "No configurado";
 }
 
 
@@ -103,6 +116,11 @@ echo '<div class="p-2">
                             <small class="text-muted">Fecha de alta</small>
                             <p class="text-primary">' . $usuario["fechaRelLab"] . '</p>
                         </div>
+
+                        <div class="d-block">
+                            <small class="text-muted">ID de plaza</small>
+                            <p class="text-primary">' . $plaza . '</p>
+                        </div>
                        
                     </div>
                 </div>
@@ -134,10 +152,14 @@ echo '<div class="p-2">
                             <p class="text-primary">' . $usuario["telefono"] . '</p>
                         </div>
 
-                       
                         <div class="d-block">
                             <small class="text-muted">Domicilio</small>
                             <p class="text-primary">' . $usuario["domicilio"] . '</p>
+                        </div>
+
+                        <div class="d-block">
+                            <small class="text-muted">Código Postal</small>
+                            <p class="text-primary">' . $usuario["postal"] . '</p>
                         </div>
 
                     </div>

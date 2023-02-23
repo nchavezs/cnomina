@@ -13,6 +13,8 @@ $domicilio = mb_strtoupper(trim($_POST["domicilio"]));
 $email = trim($_POST["email"]);
 $banca = trim($_POST["banca"]);
 $afiliacion = trim($_POST["afiliacion"]);
+$postal = trim($_POST["postal"]);
+$telefono = trim($_POST["telefono"]);
 $nombres = trim(ucwords(mb_strtolower($_POST["nombres"])));
 $apellidom = trim(ucfirst(mb_strtolower($_POST["apellidom"])));
 $apellidop = trim(ucfirst(mb_strtolower($_POST["apellidop"])));
@@ -26,6 +28,8 @@ $res = mysqli_fetch_array($consulta);
 $sql = "UPDATE Usuario SET 
 nombre = '" . $nombreEmpleado . "',
 domicilio = '".$domicilio."',
+postal = '".$postal."',
+telefono = '".$telefono."',
 email = '".$email."' 
 WHERE RFC = '" . $RFC . "'";
 

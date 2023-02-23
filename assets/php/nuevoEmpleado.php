@@ -59,8 +59,8 @@ echo '<div class="formulario_caja">
 								</div>
 
 								<div class="col-md-6">
-									<div class="select-etiqueta ">E-mail <cite class="text-danger"> opcional</cite></div>
-									<input id="email" maxlength="50" type="email" class="campo">
+									<div class="select-etiqueta">Código Postal <cite class="text-danger"> opcional</cite></div>
+									<input id="postal" maxlength="5" type="text" class="campo">
 								</div>
 							</div>
 						</div>
@@ -128,6 +128,17 @@ echo '<div class="formulario_caja">
 									<div class="select-etiqueta ">No. de afiliación <cite class="text-danger"> opcional</cite></div>
 									<input id="afiliacion" maxlength="20" type="text" class="campo">
 								</div>
+
+								<div class="col-md-6">
+									<div class="select-etiqueta ">E-mail <cite class="text-danger"> opcional</cite></div>
+									<input id="email" maxlength="50" type="email" class="campo">
+								</div>
+
+								<div class="col-md-6">
+									<div class="select-etiqueta ">Teléfono <cite class="text-danger"> opcional</cite></div>
+									<input id="telefono" name="telefono" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" maxlength=14 type="text" class="campo">
+								</div>
+
 							</div>
 						</div>
 
