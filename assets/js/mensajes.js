@@ -3,6 +3,12 @@ var chat_evento = null;
 var contactos_evento = null;
 var total_mensajes = -1;
 var total_nuevos = -1;
+const ch1 = $(".mensajeria_contactos").perfectScrollbar({
+    minScrollbarLength: 100
+});
+const ch2 = $(".mensajeria_chat").perfectScrollbar({
+    minScrollbarLength: 100
+});
 
 function contactos(texto) {
     $.ajax({
@@ -17,14 +23,13 @@ function contactos(texto) {
                 $(".mensajeria_contactos").html(data.html);
                 total_nuevos = data.total;
                 limpiar_lista();
+                $(".mensajeria_contactos").perfectScrollbar('update');
             }
         }
     });
 }
 
 $(document).ready(function () {
-    $(".mensajeria_contactos").perfectScrollbar();
-    $(".mensajeria_chat").perfectScrollbar();
     contactos("");
     contactos_evento = setInterval("contactos('');", 3000);
 
@@ -132,6 +137,7 @@ function chat(id) {
                 $(".mensajeria_chat").html(data.html);
                 $(".mensajeria_chat").scrollTop($(".mensajeria_chat")[0].scrollHeight);
                 total_mensajes = data.total;
+                $(".mensajeria_chat").perfectScrollbar('update');
             }
         }
     });

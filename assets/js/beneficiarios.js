@@ -47,7 +47,7 @@ function nuevoBeneficiario() {
         },
         {
             title: 'Subir archivo',
-            html: '<div class="col-md-12"><p>Seleccione un archivo, podrá cargar el archivo en cualquier momento.</p></div><div class="col-md-12"><input type="file" accept=".pdf, .xlsx" id="file" /><label for="file" class="btn-3"><span><i class="material-icons">cloud_upload</i>Subir archivo</span></label></div>',
+            html: '<div class="col-md-12"><p>Seleccione un archivo de identificación, puede solicitar una modificación en cualquier momento.</p></div><div class="col-md-12"><input type="file" accept=".pdf, .xlsx" id="file" /><label for="file" class="btn-3"><span><i class="material-icons">cloud_upload</i>Subir archivo</span></label></div>',
             confirmButtonText: "Finalizar registro &rarr;",
             onOpen: function () {
                 $("#file").change(function () {
