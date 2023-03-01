@@ -93,7 +93,7 @@ if(!in_array(1, rol())){
                                 ?> -->
 
                                 <?php
-                                if(in_array(5, rol())){
+                                if(in_array(12, rol())){
                                     echo '
                                     <span class="dropdown">
                                         <div class="btn-mostrar" data-toggle="dropdown">
