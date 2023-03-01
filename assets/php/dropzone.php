@@ -18,7 +18,7 @@ echo '
                 <div class="row">
                     <div class="col-md-4"><img src="assets/img/upload.svg" alt=""></div>
                     <div class="col-md-8">
-                        <h2 class="negrita mt-3">Selecciona tus archivos CFDI</h2>
+                        <h2 class="negrita mt-3">Selecciona tus archivos</h2>
                         <div> <p>Carga tus archivos en esta sección.</p></div>
                         <button type="button" class="btn btn-sm btn-primary mt-4"> <i class="material-icons">search</i> Buscar archivos</button>
                     </div>
