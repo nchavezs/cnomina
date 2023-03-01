@@ -1698,11 +1698,11 @@ input:read-only {
     position: absolute
 }
 
-/* .caja-recibos {
+.caja_scroll {
     max-height: 400px;
     overflow: hidden;
     position: relative
-} */
+}
 
 .flecha {
     width: auto;
@@ -2490,6 +2490,15 @@ div[data-notify=container] {
 
 .negrita {
     font-weight: 700
+}
+
+.leyenda{
+    cursor: pointer;
+    position: relative;
+    font-size: 18px;
+    top: 3px;
+    margin-right: 2px;
+    color: #c9cfe7;
 }
 
 .baja {

@@ -59,7 +59,7 @@ if(!in_array(1, rol())){
                                     echo '
                                     <span class="dropdown">
                                         <div class="btn-mostrar" data-toggle="dropdown">
-                                            <i class="material-icons">upload</i>Importar
+                                            <i class="material-icons">upload</i>Importar empleados
                                         </div>
                                         <div class="dropdown-menu">
                                             <label class="dropdown-item" for="importar-empleado"> <i class="material-icons">check</i> Por # de plaza</label>
@@ -70,7 +70,7 @@ if(!in_array(1, rol())){
                                     </span>
                                     ';
                                 }else{
-                                    echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">upload</i>Importar</label>';
+                                    echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">upload</i>Importar empleados</label>';
                                 }
                                 ?>
                                 
@@ -91,6 +91,23 @@ if(!in_array(1, rol())){
                                     echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">refresh</i>Actualizar</label>';
                                 }
                                 ?> -->
+
+                                <?php
+                                if(in_array(5, rol())){
+                                    echo '
+                                    <span class="dropdown">
+                                        <div class="btn-mostrar" data-toggle="dropdown">
+                                            <i class="material-icons">contact_page</i>Importar expediente
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <label onclick="cargar_expediente(\'constancia\');" class="dropdown-item"> <i class="material-icons">check</i>Constancia de situación fiscal</label>
+                                        </div>
+                                    </span>
+                                    ';
+                                }else{
+                                    echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">refresh</i>Actualizar</label>';
+                                }
+                                ?>
 
                               
                             </div>
