@@ -1,7 +1,7 @@
 <?php
 
 echo '
-<div class="p-4">
+<div class="p-5">
     <div class="pb-5 text-left">
         <h4 class="negrita text-primary">Carga masiva de archivos</h4>
         <p><small class="text-muted">Puedes cargar de forma masiva las <span class="text-warning">constancias de situación fiscal</span> siguiendo los siguientes puntos:</small></p>
