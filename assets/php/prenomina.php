@@ -365,7 +365,9 @@ $sheet->setCellValue('G2', 'FECHA DE BAJA');
 $sheet->setCellValue('H2', 'OBSERVACIONES');
 $sheet->setCellValue('I2', 'DIAS A PAGAR');
 
-$sql = "SELECT Historial.*,Empleado.fechaRelLab,
+$sql = "SELECT Historial.*,
+Empleado.fechaRelLab,
+Empleado.id_empleado,
 (SELECT razon FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha) AS razon,
 (SELECT nombre FROM Usuario WHERE RFC = Historial.RFC) AS nombre,
 (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1))) AS puesto,
