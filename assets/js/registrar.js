@@ -15,7 +15,24 @@ if ($(window).width() < 767) {
     });
 }
 
+function licencia() {
+    $.ajax({
+        url: "assets/php/licencia.php",
+        success: function (data) {
+            Swal.fire({
+                html: data,
+                padding: 0,
+                allowOutsideClick: false,
+                width: "29em",
+                showCloseButton: true,
+                showConfirmButton: false,
+            })
+        }
+    })
+}
+
 $(document).ready(function () {
+    // licencia();
     select_estilo_3();
 
     $(".opciones_tabla select").change(function () {
@@ -2287,7 +2304,7 @@ function cargar_archivos(id, url, recargar) {
 
                 myDropzone.on("queuecomplete", function (file) {
                     if (bandera) {
-                        md.showNotification("top", "right", "Se han cargado "+correctos+" archivos de "+ total);
+                        md.showNotification("top", "right", "Se han cargado " + correctos + " archivos de " + total);
                         $(".btn_subir").prop("disabled", true);
                         myDropzone.options.autoProcessQueue = false;
                         // myDropzone.removeAllFiles();

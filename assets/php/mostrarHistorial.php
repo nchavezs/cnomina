@@ -23,7 +23,7 @@ if (mysqli_num_rows($consulta) > 0) {
     while ($res = mysqli_fetch_array($consulta)) {
 		$puesto = " - "; 
 		if($res["tipo"] == "baja"){
-			$sql = "SELECT id_plaza FROM Baja WHERE RFC = '".$res["RFC"]."'";
+			$sql = "SELECT id_plaza FROM Baja WHERE RFC = '".$res["RFC"]."' AND  fecha = '".$res["fecha"]."' LIMIT 1";
 			$query = $conexion->query($sql);
 		}else if($res["tipo"] == "alta"){
 			$sql = "SELECT id_plaza FROM Historial_Plaza WHERE RFC = '".$res["RFC"]."' ORDER BY fecha_inicio ASC LIMIT 1";

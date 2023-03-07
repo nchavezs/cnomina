@@ -365,12 +365,12 @@ $sheet->setCellValue('G2', 'FECHA DE BAJA');
 $sheet->setCellValue('H2', 'OBSERVACIONES');
 $sheet->setCellValue('I2', 'DIAS A PAGAR');
 
-$sql = "SELECT *,
-(SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
-(SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Empleado.RFC ))) AS puesto,
-(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Empleado.RFC )))) AS departamento
-FROM Historial LEFT JOIN Baja ON Historial.RFC = Baja.RFC LEFT JOIN Empleado ON Baja.RFC = Empleado.RFC WHERE id_prenomina = " . $id_prenomina . " AND tipo = 'baja'";
-
+$sql = "SELECT Historial.*,Empleado.fechaRelLab,
+(SELECT razon FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha) AS razon,
+(SELECT nombre FROM Usuario WHERE RFC = Historial.RFC) AS nombre,
+(SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1))) AS puesto,
+(SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1)))) AS departamento
+FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = 36 AND tipo = 'baja'";
 $consulta = $conexion->query($sql);
 $i = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
