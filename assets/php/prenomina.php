@@ -221,11 +221,12 @@ while ($usuario = mysqli_fetch_array($query)) {
             $consulta = $conexion->query($sql);
             if($consulta && mysqli_num_rows($consulta) > 0){
                 $baja = mysqli_fetch_array($consulta);
-                $fecha_baja = $baja["fecha"];
 
-                if ($baja["retroactivo"] == 1 || $fecha_baja < $del) {
+                if ($baja["retroactivo"] == 1) {
                     $paga = 0;
                 } else {
+                    $fecha_baja = $baja["fecha"];
+                    
                     if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
                         $paga = $paga + diferencia($fecha_inicio, $fecha_baja);
                     } else {
