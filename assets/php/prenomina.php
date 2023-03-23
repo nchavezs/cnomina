@@ -223,7 +223,7 @@ while ($usuario = mysqli_fetch_array($query)) {
                 $baja = mysqli_fetch_array($consulta);
                 $fecha_baja = $baja["fecha"];
 
-                if ($baja["retroactivo"] == 1 || $fecha_baja <= $del) {
+                if ($baja["retroactivo"] == 1 || $fecha_baja < $del) {
                     $paga = 0;
                 } else {
                     if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
@@ -372,7 +372,7 @@ Empleado.id_empleado,
 (SELECT nombre FROM Usuario WHERE RFC = Historial.RFC) AS nombre,
 (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1))) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1)))) AS departamento
-FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = 36 AND tipo = 'baja'";
+FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = ".$id_prenomina." AND tipo = 'baja'";
 
 $consulta = $conexion->query($sql);
 $i = 3;
