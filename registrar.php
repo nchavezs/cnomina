@@ -64,8 +64,8 @@ if(!in_array(1, rol())){
                                         <div class="dropdown-menu">
                                             <label class="dropdown-item" for="importar-empleado"> <i class="material-icons">check</i> Por # de plaza</label>
                                             <label class="dropdown-item" for="importar-empleado-puesto"> <i class="material-icons">check</i> Por puesto y departamento</label>
-                                            <a href="assets/docs/empleado/importar/empleado.xlsx?v=3.8.6" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla por # de plaza</a>
-                                            <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.8.6" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla por puesto y departamento</a>
+                                            <a href="assets/docs/empleado/importar/empleado.xlsx?v=3.8.7" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla por # de plaza</a>
+                                            <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.8.7" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla por puesto y departamento</a>
                                         </div>
                                     </span>
                                     ';
@@ -83,7 +83,7 @@ if(!in_array(1, rol())){
                                         </div>
                                         <div class="dropdown-menu">
                                             <label class="dropdown-item" for="actualizar"> <i class="material-icons" >check</i>Actualizar</label>
-                                            <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.8.6" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla</a>
+                                            <a href="assets/docs/empleado/actualizar/empleado.xlsx?v=3.8.7" class="dropdown-item"> <i class="material-icons" >check</i>Plantilla</a>
                                         </div>
                                     </span>
                                     ';
@@ -144,7 +144,7 @@ if(!in_array(1, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/registrar.js?v=3.8.6"></script>
+   <script src="assets/js/registrar.js?v=3.8.7"></script>
    <script>$("#tab-empleados").addClass("active");</script>
 
 </body>

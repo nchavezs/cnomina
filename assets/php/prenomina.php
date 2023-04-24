@@ -636,7 +636,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["categoria"] == 0 ? "PASE DE ENTRADA":"PASE DE SALIDA");
-        $sheet->setCellValue('E' . $i, strftime("%d DE %B DE %G", strtotime($res["fecha"])));
+        $sheet->setCellValue('E' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('F' . $i, $res["hora"]);
         $sheet->setCellValue('G' . $i, mb_strtoupper($res["observacion"]));
         $i++;
