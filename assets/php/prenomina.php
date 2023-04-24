@@ -608,6 +608,43 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 
 firma($i, $col, $sheet);
 
+// PASES ---------------------------------------------------------------------------------------------------------------------------
+$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Pases de entrada y salida');
+$spreadsheet->addSheet($sheet);
+$col = "G";
+cabecera("PASES DE ENTRADA Y SALIDA" . $titulo, $col, $sheet);
+
+$sheet->setCellValue('A2', "# EMPLEADO");
+$sheet->setCellValue('B2', 'NOMBRE');
+$sheet->setCellValue('C2', 'RFC');
+$sheet->setCellValue('D2', 'TIPO DE PASE');
+$sheet->setCellValue('E2', 'FECHA');
+$sheet->setCellValue('F2', 'HORA');
+$sheet->setCellValue('G2', 'OBSERVACIONES');
+
+$sql = "SELECT *,
+    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre 
+    FROM Pase LEFT JOIN Empleado ON Pase.RFC = Empleado.RFC WHERE
+    id_prenomina = " . $id_prenomina . " 
+    ORDER BY Pase.RFC ASC";
+
+$consulta = $conexion->query($sql);
+$i = 3;
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    while ($res = mysqli_fetch_array($consulta)) {
+        $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
+        $sheet->setCellValue('C' . $i, $res["RFC"]);
+        $sheet->setCellValue('D' . $i, $res["categoria"] == 0 ? "PASE DE ENTRADA":"PASE DE SALIDA");
+        $sheet->setCellValue('E' . $i, strftime("%d DE %B DE %G", strtotime($res["fecha"])));
+        $sheet->setCellValue('F' . $i, $res["hora"]);
+        $sheet->setCellValue('G' . $i, mb_strtoupper($res["observacion"]));
+        $i++;
+    }
+}
+
+firma($i, $col, $sheet);
+
 // HONORARIOS ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Honorarios y Eventuales');
 $spreadsheet->addSheet($sheet);

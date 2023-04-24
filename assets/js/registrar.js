@@ -1998,9 +1998,11 @@ function pase(id) {
                             minDate: new Date(data.del),
                             maxDate: new Date(data.al),
                             language: 'es',
+                            multipleDates: true,
                             timepicker: true,
+                            multipleDatesSeparator: ",",
                             onSelect(formattedDate, date, inst) {
-                                $("#pase").val(formattedDate);
+                                $('#pase').val(formattedDate);
                             }
                         });
                     });
@@ -2017,7 +2019,7 @@ function pase(id) {
                                 type: "POST",
                                 url: "assets/php/agregarPase.php",
                                 data: {
-                                    "fecha": $("#pase").val(),
+                                    "fechas": $("#pase").val(),
                                     "id": id,
                                     "categoria": $("#categoria").val(),
                                     "observacion": $("#observacion").val(),
