@@ -66,7 +66,7 @@ CREATE TABLE Prenomina(
     id_prenomina INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     del DATE NOT NULL,
     al DATE NOT NULL,
-    url VARCHAR(50),
+    url VARCHAR(100),
     observacion VARCHAR(255),
     id_periodo VARCHAR(50) NOT NULL,
     estado INT DEFAULT 0,
@@ -133,7 +133,7 @@ CREATE TABLE Historial(
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     retroactivo INT DEFAULT 0,
     id_prenomina INT NOT NULL,
-    url VARCHAR(50),
+    url VARCHAR(100),
     FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE Gastos(
     fecha DATE NOT NULL,
     monto DECIMAL(8, 2) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
-    url VARCHAR(50),
+    url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_prenomina INT NOT NULL,
     FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE,
@@ -183,7 +183,7 @@ CREATE TABLE Mensaje(
     emisor VARCHAR(13) NOT NULL,
     receptor VARCHAR(13) NOT NULL,
     estado INT NOT NULL DEFAULT 0,
-    url VARCHAR(50),
+    url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -193,7 +193,7 @@ CREATE TABLE Beneficiario(
     beneficiario VARCHAR(50) NOT NULL,
     parentesco VARCHAR(20) NOT NULL,
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    url VARCHAR(50),
+    url VARCHAR(100),
     FOREIGN KEY(RFC) REFERENCES Empleado(RFC)
 );
 
@@ -206,7 +206,7 @@ CREATE TABLE Permiso(
     al DATE NOT NULL,
     categoria INT NOT NULL,
     descripcion VARCHAR(500),
-    url VARCHAR(50),
+    url VARCHAR(100),
     materno INT NOT NULL,
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_prenomina INT NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE Vacacion(
     del DATE NOT NULL,
     al DATE NOT NULL,
     descripcion VARCHAR(500),
-    url VARCHAR(50),
+    url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_prenomina INT NOT NULL,
     FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE,
@@ -236,7 +236,7 @@ CREATE TABLE Descuento(
     -- fecha DATE NOT NULL,
     fechas VARCHAR(500) NOT NULL,
     motivo VARCHAR(500) NOT NULL,
-    url VARCHAR(50),
+    url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_prenomina INT NOT NULL,
     FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE,
@@ -251,7 +251,7 @@ CREATE TABLE Movimiento(
     departamento VARCHAR(100) NOT NULL,
     plaza INT NOT NULL,
     tipoTrabajador VARCHAR(100) NOT NULL,
-    url VARCHAR(50),
+    url VARCHAR(100),
     puestoAnterior VARCHAR(100) NOT NULL,
     departamentoAnterior VARCHAR(100) NOT NULL,
     tipoTrabajadorAnterior VARCHAR(100) NOT NULL,
@@ -301,7 +301,7 @@ CREATE TABLE Pase(
     hora VARCHAR(10) NOT NULL,
     categoria INT NOT NULL,
     observacion VARCHAR(500),
-    url VARCHAR(50),
+    url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_prenomina INT NOT NULL,
     FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE,
