@@ -16,7 +16,8 @@ $ext = pathinfo($archivo, PATHINFO_EXTENSION);
 $ruta = $ruta . '/archivo.' . $ext;
 move_uploaded_file($_FILES['file']['tmp_name'], $ruta);
 
-$url = 'assets/' . mb_strtolower($tabla) . '/' . $id . '_' . $usuario . '/archivo.' . $ext;
+$nombre = uniqid().".".$ext;
+$url = 'assets/' . mb_strtolower($tabla) . '/' . $id . '_' . $usuario . '/'.$nombre;
 
 $sql = "UPDATE " . $tabla . "  SET url = '" . $url . "' WHERE id_" . mb_strtolower($tabla) . " = " . $id;
 if ($conexion->query($sql)) {
