@@ -144,7 +144,7 @@ if(!in_array(1, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/registrar.js?v=3.8.7"></script>
+   <script src="assets/js/registrar.js?v=3.8.8"></script>
    <script>$("#tab-empleados").addClass("active");</script>
 
 </body>
