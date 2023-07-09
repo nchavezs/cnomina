@@ -15,6 +15,7 @@ if (mysqli_num_rows($consulta) > 0) {
 					<th class="text-left">Tipo</th>
 					<th class="oculto text-left">Puesto</th>
 					<th class="">Fecha</th>
+					<th class="">Detalle</th>
 					<th class="">Archivo</th>
 					<th class="oculto">Descripción</th>
 					<th class="">Formato</th>
@@ -59,9 +60,10 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td class="text-left">'.$res["tipo"].'</td>
 				<td class="oculto text-left">'.$puesto.'</td>
 				<td>' . date("d/m/Y", strtotime($res["fecha"])) . '</td>
+				<td> <a class="material-icons btn1" onclick="detalle_historial('.$res[0].')">visibility</a></td>
 				<td class=""> <a class="material-icons btn1" onclick="archivo(' . $res[0] . ',\'' . $res["url"] . '\',\'' . $id . '\',\'Historial\',0)">attachment</a></td>
 				<td class="oculto text-left">' . $res["descripcion"] . '</td>
-				<td class=""> <i onclick="formato_historial('.$res["id_historial"].');" class="material-icons btn1">play_for_work</i></td>
+				<td> <a class="material-icons btn1" onclick="formato_historial(' . $res[0] . ')">play_for_work</a></td>
 			</tr>';
     }
     echo '</tbody>
