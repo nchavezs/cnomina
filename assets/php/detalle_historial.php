@@ -87,7 +87,7 @@ if (!is_null($historial["url"])) {
 echo '</div></div>';
 
 echo '<div class="pie">
-			<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $historial["RFC"] . '\');">Regresar </div>
+			<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $historial["RFC"] . '\');"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 		</div>';
 
 $conexion->close();

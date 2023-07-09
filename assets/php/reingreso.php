@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			<div class="pie">
-				<div class="btn btn-secondary btn-sm" onclick="verHistorial(\''.$RFC.'\', 1);">Regresar </div>
+				<div class="btn btn-secondary btn-sm" onclick="verHistorial(\''.$RFC.'\', 1);"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 				<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
 			</div>
 		</div>

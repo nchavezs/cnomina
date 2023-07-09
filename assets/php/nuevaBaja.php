@@ -46,7 +46,7 @@ echo '<form id="form-baja" autocomplete="off">
 			</div>';
 
 echo '<div class="pie">
-		<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $id . '\',1);">Regresar </div>
+		<div class="btn btn-secondary btn-sm" onclick="verHistorial(\'' . $id . '\',1);"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 		<button type="submit" class="btn btn-danger btn-sm" ><i class="material-icons">thumb_down_alt</i> Dar de baja </button>
 	</div>	
 </form>';

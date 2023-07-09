@@ -57,7 +57,7 @@ echo '<div class="formulario_caja">
                 </div>
             </div>
             <div class="pie">
-                <div id="salir" class="btn btn-secondary btn-sm">Regresar </div>
+                <div id="salir" class="btn btn-secondary btn-sm"><i class="material-icons">keyboard_backspace</i> Regresar </div>
                 <button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
             </div>
         </form>

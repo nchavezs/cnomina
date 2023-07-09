@@ -61,7 +61,7 @@ echo '
 				</div>
 			</div>
 			<div class="pie">
-				<div onclick="editar_rol_select();"class="btn btn-sm btn-secondary">Regresar</div>
+				<div onclick="editar_rol_select();"class="btn btn-sm btn-secondary"><i class="material-icons">keyboard_backspace</i> Regresar</div>
 				<button type="submit" class="btn btn-sm btn-success"><i class="material-icons">save</i> Actualizar datos</button>
 			</div>
 		</form>

@@ -49,7 +49,7 @@ echo '<form id="form-pase">
 				</div>';
 
 echo '<div class="pie">
-		<div class="btn btn-secondary btn-sm" onclick="verPases(\''.$id.'\');">Regresar </div>
+		<div class="btn btn-secondary btn-sm" onclick="verPases(\''.$id.'\');"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 		<button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Guardar </button>
 	</div>
 </form>';

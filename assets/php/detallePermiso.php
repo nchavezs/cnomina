@@ -76,7 +76,7 @@ $html = $html . '</div>
 		</div>
 
 		<div class="pie">
-			<div class="btn btn-secondary btn-sm" onclick="verPermisos(\''.$usuario["RFC"].'\');">Regresar </div>
+			<div class="btn btn-secondary btn-sm" onclick="verPermisos(\''.$usuario["RFC"].'\');"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 		</div>';
 
 $datos["html"] = $html;

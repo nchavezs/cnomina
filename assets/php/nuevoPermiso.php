@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				<div class="pie">
-					<div class="btn btn-secondary btn-sm " onclick="verPermisos(\''.$id.'\');">Regresar </div>
+					<div class="btn btn-secondary btn-sm " onclick="verPermisos(\''.$id.'\');"><i class="material-icons">keyboard_backspace</i> Regresar </div>
 					<button type="submit" class="continuar btn btn-success btn-sm" id="'.$id.'" ><i class="material-icons">save</i> Guardar </button>
 				</div>
 			</div>
