@@ -36,9 +36,9 @@ $sheet->setCellValue('R5', $periodo);
 $sheet->setCellValue('N5', "NO. DE PERIODO ".$usuario["periodo"]);
 $sheet->setCellValue('M38', "SALARIO ".$usuario["periodo"]);
 
-$sheet->setCellValue('F28', mb_strtoupper($usuario["nombres"]));
+$sheet->setCellValue('F28', mb_strtoupper($usuario["apellidop"]));
 $sheet->setCellValue('F30', mb_strtoupper($usuario["apellidom"]));
-$sheet->setCellValue('F32', mb_strtoupper($usuario["apellidop"]));
+$sheet->setCellValue('F32', mb_strtoupper($usuario["nombres"]));
 $sheet->setCellValue('P30', mb_strtoupper($usuario["CURP"]));
 $sheet->setCellValue('P32', mb_strtoupper($usuario["RFC"]));
 $sheet->setCellValue('H36', mb_strtoupper($usuario["departamento"]));
