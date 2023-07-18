@@ -27,9 +27,9 @@ if (mysqli_num_rows($consulta) == 0) {
     echo '<div class="vacia">
 			<i class="material-icons btn2">sms_failed</i>
 			<h2>Nada registrado</h2>
-			<div class="chat-nuevo">
+			<div onclick="'.$bloqueo.'" class="chat-nuevo">
 				<i id="chat-icono" class="material-icons">add</i>
-				<p onclick="'.$bloqueo.'">Nuevo pase</p>
+				<p>Nuevo pase</p>
 			</div>
 		</div>';
 } else {
