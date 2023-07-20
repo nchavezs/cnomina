@@ -56,7 +56,7 @@ $html = $html . '</div>
 								<h5>' . $desc . '</h5>
 							</div>
 						</div>';
-						if ($permiso["categoria"] == 0) {
+						if ($permiso["materno"] == 1) {
 							$html = $html . '<div class="card">
 												<div class="card-body centrado">
 													<i class="material-icons text-success mr-3">task_alt</i>

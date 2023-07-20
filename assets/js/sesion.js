@@ -322,3 +322,10 @@ function validate(evt) {
     if (theEvent.preventDefault) theEvent.preventDefault();
   }
 }
+
+
+function show_archivo(url) {
+  if (url === "") {
+    Swal.fire("Sin archivo", "No se ha encontrado ningún archivo", "warning");
+  } else window.open(url, "_blank");
+}

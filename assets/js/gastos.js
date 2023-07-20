@@ -74,14 +74,3 @@ function detalle_gastos(id) {
         $('#fecha').data('datepicker').selectDate(date2);
 	});
 };
-
-function archivo(url) {
-	if (url === "") {
-		Swal.fire(
-			'Sin archivo',
-			'No se ha encontrado ningún archivo',
-			'warning'
-		)
-	} else
-		window.open(url, '_blank');
-};

@@ -33,7 +33,7 @@ if (mysqli_num_rows($consulta) > 0) {
         echo '<tr>
 				<td class="oculto">' . $res["dias"] . '</td>
 				<td>' . $res["motivo"] . '</td>
-				<td> <a class="material-icons btn1" onclick="archivo(\''.$res["url"].'\')">attachment</a></td>
+				<td> <a class="material-icons btn1" onclick="show_archivo(\''.$res["url"].'\')">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_descuento('.$res["id_descuento"].')" >visibility</a></td>
 			</tr>';
     }

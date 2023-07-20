@@ -23,7 +23,7 @@ if (mysqli_num_rows($consulta) > 0) {
 		echo '<tr>
 				<td>' . date("d/m/Y", strtotime($res['fecha'])) . '</td>
 				<td>$ ' . number_format($res['monto'], 2) . '</td>
-				<td class="oculto"> <a class="material-icons btn1" onclick="archivo(\'' . $res['url'] . '\')">attachment</a></td>
+				<td class="oculto"> <a class="material-icons btn1" onclick="show_archivo(\'' . $res['url'] . '\')">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_gastos('.$res[0].')" >visibility</a></td>
 			</tr>';
     }

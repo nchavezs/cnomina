@@ -86,10 +86,3 @@ function comprobarFecha(fechaAnterior, fechaPosterior, fecha) {
   if (fAct >= fAnt && fAct <= fPos) return true;
   else return false;
 }
-
-function archivo(url) {
-  console.log(1);
-  if (url === "") {
-    Swal.fire("Sin archivo", "No se ha encontrado ningún archivo", "warning");
-  } else window.open(url, "_blank");
-}

@@ -24,7 +24,7 @@ if (mysqli_num_rows($consulta) > 0) {
 				<td class="oculto">' . $res["dias"] . '</td>
 				<td>' . date("d/m/Y", strtotime($res["del"])) . '</td>
 				<td>' . date("d/m/Y", strtotime($res["al"])) . '</td>
-				<td> <a class="material-icons btn1" onclick="archivo(\'' . $res["url"] . '\')">attachment</a></td>
+				<td> <a class="material-icons btn1" onclick="show_archivo(\'' . $res["url"] . '\')">attachment</a></td>
 				<td> <a class="material-icons btn1" onclick="detalle_vacacion(\'' . $res[0] . '\')" >visibility</a></td>
 			</tr>';
     }

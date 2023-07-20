@@ -93,14 +93,3 @@ function comprobarFecha(fechaAnterior, fechaPosterior, fecha) {
 	else
 		return false;
 };
-
-function archivo(url) {
-	if (url === "") {
-		Swal.fire(
-			'Sin archivo',
-			'No se ha encontrado ningún archivo',
-			'warning'
-		)
-	} else
-		window.open(url, '_blank');
-};

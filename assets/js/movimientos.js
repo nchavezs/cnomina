@@ -50,15 +50,3 @@ function tablas_movimientos() {
     });
 };
 
-function archivo(url) {
-    if (url === "") {
-        Swal.fire({
-            title: 'Sin archivo',
-            text: 'No se ha encontrado ningún archivo',
-            type: 'warning',
-
-            
-        })
-    } else
-        window.open(url, '_blank');
-};
