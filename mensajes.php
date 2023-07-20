@@ -59,7 +59,7 @@ if(!in_array(40, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/mensajes.js?v=3.8.7"></script>
+   <script src="assets/js/mensajes.js?v=3.9.0"></script>
    <script>$("#tab-mensajes").addClass("active");</script>
 
 </body>

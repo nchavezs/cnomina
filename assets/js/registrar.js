@@ -781,11 +781,17 @@ function detalle(id) {
       var data = JSON.parse(datos);
       $(".ver_contenedor").html(data.html);
 
+      let date1 = data.del.split("/");
+      date1 = new Date(date1[2], parseInt(date1[1]) - 1, date1[0]);
+
+      let date2 = data.al.split("/");
+      date2 = new Date(date2[2], parseInt(date2[1]) - 1, date2[0]);
+
       $("#fecha").datepicker({
         language: "es",
-        minDate: new Date(data.del),
-        maxDate: new Date(data.al),
-        startDate: new Date(data.del),
+        minDate: date1,
+        maxDate: date2,
+        startDate: date1,
         onRenderCell: function (date, cellType) {
           if (cellType == "day" && comprobarFecha(data.del, data.al, date)) {
             return {

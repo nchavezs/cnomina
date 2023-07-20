@@ -44,7 +44,7 @@ $html = '<div class="p-2">
 						<div id="fecha" class="datepicker-here"></div>
 					</div>
 				</div>';
-if ($permiso["categoria"] == 0) {
+if ($permiso["materno"] == 0) {
 	$html = $html . '<div class="card">
 						<div class="card-body centrado">
 							<i class="material-icons text-success mr-3">task_alt</i>
