@@ -103,19 +103,24 @@ $pdf = new PdfToText();
 $pdf->BlockSeparator = "|";
 $pdf->Separator = "|";
 $pdf->Options = 0x00000400;
-// $pdf->Options |= 0x00000000;
-$pdf->Load($archivo );
+// $pdf->Options = 0x00000000;
+$pdf->Load($archivo);
 $pdf = mb_strtoupper($pdf->Text);
+
+$indice = strpos($pdf, 'PERCEPCIONES');
+$pdf = $indice ? substr($pdf, 0, $indice) : $pdf;
+
 $pdf = str_replace("\n", "|", $pdf);
-// $pdf = str_replace("\r", "|\r", $pdf);
+$pdf = str_replace("\r", "|\r", $pdf);
 $pdf = str_replace(":", "", $pdf);
+$pdf = preg_replace('/([|])\1+/', '|', $pdf);
 $pdf = str_replace("  ", " ", $pdf);
 $pdf = str_replace("Á", "A", $pdf);
 $pdf = str_replace("É", "E", $pdf);
 $pdf = str_replace("Í", "I", $pdf);
 $pdf = str_replace("Ó", "O", $pdf);
 $pdf = str_replace("Ú", "U", $pdf);
-$pdf = preg_replace('/([|])\1+/', '|', $pdf);
+
 
 $pos1 = strpos($pdf, 'RFC|');
 if ($pos1 !== false) {
@@ -144,9 +149,23 @@ $puesto = calcular("PUESTO|", $pdf);
 $departamento = calcular("DEPTO|", $pdf);
 $dias = calcular("DIAS DE PAGO|", $pdf);
 $pago = fecha(calcular("FECHA PAGO|", $pdf));
+$inicio = fecha(calcular("LAB|", $pdf));
 $del = fecha(calcular_reversa("|-|", $pdf));
 $al = fecha(calcular("|-|", $pdf));
-$inicio = fecha(calcular("LAB|", $pdf));
+
+// $patron = "/\d{2}\/[A-Z]{3}\/\d{4}(?:-|\|-\|)\d{2}\/[A-Z]{3}\/\d{4}/";
+// $fechas = [];
+// preg_match_all($patron, $pdf, $fechas);
+// $del = "";
+// $al = "";
+
+// if (count($fechas[0]) >= 1) {
+//     $partes = preg_split("/-|\|-\|/", $fechas[0][0]);
+//     if (count($partes) == 2) {
+//         $del = fecha($partes[0]);
+//         $al = fecha($partes[1]);
+//     }
+// }
 
 $arraypago = explode("/", $pago);
 $nombreNomina = $id . implode("_", $arraypago) . '.pdf';
