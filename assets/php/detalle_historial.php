@@ -8,7 +8,7 @@ $sql = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Historial WHERE id_hi
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
-$sql = "SELECT * FROM Historial WHERE RFC = '" . $usuario["RFC"] . "' ORDER BY elaboracion DESC";
+$sql = "SELECT * FROM Historial WHERE id_historial = " . $id ;
 $consulta = $conexion->query($sql);
 $historial = mysqli_fetch_array($consulta);
 

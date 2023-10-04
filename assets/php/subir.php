@@ -150,22 +150,22 @@ $departamento = calcular("DEPTO|", $pdf);
 $dias = calcular("DIAS DE PAGO|", $pdf);
 $pago = fecha(calcular("FECHA PAGO|", $pdf));
 $inicio = fecha(calcular("LAB|", $pdf));
-$del = fecha(calcular_reversa("|-|", $pdf));
-$al = fecha(calcular("|-|", $pdf));
+// $del = fecha(calcular_reversa("|-|", $pdf));
+// $al = fecha(calcular("|-|", $pdf));
 
-// $patron = "/\d{2}\/[A-Z]{3}\/\d{4}(?:-|\|-\|)\d{2}\/[A-Z]{3}\/\d{4}/";
-// $fechas = [];
-// preg_match_all($patron, $pdf, $fechas);
-// $del = "";
-// $al = "";
+$patron = "/\d{2}\/[A-Z]{3}\/\d{4}(?:-|\|-\|)\d{2}\/[A-Z]{3}\/\d{4}/";
+$fechas = [];
+preg_match_all($patron, $pdf, $fechas);
+$del = "";
+$al = "";
 
-// if (count($fechas[0]) >= 1) {
-//     $partes = preg_split("/-|\|-\|/", $fechas[0][0]);
-//     if (count($partes) == 2) {
-//         $del = fecha($partes[0]);
-//         $al = fecha($partes[1]);
-//     }
-// }
+if (count($fechas[0]) >= 1) {
+    $partes = preg_split("/-|\|-\|/", $fechas[0][0]);
+    if (count($partes) == 2) {
+        $del = fecha($partes[0]);
+        $al = fecha($partes[1]);
+    }
+}
 
 $arraypago = explode("/", $pago);
 $nombreNomina = $id . implode("_", $arraypago) . '.pdf';
