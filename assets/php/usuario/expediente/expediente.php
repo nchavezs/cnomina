@@ -23,7 +23,7 @@ echo '
         <small class="text-muted">Expediente de '.$usuario["nombre"].'.</small>
     </div>
     <input type="hidden" id="id" value="'.$id.'" />
-    <input class="hidden" type="file" id="expediente_file" accept=".pdf"/>
+    <input class="hidden" type="file" id="expediente_file" accept=".pdf, .png, .jpeg, .jpg"/>
     <div class="card-body">';
 
 echo '<div class="row">';
@@ -225,7 +225,7 @@ if (isset($expediente['recomendacion'])) {
                 </button>
                 <p>Recomendación</p>
                 <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_icono constancia"><i class="material-icons">upload_file</i>Cargar</div>
+                    <div class="opciones_expediente_icono recomendacion"><i class="material-icons">upload_file</i>Cargar</div>
                     <div onclick="eliminar_expediente(\''.$id.'\', \'recomendacion\');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
                 </div>
             </div>
