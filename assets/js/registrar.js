@@ -1511,48 +1511,57 @@ function expediente_menu(id) {
     descargar_expediente(id, nombre);
   });
 
-  $(".acta").click(function () {
-    nombre = "acta";
+  $(".subir_documento").click(function () {
+    nombre = $(this).closest(".expediente_caja").data("nombre");
     $("#expediente_file").click();
   });
 
-  $(".curp").click(function () {
-    nombre = "curp";
-    $("#expediente_file").click();
-  });
+  // $(".acta").click(function () {
+  //   nombre = "acta";
+  //   $("#expediente_file").click();
+  // });
 
-  $(".curriculum").click(function () {
-    nombre = "curriculum";
-    $("#expediente_file").click();
-  });
+  // $(".curp").click(function () {
+  //   nombre = "curp";
+  //   $("#expediente_file").click();
+  // });
 
-  $(".antecedentes").click(function () {
-    nombre = "antecedentes";
-    $("#expediente_file").click();
-  });
+  // $(".curriculum").click(function () {
+  //   nombre = "curriculum";
+  //   $("#expediente_file").click();
+  // });
 
-  $(".disciplinarios").click(function () {
-    nombre = "disciplinarios";
-    $("#expediente_file").click();
-  });
+  // $(".antecedentes").click(function () {
+  //   nombre = "antecedentes";
+  //   $("#expediente_file").click();
+  // });
 
-  $(".identificacion").click(function () {
-    nombre = "identificacion";
-    $("#expediente_file").click();
-  });
+  // $(".disciplinarios").click(function () {
+  //   nombre = "disciplinarios";
+  //   $("#expediente_file").click();
+  // });
 
-  $(".constancia").click(function () {
-    nombre = "constancia";
-    $("#expediente_file").click();
-  });
-  $(".recomendacion").click(function () {
-    nombre = "recomendacion";
-    $("#expediente_file").click();
-  });
-  $(".estudios").click(function () {
-    nombre = "estudios";
-    $("#expediente_file").click();
-  });
+  // $(".identificacion").click(function () {
+  //   nombre = "identificacion";
+  //   $("#expediente_file").click();
+  // });
+
+  // $(".constancia").click(function () {
+  //   nombre = "constancia";
+  //   $("#expediente_file").click();
+  // });
+  // $(".recomendacion").click(function () {
+  //   nombre = "recomendacion";
+  //   $("#expediente_file").click();
+  // });
+  // $(".estudios").click(function () {
+  //   nombre = "estudios";
+  //   $("#expediente_file").click();
+  // });
+  // $(".otros").click(function () {
+  //   nombre = "otros";
+  //   $("#expediente_file").click();
+  // });
 }
 
 function detalle_historial(id) {

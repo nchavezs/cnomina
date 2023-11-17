@@ -483,3 +483,4 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Baja de usuario", 2)
 INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contraseña de usuario", 2);
 
 ALTER TABLE Usuario ADD postal VARCHAR(10) AFTER estado;
+ALTER TABLE Expediente ADD otros VARCHAR(100) NULL AFTER estudios;
