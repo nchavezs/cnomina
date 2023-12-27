@@ -123,7 +123,7 @@ include "assets/php/comprobar_periodo.php";
 	</div>
 
    <?php include 'assets/layouts/scripts.php'?>
-   <script src="assets/js/perfil.js?v=3.9.1"></script>
+   <script src="assets/js/perfil.js?v=3.9.3"></script>
 
    <script>$("#tab-perfil").addClass("active");</script>
 

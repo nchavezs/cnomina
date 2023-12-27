@@ -5,6 +5,29 @@
     src: url(../fonts/material.woff2) format('woff2')
 }
 
+.expediente{
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ninja{
+    display: none;
+    pointer-events: none;
+    position: absolute;
+}
+
+.animacion{
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.animacion:hover{
+    transform: scale(.98);
+    border: 3px solid rgba(52, 71, 239, 0.492);
+}
+
 .nuevo_rol{
     cursor: pointer;
 }
@@ -10876,12 +10899,12 @@ a.text-success:hover {
 }
 
 .text-info {
-    color: #00bcd4 !important
+    color: #5294FA !important
 }
 
 a.text-info:focus,
 a.text-info:hover {
-    color: #008fa1 !important
+    color: #4E8AE7 !important
 }
 
 .text-warning {
@@ -14740,10 +14763,6 @@ h2.title {
 
 .text-success {
     color: #49cf97 !important
-}
-
-.text-info {
-    color: #00bcd4 !important
 }
 
 .text-rose {

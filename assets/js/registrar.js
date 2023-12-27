@@ -1451,7 +1451,7 @@ function borrar_movimiento(id) {
 function verExpediente(id) {
   $.ajax({
     type: "POST",
-    url: "assets/php/expediente.php",
+    url: "assets/php/expediente/index.php",
     data: {
       id: id,
     },
@@ -1488,7 +1488,7 @@ function expediente_menu(id) {
 
           $.ajax({
             type: "POST",
-            url: "assets/php/expediente.php",
+            url: "assets/php/expediente/index.php",
             data: {
               id: id,
             },
