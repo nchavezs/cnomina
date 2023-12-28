@@ -1,5 +1,6 @@
 <?php
 include "../../conexion.php";
+include "./funciones.php";
 $conexion = conexion();
 
 $id = $_POST['id'];
@@ -12,7 +13,7 @@ $consulta = $conexion->query($sql);
     <small class="text-muted">Historial de archivos en licencias.</small>
 </div>
 
-<table style="width:100%" id="tb">
+<table class="adp-hide" style="width:100%" id="tb">
     <thead class="text-primary">
         <tr>
             <th>Elaboración</th>
@@ -31,7 +32,7 @@ $consulta = $conexion->query($sql);
             echo "<td>" . $tipo . "</td>";
             echo "<td>" .date("d/m/Y", strtotime($row['del']))." al ".date("d/m/Y", strtotime($row['al'])) . "</td>";
             echo "<td>" . $row['descripcion'] . "</td>";
-            echo "<td><a class='material-icons btn1' href='" . $row['url'] . "' target='_blank'>attachment</a></td>";
+            echo "<td><a class='material-icons btn1' href='" . $row['url'] . "' target='_blank'>download</a></td>";
             echo "</tr>";
         }
         ?>
@@ -43,7 +44,3 @@ $consulta = $conexion->query($sql);
         <i class="material-icons">keyboard_backspace</i> Regresar
     </div>
 </div>
-
-<script>
-    $("#tb").DataTable();
-</script>
