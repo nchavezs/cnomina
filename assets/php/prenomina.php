@@ -12,6 +12,23 @@ $periodo = $_SESSION["id_periodo"];
 $ano =  $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
+function alta($id){
+    $sql = "SELECT * FROM Historial WHERE RFC = '".$id."'";
+    $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
+
+    $resultado = $conexion->query($sql);
+
+    if ($resultado->num_rows > 0) {
+        $fila = $resultado->fetch_assoc();
+        return date("d/m/Y", strtotime($fila['maxima']));
+    } else {
+        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
+        $resultado = $conexion->query($sql);
+        $fila = $resultado->fetch_assoc();
+        return $fila['fechaRelLab'];
+    }
+}
+
 function cabecera($titulo, $col, $sheet)
 {
     $sheet->mergeCells('A1:B1');
@@ -467,7 +484,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
-        $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+        $sheet->setCellValue('F' . $i, alta($res['RFC']));
         $sheet->setCellValue('G' . $i, dias_paga($res['RFC'], $descuentos));
 
         $i++;
@@ -712,7 +729,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
             $sheet->setCellValue('C' . $i, $res["RFC"]);
             $sheet->setCellValue('D' . $i, $res["puesto"]);
             $sheet->setCellValue('E' . $i, $res["departamento"]);
-            $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+            $sheet->setCellValue('F' . $i, alta($res['RFC']));
             $sheet->setCellValue('G' . $i, $res['tipoTrabajador']);
             $sheet->setCellValue('H' . $i, mb_strtoupper($res["estado"]));
             $sheet->setCellValue('I' . $i, $observaciones);
@@ -824,7 +841,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
             $sheet->setCellValue('C' . $i, $res["RFC"]);
             $sheet->setCellValue('D' . $i, $res["puesto"]);
             $sheet->setCellValue('E' . $i, $res["departamento"]);
-            $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+            $sheet->setCellValue('F' . $i, alta($res['RFC']));
             $sheet->setCellValue('G' . $i, $res['tipoTrabajador']);
             $sheet->setCellValue('H' . $i, mb_strtoupper($res["estado"]));
             $sheet->setCellValue('I' . $i, $observaciones);
