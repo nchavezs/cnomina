@@ -13,6 +13,7 @@ $ano =  $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
 function alta($id){
+    $conexion = conexion();
     $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
     $resultado = $conexion->query($sql);
 
