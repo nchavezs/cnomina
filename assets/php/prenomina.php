@@ -399,7 +399,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
-        $sheet->setCellValue('F' . $i, $res["fechaRelLab"]);
+        $sheet->setCellValue('F' . $i, alta($res['RFC']));
         $sheet->setCellValue('G' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["razon"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
