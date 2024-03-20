@@ -8,11 +8,12 @@ $sql = "SELECT * FROM Usuario WHERE RFC = (SELECT RFC FROM Historial WHERE id_hi
 $consulta = $conexion->query($sql);
 $usuario = mysqli_fetch_array($consulta);
 
-$sql = "SELECT * FROM Historial WHERE id_historial = " . $id ;
+$sql = "SELECT * FROM Historial WHERE id_historial = " . $id;
 $consulta = $conexion->query($sql);
 $historial = mysqli_fetch_array($consulta);
 
 $puesto = " - ";
+$departamento = " - ";
 if ($historial["tipo"] == "baja") {
     $sql = "SELECT id_plaza FROM Baja WHERE RFC = '" . $historial["RFC"] . "' AND  fecha = '" . $historial["fecha"] . "' LIMIT 1";
     $query = $conexion->query($sql);
@@ -25,7 +26,15 @@ if ($historial["tipo"] == "baja") {
     if ($query1 && mysqli_num_rows($query1) > 0) {
         $puesto = mysqli_fetch_row($query1);
         $puesto = $puesto[0];
+
+		$sql = "SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = " . $plaza . "))";
+        $query1 = $conexion->query($sql);
+        if ($query1 && mysqli_num_rows($query1) > 0) {
+            $departamento = mysqli_fetch_row($query1);
+            $departamento = $departamento[0];
+        }
     }
+
 } else if ($historial["tipo"] == "reingreso") {
     $sql = "SELECT id_plaza FROM Reingreso WHERE RFC = '" . $historial["RFC"] . "' AND fecha = '" . $historial["fecha"] . "' LIMIT 1";
     $query = $conexion->query($sql);
@@ -40,6 +49,13 @@ if ($query && mysqli_num_rows($query) > 0) {
     if ($query && mysqli_num_rows($query) > 0) {
         $puesto = mysqli_fetch_row($query);
         $puesto = $puesto[0];
+
+		$sql = "SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = " . $plaza . "))";
+        $query1 = $conexion->query($sql);
+        if ($query1 && mysqli_num_rows($query1) > 0) {
+            $departamento = mysqli_fetch_row($query1);
+            $departamento = $departamento[0];
+        }
     }
 }
 
@@ -64,6 +80,11 @@ echo '<div class="card">
 				<div class="col-md-12">
 					<div class="select-etiqueta">Puesto</div>
 					<input type="text" class="campo" readonly value="' . $puesto . '" />
+				</div>
+
+				<div class="col-md-12">
+					<div class="select-etiqueta">Departamento</div>
+					<input type="text" class="campo" readonly value="' . $departamento . '" />
 				</div>
 
 				<div class="col-md-12">

@@ -4,7 +4,7 @@ $conexion = conexion();
 $id = $_POST['id'];
 // $ano = $_POST["ano"];
 
-$sql = "SELECT * FROM Historial WHERE RFC = '".$id."' ORDER BY elaboracion DESC";
+$sql = "SELECT * FROM Historial WHERE RFC = '".$id."' ORDER BY fecha,elaboracion";
 
 $consulta = $conexion->query($sql);
 
