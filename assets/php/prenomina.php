@@ -16,10 +16,11 @@ function alta($id){
     $conexion = conexion();
     $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
     $resultado = $conexion->query($sql);
+    $fila = $resultado->fetch_assoc();
+    $fecha = $fila['maxima'];
 
-    if ($resultado->num_rows > 0) {
-        $fila = $resultado->fetch_assoc();
-        return date("d/m/Y", strtotime($fila['maxima']));
+    if ($fecha) {
+        return date("d/m/Y", strtotime($fecha));
     } else {
         $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
         $resultado = $conexion->query($sql);
