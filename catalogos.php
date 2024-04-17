@@ -133,7 +133,7 @@ if(!in_array(28, rol())){
 	</div>
 
 	<?php include 'assets/layouts/scripts.php' ?>
-	<script src="assets/js/catalagos.js?v=3.9.3"></script>
+	<script src="assets/js/catalagos.js?v=3.9.5"></script>
 	<script>$("#tab-catalogos").addClass("active");</script>
 
 </body>
