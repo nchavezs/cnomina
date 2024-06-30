@@ -332,7 +332,7 @@ CREATE TABLE Historial_Plaza(
 
 
 
--------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------
 
 CREATE TABLE Categoria(
     id_categoria INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -373,7 +373,7 @@ CREATE TABLE Rol_Autorizacion(
 --     RFC VARCHAR(20) NOT NULL,
 --     FOREIGN KEY(id_autorizacion) REFERENCES Autorizacion(id_autorizacion) ON DELETE CASCADE
 -- );
--------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------
 
 INSERT INTO
     Usuario(categoria, contrasenia, nombre, RFC, email)
@@ -419,7 +419,8 @@ INSERT INTO Periodo(nombre, dias) VALUES("MENSUAL", 30);
 
 INSERT INTO Periodo(nombre, dias) VALUES("OTRA PERIODICIDAD", 0);
 
-----------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------
+
 
 INSERT INTO Rol(nombre) VALUES('ADMINISTRADOR');
 
@@ -484,3 +485,6 @@ INSERT INTO Autorizacion(descripcion, id_categoria) VALUES("Restablecer contrase
 
 ALTER TABLE Usuario ADD postal VARCHAR(10) AFTER estado;
 ALTER TABLE Expediente ADD otros VARCHAR(100) NULL AFTER estudios;
+
+INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'admin');
+INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'develop');
