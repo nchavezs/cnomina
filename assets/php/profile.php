@@ -47,7 +47,7 @@ if ($usuario["domicilio"] == null) {
     $usuario["domicilio"] = "No configurado";
 }
 
-if ($usuario["postal"] == null) {
+if ($usuario["postal"] == null || $usuario["postal"] == '') {
     $usuario["postal"] = "No configurado";
 }
 

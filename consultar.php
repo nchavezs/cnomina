@@ -48,9 +48,14 @@ if(!in_array(26, rol())){
 								<option value="2025">2025</option>
 							</select> -->
 							<select id="id_periodo">
-								<option value="1">CATORCENAL</option>
-								<option value="2">MENSUAL</option>
-								<option value="3">OTRA PERIODICIDAD</option>
+								<?php
+									$conexion = conexion();
+									$sql = "SELECT * FROM Periodo";
+									$consulta = $conexion->query($sql);
+									while($res = mysqli_fetch_array($consulta)){
+										echo '<option value="'.$res[0].'">'.$res[1].'</option>';
+									}
+								?>
 							</select>
 						</div>
 						<table id="tabla-nominas" class="table table-striped" style="width:100%">
