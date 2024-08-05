@@ -22,10 +22,13 @@ $conexion->query($sql);
 if ($id_periodo == 2) {
     $del = date("Y-m-01", strtotime($prenomina["del"] . "+ 1 month"));
     $al = date("Y-m-t", strtotime($del));
-
 } else {
     $del = date("Y-m-d", strtotime($prenomina["al"] . "+ 1 days"));
-    $al = date("Y-m-d", strtotime($prenomina["al"] . "+ " . $prenomina["dias"] . " days"));
+    if($prenomina["dias"] == 15 && date("d", strtotime($prenomina["al"])) == 15 ){
+        $al = date("Y-m-t",  strtotime($prenomina["del"]));
+    }else{
+        $al = date("Y-m-d", strtotime($prenomina["al"] . "+ " . $prenomina["dias"] . " days"));
+    }
 }
 
 $ano_del = explode("-", $del);
