@@ -133,16 +133,14 @@ if ($pos1 !== false) {
 
 if (strpos($pdf, 'CATORCENAL') !== false) {
     $periodo = 1;
-} 
-else if (strpos($pdf, 'QUINCENAL') !== false) {
-    $periodo = 1;
-}
-else if (strpos($pdf, 'MENSUAL') !== false) {
+} else if (strpos($pdf, 'MENSUAL') !== false) {
     $periodo = 2;
 } else if (strpos($pdf, 'PERIODICIDAD') !== false) {
     $periodo = 3;
     $dias = 0;
-} else {
+} else if (strpos($pdf, 'QUINCENAL') !== false) {
+    $periodo = 1;
+}else {
     $periodo = "";
 }
 
