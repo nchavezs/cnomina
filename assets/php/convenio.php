@@ -10,8 +10,10 @@ use PhpOffice\PhpWord\TemplateProcessor;
 // Variables
 $archivo = $_FILES['file']['tmp_name'];
 $templateFile = '../docs/convenio.docx';
-$tempDir = '../temp/' . uniqid() . '/';
-$zipFile = '../temp/' . uniqid() . '.zip';
+$path = '../temp/';
+$tempDir = $path. uniqid() . '/';
+$zipName = uniqid() . '.zip';
+$zipFile = $path . $zipName;
 
 // Crear la carpeta temporal si no existe
 mkdir($tempDir, 0777, true);
@@ -88,7 +90,7 @@ array_map('unlink', glob("$tempDir/*.*"));
 rmdir($tempDir);
 
 // Devolver nombre del archivo ZIP
-echo "aasets/".$zipFile;
+echo "assets/temp/".$zipName;
 
 // ---------------------------------------------------------------------------------------------------
 
