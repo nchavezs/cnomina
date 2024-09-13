@@ -98,15 +98,20 @@ echo "assets/temp/" . $zipName;
 
 function fnum($valor, $letra = false)
 {
-    if ($valor) {
+    if (is_string($valor)) {
+        // Eliminar símbolos como '$', espacios y comas en caso de que sea string
         $numero = str_replace(['$', ' ', ','], '', $valor);
+        // Convertir el valor a número flotante
         $numero = floatval($numero);
     } else {
-        $numero = 0;
+        // Si ya es numérico, lo usamos directamente
+        $numero = $valor;
     }
 
+    // Formatear el número con dos decimales
     $valor = number_format($numero, 2, ".", ",");
 
+    // Convertir a letras si se requiere
     if ($letra) {
         $formatter = new NumeroALetras();
         $valor .= mb_strtolower(" (" . $formatter->toMoney($numero, 2, 'pesos', 'centavos')) . " M.N.)";
@@ -114,6 +119,7 @@ function fnum($valor, $letra = false)
 
     return limpiar($valor);
 }
+
 
 function fnombre($valor)
 {
