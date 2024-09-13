@@ -98,7 +98,9 @@ echo "assets/temp/" . $zipName;
 
 function fnum($valor, $letra = false)
 {
-    if (!$valor) {
+    if ($valor) {
+        $numero = str_replace(['$', ' ', ','], '', $valor);
+    } else {
         $numero = 0;
     }
 
