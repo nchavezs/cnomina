@@ -100,6 +100,7 @@ function fnum($valor, $letra = false)
 {
     if ($valor) {
         $numero = str_replace(['$', ' ', ','], '', $valor);
+        $numero = floatval($numero);
     } else {
         $numero = 0;
     }
