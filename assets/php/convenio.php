@@ -88,7 +88,7 @@ array_map('unlink', glob("$tempDir/*.*"));
 rmdir($tempDir);
 
 // Devolver nombre del archivo ZIP
-echo $zipFile;
+echo "aasets/".$zipFile;
 
 // ---------------------------------------------------------------------------------------------------
 
