@@ -118,6 +118,29 @@ $(document).ready(function () {
     }
   });
 
+  $("#importar-convenio").change(function () {
+    if ($(this).val() !== "") {
+      mensaje_cargar();
+
+      var formData = new FormData();
+      var files = $(this)[0].files[0];
+      formData.append("file", files);
+      $.ajax({
+        url: "assets/php/convenio.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        success: function (datos) {
+          descargar(datos);
+          cerrar();
+          $("#importar-convenio").val("");
+        },
+      });
+    }
+  });
+
   $("#actualizar").change(function () {
     if ($(this).val() !== "") {
       mensaje_cargar();

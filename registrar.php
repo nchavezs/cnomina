@@ -53,6 +53,7 @@ if(!in_array(1, rol())){
                                 <input type="file" id="importar-empleado" accept=".xlsx" />
                                 <input type="file" id="importar-empleado-puesto" accept=".xlsx" />
                                 <input type="file" id="actualizar" accept=".xlsx" />
+                                <input type="file" id="importar-convenio" accept=".xlsx" />
                                 
                                 <?php
                                 if(in_array(3, rol())){
@@ -106,6 +107,22 @@ if(!in_array(1, rol())){
                                     ';
                                 }else{
                                     echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">refresh</i>Actualizar</label>';
+                                }
+                                ?>
+
+<?php
+                                if(in_array(3, rol())){
+                                    echo '
+                                    <span class="dropdown">
+                                        <div class="btn-mostrar" data-toggle="dropdown">
+                                            <i class="material-icons">folder</i>Generar convenios
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <label class="dropdown-item" for="importar-convenio"> <i class="material-icons">check</i> Importar plantilla</label>
+                                            <a href="assets/docs/convenio.xlsx?v=3.9.5" class="dropdown-item"> <i class="material-icons">check</i>Plantilla</a>
+                                        </div>
+                                    </span>
+                                    ';
                                 }
                                 ?>
 

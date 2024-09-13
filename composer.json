@@ -4,6 +4,9 @@
         "mpdf/mpdf": "^8.0",
         "knplabs/knp-snappy": "^1.4",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
-        "h4cc/wkhtmltopdf-i386": "^0.12.4"
+        "h4cc/wkhtmltopdf-i386": "^0.12.4",
+        "phpoffice/phpword": "^1.3",
+        "luecano/numero-a-letras": "^3.0",
+        "nesbot/carbon": "^2.72"
     }
 }
