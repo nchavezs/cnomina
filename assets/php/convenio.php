@@ -74,7 +74,7 @@ foreach ($rows as $index => $row) {
     ];
 
     // Crear documento Word y agregar al ZIP
-    $wordFile = "{$tempDir}documento_{$index}.docx";
+    $wordFile = "{$tempDir}Conv_{$nombre}.docx";
     $templateProcessor = new TemplateProcessor($templateFile);
     foreach ($data as $key => $value) {
         $templateProcessor->setValue($key, $value);
@@ -96,9 +96,7 @@ echo "assets/temp/".$zipName;
 
 function fnum($valor, $letra = false)
 {
-    if ($valor) {
-        $numero = str_replace(['$', ' ', ','], '', $valor);
-    } else {
+    if (!$valor) {
         $numero = 0;
     }
 
