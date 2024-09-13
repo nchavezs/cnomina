@@ -11,7 +11,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 $archivo = $_FILES['file']['tmp_name'];
 $templateFile = '../docs/convenio.docx';
 $path = '../temp/';
-$tempDir = $path. uniqid() . '/';
+$tempDir = $path . uniqid() . '/';
 $zipName = uniqid() . '.zip';
 $zipFile = $path . $zipName;
 
@@ -35,52 +35,54 @@ foreach ($rows as $index => $row) {
     $rowData = array_combine($header, $row);
 
     // Asignar los valores basados en los nombres de columna
-    $nombre = fnombre($rowData["NOMBRE"] ?? "________________");
-    $ine = limpiar($rowData["INE"] ?? "________________");
-    $rfc = limpiar($rowData["RFC"] ?? "________________");
-    $puesto = limpiar($rowData["PUESTO"] ?? "________________");
-    $departamento = limpiar($rowData["DEPARTAMENTO"] ?? "________________");
-    $inicio = ffecha($rowData["FECHA INGRESO"] ?? "________________");
-    $fin = ffecha($rowData["FECHA SEPARACION"] ?? "________________");
-    $direccion = fdireccion($rowData["CALLE"], $rowData["NO"], $rowData["COLONIA"], $rowData["CIUDAD"]);
-    $salario = fnum($rowData["SUELDO BRUTO"], true);
-    $pago = fnum($rowData["NETO"], true);
-    $indemnizacion = fnum($rowData["INDEMNIZACION"]);
-    $antiguedad = fnum($rowData["PRIMA ANTIGÜEDAD"]);
-    $aguinaldo = fnum($rowData["AGUINALDO"]);
-    $vacacional = fnum($rowData["PRIMA VACACIONAL"]);
-    $adeudo = fnum($rowData["ADEUDO"]);
-    $isr = fnum($rowData["ISR"]);
-    $neto = fnum($rowData["NETO"]);
+    $nombre = fnombre($rowData["NOMBRE"] ?? null);
+    if ($nombre) {
+        $ine = limpiar($rowData["INE"] ?? "________________");
+        $rfc = limpiar($rowData["RFC"] ?? "________________");
+        $puesto = limpiar($rowData["PUESTO"] ?? "________________");
+        $departamento = limpiar($rowData["DEPARTAMENTO"] ?? "________________");
+        $inicio = ffecha($rowData["FECHA INGRESO"] ?? "________________");
+        $fin = ffecha($rowData["FECHA SEPARACION"] ?? "________________");
+        $direccion = fdireccion($rowData["CALLE"], $rowData["NO"], $rowData["COLONIA"], $rowData["CIUDAD"]);
+        $salario = fnum($rowData["SUELDO BRUTO"], true);
+        $pago = fnum($rowData["NETO"], true);
+        $indemnizacion = fnum($rowData["INDEMNIZACION"]);
+        $antiguedad = fnum($rowData["PRIMA ANTIGÜEDAD"]);
+        $aguinaldo = fnum($rowData["AGUINALDO"]);
+        $vacacional = fnum($rowData["PRIMA VACACIONAL"]);
+        $adeudo = fnum($rowData["ADEUDO"]);
+        $isr = fnum($rowData["ISR"]);
+        $neto = fnum($rowData["NETO"]);
 
-    $data = [
-        'nombre' => $nombre,
-        'ine' => $ine,
-        'rfc' => $rfc,
-        'puesto' => $puesto,
-        'departamento' => $departamento,
-        'inicio' => $inicio,
-        'fin' => $fin,
-        'direccion' => $direccion,
-        'salario' => $salario,
-        'pago' => $pago,
-        'indemnizacion' => $indemnizacion,
-        'antiguedad' => $antiguedad,
-        'aguinaldo' => $aguinaldo,
-        'vacacional' => $vacacional,
-        'adeudo' => $adeudo,
-        'isr' => $isr,
-        'neto' => $neto,
-    ];
+        $data = [
+            'nombre' => $nombre,
+            'ine' => $ine,
+            'rfc' => $rfc,
+            'puesto' => $puesto,
+            'departamento' => $departamento,
+            'inicio' => $inicio,
+            'fin' => $fin,
+            'direccion' => $direccion,
+            'salario' => $salario,
+            'pago' => $pago,
+            'indemnizacion' => $indemnizacion,
+            'antiguedad' => $antiguedad,
+            'aguinaldo' => $aguinaldo,
+            'vacacional' => $vacacional,
+            'adeudo' => $adeudo,
+            'isr' => $isr,
+            'neto' => $neto,
+        ];
 
-    // Crear documento Word y agregar al ZIP
-    $wordFile = "{$tempDir}Conv_{$nombre}.docx";
-    $templateProcessor = new TemplateProcessor($templateFile);
-    foreach ($data as $key => $value) {
-        $templateProcessor->setValue($key, $value);
+        // Crear documento Word y agregar al ZIP
+        $wordFile = "{$tempDir}Conv_{$nombre}.docx";
+        $templateProcessor = new TemplateProcessor($templateFile);
+        foreach ($data as $key => $value) {
+            $templateProcessor->setValue($key, $value);
+        }
+        $templateProcessor->saveAs($wordFile);
+        $zip->addFile($wordFile, basename($wordFile));
     }
-    $templateProcessor->saveAs($wordFile);
-    $zip->addFile($wordFile, basename($wordFile));
 }
 
 $zip->close();
@@ -90,7 +92,7 @@ array_map('unlink', glob("$tempDir/*.*"));
 rmdir($tempDir);
 
 // Devolver nombre del archivo ZIP
-echo "assets/temp/".$zipName;
+echo "assets/temp/" . $zipName;
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -163,7 +165,7 @@ function ffecha($valor)
         '09' => 'SEPTIEMBRE',
         '10' => 'OCTUBRE',
         '11' => 'NOVIEMBRE',
-        '12' => 'DICIEMBRE'
+        '12' => 'DICIEMBRE',
     ];
 
     // Extraer el día, mes y año
