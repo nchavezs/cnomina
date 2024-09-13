@@ -99,8 +99,15 @@ echo "assets/temp/" . $zipName;
 function fnum($valor, $letra = false)
 {
     if (is_string($valor)) {
-        // Eliminar símbolos como '$', espacios y comas en caso de que sea string
-        $numero = str_replace(['$', ' ', ','], '', $valor);
+        // Eliminar el símbolo '$' y los espacios
+        $numero = str_replace(['$', ' '], '', $valor);
+
+        // Si el número está en formato "145.000,00", cambiar el punto por nada y la coma por punto
+        if (strpos($numero, ',') !== false && strpos($numero, '.') !== false) {
+            $numero = str_replace('.', '', $numero); // Eliminar los puntos (miles)
+            $numero = str_replace(',', '.', $numero); // Reemplazar la coma por punto (decimales)
+        }
+
         // Convertir el valor a número flotante
         $numero = floatval($numero);
     } else {
@@ -119,7 +126,6 @@ function fnum($valor, $letra = false)
 
     return limpiar($valor);
 }
-
 
 function fnombre($valor)
 {
