@@ -915,6 +915,7 @@ $sql = "SELECT *,
     FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
     id_periodo =  " . $periodo . " AND
     id_trabajador NOT IN(3,4) AND
+    id_departamento != 21 AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
 
