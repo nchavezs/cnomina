@@ -21,19 +21,19 @@ if ($historial["tipo"] == "baja") {
     $sql = "SELECT id_plaza FROM Historial_Plaza WHERE RFC = '" . $historial["RFC"] . "' ORDER BY fecha_inicio ASC LIMIT 1";
     $query = $conexion->query($sql);
 
-    $sql = "SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Empleado WHERE RFC = '" . $historial["RFC"] . "')";
-    $query1 = $conexion->query($sql);
-    if ($query1 && mysqli_num_rows($query1) > 0) {
-        $puesto = mysqli_fetch_row($query1);
-        $puesto = $puesto[0];
+    // $sql = "SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Empleado WHERE RFC = '" . $historial["RFC"] . "')";
+    // $query1 = $conexion->query($sql);
+    // if ($query1 && mysqli_num_rows($query1) > 0) {
+    //     $puesto = mysqli_fetch_row($query1);
+    //     $puesto = $puesto[0];
 
-		$sql = "SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = " . $plaza . "))";
-        $query1 = $conexion->query($sql);
-        if ($query1 && mysqli_num_rows($query1) > 0) {
-            $departamento = mysqli_fetch_row($query1);
-            $departamento = $departamento[0];
-        }
-    }
+	// 	$sql = "SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = " . $plaza . "))";
+    //     $query1 = $conexion->query($sql);
+    //     if ($query1 && mysqli_num_rows($query1) > 0) {
+    //         $departamento = mysqli_fetch_row($query1);
+    //         $departamento = $departamento[0];
+    //     }
+    // }
 
 } else if ($historial["tipo"] == "reingreso") {
     $sql = "SELECT id_plaza FROM Reingreso WHERE RFC = '" . $historial["RFC"] . "' AND fecha = '" . $historial["fecha"] . "' LIMIT 1";

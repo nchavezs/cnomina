@@ -27,6 +27,17 @@ echo '
 
 echo '<div class="row">';
 
+echo '<div class="col-md-4">
+    <div class="expediente_caja puntero" onclick="nuevo_doc(\''.$id.'\')">
+        <div class="card-body p-4">
+            <i class="material-icons">add</i>
+            <div class="opciones_expediente_vacio p-1">Agregar nuevo documento</div>
+        </div>
+    </div>
+</div>';
+
+// agregar aqui ficheros
+
 if (isset($expediente['acta'])) {
     echo '<div class="col-md-3">
             <div class="expediente_caja" data-nombre="acta">
@@ -263,33 +274,6 @@ if (isset($expediente['estudios'])) {
                     <div><i class="material-icons">upload_file</i></div>
                 </button>
                 <p>Últimos estudios</p>
-                <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_vacio subir_documento"><i class="material-icons">upload_file</i>Seleccionar archivo  </div>
-                </div>
-            </div>
-        </div>';
-}
-
-if (isset($expediente['otros'])) {
-    echo '<div class="col-md-3">
-            <div class="expediente_caja" data-nombre="otros">
-                <button name="otros" class="descargar" data-hover="descargar">
-                    <div><i class="material-icons done">cloud_done</i></div>
-                </button>
-                <p>Otros documentos</p>
-                <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_icono subir_documento"><i class="material-icons">upload_file</i>Cargar</div>
-                    <div onclick="eliminar_expediente(\''.$id.'\', \'otros\');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
-                </div>
-            </div>
-        </div>';
-} else {
-    echo '<div class="col-md-3">
-            <div class="expediente_caja" data-nombre="otros">
-                <button class="subir_documento" data-hover="Subir">
-                    <div><i class="material-icons">upload_file</i></div>
-                </button>
-                <p>Otros documentos</p>
                 <div class="opciones_expediente_caja">
                     <div class="opciones_expediente_vacio subir_documento"><i class="material-icons">upload_file</i>Seleccionar archivo  </div>
                 </div>

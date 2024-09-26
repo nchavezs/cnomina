@@ -488,3 +488,20 @@ ALTER TABLE Expediente ADD otros VARCHAR(100) NULL AFTER estudios;
 
 INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'admin');
 INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'develop');
+
+
+
+
+CREATE TABLE Documento(
+    id_documento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Fichero(
+    id_fichero INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_documento INT NOT NULL,
+    RFC VARCHAR(20) NOT NULL,
+    url VARCHAR(100),
+    elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

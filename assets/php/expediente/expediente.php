@@ -5,7 +5,13 @@ $expediente = mysqli_fetch_array($consulta);
 if (mysqli_num_rows($consulta) == 0) {
     $sql = "INSERT INTO Expediente(RFC) VALUES('" . $id . "')";
     $consulta = $conexion->query($sql);
-} 
+}
+
+// ---------------------------------------------------------------------------------------
+$sql= "SELECT Fichero.*,(SELECT nombre FROM Documento WHERE id_documento = Fichero.id_documento) as documento FROM Fichero WHERE RFC = '".$id."' ORDER BY id_fichero DESC ";
+$consulta = $conexion->query($sql);
+// ---------------------------------------------------------------------------------------
+
 
 echo '
 <hr>
@@ -13,6 +19,20 @@ echo '
 
 <div class="expediente p-1">
     <div class="row">';
+
+echo '<div class="col-md-4">
+    <div class="expediente_caja puntero" onclick="nuevo_doc(\''.$id.'\')">
+        <div class="card-body p-4">
+            <i class="material-icons">add</i>
+            <div class="opciones_expediente_vacio p-1">Agregar nuevo documento</div>
+        </div>
+    </div>
+</div>';
+// ---------------------------------------------------------------------------------------
+while($fichero = mysqli_fetch_array($consulta)){
+    include 'item.php';
+}
+// ---------------------------------------------------------------------------------------
 
 if (isset($expediente['acta'])) {
     echo '<div class="col-md-4">
@@ -250,33 +270,6 @@ if (isset($expediente['estudios'])) {
                     <div><i class="material-icons">search</i></div>
                 </button>
                 <p>Últimos estudios</p>
-                <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_vacio subir_documento"><i class="material-icons">search</i>Seleccionar archivo  </div>
-                </div>
-            </div>
-        </div>';
-}
-
-if (isset($expediente['otros'])) {
-    echo '<div class="col-md-4">
-            <div class="expediente_caja" data-nombre="otros">
-                <button name="otros" class="descargar" data-hover="descargar">
-                    <div><i class="material-icons done">cloud_done</i></div>
-                </button>
-                <p>Otros documentos</p>
-                <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_icono subir_documento"><i class="material-icons">upload</i>Cargar</div>
-                    <div onclick="eliminar_expediente(\''.$id.'\', \'otros\');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
-                </div>
-            </div>
-        </div>';
-} else {
-    echo '<div class="col-md-4">
-            <div class="expediente_caja" data-nombre="otros">
-                <button class="subir_documento" data-hover="Subir">
-                    <div><i class="material-icons">search</i></div>
-                </button>
-                <p>Otros documentos</p>
                 <div class="opciones_expediente_caja">
                     <div class="opciones_expediente_vacio subir_documento"><i class="material-icons">search</i>Seleccionar archivo  </div>
                 </div>

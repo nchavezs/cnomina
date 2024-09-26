@@ -823,7 +823,7 @@ function detalle(id) {
             };
           }
         },
-        onSelect: function onSelect(fd, date) {},
+        onSelect: function onSelect(fd, date) { },
       });
     }
   );
@@ -1218,7 +1218,7 @@ function detalle_vacacion(id) {
             };
           }
         },
-        onSelect: function onSelect(fd, date) {},
+        onSelect: function onSelect(fd, date) { },
       });
     }
   );
@@ -1327,9 +1327,9 @@ function movimiento(id) {
                 $("#modal .modal_titulo").html("Confirmar movimiento");
                 $("#modal .modal-body").html(
                   $("#puesto :selected").text() +
-                    "<p>Nuevo puesto</p>" +
-                    $("#departamento :selected").text() +
-                    "<p>Nuevo departamento</p>"
+                  "<p>Nuevo puesto</p>" +
+                  $("#departamento :selected").text() +
+                  "<p>Nuevo departamento</p>"
                 );
 
                 mostrar_modal();
@@ -1509,16 +1509,9 @@ function expediente_menu(id) {
         success: function (data) {
           $("#expediente_file").val("");
 
-          $.ajax({
-            type: "POST",
-            url: "assets/php/expediente/index.php",
-            data: {
-              id: id,
-            },
-            success: function (html) {
+          $.post("assets/php/expediente/index.php",{id}, function (html) {
               $(".ver_contenedor").html(html);
               expediente_menu(id);
-            },
           });
 
           $.unblockUI();
@@ -1538,53 +1531,6 @@ function expediente_menu(id) {
     nombre = $(this).closest(".expediente_caja").data("nombre");
     $("#expediente_file").click();
   });
-
-  // $(".acta").click(function () {
-  //   nombre = "acta";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".curp").click(function () {
-  //   nombre = "curp";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".curriculum").click(function () {
-  //   nombre = "curriculum";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".antecedentes").click(function () {
-  //   nombre = "antecedentes";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".disciplinarios").click(function () {
-  //   nombre = "disciplinarios";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".identificacion").click(function () {
-  //   nombre = "identificacion";
-  //   $("#expediente_file").click();
-  // });
-
-  // $(".constancia").click(function () {
-  //   nombre = "constancia";
-  //   $("#expediente_file").click();
-  // });
-  // $(".recomendacion").click(function () {
-  //   nombre = "recomendacion";
-  //   $("#expediente_file").click();
-  // });
-  // $(".estudios").click(function () {
-  //   nombre = "estudios";
-  //   $("#expediente_file").click();
-  // });
-  // $(".otros").click(function () {
-  //   nombre = "otros";
-  //   $("#expediente_file").click();
-  // });
 }
 
 function detalle_historial(id) {
@@ -1972,7 +1918,7 @@ function detalle_descuento(id) {
             };
           }
         },
-        onSelect: function onSelect(fd, date) {},
+        onSelect: function onSelect(fd, date) { },
       });
     }
   );
@@ -2560,4 +2506,50 @@ function miniatura_dropzone(file) {
         break;
     }
   }
+}
+
+
+function nuevo_doc(id) {
+  $.post("/assets/php/nuevo_documento.php", { id }, function (data) {
+    $("#modal .modal_titulo").html("Nuevo documento");
+    $("#modal .modal-body").html(data);
+    mostrar_modal();
+
+    $("#modal_aceptar")
+    .off()
+    .click(function () {
+      guardar_documento();
+    });
+  });
+}
+
+function guardar_documento(){
+  let form = $("#form-documento").serialize();
+
+  $.post("/assets/php/guardar_documento.php", form, function (data) {
+    let datos = JSON.parse(data);
+    if(datos.success){
+      let primer = $(".expediente .row div").first();
+      primer.after(datos.html);
+      ocultar_modal();
+    }
+
+    md.showNotification("top", "right", datos.mensaje);
+
+  });
+}
+
+function eliminar_fichero(id) {
+  $("#modal .modal_titulo").html("¿Eliminar este documento?");
+  $("#modal .modal-body").html("¿Seguro que quieres eliminar este documento?");
+  mostrar_modal();
+
+  $("#modal_aceptar")
+    .off()
+    .click(function () {
+      $.post("/assets/php/eliminar_documento.php", { id }, function (data) {
+            md.showNotification("top", "right", "Documento eliminado correctamente.");
+            $("[data-id="+id+"]").closest(".expediente_caja").parent().remove();
+      });
+    });
 }
