@@ -12,20 +12,19 @@ $periodo = $_SESSION["id_periodo"];
 $ano =  $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
-function alta($id){
+function alta($id, $baja = null){
     $conexion = conexion();
-    $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
-    $resultado = $conexion->query($sql);
-    $fila = $resultado->fetch_assoc();
-    $fecha = $fila['maxima'];
-
-    if ($fecha) {
-        return date("d/m/Y", strtotime($fecha));
-    } else {
-        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
+   
+    if($baja){
+        $sql = "SELECT MAX(inicio) as maxima FROM Reingreso WHERE fecha >= ".$baja." AND RFC = '".$id."'";
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
-        return $fila['fechaRelLab'];
+        $fecha = $fila['maxima'];
+    }else{
+        $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
+        $resultado = $conexion->query($sql);
+        $fila = $resultado->fetch_assoc();
+        $fecha = $fila['maxima'];
     }
 }
 
@@ -404,7 +403,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
-        $sheet->setCellValue('F' . $i, alta($res['RFC']));
+        $sheet->setCellValue('F' . $i, alta($res['RFC'], $res["fecha"]));
         $sheet->setCellValue('G' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["razon"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
