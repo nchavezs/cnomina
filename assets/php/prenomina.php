@@ -321,6 +321,8 @@ while ($usuario = mysqli_fetch_array($query)) {
         $paga = 0;
     }
 
+    $paga = ($paga > $dias) ? $dias : $paga;
+
     if ($descontados > $dias_pago) {
         $descontados = $dias_pago;
     }
