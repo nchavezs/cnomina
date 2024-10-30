@@ -5,7 +5,7 @@ if (isset($_POST['usuario']) && isset($_POST['contrasenia'])) {
 
     $user = mysqli_real_escape_string($conexion, trim($_POST['usuario']));
     $password = mysqli_real_escape_string($conexion, $_POST['contrasenia']);
-    $sql = "SELECT * FROM Usuario WHERE RFC = '" . $user . "' AND contrasenia = '" . $password . "'";
+    $sql = "SELECT * FROM Usuario WHERE RFC = '" . $user . "' AND contrasenia = '" . $password . "' AND estado ='alta'";
     $consulta = $conexion->query($sql);
 
     if ($consulta && mysqli_num_rows($consulta) == 1) {
