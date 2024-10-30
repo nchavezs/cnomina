@@ -26,6 +26,15 @@ function alta($id, $baja = null){
         $fila = $resultado->fetch_assoc();
         $fecha = $fila['maxima'];
     }
+
+    if ($fecha) {
+        return date("d/m/Y", strtotime($fecha));
+    } else {
+        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
+        $resultado = $conexion->query($sql);
+        $fila = $resultado->fetch_assoc();
+        return $fila['fechaRelLab'];
+    }
 }
 
 function cabecera($titulo, $col, $sheet)
@@ -311,6 +320,8 @@ while ($usuario = mysqli_fetch_array($query)) {
     if ($paga < 0) {
         $paga = 0;
     }
+
+    $paga = ($paga > $dias) ? $dias : $paga;
 
     if ($descontados > $dias_pago) {
         $descontados = $dias_pago;
