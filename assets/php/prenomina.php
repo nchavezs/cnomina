@@ -109,9 +109,6 @@ function diferencia($fecha1, $fecha2)
 {
     $fecha1 = new DateTime($fecha1);
     $fecha2 = new DateTime($fecha2);
-    if ((int)$fecha1->format('d') >= 16) {
-        return 15; // Limita a 15 días para el segundo período del mes
-    }
     $diff = $fecha2->diff($fecha1);
     return $diff->format('%a') + 1;
 }
