@@ -185,6 +185,9 @@ $sql = "SELECT *,
 $consulta = $conexion->query($sql);
 $prenomina = mysqli_fetch_array($consulta);
 $id_prenomina = $prenomina["id_prenomina"];
+$del = $prenomina["del"];
+$al = $prenomina["al"];
+$dias = $prenomina["dias"];
 
 $descuentos = [];
 $titulo = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" al %e de %B", strtotime($al)) . strftime(" del %Y", strtotime($del)));
@@ -192,11 +195,6 @@ $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 $dias_pago = diferencia($del, $al);
 $dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
-
-$del = $prenomina["del"];
-$al = $prenomina["al"];
-$dias = $prenomina["dias"];
-
 // -------------------------------------------------------------------------------------------------------------------------
 
 $diaFinal = (int)substr($al, 8, 2); // Extrae el día de la fecha final
@@ -216,7 +214,7 @@ if ($diaFinal == 31) {
     $al = date("Y-m-d", strtotime($al . ' -1 day')); 
 }
 
-// -------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------/ -------------------------------------------------------------------------------------------------------------------------
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
