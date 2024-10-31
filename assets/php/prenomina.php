@@ -307,6 +307,7 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
     }
 
+    $paga = ($paga > $dias) ? $dias : $paga;
     $paga = $paga - ($descontados + $descontados_permiso);
 
     // ESTA CONDICION CREO QUE NO ES NECESARIA AHORA CON LO DE DIFF > DIAS
@@ -320,8 +321,6 @@ while ($usuario = mysqli_fetch_array($query)) {
     if ($paga < 0) {
         $paga = 0;
     }
-
-    $paga = ($paga > $dias) ? $dias : $paga;
 
     if ($descontados > $dias_pago) {
         $descontados = $dias_pago;
