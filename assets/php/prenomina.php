@@ -195,7 +195,6 @@ $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 $dias_pago = diferencia($del, $al);
 $dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
-// -------------------------------------------------------------------------------------------------------------------------
 
 $diaFinal = (int)substr($al, 8, 2);
 $mesFinal = (int)substr($al, 5, 2);
@@ -213,8 +212,6 @@ if ($mesFinal == 2 && $dias == 15) {
 if ($diaFinal == 31) {
     $al = date("Y-m-d", strtotime($al . ' -1 day')); 
 }
-
-// -------------------------------------------------------------------------------------------------------------------------
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
@@ -327,7 +324,6 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
     }
 
-    $paga = ($paga > $dias) ? $dias : $paga;
     $paga = $paga - ($descontados + $descontados_permiso);
 
     // ESTA CONDICION CREO QUE NO ES NECESARIA AHORA CON LO DE DIFF > DIAS
