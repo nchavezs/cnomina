@@ -197,8 +197,8 @@ $dias_pago = diferencia($del, $al);
 $dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
 // -------------------------------------------------------------------------------------------------------------------------
 
-$diaFinal = (int)substr($al, 8, 2); // Extrae el día de la fecha final
-$mesFinal = (int)substr($al, 5, 2); // Extrae el mes de la fecha final
+$diaFinal = (int)substr($al, 8, 2);
+$mesFinal = (int)substr($al, 5, 2);
 
 if ($mesFinal == 2 && $dias == 15) {
     if ($diaFinal == 28) {
@@ -214,7 +214,7 @@ if ($diaFinal == 31) {
     $al = date("Y-m-d", strtotime($al . ' -1 day')); 
 }
 
-// -------------------------------------------------------------------------------------------------------------------------/ -------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
