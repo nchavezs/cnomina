@@ -193,25 +193,28 @@ $descuentos = [];
 $titulo = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" al %e de %B", strtotime($al)) . strftime(" del %Y", strtotime($del)));
 $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-$dias_pago = diferencia($del, $al);
-$dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
 
-$diaFinal = (int)substr($al, 8, 2);
-$mesFinal = (int)substr($al, 5, 2);
+// -------------------------------
+$fecha = new DateTime($al);
+$diaFinal = (int)$fecha->format("d");
+$mesFinal = (int)$fecha->format("m");
 
 if ($mesFinal == 2 && $dias == 15) {
     if ($diaFinal == 28) {
-        $al = date("Y-m-d", strtotime($al . ' +2 days'));
-    } 
-
-    elseif ($diaFinal == 29) {
-        $al = date("Y-m-d", strtotime($al . ' +1 day')); 
+        $fecha->modify('+2 days'); 
+    } elseif ($diaFinal == 29) {
+        $fecha->modify('+1 day');
     }
 }
 
 if ($diaFinal == 31) {
-    $al = date("Y-m-d", strtotime($al . ' -1 day')); 
+    $fecha->modify('-1 day'); 
 }
+
+$al = $fecha->format("Y-m-d");
+// -------------------------------
+$dias_pago = diferencia($del, $al);
+$dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
