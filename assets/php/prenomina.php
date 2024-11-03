@@ -9,19 +9,20 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 $conexion = conexion();
 $observacion = trim($_POST["observacion"]) ?: 'Sin observaciones';
 $periodo = $_SESSION["id_periodo"];
-$ano =  $_SESSION["ano"];
+$ano = $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
-function alta($id, $baja = null){
+function alta($id, $baja = null)
+{
     $conexion = conexion();
-   
-    if($baja){
-        $sql = "SELECT MAX(inicio) as maxima FROM Reingreso WHERE fecha >= ".$baja." AND RFC = '".$id."'";
+
+    if ($baja) {
+        $sql = "SELECT MAX(inicio) as maxima FROM Reingreso WHERE fecha >= " . $baja . " AND RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
         $fecha = $fila['maxima'];
-    }else{
-        $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '".$id."'";
+    } else {
+        $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
         $fecha = $fila['maxima'];
@@ -30,7 +31,7 @@ function alta($id, $baja = null){
     if ($fecha) {
         return date("d/m/Y", strtotime($fecha));
     } else {
-        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '".$id."'";
+        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
         $fila = $resultado->fetch_assoc();
         return $fila['fechaRelLab'];
@@ -105,10 +106,113 @@ function dias_permiso($val, $array)
     return null;
 }
 
-function diferencia($fecha1, $fecha2)
+function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 {
-    $fecha1 = new DateTime($fecha1);
-    $fecha2 = new DateTime($fecha2);
+    $rfc = $res["RFC"];
+    $id_prenomina = $res["id_prenomina"];
+    $plaza_nueva = $res['plaza'];
+    $plaza_vieja = $res['plazaAnterior'];
+
+    // 2. Obtener Fechas de las Plazas
+    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva LIMIT 1";
+    $result_nueva = $conexion->query($sql_nueva);
+    $row_nueva = mysqli_fetch_assoc($result_nueva);
+
+    $fecha_inicio_nueva = $row_nueva['fecha_inicio'] ? date("Y-m-d", strtotime($row_nueva['fecha_inicio'])) : null;
+    $fecha_fin_nueva = $row_nueva['fecha_fin'] ? date("Y-m-d", strtotime($row_nueva['fecha_fin'])) : null;
+
+    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja LIMIT 1";
+    $result_vieja = $conexion->query($sql_vieja);
+    $row_vieja = mysqli_fetch_assoc($result_vieja);
+
+    $fecha_inicio_vieja = $row_vieja['fecha_inicio'] ? date("Y-m-d", strtotime($row_vieja['fecha_inicio'])) : null;
+    $fecha_fin_vieja = $row_vieja['fecha_fin'] ? date("Y-m-d", strtotime($row_vieja['fecha_fin'])) : null;
+
+    // 3. Ajustar Fechas según $del
+    if ($fecha_inicio_nueva < $fecha_del) {
+        $fecha_inicio_nueva = $fecha_del;
+    }
+    if ($fecha_fin_nueva === null || $fecha_fin_nueva > $fecha_al) {
+        $fecha_fin_nueva = $fecha_al;
+    }
+
+    if ($fecha_inicio_vieja < $fecha_del) {
+        $fecha_inicio_vieja = $fecha_del;
+    }
+
+    if ($fecha_fin_vieja < $fecha_inicio_vieja) {
+        $dias_pago_vieja = 0;
+    }else{
+        $dias_pago_vieja = diferencia($fecha_inicio_vieja, $fecha_fin_vieja);
+    }
+    // 4. Calcular Días de Pago desde Historial_Plaza
+    $dias_pago_nueva = diferencia($fecha_inicio_nueva, $fecha_fin_nueva);
+
+    // 5. Obtener y Restar Días Descontados
+    $descuentos_nuevo = 0;
+    $descuentos_viejo = 0;
+
+    $sql_descuento = "SELECT fechas FROM Descuento WHERE RFC = '" . $rfc . "' AND id_prenomina = $id_prenomina";
+    $result_descuento = $conexion->query($sql_descuento);
+
+    while ($row_descuento = mysqli_fetch_assoc($result_descuento)) {
+        $fechas_descuento = explode(',', $row_descuento['fechas']);
+
+        foreach ($fechas_descuento as $fecha) {
+            $fecha_trimmed = str_replace("/", "-", trim($fecha));
+            $fecha_desc = date("Y-m-d", strtotime($fecha_trimmed));
+
+            // Comprobar si cae dentro de la plaza nueva
+            if ($fecha_desc >= $fecha_inicio_nueva && $fecha_desc <= $fecha_fin_nueva) {
+                $descuentos_nuevo++;
+            }
+
+            // Comprobar si cae dentro de la plaza vieja
+            if ($fecha_desc >= $fecha_inicio_vieja && $fecha_desc <= $fecha_fin_vieja) {
+                $descuentos_viejo++;
+            }
+        }
+    }
+
+    // Obtener días de Licencia
+    $licencias_nuevo = 0;
+    $licencias_viejo = 0;
+
+    $sql_licencia = "SELECT del, al FROM Permiso WHERE categoria = 1 AND RFC = '$rfc' AND id_prenomina = $id_prenomina";
+    $result_licencia = $conexion->query($sql_licencia);
+
+    while ($row_licencia = mysqli_fetch_assoc($result_licencia)) {
+        $fecha_inicio_licencia = date("Y-m-d", strtotime($row_licencia['del']));
+        $fecha_fin_licencia = date("Y-m-d", strtotime($row_licencia['al']));
+       
+        // Calcular días descontados por licencia
+        if ($fecha_inicio_licencia <= $fecha_fin_nueva && $fecha_fin_licencia >= $fecha_inicio_nueva) {
+            $licencias_nuevo += diferencia(min($fecha_fin_nueva, $fecha_fin_licencia), max($fecha_inicio_nueva, $fecha_inicio_licencia));
+            
+        }
+
+        if ($fecha_inicio_licencia <= $fecha_fin_vieja && $fecha_fin_licencia >= $fecha_inicio_vieja) {
+            $licencias_viejo += diferencia(min($fecha_fin_vieja, $fecha_fin_licencia), max($fecha_inicio_vieja, $fecha_inicio_licencia));
+        }
+
+    }
+
+    // Total de días pagados
+    $descontados = $descuentos_viejo + $licencias_viejo;
+    $dias_pago_vieja = ($dias_pago_vieja - $descontados) < 0 ? 0 : $dias_pago_vieja - $descontados;
+    $descontados = $descuentos_nuevo + $licencias_nuevo;
+    $dias_pago_nueva = ($dias_pago_nueva - $descontados) < 0 ? 0 : $dias_pago_nueva - $descontados;
+
+    return [$dias_pago_vieja, $dias_pago_nueva];
+}
+
+function diferencia($fecha1, $fecha2, $formato = false)
+{
+    if (!$formato) {
+        $fecha1 = new DateTime($fecha1);
+        $fecha2 = new DateTime($fecha2);
+    }
+
     $diff = $fecha2->diff($fecha1);
     return $diff->format('%a') + 1;
 }
@@ -196,33 +300,33 @@ $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
 // -------------------------------
 $fecha = new DateTime($al);
-$diaFinal = (int)$fecha->format("d");
-$mesFinal = (int)$fecha->format("m");
+$diaFinal = (int) $fecha->format("d");
+$mesFinal = (int) $fecha->format("m");
 
 if ($mesFinal == 2 && $dias == 15) {
     if ($diaFinal == 28) {
-        $fecha->modify('+2 days'); 
+        $fecha->modify('+2 days');
     } elseif ($diaFinal == 29) {
         $fecha->modify('+1 day');
     }
 }
 
 if ($diaFinal == 31) {
-    $fecha->modify('-1 day'); 
+    $fecha->modify('-1 day');
 }
 
 $al = $fecha->format("Y-m-d");
 // -------------------------------
 $dias_pago = diferencia($del, $al);
-$dias_pago= ($dias_pago > $dias) ? $dias : $dias_pago;
+$dias_pago = ($dias_pago > $dias) ? $dias : $dias_pago;
 
 $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT estado FROM Usuario WHERE RFC = Empleado.RFC) AS estado,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
-    FROM Empleado WHERE 
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
+    FROM Empleado WHERE
     id_periodo = " . $periodo . " AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'";
 
@@ -266,14 +370,14 @@ while ($usuario = mysqli_fetch_array($query)) {
             tipo = 'baja' ORDER BY fecha DESC LIMIT 1";
 
             $consulta = $conexion->query($sql);
-            if($consulta && mysqli_num_rows($consulta) > 0){
+            if ($consulta && mysqli_num_rows($consulta) > 0) {
                 $baja = mysqli_fetch_array($consulta);
 
                 if ($baja["retroactivo"] == 1) {
                     $paga = 0;
                 } else {
                     $fecha_baja = $baja["fecha"];
-                    
+
                     if (($fecha_baja >= $del) && ($fecha_inicio <= $al) && ($fecha_inicio >= $del)) {
                         $paga = $paga + diferencia($fecha_inicio, $fecha_baja);
                     } else {
@@ -281,7 +385,7 @@ while ($usuario = mysqli_fetch_array($query)) {
                     }
                 }
             }
-            
+
         }
 
     } else {
@@ -331,8 +435,8 @@ while ($usuario = mysqli_fetch_array($query)) {
 
     // ESTA CONDICION CREO QUE NO ES NECESARIA AHORA CON LO DE DIFF > DIAS
     if ($periodo == 2) {
-        $diff = diferencia($del,$al);
-        if($diff != 30){
+        $diff = diferencia($del, $al);
+        if ($diff != 30) {
             $paga = $paga + (30 - $diff);
         }
     }
@@ -362,17 +466,18 @@ $spreadsheet->removeSheetByIndex(0);
 // MOVIMIENTOS ---------------------------------------------------------------------------------------------------------------------------
 $sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Movimientos');
 $spreadsheet->addSheet($sheet);
-$col = "I";
+$col = "J";
 cabecera("MOVIMIENTOS" . $titulo, $col, $sheet);
 $sheet->setCellValue('A2', "# EMPLEADO");
 $sheet->setCellValue('B2', 'NOMBRE');
 $sheet->setCellValue('C2', 'RFC');
 $sheet->setCellValue('D2', 'FECHA DE MOVIMIENTO');
 $sheet->setCellValue('E2', 'PUESTO ACTUAL');
-$sheet->setCellValue('F2', 'PUESTO ANTERIOR');
-$sheet->setCellValue('G2', 'DEPARTAMENTO ACTUAL');
-$sheet->setCellValue('H2', 'DEPARTAMENTO ANTERIOR');
-$sheet->setCellValue('I2', 'DIAS A PAGAR');
+$sheet->setCellValue('F2', 'DEPARTAMENTO ACTUAL');
+$sheet->setCellValue('G2', 'DIAS A PAGAR (PUESTO ACTUAL)');
+$sheet->setCellValue('H2', 'PUESTO ANTERIOR');
+$sheet->setCellValue('I2', 'DEPARTAMENTO ANTERIOR');
+$sheet->setCellValue('J2', 'DIAS A PAGAR (PUESTO ANTERIOR)');
 
 $sql = "SELECT *,
 (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre
@@ -382,16 +487,19 @@ id_prenomina = " . $id_prenomina;
 $consulta = $conexion->query($sql);
 $i = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+
     while ($res = mysqli_fetch_array($consulta)) {
+        $pagas = dias_movimiento($res, $del, $al, $conexion);
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('E' . $i, $res["puesto"]);
-        $sheet->setCellValue('F' . $i, $res["puestoAnterior"]);
-        $sheet->setCellValue('G' . $i, $res["departamento"]);
-        $sheet->setCellValue('H' . $i, $res["departamentoAnterior"]);
-        $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
+        $sheet->setCellValue('F' . $i, $res["departamento"]);
+        $sheet->setCellValue('G' . $i, $pagas[1]);
+        $sheet->setCellValue('H' . $i, $res["puestoAnterior"]);
+        $sheet->setCellValue('I' . $i, $res["departamentoAnterior"]);
+        $sheet->setCellValue('J' . $i, $pagas[0]);
 
         $i++;
     }
@@ -421,7 +529,7 @@ Empleado.id_empleado,
 (SELECT nombre FROM Usuario WHERE RFC = Historial.RFC) AS nombre,
 (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1))) AS puesto,
 (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = (SELECT id_plaza FROM Baja WHERE RFC = Historial.RFC AND fecha = Historial.fecha LIMIT 1)))) AS departamento
-FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = ".$id_prenomina." AND tipo = 'baja'";
+FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = " . $id_prenomina . " AND tipo = 'baja'";
 
 $consulta = $conexion->query($sql);
 $i = 3;
@@ -671,9 +779,9 @@ $sheet->setCellValue('F2', 'HORA');
 $sheet->setCellValue('G2', 'OBSERVACIONES');
 
 $sql = "SELECT *,
-    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre 
+    (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre
     FROM Pase LEFT JOIN Empleado ON Pase.RFC = Empleado.RFC WHERE
-    id_prenomina = " . $id_prenomina . " 
+    id_prenomina = " . $id_prenomina . "
     ORDER BY Pase.RFC ASC";
 
 $consulta = $conexion->query($sql);
@@ -683,7 +791,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
         $sheet->setCellValue('B' . $i, mb_strtoupper($res["nombre"]));
         $sheet->setCellValue('C' . $i, $res["RFC"]);
-        $sheet->setCellValue('D' . $i, $res["categoria"] == 0 ? "PASE DE ENTRADA":"PASE DE SALIDA");
+        $sheet->setCellValue('D' . $i, $res["categoria"] == 0 ? "PASE DE ENTRADA" : "PASE DE SALIDA");
         $sheet->setCellValue('E' . $i, date("d/m/Y", strtotime($res["fecha"])));
         $sheet->setCellValue('F' . $i, $res["hora"]);
         $sheet->setCellValue('G' . $i, mb_strtoupper($res["observacion"]));
@@ -716,8 +824,8 @@ $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
-    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
+    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE
     id_periodo =  " . $periodo . " AND
     id_trabajador IN(3,4) AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
@@ -827,8 +935,8 @@ $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
-    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
+    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE
     id_periodo =  " . $periodo . " AND
     id_departamento = 21 AND
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
@@ -939,8 +1047,8 @@ $sql = "SELECT *,
     (SELECT nombre FROM Usuario WHERE RFC = Empleado.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Empleado.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS departamento,
-    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador 
-    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE 
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador
+    FROM Empleado LEFT JOIN Puesto ON Puesto.id_puesto = Empleado.id_puesto WHERE
     id_periodo =  " . $periodo . " AND
     id_trabajador NOT IN(3,4) AND
     id_departamento != 21 AND
@@ -1031,7 +1139,7 @@ firma($i, $col, $sheet);
 
 // --------------------------------------------------------------------------------------------------------------------------------
 
-$url = "Prenomina_".uniqid() . ".xlsx";
+$url = "Prenomina_" . date("d_m_Y_H_i") . ".xlsx";
 $ruta = $ruta . $url;
 
 $sql = "UPDATE Prenomina SET observacion = '" . $observacion . "', url = '" . $url . "' WHERE id_prenomina = " . $id_prenomina;
