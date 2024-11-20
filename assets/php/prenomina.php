@@ -114,14 +114,14 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     $plaza_vieja = $res['plazaAnterior'];
 
     // 2. Obtener Fechas de las Plazas
-    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva LIMIT 1";
+    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva ORDER BY elaboracion DESC LIMIT 1";
     $result_nueva = $conexion->query($sql_nueva);
     $row_nueva = mysqli_fetch_assoc($result_nueva);
 
     $fecha_inicio_nueva = $row_nueva['fecha_inicio'] ? date("Y-m-d", strtotime($row_nueva['fecha_inicio'])) : null;
     $fecha_fin_nueva = $row_nueva['fecha_fin'] ? date("Y-m-d", strtotime($row_nueva['fecha_fin'])) : null;
 
-    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja LIMIT 1";
+    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja ORDER BY elaboracion DESC LIMIT 1";
     $result_vieja = $conexion->query($sql_vieja);
     $row_vieja = mysqli_fetch_assoc($result_vieja);
 
@@ -142,7 +142,7 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 
     if ($fecha_fin_vieja < $fecha_inicio_vieja) {
         $dias_pago_vieja = 0;
-    }else{
+    } else {
         $dias_pago_vieja = diferencia($fecha_inicio_vieja, $fecha_fin_vieja);
     }
     // 4. Calcular Días de Pago desde Historial_Plaza
@@ -206,15 +206,19 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     return [$dias_pago_vieja, $dias_pago_nueva];
 }
 
-function diferencia($fecha1, $fecha2, $formato = false)
+function diferencia($fecha1, $fecha2)
 {
-    if (!$formato) {
-        $fecha1 = new DateTime($fecha1);
-        $fecha2 = new DateTime($fecha2);
-    }
+    list($ano1, $mes1, $dia1) = explode('-', $fecha1);
+    list($ano2, $mes2, $dia2) = explode('-', $fecha2);
 
-    $diff = $fecha2->diff($fecha1);
-    return $diff->format('%a') + 1;
+    // Convierte todo a un total de días considerando 30 días por mes
+    $diasTotales1 = ($ano1 * 12 * 30) + (($mes1 - 1) * 30) + ($dia1 - 1);
+    $diasTotales2 = ($ano2 * 12 * 30) + (($mes2 - 1) * 30) + ($dia2 - 1);
+
+    // Calcula la diferencia de días y suma 1 para incluir ambos extremos
+    $diferencia = abs($diasTotales2 - $diasTotales1) + 1;
+
+    return $diferencia;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -298,25 +302,6 @@ $titulo = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" 
 $del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
 $al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
-// -------------------------------
-$fecha = new DateTime($al);
-$diaFinal = (int) $fecha->format("d");
-$mesFinal = (int) $fecha->format("m");
-
-if ($mesFinal == 2 && $dias == 15) {
-    if ($diaFinal == 28) {
-        $fecha->modify('+2 days');
-    } elseif ($diaFinal == 29) {
-        $fecha->modify('+1 day');
-    }
-}
-
-if ($diaFinal == 31) {
-    $fecha->modify('-1 day');
-}
-
-$al = $fecha->format("Y-m-d");
-// -------------------------------
 $dias_pago = diferencia($del, $al);
 $dias_pago = ($dias_pago > $dias) ? $dias : $dias_pago;
 
