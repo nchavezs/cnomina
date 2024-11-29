@@ -134,7 +134,7 @@ if ($resultado = $conexion->query($sql)) {
                 }
                 
                 if(in_array(12, rol())){
-                    echo '<p onclick="verExpediente(\''.$res["RFC"].'\')">Expediente</p>';
+                    echo '<p onclick="ver_expediente(\''.$res["RFC"].'\')">Expediente</p>';
                 }else{
                     echo '<p onclick="bloqueo()">Expediente</p>';
                 }

@@ -12,7 +12,7 @@ echo '
     <div class="modal-body"></div>
     <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-sm btn-primary" id="modal_aceptar">Si</button>
+        <button type="button" class="btn btn-sm btn-primary" id="modal_aceptar">Continuar</button>
     </div>
     </div>
     </div>

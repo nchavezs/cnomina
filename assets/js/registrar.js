@@ -1471,68 +1471,6 @@ function borrar_movimiento(id) {
   );
 }
 
-function verExpediente(id) {
-  $.ajax({
-    type: "POST",
-    url: "assets/php/expediente/index.php",
-    data: {
-      id: id,
-    },
-    success: function (html) {
-      $(".ver_contenedor").html(html);
-      expediente_menu(id);
-    },
-  });
-}
-
-function expediente_menu(id) {
-  var nombre = "";
-  $("#expediente_file").on("change", function () {
-    if ($(this).val() !== "" && nombre !== "") {
-      $.blockUI({
-        message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-      });
-
-      var formData = new FormData();
-      var files = $(this)[0].files[0];
-      formData.append("file", files);
-      formData.append("nombre", nombre);
-      formData.append("id", id);
-
-      $.ajax({
-        url: "assets/php/expedienteArchivo.php",
-        type: "post",
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: function (data) {
-          $("#expediente_file").val("");
-
-          $.post("assets/php/expediente/index.php",{id}, function (html) {
-              $(".ver_contenedor").html(html);
-              expediente_menu(id);
-          });
-
-          $.unblockUI();
-          md.showNotification("top", "right", "Archivo cargado correctamente.");
-        },
-      });
-    }
-  });
-
-  $(".descargar").click(function (e) {
-    e.preventDefault();
-    nombre = this.name;
-    descargar_expediente(id, nombre);
-  });
-
-  $(".subir_documento").click(function () {
-    nombre = $(this).closest(".expediente_caja").data("nombre");
-    $("#expediente_file").click();
-  });
-}
-
 function detalle_historial(id) {
   $.post(
     "assets/php/detalle_historial.php",
@@ -1543,47 +1481,6 @@ function detalle_historial(id) {
       $(".ver_contenedor").html(html);
     }
   );
-}
-
-function descargar_expediente(id, nombre) {
-  $.ajax({
-    type: "POST",
-    url: "assets/php/descargarExpediente.php",
-    data: {
-      id: id,
-      nombre: nombre,
-    },
-    success: function (url) {
-      descargar(url, nombre);
-    },
-  });
-}
-
-function eliminar_expediente(id, nombre) {
-  $("#modal .modal_titulo").html("Eliminar archivo");
-  $("#modal .modal-body").html("¿Seguro que quieres eliminar este archivo?");
-  mostrar_modal();
-  $("#modal_aceptar")
-    .off()
-    .click(function () {
-      $.ajax({
-        type: "POST",
-        url: "assets/php/eliminarExpediente.php",
-        data: {
-          id: id,
-          nombre: nombre,
-        },
-        success: function (data) {
-          md.showNotification(
-            "top",
-            "right",
-            "Archivo eliminado correctamente."
-          );
-          ocultar_modal();
-          verExpediente(id);
-        },
-      });
-    });
 }
 
 function verGastos(id) {
@@ -2332,43 +2229,22 @@ function diferencia_fecha(fecha1, fecha2) {
   $("#dias").val(diffDays);
 }
 
-// function depa_change() {
-//     $("#departamento").on("change", function () {
-//         $.ajax({
-//             url: "assets/php/depa_change.php",
-//             type: "POST",
-//             data: {
-//                 departamento: $("#departamento").val(),
-//             },
-//             success: function (data) {
-//                 $("#puesto").html(data);
-//                 tail.select("#puesto").reload();
-//             }
-//         });
-//     });
+// --------------------------------------------------------------------------------------------------
 
-//     $("#departamento").change();
-// }
+function ver_expediente(id) {
+  $.ajax({
+    type: "POST",
+    url: "assets/php/expediente/index.php",
+    data: {
+      id,
+    },
+    success: function (html) {
+      $(".ver_contenedor").html(html);
+    },
+  });
+}
 
-// function select_change_update() {
-//     $("#departamento").on("change", function () {
-//         $.ajax({
-//             url: "assets/php/depa_change_update.php",
-//             type: "POST",
-//             data: {
-//                 departamento: $("#departamento").val(),
-//                 RFC: $("#rfc").val(),
-//             },
-//             success: function (data) {
-//                 $("#puesto").html(data);
-//                 tail.select("#puesto").reload();
-//             }
-//         });
-//     });
-
-//     $("#departamento").change();
-// }
-
+// --------------------------------------------------------------------------------------------------
 Dropzone.autoDiscover = false;
 Dropzone.prototype.defaultOptions.dictRemoveFile = "X";
 Dropzone.prototype.defaultOptions.dictCancelUpload = "X";
@@ -2395,7 +2271,7 @@ function cargar_expediente(archivo) {
         html: data,
         allowOutsideClick: false,
         padding: 0,
-        width: "60em",
+        width: "55em",
         showCloseButton: true,
         showConfirmButton: false,
       });
@@ -2507,28 +2383,31 @@ function miniatura_dropzone(file) {
     }
   }
 }
-
-
-function nuevo_doc(id) {
+// -----------------------------------------------------------------------------------------------------------
+function nuevo_documento(id) {
   $.post("/assets/php/nuevo_documento.php", { id }, function (data) {
     $("#modal .modal_titulo").html("Nuevo documento");
     $("#modal .modal-body").html(data);
     mostrar_modal();
 
-    $("#modal_aceptar")
-    .off()
-    .click(function () {
-      guardar_documento();
+    $("#form-documento").off().submit(function(e){
+      e.preventDefault();
     });
+
+    $("#modal_aceptar")
+      .off()
+      .click(function () {
+        guardar_documento();
+      });
   });
 }
 
-function guardar_documento(){
+function guardar_documento() {
   let form = $("#form-documento").serialize();
 
   $.post("/assets/php/guardar_documento.php", form, function (data) {
     let datos = JSON.parse(data);
-    if(datos.success){
+    if (datos.success) {
       let primer = $(".expediente .row div").first();
       primer.after(datos.html);
       ocultar_modal();
@@ -2539,7 +2418,40 @@ function guardar_documento(){
   });
 }
 
-function eliminar_fichero(id) {
+function subir_fichero(id){
+  $("#expediente_file").click();
+
+  $("#expediente_file").off("change").on("change", function() {
+    if ($(this).val() !== "") {
+      $.blockUI({
+        message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+      });
+
+      let formData = new FormData();
+      formData.append("file", this.files[0]);
+      formData.append("id", id);
+
+      $.ajax({
+        url: "assets/php/guardar_fichero.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        success: function (data) {
+          let datos = JSON.parse(data);
+          console.log(datos)
+          $("[data-id=" + id + "]").closest(".expediente_caja").parent().replaceWith(datos.html);
+          $.unblockUI();
+          md.showNotification("top", "right", "Archivo cargado correctamente.");
+          $("#expediente_file").val("");
+        },
+      });
+    }
+  });
+}
+
+function eliminar_fichero(id, actualizar) {
   $("#modal .modal_titulo").html("¿Eliminar este documento?");
   $("#modal .modal-body").html("¿Seguro que quieres eliminar este documento?");
   mostrar_modal();
@@ -2547,9 +2459,17 @@ function eliminar_fichero(id) {
   $("#modal_aceptar")
     .off()
     .click(function () {
-      $.post("/assets/php/eliminar_documento.php", { id }, function (data) {
-            md.showNotification("top", "right", "Documento eliminado correctamente.");
-            $("[data-id="+id+"]").closest(".expediente_caja").parent().remove();
+      $.post("/assets/php/eliminar_fichero.php", { id, actualizar }, function (data) {
+        let datos = JSON.parse(data);
+        let el =  $("[data-id=" + id + "]").closest(".expediente_caja").parent();
+        md.showNotification("top", "right", datos.mensaje);
+        ocultar_modal();
+        
+        if(datos.success){
+         el.remove();
+        }else{
+          el.replaceWith(datos.html);
+        }
       });
     });
 }

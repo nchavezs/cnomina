@@ -16965,13 +16965,13 @@ label {
         overflow: auto !important
     }
 }
-
+/* 
 @media screen and (-ms-high-contrast:active),
 (-ms-high-contrast:none) {
     .ps-container {
         overflow: auto !important
     }
-}
+} */
 
 .ps-container.ps-active-x>.ps-scrollbar-x-rail,
 .ps-container.ps-active-y>.ps-scrollbar-y-rail {

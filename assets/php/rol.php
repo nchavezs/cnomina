@@ -31,7 +31,7 @@ function id_rol(){
     $sql = "SELECT id_rol FROM Rol_Usuario WHERE RFC = '".$RFC."'";
     $consulta = $conexion->query($sql);
     $res = mysqli_fetch_row($consulta);
-    $rol = $res[0];
+    $rol = $res[0] ?? null;
 
     return $rol;
 }

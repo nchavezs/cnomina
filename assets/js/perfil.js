@@ -1,25 +1,43 @@
 foto();
 
+function ver_expediente(id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/php/expediente/index.php",
+        data: {
+            id,
+        },
+        success: function (html) {
+            Swal.fire({
+                html,
+                width: '50em',
+                background: "#EEEEEE",
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        },
+    });
+}
+
+function expediente_archivos(){}
+
 $(document).ready(function () {
     $("#expediente").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "assets/php/usuario/expediente/expediente.php",
-            success: function (html) {
-                Swal.fire({
-                    html: html,
-                    width: '50em',
-                    background: "#EEEEEE",
-                    showConfirmButton: false,
-                    showCloseButton: true
-                });
-                expediente_menu($("#id").val());
-
-                $(".descargar").click(function () {
-                    descargar_expediente($("#id").val(), this.name);
-                })
-            }
-        });
+        ver_expediente($("#id").val());
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "assets/php/usuario/expediente/expediente.php",
+        //         success: function (html) {
+        //             Swal.fire({
+        //                 html: html,
+        //                 width: '50em',
+        //                 background: "#EEEEEE",
+        //                 showConfirmButton: false,
+        //                 showCloseButton: true
+        //             });
+        //             expediente_menu($("#id").val());
+        //         }
+        //     });
     });
 
     $("#form-user").submit(function (e) {
@@ -102,7 +120,7 @@ $(document).ready(function () {
                     }
                 });
 
-            } else if (result.dismiss == 'cancel') {}
+            } else if (result.dismiss == 'cancel') { }
         });
     });
 
@@ -255,142 +273,137 @@ function isNumberKey(evt) {
     return true;
 };
 
-function descargar_expediente(id, nombre) {
-    $.ajax({
-        type: "POST",
-        url: "assets/php/descargarExpediente.php",
-        data: {
-            "id": id,
-            "nombre": nombre
-        },
-        success: function (url) {
-            descargar(url, nombre);
-        }
-    });
-};
+// function descargar_expediente(id, nombre) {
+//     $.ajax({
+//         type: "POST",
+//         url: "assets/php/descargarExpediente.php",
+//         data: {
+//             "id": id,
+//             "nombre": nombre
+//         },
+//         success: function (url) {
+//             descargar(url, nombre);
+//         }
+//     });
+// };
 
 
-function expediente_menu(id) {
-    var nombre = "";
-    $("#expediente_file").on('change', function () {
-        if ($(this).val() !== "" && nombre !== "") {
-            $.blockUI({
-                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
-            });
+// function expediente_menu(id) {
+//     var nombre = "";
+//     $("#expediente_file").on('change', function () {
+//         if ($(this).val() !== "" && nombre !== "") {
+//             $.blockUI({
+//                 message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+//             });
 
-            var formData = new FormData();
-            var files = $(this)[0].files[0];
-            formData.append("file", files);
-            formData.append("nombre", nombre);
-            formData.append("id", id);
+//             var formData = new FormData();
+//             var files = $(this)[0].files[0];
+//             formData.append("file", files);
+//             formData.append("nombre", nombre);
+//             formData.append("id", id);
 
-            $.ajax({
-                url: "assets/php/expedienteArchivo.php",
-                type: "post",
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    $("#expediente_file").val("");
+//             $.ajax({
+//                 url: "assets/php/expedienteArchivo.php",
+//                 type: "post",
+//                 data: formData,
+//                 contentType: false,
+//                 processData: false,
+//                 cache: false,
+//                 success: function (data) {
+//                     $("#expediente_file").val("");
 
-                    $.ajax({
-                        type: "POST",
-                        url: "assets/php/usuario/expediente/expediente.php",
-                        data: {
-                            "id": id
-                        },
-                        success: function (html) {
-                            $(".expediente").html(html);
-                            expediente_menu(id);
-                        }
-                    });
+//                     $.ajax({
+//                         type: "POST",
+//                         url: "assets/php/usuario/expediente/expediente.php",
+//                         data: {
+//                             "id": id
+//                         },
+//                         success: function (html) {
+//                             $(".expediente").html(html);
+//                             expediente_menu(id);
+//                         }
+//                     });
 
-                    $.unblockUI();
-                    md.showNotification("top", "right", "Archivo cargado correctamente.");
+//                     $.unblockUI();
+//                     md.showNotification("top", "right", "Archivo cargado correctamente.");
 
-                }
-            });
-        }
-    });
+//                 }
+//             });
+//         }
+//     });
 
-    $(".descargar").click(function () {
-        nombre = this.name + "";
-        descargar_expediente(id, nombre);
-    });
+//     $(".acta").click(function () {
+//         nombre = 'acta';
+//         $("#expediente_file").click();
+//     });
 
-    $(".acta").click(function () {
-        nombre = 'acta';
-        $("#expediente_file").click();
-    });
+//     $(".curp").click(function () {
+//         nombre = 'curp';
+//         $("#expediente_file").click();
+//     });
 
-    $(".curp").click(function () {
-        nombre = 'curp';
-        $("#expediente_file").click();
-    });
+//     $(".curriculum").click(function () {
+//         nombre = 'curriculum';
+//         $("#expediente_file").click();
+//     });
 
-    $(".curriculum").click(function () {
-        nombre = 'curriculum';
-        $("#expediente_file").click();
-    });
+//     $(".antecedentes").click(function () {
+//         nombre = 'antecedentes';
+//         $("#expediente_file").click();
+//     });
 
-    $(".antecedentes").click(function () {
-        nombre = 'antecedentes';
-        $("#expediente_file").click();
-    });
+//     $(".disciplinarios").click(function () {
+//         nombre = 'disciplinarios';
+//         $("#expediente_file").click();
+//     });
 
-    $(".disciplinarios").click(function () {
-        nombre = 'disciplinarios';
-        $("#expediente_file").click();
-    });
+//     $(".identificacion").click(function () {
+//         nombre = 'identificacion';
+//         $("#expediente_file").click();
+//     });
 
-    $(".identificacion").click(function () {
-        nombre = 'identificacion';
-        $("#expediente_file").click();
-    });
+//     $(".constancia").click(function () {
+//         nombre = 'constancia';
+//         $("#expediente_file").click();
+//     });
+//     $(".recomendacion").click(function () {
+//         nombre = 'recomendacion';
+//         $("#expediente_file").click();
+//     });
+//     $(".estudios").click(function () {
+//         nombre = 'estudios';
+//         $("#expediente_file").click();
+//     });
+// }
 
-    $(".constancia").click(function () {
-        nombre = 'constancia';
-        $("#expediente_file").click();
-    });
-    $(".recomendacion").click(function () {
-        nombre = 'recomendacion';
-        $("#expediente_file").click();
-    });
-    $(".estudios").click(function () {
-        nombre = 'estudios';
-        $("#expediente_file").click();
-    });
-}
+// function eliminar_expediente(id, nombre) {
+//     $("#modal .modal_titulo").html("Eliminar archivo");
+//     $("#modal .modal-body").html('¿Seguro que quieres eliminar este archivo?');
+//     mostrar_modal();
+//     $("#modal_aceptar").off().click(function () {
+//         $.ajax({
+//             type: "POST",
+//             url: "assets/php/eliminarExpediente.php",
+//             data: {
+//                 "id": id,
+//                 "nombre": nombre
+//             },
+//             success: function (data) {
+//                 md.showNotification("top", "right", "Archivo eliminado correctamente.");
+//                 ocultar_modal();
+//                 $.ajax({
+//                     type: "POST",
+//                     url: "assets/php/usuario/expediente/expediente.php",
+//                     data: {
+//                         "id": id
+//                     },
+//                     success: function (html) {
+//                         $(".expediente").html(html);
+//                         expediente_menu(id);
+//                     }
+//                 });
 
-function eliminar_expediente(id, nombre) {
-    $("#modal .modal_titulo").html("Eliminar archivo");
-    $("#modal .modal-body").html('¿Seguro que quieres eliminar este archivo?');
-    mostrar_modal();
-    $("#modal_aceptar").off().click(function () {
-        $.ajax({
-            type: "POST",
-            url: "assets/php/eliminarExpediente.php",
-            data: {
-                "id": id,
-                "nombre": nombre
-            },
-            success: function (data) {
-                md.showNotification("top", "right", "Archivo eliminado correctamente.");
-                ocultar_modal();
-                $.ajax({
-                    type: "POST",
-                    url: "assets/php/usuario/expediente/expediente.php",
-                    data: {
-                        "id": id
-                    },
-                    success: function (html) {
-                        $(".expediente").html(html);
-                        expediente_menu(id);
-                    }
-                });
-
-            }
-        });
-    })
-};
+//             }
+//         });
+//     })
+// };

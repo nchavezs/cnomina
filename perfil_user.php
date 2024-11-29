@@ -183,7 +183,7 @@ if ($conexion->query($sql)) {
                                         </div>
                                         <div class="col-md-3">
                                             <label class="bmd-label-floating">No. de empleado</label>
-                                            <input id="domicilio" disabled type="text" class="campo"  value="<?php echo str_pad($usuario['id_empleado'], 5, '0', STR_PAD_LEFT) ?>">
+                                            <input id="empleado" disabled type="text" class="campo"  value="<?php echo str_pad($usuario['id_empleado'], 5, '0', STR_PAD_LEFT) ?>">
                                         </div>
                                         <div class="col-md-3">
                                             <label class="bmd-label-floating">Estado</label>
@@ -288,7 +288,7 @@ if ($conexion->query($sql)) {
                         <div class="card my-4">
                             <div class="card-body text-center">
                             <h6 class="card-category text-gray">Expediente</h6>
-                                <a href="#" id="expediente" class="btn btn-primary btn-sm"><i class="material-icons">content_paste</i> Ver Expediente</i></a>
+                                <a href="#" onclick="ver_expediente('<?php echo $varUser ?>')" class="btn btn-primary btn-sm"><i class="material-icons">content_paste</i> Ver Expediente</i></a>
                             </div>
                         </div>
                         <!-- <div class="card">

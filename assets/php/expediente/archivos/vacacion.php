@@ -37,7 +37,7 @@ $consulta = $conexion->query($sql);
 </table>
 
 <div class="pie">
-    <div class="btn btn-secondary btn-sm" onclick="verExpediente('<?php echo $id ?>');">
+    <div class="btn btn-secondary btn-sm" onclick="ver_expediente('<?php echo $id ?>');">
         <i class="material-icons">keyboard_backspace</i> Regresar
     </div>
 </div>

@@ -101,7 +101,7 @@ if(!in_array(1, rol())){
                                             <i class="material-icons">contact_page</i>Importar expediente
                                         </div>
                                         <div class="dropdown-menu">
-                                            <label onclick="cargar_expediente(\'constancia\');" class="dropdown-item"> <i class="material-icons">check</i>Constancia de situación fiscal</label>
+                                            <label onclick="cargar_expediente(7);" class="dropdown-item"> <i class="material-icons">check</i>Constancia de situación fiscal</label>
                                         </div>
                                     </span>
                                     ';

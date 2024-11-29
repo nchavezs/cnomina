@@ -505,3 +505,19 @@ CREATE TABLE Fichero(
     url VARCHAR(100),
     elaboracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+SET @id_documento = 1;
+
+-- Insertamos los documentos
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Acta de nacimiento'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'CURP'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Currículum'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Carta de no antecedentes penales'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Carta de no antecedentes disciplinarios'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Identificación oficial'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Constancia de situación fiscal'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Recomendación'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Últimos estudios'); SET @id_documento = @id_documento + 1;
+INSERT INTO Documento (id_documento, nombre) VALUES (@id_documento, 'Otro'); SET @id_documento = @id_documento + 1;

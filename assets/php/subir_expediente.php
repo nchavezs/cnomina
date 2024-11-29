@@ -26,57 +26,65 @@ include '../../pdf/PdfToText.php';
 
 $conexion = conexion();
 
-$ruta = "../expediente/";
-if (!file_exists($ruta)) {
-    mkdir($ruta, 0777, true);
-}
-
-$expediente = $_POST["id"];
+$documento = $_POST["id"];
 $archivo = $_FILES['file']['name'];
 $file = $_FILES['file']['tmp_name'];
 $ext = pathinfo($archivo, PATHINFO_EXTENSION);
-$nombre = basename($archivo);
 $rfc = mb_strtoupper(pathinfo($archivo, PATHINFO_FILENAME));
+$nombre = uniqid().".".$ext;
 
-if ($ext == "pdf" && $expediente == "constancia") {
+if ($ext == "pdf") {
     $pdf = leer_pdf($file);
 
-    $pos1 = strpos($pdf, 'RFC|');
-    if ($pos1 !== false) {
-        $pos1 = $pos1 + 4;
-        $pos2 = strpos($pdf, "|", $pos1);
-        $rfc = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
-    }
+    // CONSTANCIA DE SITUACION FISCAL
+    if ($documento == 7) {
+        $pos1 = strpos($pdf, 'RFC|');
+        if ($pos1 !== false) {
+            $pos1 = $pos1 + 4;
+            $pos2 = strpos($pdf, "|", $pos1);
+            $rfc = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
+        }
 
-    $pos1 = strpos($pdf, 'POSTAL|');
-    if ($pos1 !== false) {
-        $pos1 = $pos1 + 7;
-        $pos2 = strpos($pdf, "|", $pos1);
-        $postal = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
-    } else {
-        $postal = "";
+        $pos1 = strpos($pdf, 'POSTAL|');
+        if ($pos1 !== false) {
+            $pos1 = $pos1 + 7;
+            $pos2 = strpos($pdf, "|", $pos1);
+            $postal = trim(substr($pdf, $pos1, ($pos2 - $pos1)));
+        } else {
+            $postal = "";
+        }
     }
 }
 
-$sql = "SELECT RFC FROM Empleado WHERE RFC = '" . $rfc . "'";
+$sql = "SELECT RFC FROM Empleado WHERE RFC = '$rfc'";
 $query = $conexion->query($sql);
 if ($query && mysqli_num_rows($query) > 0) {
-    $sql = "SELECT RFC FROM Expediente WHERE RFC = '" . $rfc . "'";
+    $sql = "SELECT * FROM Fichero WHERE RFC = '$rfc' AND id_documento = $documento";
     $query = $conexion->query($sql);
+    $ruta = "ficheros/$rfc/";
+    if (!file_exists("../$ruta")) {
+        mkdir("../$ruta", 0777, true);
+    }
+    $url = $ruta.$nombre;
 
     if ($query && mysqli_num_rows($query) > 0) {
-        $sql = "UPDATE Expediente SET " . $expediente . " = 'assets/expediente/" . $nombre . "' WHERE RFC = '" . $rfc . "'";
+        $fichero = $query->fetch_assoc();
+        $archivo_anterior = "../" . $fichero['url'];
+        if ($fichero['url'] && file_exists($archivo_anterior)) {
+            unlink($archivo_anterior);
+        }
+
+        $sql = "UPDATE Fichero SET url = '$url' WHERE RFC = '$rfc' AND id_documento = $documento";
         $query = $conexion->query($sql);
         echo 1;
     } else {
-        $sql = "INSERT INTO Expediente(" . $expediente . ", RFC) VALUES('assets/expediente/" . $nombre . "','" . $rfc . "')";
+        $sql = "INSERT INTO Fichero(id_documento, RFC, url) VALUES('$documento','$rfc', '$url')";
         $query = $conexion->query($sql);
         echo 1;
     }
 
-    $target = $ruta . $nombre;
-    move_uploaded_file($file, $target);
-}else{
+    move_uploaded_file($file, "../$url");
+} else {
     echo 0;
 }
 

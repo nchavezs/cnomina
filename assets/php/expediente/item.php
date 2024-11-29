@@ -2,26 +2,27 @@
 
 if ($fichero['url']) {
     echo '<div class="col-md-4">
-            <div class="expediente_caja" data-id="'.$fichero["id_fichero"].'">
-                <button class="descargar" data-hover="descargar">
+            <div class="expediente_caja" data-id="' . $fichero["id_fichero"] . '">
+                <button class="descargar" data-hover="descargar" onclick="descargar(\'assets/' . $fichero["url"] . '\')">
                     <div><i class="material-icons done">cloud_done</i></div>
                 </button>
-                <p>'.$fichero["documento"].'</p>
+                <p>' . $fichero["documento"] . '</p>
                 <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_icono subir_documento"><i class="material-icons">upload</i>Cargar</div>
-                    <div onclick="eliminar_fichero('.$fichero["id_fichero"].');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
+                    <div class="opciones_expediente_icono" onclick="subir_fichero(' . $fichero["id_fichero"] . ')"><i class="material-icons">upload</i>Sobreescribir</div>
+                    <div onclick="eliminar_fichero(' . $fichero["id_fichero"] . ', true);" class="opciones_expediente_icono"><i class="material-icons">backspace</i>Eliminar</div>
                 </div>
             </div>
         </div>';
 } else {
     echo '<div class="col-md-4">
-            <div class="expediente_caja" data-id="'.$fichero["id_fichero"].'">
-                <button class="subir_documento" data-hover="Subir">
-                    <div><i class="material-icons">search</i></div>
+            <div class="expediente_caja" data-id="' . $fichero["id_fichero"] . '">
+                <button onclick="subir_fichero(' . $fichero["id_fichero"] . ')" data-hover="Subir">
+                    <div><i class="material-icons">newspaper</i></div>
                 </button>
-                <p>'.$fichero["documento"].'</p>
+                <p>' . $fichero["documento"] . '</p>
                 <div class="opciones_expediente_caja">
-                    <div class="opciones_expediente_vacio subir_documento"><i class="material-icons">search</i>Seleccionar archivo  </div>
+                    <div class="opciones_expediente_icono" onclick="subir_fichero(' . $fichero["id_fichero"] . ')"><i class="material-icons">upload</i>Cargar</div>
+                    <div onclick="eliminar_fichero(' . $fichero["id_fichero"] . ');" class="opciones_expediente_icono"><i class="material-icons">delete_sweep</i>Eliminar</div>
                 </div>
             </div>
         </div>';
