@@ -1558,7 +1558,8 @@ form .card {
     position: relative;
     width: 100% !important;
     color: #777 !important;
-    font-family: "Open Sans" !important
+    font-family: "Open Sans" !important;
+    justify-content: center;
 }
 
 .opciones_expediente_icono {
@@ -19025,3 +19026,4 @@ label {
       box-shadow: 0 -15px 0 0px #4f29f0, 14px -8px 0 0px #4f29f0, 14px 8px 0 0px #4f29f0, 0 15px 0 0px #4f29f0, -14px 8px 0 0px #4f29f0, -14px -8px 0 0px #4f29f0;
     }
   }
+  

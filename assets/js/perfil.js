@@ -19,7 +19,63 @@ function ver_expediente(id) {
     });
 }
 
-function expediente_archivos(){}
+function expediente_archivos() { }
+
+function subir_fichero(id) {
+    $("#expediente_file").click();
+
+    $("#expediente_file").off("change").on("change", function () {
+        if ($(this).val() !== "") {
+            $.blockUI({
+                message: "<div class='circulo'></div><h5>Cargando archivo ...</h5>",
+            });
+
+            let formData = new FormData();
+            formData.append("file", this.files[0]);
+            formData.append("id", id);
+
+            $.ajax({
+                url: "assets/php/guardar_fichero.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    let datos = JSON.parse(data);
+                    console.log(datos)
+                    $("[data-id=" + id + "]").closest(".expediente_caja").parent().replaceWith(datos.html);
+                    $.unblockUI();
+                    md.showNotification("top", "right", "Archivo cargado correctamente.");
+                    $("#expediente_file").val("");
+                },
+            });
+        }
+    });
+}
+
+function eliminar_fichero(id, actualizar) {
+    $("#modal .modal_titulo").html("¿Eliminar este documento?");
+    $("#modal .modal-body").html("¿Seguro que quieres eliminar este documento?");
+    mostrar_modal();
+
+    $("#modal_aceptar")
+        .off()
+        .click(function () {
+            $.post("/assets/php/eliminar_fichero.php", { id, actualizar }, function (data) {
+                let datos = JSON.parse(data);
+                let el = $("[data-id=" + id + "]").closest(".expediente_caja").parent();
+                md.showNotification("top", "right", datos.mensaje);
+                ocultar_modal();
+
+                if (datos.success) {
+                    el.remove();
+                } else {
+                    el.replaceWith(datos.html);
+                }
+            });
+        });
+}
 
 $(document).ready(function () {
     $("#expediente").click(function () {
