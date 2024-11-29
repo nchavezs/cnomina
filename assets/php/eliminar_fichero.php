@@ -1,6 +1,9 @@
 <?php
 include "conexion.php";
 $conexion = conexion();
+include "rol.php";
+session_start();
+
 $id = $_POST['id'];
 $actualizar = $_POST['actualizar'] ?? null;
 
