@@ -1,5 +1,8 @@
 <?php
 include "conexion.php";
+include "rol.php";
+session_start();
+
 $conexion = conexion();
 $id = $_POST['id'];
 $nombre = $_POST['nombre'] ?? null;
