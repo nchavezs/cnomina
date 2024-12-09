@@ -86,7 +86,7 @@ if ($del != "" || $al != "") {
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
-        $ultimo = "J";
+        $ultimo = "K";
         $bandera = true;
         $i = 3;
 
