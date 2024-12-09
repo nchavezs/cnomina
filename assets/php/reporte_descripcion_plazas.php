@@ -78,6 +78,7 @@ if ($del != "" || $al != "") {
     ];
     // ----------------- PLAZA --------------------
     $sql = "SELECT Plaza.*,
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS categoria,
     (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
@@ -102,14 +103,15 @@ if ($del != "" || $al != "") {
         $sheet->getStyle('A2:' . $ultimo . '2')->getFont()->getColor()->setRGB('FFFFFF');
         $sheet->setCellValue('A2', '# PLAZA');
         $sheet->setCellValue('B2', 'TRABAJADOR');
-        $sheet->setCellValue('C2', 'PUESTO');
-        $sheet->setCellValue('D2', 'DEPARTAMENTO');
-        $sheet->setCellValue('E2', 'DIAS OCUPADOS');
-        $sheet->setCellValue('F2', 'DIAS DESOCUPADOS');
-        $sheet->setCellValue('G2', 'DIAS POR EJERCER');
-        $sheet->setCellValue('H2', 'DIAS PRESUPUESTADOS');
-        $sheet->setCellValue('I2', 'ESTADO');
-        $sheet->setCellValue('J2', 'FECHA ELABORACION');
+        $sheet->setCellValue('C2', 'CATEGORIA');
+        $sheet->setCellValue('D2', 'PUESTO');
+        $sheet->setCellValue('E2', 'DEPARTAMENTO');
+        $sheet->setCellValue('F2', 'DIAS OCUPADOS');
+        $sheet->setCellValue('G2', 'DIAS DESOCUPADOS');
+        $sheet->setCellValue('H2', 'DIAS POR EJERCER');
+        $sheet->setCellValue('I2', 'DIAS PRESUPUESTADOS');
+        $sheet->setCellValue('J2', 'ESTADO');
+        $sheet->setCellValue('K2', 'FECHA ELABORACION');
 
         while ($resultado = mysqli_fetch_array($consulta)) {
             $presupuestados = $resultado["dias"];
@@ -154,14 +156,15 @@ if ($del != "" || $al != "") {
 
             $sheet->setCellValue('A' . $i, $resultado["id_plaza"]);
             $sheet->setCellValue('B' . $i, mb_strtoupper($resultado['nombre']));
-            $sheet->setCellValue('C' . $i, mb_strtoupper($resultado['puesto']));
-            $sheet->setCellValue('D' . $i, mb_strtoupper($resultado['departamento']));
-            $sheet->setCellValue('E' . $i, $ocupados_total);
-            $sheet->setCellValue('F' . $i, $desocupados);
-            $sheet->setCellValue('G' . $i, $vacantes);
-            $sheet->setCellValue('H' . $i, $presupuestados);
-            $sheet->setCellValue('I' . $i, $estado);
-            $sheet->setCellValue('J' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
+            $sheet->setCellValue('C' . $i, mb_strtoupper($resultado['categoria']));
+            $sheet->setCellValue('D' . $i, mb_strtoupper($resultado['puesto']));
+            $sheet->setCellValue('E' . $i, mb_strtoupper($resultado['departamento']));
+            $sheet->setCellValue('F' . $i, $ocupados_total);
+            $sheet->setCellValue('G' . $i, $desocupados);
+            $sheet->setCellValue('H' . $i, $vacantes);
+            $sheet->setCellValue('I' . $i, $presupuestados);
+            $sheet->setCellValue('J' . $i, $estado);
+            $sheet->setCellValue('K' . $i, date("d/m/Y h:i A", strtotime($resultado['elaboracion'])));
 
             $i++;
         }
