@@ -291,7 +291,7 @@ $(document).ready(function () {
     columnDefs: [
       {
         className: "oculto",
-        targets: [2, 3, 4],
+        targets: [2, 3, 4, 5],
       },
       {
         className: "negrita",
@@ -299,7 +299,7 @@ $(document).ready(function () {
       },
       {
         orderable: false,
-        targets: [4, 5],
+        targets: [4, 6],
       },
     ],
     columns: [
@@ -313,6 +313,9 @@ $(document).ready(function () {
       },
       {
         data: "RFC",
+      },
+      {
+        data: "plaza",
       },
       {
         render: function (data, type, row) {

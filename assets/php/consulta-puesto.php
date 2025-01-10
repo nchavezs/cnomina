@@ -8,7 +8,7 @@ $ano = $_SESSION["ano"];
 $sql = "SELECT 
 Puesto.id_puesto, 
 Puesto.nombre AS puesto,
-(SELECT COUNT(*) FROM Plaza WHERE id_puesto = Puesto.id_puesto AND estado = 1 AND YEAR(elaboracion)= $ano) AS plazas,
+(SELECT COUNT(*) FROM Plaza WHERE id_puesto = Puesto.id_puesto AND estado = 1 AND YEAR(elaboracion) = $ano) AS plazas,
 (SELECT nombre FROM Departamento WHERE id_departamento = Puesto.id_departamento) AS departamento, 
 (SELECT nombre FROM Trabajador WHERE id_trabajador = Puesto.id_trabajador) AS categoria 
 FROM Puesto";
