@@ -91,3 +91,10 @@ SET hp.id_plaza = p.id_plaza
 WHERE YEAR(hp.elaboracion) = 2025
 AND hp.fecha_fin IS NULL
 AND p.RFC IS NOT NULL;
+
+
+
+SELECT RFC, COUNT(*)
+FROM Plaza
+GROUP BY RFC
+HAVING COUNT(*) > 1;

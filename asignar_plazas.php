@@ -12,56 +12,53 @@ $sql = "SELECT u.RFC, e.id_puesto
 $consulta = $conexion->query($sql);
 
 while ($row = $consulta->fetch_assoc()) {
-    $user_rfc = $row['RFC'];
-    $user_puesto = $row['id_puesto'];
+    $rfc = $row['RFC'];
+    $puesto = $row['id_puesto'];
 
     // Buscar una plaza disponible
-    $sql_plaza = "SELECT id_plaza
-                  FROM Plaza
-                  WHERE id_puesto = $user_puesto
-                  AND RFC IS NULL
-                  AND YEAR(elaboracion) = $ano
-                  LIMIT 1";
-    $plaza_result = $conexion->query($sql_plaza);
-    $plaza_row = $plaza_result->fetch_assoc();
+    $sql = "SELECT id_plaza
+            FROM Plaza
+            WHERE id_puesto = $puesto
+            AND RFC IS NULL
+            AND YEAR(elaboracion) = $ano
+            LIMIT 1";
+    $result = $conexion->query($sql);
+    $plaza_row = $result->fetch_assoc();
     $plaza = $plaza_row['id_plaza'] ?? null;
 
     if ($plaza) {
+        // Insertar nuevo historial de plaza
+        $sql = "INSERT INTO Historial_Plaza (id_plaza,RFC,fecha_inicio) VALUES ($plaza, '$rfc', '$ano-01-01')";
+        $conexion->query($sql);
+
         // Actualizar Plaza con el RFC del usuario
-        $sql_update_plaza = "UPDATE Plaza
-                             SET RFC = '$user_rfc'
-                             WHERE id_plaza = $plaza";
-        $conexion->query($sql_update_plaza);
+        $sql = "UPDATE Plaza SET RFC = '$rfc' WHERE id_plaza = $plaza";
+        $conexion->query($sql);
 
         // Buscar el historial de plaza anterior
-        $sql_historial = "SELECT id_historial_plaza
-                          FROM Historial_Plaza
-                          WHERE fecha_fin IS NULL
-                          AND RFC = '$user_rfc'
-                          AND YEAR(elaboracion) = ".($ano - 1)."
-                          ORDER BY id_historial_plaza DESC
-                          LIMIT 1";
-        $historial_result = $conexion->query($sql_historial);
+        $sql = "SELECT id_historial_plaza
+                FROM Historial_Plaza
+                WHERE fecha_fin IS NULL
+                AND RFC = '$rfc'
+                AND YEAR(elaboracion) = " . ($ano - 1) . "
+                ORDER BY id_historial_plaza DESC
+                LIMIT 1";
+        $historial_result = $conexion->query($sql);
         $historial_row = $historial_result->fetch_assoc();
         $ultimo_historial = $historial_row['id_historial_plaza'] ?? null;
 
         if ($ultimo_historial) {
             // Actualizar el historial de plaza anterior
-            $sql_update_historial = "UPDATE Historial_Plaza
-                                     SET fecha_fin = '".($ano - 1)."-12-31'
-                                     WHERE id_historial_plaza = $ultimo_historial";
-            $conexion->query($sql_update_historial);
-
-            // Insertar nuevo historial de plaza
-            $sql_insert_historial = "INSERT INTO Historial_Plaza (RFC, id_plaza, fecha_inicio)
-                                     VALUES ('$user_rfc', $plaza, '$ano-01-01')";
-            $conexion->query($sql_insert_historial);
+            $sql = "UPDATE Historial_Plaza
+                    SET fecha_fin = '" . ($ano - 1) . "-12-31'
+                    WHERE id_historial_plaza = $ultimo_historial";
+            $conexion->query($sql);
         }
     }
 }
 
 // Limpiar plazas antiguas
-$sql_clean_plazas = "UPDATE Plaza SET RFC = NULL WHERE YEAR(elaboracion) = ".($ano - 1);
-$conexion->query($sql_clean_plazas);
+$sql = "UPDATE Plaza SET RFC = NULL WHERE YEAR(elaboracion) = " . ($ano - 1);
+$conexion->query($sql);
 
 $conexion->close();
