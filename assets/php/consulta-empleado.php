@@ -1,6 +1,7 @@
 <?php
 session_start();
 $id_periodo = $_SESSION["id_periodo"];
+$ano = $_SESSION["ano"];
 
 include "conexion.php";
 include "rol.php";
@@ -22,6 +23,7 @@ if(in_array( 7, rol())){
 $sql = "SELECT
    Empleado.RFC AS RFC,
    nombre,
+   (SELECT id_plaza FROM Plaza WHERE RFC = Empleado.RFC AND YEAR(elaboracion) = $ano LIMIT 1) AS plaza,
    (SELECT nombre FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto) AS puesto,
    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT Puesto.id_departamento FROM Puesto WHERE Puesto.id_puesto = Empleado.id_puesto)) AS departamento,
    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Empleado.id_puesto)) AS tipoTrabajador,
@@ -60,6 +62,7 @@ if (mysqli_num_rows($resultado) == 0) {
             "puesto" => $res["puesto"],
             "departamento" => $res["departamento"],
             "tipoTrabajador" => $res["tipoTrabajador"] ?? "N/A",
+            "plaza" => $res["plaza"] ?? '-',
             "opciones" => $opciones
         ];
     }
