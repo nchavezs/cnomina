@@ -114,14 +114,14 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     $plaza_vieja = $res['plazaAnterior'];
 
     // 2. Obtener Fechas de las Plazas
-    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva LIMIT 1";
+    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva ORDER BY elaboracion DESC LIMIT 1";
     $result_nueva = $conexion->query($sql_nueva);
     $row_nueva = mysqli_fetch_assoc($result_nueva);
 
     $fecha_inicio_nueva = $row_nueva['fecha_inicio'] ? date("Y-m-d", strtotime($row_nueva['fecha_inicio'])) : null;
     $fecha_fin_nueva = $row_nueva['fecha_fin'] ? date("Y-m-d", strtotime($row_nueva['fecha_fin'])) : null;
 
-    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja LIMIT 1";
+    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja ORDER BY elaboracion DESC LIMIT 1";
     $result_vieja = $conexion->query($sql_vieja);
     $row_vieja = mysqli_fetch_assoc($result_vieja);
 
@@ -142,7 +142,7 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 
     if ($fecha_fin_vieja < $fecha_inicio_vieja) {
         $dias_pago_vieja = 0;
-    }else{
+    } else {
         $dias_pago_vieja = diferencia($fecha_inicio_vieja, $fecha_fin_vieja);
     }
     // 4. Calcular Días de Pago desde Historial_Plaza

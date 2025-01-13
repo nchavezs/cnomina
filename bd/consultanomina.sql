@@ -134,7 +134,8 @@ CREATE TABLE Historial(
     retroactivo INT DEFAULT 0,
     id_prenomina INT NOT NULL,
     url VARCHAR(100),
-    FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE
+    FOREIGN KEY(id_prenomina) REFERENCES Prenomina(id_prenomina) ON DELETE CASCADE,
+    FOREIGN KEY(RFC) REFERENCES Empleado(RFC) ON DELETE CASCADE
 );
 
 CREATE TABLE Gastos(
