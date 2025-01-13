@@ -22,11 +22,20 @@ while ($row = $consulta->fetch_assoc()) {
             AND RFC IS NULL
             AND YEAR(elaboracion) = $ano
             LIMIT 1";
+
     $result = $conexion->query($sql);
     $plaza_row = $result->fetch_assoc();
     $plaza = $plaza_row['id_plaza'] ?? null;
 
-    if ($plaza) {
+    $sql = "SELECT id_plaza
+    FROM Plaza
+    WHERE RFC = '$rfc'
+    AND YEAR(elaboracion) = $ano";
+
+    $result = $conexion->query($sql);
+    $total = $result->num_rows;
+
+    if ($plaza && $total == 0) {
         // Insertar nuevo historial de plaza
         $sql = "INSERT INTO Historial_Plaza (id_plaza,RFC,fecha_inicio) VALUES ($plaza, '$rfc', '$ano-01-01')";
         $conexion->query($sql);
