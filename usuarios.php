@@ -94,7 +94,7 @@ if(!in_array(13, rol())){
 	</div>
 
 	<?php include 'assets/layouts/scripts.php' ?>
-	<script src="assets/js/usuarios.js?v=4.0"></script>
+	<script src="assets/js/usuarios.js?v=4.1"></script>
 
 	<script>
 		$("#tab-usuarios").addClass("active");

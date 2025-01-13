@@ -15,9 +15,9 @@ include "assets/php/main_admin.php";
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans"/>
 
-    <link rel="stylesheet" href="assets/css/material-dashboard.css?v=4.0"/>
+    <link rel="stylesheet" href="assets/css/material-dashboard.css?v=4.1"/>
     <link rel="stylesheet" href="assets/js/plugins/animate/adp.css">
-    <link rel="stylesheet" href="assets/css/sweetalert2.min.css?v=4.0"/>
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css?v=4.1"/>
 </head>
 
 <body>
@@ -76,7 +76,7 @@ include "assets/php/main_admin.php";
     <script src="assets/js/plugins/animate/adp.js"></script>
     <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-    <script src="assets/js/periodo.js?v=4.0"></script>
+    <script src="assets/js/periodo.js?v=4.1"></script>
 </body>
 
 </html>

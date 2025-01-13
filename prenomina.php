@@ -33,7 +33,7 @@ if(!in_array(20, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/prenomina.js?v=4.0"></script>
+   <script src="assets/js/prenomina.js?v=4.1"></script>
    <script>$("#tab-prenomina").addClass("active");</script>
 
 </body>

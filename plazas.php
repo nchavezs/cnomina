@@ -41,7 +41,7 @@ if(!in_array(35, rol())){
                                 if(in_array( 37, rol())){
                                     echo '
                                         <label class="btn-mostrar" for="importar-plazas"><i class="material-icons">file_upload</i>Importar</label>
-                                        <a href="./assets/docs/plazas.xlsx?v=4.0" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
+                                        <a href="./assets/docs/plazas.xlsx?v=4.1" download class="btn-mostrar"><i class="material-icons">line_style</i>Plantilla</a>
                                     ';
                                 }else{
                                     echo '<label onclick="bloqueo();" class="btn-mostrar"><i class="material-icons">file_upload </i>Importar</label>';
@@ -108,7 +108,7 @@ if(!in_array(35, rol())){
 	</div>
 
    <?php include 'assets/layouts/scripts.php' ?>
-   <script src="assets/js/plazas.js?v=4.0"></script>
+   <script src="assets/js/plazas.js?v=4.1"></script>
    <script>$("#tab-plazas").addClass("active");</script>
 
 </body>

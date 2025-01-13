@@ -9,7 +9,7 @@ echo '
 <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <script src="assets/js/plugins/sweetalert2.min.js"></script>
 <script src="assets/js/plugins/bootstrap-notify.js"></script>
-<script src="assets/js/material-dashboard.js?v=4.0" type="text/javascript"></script>
+<script src="assets/js/material-dashboard.js?v=4.1" type="text/javascript"></script>
 <script src="assets/js/datepicker.min.js"></script>
 <script src="assets/js/plugins/datepicker.es.js"></script>
 <script src="assets/js/block.js"></script>
@@ -20,5 +20,5 @@ echo '
 <script src="assets/js/plugins/animate/adp.js"></script>
 <script src="assets/js/plugins/izitoast/js/iziToast.js"></script>
 
-<script src="assets/js/sesion.js?v=4.0"></script>
+<script src="assets/js/sesion.js?v=4.1"></script>
 ';
