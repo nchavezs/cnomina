@@ -15,18 +15,6 @@ while ($row = $consulta->fetch_assoc()) {
     $rfc = $row['RFC'];
     $puesto = $row['id_puesto'];
 
-    // Buscar una plaza disponible
-    $sql = "SELECT id_plaza
-            FROM Plaza
-            WHERE id_puesto = $puesto
-            AND RFC IS NULL
-            AND YEAR(elaboracion) = $ano
-            LIMIT 1";
-
-    $result = $conexion->query($sql);
-    $plaza_row = $result->fetch_assoc();
-    $plaza = $plaza_row['id_plaza'] ?? null;
-
     $sql = "SELECT id_plaza
     FROM Plaza
     WHERE RFC = '$rfc'
@@ -35,13 +23,13 @@ while ($row = $consulta->fetch_assoc()) {
     $result = $conexion->query($sql);
     $total = $result->num_rows;
 
-    if ($plaza && $total == 0) {
+    if ($total == 0) {
+        $sql = "INSERT INTO Plaza (dias, id_puesto, RFC) VALUES(365, $puesto, '$rfc')";
+        $result = $conexion->query($sql);
+        $plaza = $conexion->insert_id;
+
         // Insertar nuevo historial de plaza
         $sql = "INSERT INTO Historial_Plaza (id_plaza,RFC,fecha_inicio) VALUES ($plaza, '$rfc', '$ano-01-01')";
-        $conexion->query($sql);
-
-        // Actualizar Plaza con el RFC del usuario
-        $sql = "UPDATE Plaza SET RFC = '$rfc' WHERE id_plaza = $plaza";
         $conexion->query($sql);
 
         // Buscar el historial de plaza anterior
@@ -65,9 +53,5 @@ while ($row = $consulta->fetch_assoc()) {
         }
     }
 }
-
-// Limpiar plazas antiguas
-$sql = "UPDATE Plaza SET RFC = NULL WHERE YEAR(elaboracion) = " . ($ano - 1);
-$conexion->query($sql);
 
 $conexion->close();
