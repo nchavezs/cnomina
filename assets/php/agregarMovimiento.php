@@ -85,8 +85,15 @@ if ($consulta) {
         $consulta = $conexion->query($sql);
 
         if($consulta && mysqli_num_rows($consulta) > 0){
-            $historial = mysqli_fetch_row($consulta);
-            $fecha_modificada = date("d/m/Y", strtotime(str_replace('/', '-', $fecha) . " -1 day"));
+            $historial = mysqli_fetch_array($consulta);
+            $formato = str_replace('/', '-', $fecha);
+            $fecha_recibida = date('Y-m-d', strtotime($formato));
+            $fecha_inicio = date('Y-m-d', strtotime($historial["fecha_inicio"]));
+            if ($fecha_recibida == $fecha_inicio) {
+                $fecha_modificada = date("d/m/Y", strtotime($formato)); // Mantiene la fecha original
+            } else {
+                $fecha_modificada = date("d/m/Y", strtotime($formato . " -1 day")); // Resta un día
+            }
             $sql = "UPDATE Historial_Plaza SET fecha_fin = STR_TO_DATE('$fecha_modificada', '%d/%m/%Y') WHERE id_historial_plaza = " . $historial[0];
             $consulta = $conexion->query($sql);
         }
