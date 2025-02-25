@@ -39,14 +39,14 @@ if ($del != "" || $al != "") {
 
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
-    $al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
+    $al_letra = mb_strtoupper(strftime("%d de %B de %Y", strtotime($date2)));
 
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
 
     if (sizeof($departamentos) > 0) {
         $array_depa = implode(",", $departamentos);
-        $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN (" . $array_depa . ")";
+        $sql = "SELECT id_puesto FROM Puesto WHERE id_departamento IN ($array_depa)";
         $consulta = $conexion->query($sql);
         while ($res = mysqli_fetch_row($consulta)) {
             $puestos[] = $res[0];
@@ -82,7 +82,7 @@ if ($del != "" || $al != "") {
     (SELECT nombre FROM Usuario WHERE RFC = Plaza.RFC) AS nombre,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE (elaboracion BETWEEN '" . $date1 . "' AND '" . $date2 . "') " . $extra;
+    FROM Plaza WHERE elaboracion BETWEEN '$date1' AND '$date2' " . $extra;
 
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {

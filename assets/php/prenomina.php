@@ -6,10 +6,10 @@ include "conexion.php";
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-$conexion = conexion();
+$conexion    = conexion();
 $observacion = trim($_POST["observacion"]) ?: 'Sin observaciones';
-$periodo = $_SESSION["id_periodo"];
-$ano = $_SESSION["ano"];
+$periodo     = $_SESSION["id_periodo"];
+$ano         = $_SESSION["ano"];
 
 // ----------------------------------------------------------------------------------------------------------------------------
 function alta($id, $baja = null)
@@ -17,23 +17,23 @@ function alta($id, $baja = null)
     $conexion = conexion();
 
     if ($baja) {
-        $sql = "SELECT MAX(inicio) as maxima FROM Reingreso WHERE fecha >= " . $baja . " AND RFC = '" . $id . "'";
+        $sql       = "SELECT MAX(inicio) as maxima FROM Reingreso WHERE fecha >= " . $baja . " AND RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
-        $fila = $resultado->fetch_assoc();
-        $fecha = $fila['maxima'];
+        $fila      = $resultado->fetch_assoc();
+        $fecha     = $fila['maxima'];
     } else {
-        $sql = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '" . $id . "'";
+        $sql       = "SELECT MAX(fecha) AS maxima FROM Historial WHERE tipo = 'reingreso' AND RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
-        $fila = $resultado->fetch_assoc();
-        $fecha = $fila['maxima'];
+        $fila      = $resultado->fetch_assoc();
+        $fecha     = $fila['maxima'];
     }
 
     if ($fecha) {
         return date("d/m/Y", strtotime($fecha));
     } else {
-        $sql = "SELECT fechaRelLab FROM Empleado WHERE RFC = '" . $id . "'";
+        $sql       = "SELECT fechaRelLab FROM Empleado WHERE RFC = '" . $id . "'";
         $resultado = $conexion->query($sql);
-        $fila = $resultado->fetch_assoc();
+        $fila      = $resultado->fetch_assoc();
         return $fila['fechaRelLab'];
     }
 }
@@ -108,25 +108,25 @@ function dias_permiso($val, $array)
 
 function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 {
-    $rfc = $res["RFC"];
+    $rfc          = $res["RFC"];
     $id_prenomina = $res["id_prenomina"];
-    $plaza_nueva = $res['plaza'];
-    $plaza_vieja = $res['plazaAnterior'];
+    $plaza_nueva  = $res['plaza'];
+    $plaza_vieja  = $res['plazaAnterior'];
 
     // 2. Obtener Fechas de las Plazas
-    $sql_nueva = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva ORDER BY elaboracion DESC LIMIT 1";
+    $sql_nueva    = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_nueva ORDER BY elaboracion DESC LIMIT 1";
     $result_nueva = $conexion->query($sql_nueva);
-    $row_nueva = mysqli_fetch_assoc($result_nueva);
+    $row_nueva    = mysqli_fetch_assoc($result_nueva);
 
     $fecha_inicio_nueva = $row_nueva['fecha_inicio'] ? date("Y-m-d", strtotime($row_nueva['fecha_inicio'])) : null;
-    $fecha_fin_nueva = $row_nueva['fecha_fin'] ? date("Y-m-d", strtotime($row_nueva['fecha_fin'])) : null;
+    $fecha_fin_nueva    = $row_nueva['fecha_fin'] ? date("Y-m-d", strtotime($row_nueva['fecha_fin'])) : null;
 
-    $sql_vieja = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja ORDER BY elaboracion DESC LIMIT 1";
+    $sql_vieja    = "SELECT fecha_inicio, fecha_fin FROM Historial_Plaza WHERE RFC = '$rfc' AND id_plaza = $plaza_vieja ORDER BY elaboracion DESC LIMIT 1";
     $result_vieja = $conexion->query($sql_vieja);
-    $row_vieja = mysqli_fetch_assoc($result_vieja);
+    $row_vieja    = mysqli_fetch_assoc($result_vieja);
 
     $fecha_inicio_vieja = $row_vieja['fecha_inicio'] ? date("Y-m-d", strtotime($row_vieja['fecha_inicio'])) : null;
-    $fecha_fin_vieja = $row_vieja['fecha_fin'] ? date("Y-m-d", strtotime($row_vieja['fecha_fin'])) : null;
+    $fecha_fin_vieja    = $row_vieja['fecha_fin'] ? date("Y-m-d", strtotime($row_vieja['fecha_fin'])) : null;
 
     // 3. Ajustar Fechas según $del
     if ($fecha_inicio_nueva < $fecha_del) {
@@ -152,7 +152,7 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     $descuentos_nuevo = 0;
     $descuentos_viejo = 0;
 
-    $sql_descuento = "SELECT fechas FROM Descuento WHERE RFC = '" . $rfc . "' AND id_prenomina = $id_prenomina";
+    $sql_descuento    = "SELECT fechas FROM Descuento WHERE RFC = '" . $rfc . "' AND id_prenomina = $id_prenomina";
     $result_descuento = $conexion->query($sql_descuento);
 
     while ($row_descuento = mysqli_fetch_assoc($result_descuento)) {
@@ -160,7 +160,7 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 
         foreach ($fechas_descuento as $fecha) {
             $fecha_trimmed = str_replace("/", "-", trim($fecha));
-            $fecha_desc = date("Y-m-d", strtotime($fecha_trimmed));
+            $fecha_desc    = date("Y-m-d", strtotime($fecha_trimmed));
 
             // Comprobar si cae dentro de la plaza nueva
             if ($fecha_desc >= $fecha_inicio_nueva && $fecha_desc <= $fecha_fin_nueva) {
@@ -178,17 +178,17 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     $licencias_nuevo = 0;
     $licencias_viejo = 0;
 
-    $sql_licencia = "SELECT del, al FROM Permiso WHERE categoria = 1 AND RFC = '$rfc' AND id_prenomina = $id_prenomina";
+    $sql_licencia    = "SELECT del, al FROM Permiso WHERE categoria = 1 AND RFC = '$rfc' AND id_prenomina = $id_prenomina";
     $result_licencia = $conexion->query($sql_licencia);
 
     while ($row_licencia = mysqli_fetch_assoc($result_licencia)) {
         $fecha_inicio_licencia = date("Y-m-d", strtotime($row_licencia['del']));
-        $fecha_fin_licencia = date("Y-m-d", strtotime($row_licencia['al']));
-       
+        $fecha_fin_licencia    = date("Y-m-d", strtotime($row_licencia['al']));
+
         // Calcular días descontados por licencia
         if ($fecha_inicio_licencia <= $fecha_fin_nueva && $fecha_fin_licencia >= $fecha_inicio_nueva) {
             $licencias_nuevo += diferencia(min($fecha_fin_nueva, $fecha_fin_licencia), max($fecha_inicio_nueva, $fecha_inicio_licencia));
-            
+
         }
 
         if ($fecha_inicio_licencia <= $fecha_fin_vieja && $fecha_fin_licencia >= $fecha_inicio_vieja) {
@@ -198,9 +198,9 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
     }
 
     // Total de días pagados
-    $descontados = $descuentos_viejo + $licencias_viejo;
+    $descontados     = $descuentos_viejo + $licencias_viejo;
     $dias_pago_vieja = ($dias_pago_vieja - $descontados) < 0 ? 0 : $dias_pago_vieja - $descontados;
-    $descontados = $descuentos_nuevo + $licencias_nuevo;
+    $descontados     = $descuentos_nuevo + $licencias_nuevo;
     $dias_pago_nueva = ($dias_pago_nueva - $descontados) < 0 ? 0 : $dias_pago_nueva - $descontados;
 
     return [$dias_pago_vieja, $dias_pago_nueva];
@@ -208,75 +208,76 @@ function dias_movimiento($res, $fecha_del, $fecha_al, $conexion)
 
 function diferencia($fecha1, $fecha2)
 {
-    list($ano1, $mes1, $dia1) = explode('-', $fecha1);
-    list($ano2, $mes2, $dia2) = explode('-', $fecha2);
+    $fecha1 = new DateTime($fecha1);
+    $fecha2 = new DateTime($fecha2);
 
-    // Convierte todo a un total de días considerando 30 días por mes
-    $diasTotales1 = ($ano1 * 12 * 30) + (($mes1 - 1) * 30) + ($dia1 - 1);
-    $diasTotales2 = ($ano2 * 12 * 30) + (($mes2 - 1) * 30) + ($dia2 - 1);
+    $ultimo = (clone $fecha2)->modify('last day of this month');
 
-    // Calcula la diferencia de días y suma 1 para incluir ambos extremos
-    $diferencia = abs($diasTotales2 - $diasTotales1) + 1;
+    $diff = $fecha2->diff($fecha1)->format('%a') + 1;
 
-    return $diferencia;
+    if ($fecha2->format('Y-m-d') === $ultimo->format('Y-m-d')) {
+        $diff += (30 - $ultimo->format('d'));
+    }
+
+    return $diff;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------
 $ruta = './../prenominas/';
-if (!file_exists($ruta)) {
+if (! file_exists($ruta)) {
     mkdir($ruta, 0777, true);
 }
 
 $titulos = [
-    'font' => [
+    'font'      => [
         'size' => 16,
     ],
     'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
     ],
 ];
 
 $contenido = [
-    'font' => [
+    'font'      => [
         'size' => 10,
     ],
     'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
     ],
 ];
 
 $firma = [
-    'font' => [
+    'font'      => [
         'size' => 10,
         'bold' => true,
     ],
     'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
     ],
 ];
 
 $contenido2 = [
-    'font' => [
+    'font'      => [
         'size' => 10,
     ],
     'alignment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
     ],
-    'borders' => [
-        'top' => [
+    'borders'   => [
+        'top'    => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ],
         'bottom' => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ],
-        'left' => [
+        'left'   => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ],
-        'right' => [
+        'right'  => [
             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ],
     ],
@@ -290,17 +291,17 @@ $sql = "SELECT *,
     id_periodo = " . $periodo . "
     ORDER BY id_prenomina DESC LIMIT 1";
 
-$consulta = $conexion->query($sql);
-$prenomina = mysqli_fetch_array($consulta);
+$consulta     = $conexion->query($sql);
+$prenomina    = mysqli_fetch_array($consulta);
 $id_prenomina = $prenomina["id_prenomina"];
-$del = $prenomina["del"];
-$al = $prenomina["al"];
-$dias = $prenomina["dias"];
+$del          = $prenomina["del"];
+$al           = $prenomina["al"];
+$dias         = $prenomina["dias"];
 
 $descuentos = [];
-$titulo = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" al %e de %B", strtotime($al)) . strftime(" del %Y", strtotime($del)));
-$del = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
-$al = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
+$titulo     = mb_strtoupper(strftime(" del %e de %B", strtotime($del)) . strftime(" al %e de %B", strtotime($al)) . strftime(" del %Y", strtotime($del)));
+$del        = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
+$al         = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
 $dias_pago = diferencia($del, $al);
 $dias_pago = ($dias_pago > $dias) ? $dias : $dias_pago;
@@ -329,7 +330,7 @@ while ($usuario = mysqli_fetch_array($query)) {
             id_prenomina = " . $id_prenomina;
 
             $consulta = $conexion->query($sql);
-            $paga = $dias_pago;
+            $paga     = $dias_pago;
             if ($consulta && mysqli_num_rows($consulta) > 0) {
                 $alta = mysqli_fetch_array($consulta);
                 if ($alta["retroactivo"] == 1) {
@@ -345,9 +346,9 @@ while ($usuario = mysqli_fetch_array($query)) {
 
         $consulta = $conexion->query($sql);
         if ($consulta && mysqli_num_rows($consulta) > 0) {
-            $reingreso = mysqli_fetch_array($consulta);
+            $reingreso       = mysqli_fetch_array($consulta);
             $fecha_reingreso = $reingreso["fecha"];
-            $paga = diferencia($fecha_reingreso, $al);
+            $paga            = diferencia($fecha_reingreso, $al);
 
             $sql = "SELECT * FROM Historial WHERE
             RFC = '" . $usuario["RFC"] . "' AND
@@ -396,11 +397,11 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
     }
 
-    $datos = [];
-    $descontados = 0;
+    $datos               = [];
+    $descontados         = 0;
     $descontados_permiso = 0;
 
-    $sql = "SELECT * FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "' AND id_prenomina = " . $id_prenomina;
+    $sql      = "SELECT * FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "' AND id_prenomina = " . $id_prenomina;
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
         while ($descuento = mysqli_fetch_array($consulta)) {
@@ -408,7 +409,7 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
     }
 
-    $sql = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 1 AND id_prenomina = " . $id_prenomina;
+    $sql      = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 1 AND id_prenomina = " . $id_prenomina;
     $consulta = $conexion->query($sql);
     if ($consulta && mysqli_num_rows($consulta) > 0) {
         while ($permiso = mysqli_fetch_array($consulta)) {
@@ -438,9 +439,9 @@ while ($usuario = mysqli_fetch_array($query)) {
         $descontados_permiso = $dias_pago;
     }
 
-    $datos["rfc"] = $usuario["RFC"];
-    $datos['paga'] = $paga;
-    $datos['dias'] = $descontados;
+    $datos["rfc"]          = $usuario["RFC"];
+    $datos['paga']         = $paga;
+    $datos['dias']         = $descontados;
     $datos['dias_permiso'] = $descontados_permiso;
     array_push($descuentos, $datos);
 }
@@ -470,7 +471,7 @@ FROM Movimiento LEFT JOIN Empleado ON Movimiento.RFC = Empleado.RFC WHERE
 id_prenomina = " . $id_prenomina;
 
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
 
     while ($res = mysqli_fetch_array($consulta)) {
@@ -517,7 +518,7 @@ Empleado.id_empleado,
 FROM Historial LEFT JOIN Empleado ON Historial.RFC = Empleado.RFC WHERE id_prenomina = " . $id_prenomina . " AND tipo = 'baja'";
 
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -600,7 +601,7 @@ FROM Empleado LEFT JOIN Historial ON Empleado.RFC = Historial.RFC WHERE
 tipo = 'alta' AND
 id_prenomina = " . $id_prenomina;
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -640,7 +641,7 @@ FROM Descuento LEFT JOIN Empleado ON Descuento.RFC = Empleado.RFC WHERE
 id_prenomina =" . $id_prenomina;
 
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -684,7 +685,7 @@ $sql = "SELECT *,
     ORDER BY Permiso.RFC ASC";
 
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -692,7 +693,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
-        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
+        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %Y", strtotime($res["del"])) . strftime(" AL %d DE %B DE %Y", strtotime($res["al"]))));
         $sheet->setCellValue('G' . $i, $res["dias"]);
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
@@ -738,7 +739,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('C' . $i, $res["RFC"]);
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
-        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %G", strtotime($res["del"])) . strftime(" AL %d DE %B DE %G", strtotime($res["al"]))));
+        $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %Y", strtotime($res["del"])) . strftime(" AL %d DE %B DE %Y", strtotime($res["al"]))));
         $sheet->setCellValue('G' . $i, $res["dias"]);
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
@@ -770,7 +771,7 @@ $sql = "SELECT *,
     ORDER BY Pase.RFC ASC";
 
 $consulta = $conexion->query($sql);
-$i = 3;
+$i        = 3;
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     while ($res = mysqli_fetch_array($consulta)) {
         $sheet->getCell('A' . $i)->setValueExplicit(str_pad($res['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -816,8 +817,8 @@ $sql = "SELECT *,
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
 
-$consulta = $conexion->query($sql);
-$i = 3;
+$consulta      = $conexion->query($sql);
+$i             = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $sheet->getStyle('A3:' . $col . '3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
@@ -843,7 +844,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
                 RFC = '" . $res['RFC'] . "' AND
                 id_prenomina = " . $id_prenomina;
 
-            $consulta1 = $conexion->query($sql);
+            $consulta1     = $conexion->query($sql);
             $observaciones = "";
             if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
                 $observaciones = "REINGRESO";
@@ -878,14 +879,14 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     }
 }
 
-$i = 4;
-$temp = false;
+$i     = 4;
+$temp  = false;
 $color = 'ffffff';
 for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
-    $actual = $departamentos[$c];
+    $actual    = $departamentos[$c];
     $siguiente = $departamentos[$c + 1];
     if ($actual !== $siguiente) {
-        $temp = !$temp;
+        $temp = ! $temp;
         if ($temp) {
             $color = 'ebf1de';
         } else {
@@ -927,8 +928,8 @@ $sql = "SELECT *,
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
 
-$consulta = $conexion->query($sql);
-$i = 3;
+$consulta      = $conexion->query($sql);
+$i             = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $sheet->getStyle('A3:' . $col . '3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
@@ -954,7 +955,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
                 RFC = '" . $res['RFC'] . "' AND
                 id_prenomina = " . $id_prenomina;
 
-            $consulta1 = $conexion->query($sql);
+            $consulta1     = $conexion->query($sql);
             $observaciones = "";
             if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
                 $observaciones = "REINGRESO";
@@ -989,14 +990,14 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     }
 }
 
-$i = 4;
-$temp = false;
+$i     = 4;
+$temp  = false;
 $color = 'ffffff';
 for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
-    $actual = $departamentos[$c];
+    $actual    = $departamentos[$c];
     $siguiente = $departamentos[$c + 1];
     if ($actual !== $siguiente) {
-        $temp = !$temp;
+        $temp = ! $temp;
         if ($temp) {
             $color = 'ebf1de';
         } else {
@@ -1040,8 +1041,8 @@ $sql = "SELECT *,
     STR_TO_DATE(fechaRelLab,'%d/%m/%Y') <= '" . $al . "'
     ORDER BY departamento";
 
-$consulta = $conexion->query($sql);
-$i = 3;
+$consulta      = $conexion->query($sql);
+$i             = 3;
 $departamentos = [];
 if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     $sheet->getStyle('A3:' . $col . '3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffffff');
@@ -1067,7 +1068,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
             RFC = '" . $res['RFC'] . "' AND
             id_prenomina = " . $id_prenomina;
 
-            $consulta1 = $conexion->query($sql);
+            $consulta1     = $conexion->query($sql);
             $observaciones = "";
             if ($consulta1 && mysqli_num_rows($consulta1) > 0) {
                 $observaciones = "REINGRESO";
@@ -1102,14 +1103,14 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
     }
 }
 
-$i = 4;
-$temp = false;
+$i     = 4;
+$temp  = false;
 $color = 'ffffff';
 for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
-    $actual = $departamentos[$c];
+    $actual    = $departamentos[$c];
     $siguiente = $departamentos[$c + 1];
     if ($actual !== $siguiente) {
-        $temp = !$temp;
+        $temp = ! $temp;
         if ($temp) {
             $color = 'ebf1de';
         } else {
@@ -1124,7 +1125,7 @@ firma($i, $col, $sheet);
 
 // --------------------------------------------------------------------------------------------------------------------------------
 
-$url = "Prenomina_" . date("d_m_Y_H_i") . ".xlsx";
+$url  = "Prenomina_" . date("d_m_Y_H_i") . ".xlsx";
 $ruta = $ruta . $url;
 
 $sql = "UPDATE Prenomina SET observacion = '" . $observacion . "', url = '" . $url . "' WHERE id_prenomina = " . $id_prenomina;

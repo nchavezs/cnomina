@@ -85,8 +85,8 @@ if ($del == "" || $al == "") {
     $date1 = date("Y-m-d", strtotime(str_replace('/', '-', $del)));
     $date2 = date("Y-m-d", strtotime(str_replace('/', '-', $al)));
 
-    $del_letra = mb_strtoupper(strftime("%d de %B del %G", strtotime($date1)));
-    $al_letra = mb_strtoupper(strftime("%d de %B de %G", strtotime($date2)));
+    $del_letra = mb_strtoupper(strftime("%d de %B del %Y", strtotime($date1)));
+    $al_letra = mb_strtoupper(strftime("%d de %B de %Y", strtotime($date2)));
 
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
