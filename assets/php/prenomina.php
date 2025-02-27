@@ -96,6 +96,16 @@ function dias_descontados($val, $array)
     return null;
 }
 
+function dias_goce($val, $array)
+{
+    foreach ($array as $element) {
+        if ($element["rfc"] == $val) {
+            return $element['dias_goce'];
+        }
+    }
+    return null;
+}
+
 function dias_permiso($val, $array)
 {
     foreach ($array as $element) {
@@ -432,6 +442,20 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
     }
 
+    $sql      = "SELECT * FROM Permiso WHERE RFC = '" . $usuario["RFC"] . "' AND categoria = 0 AND id_prenomina = " . $id_prenomina;
+    $consulta = $conexion->query($sql);
+    if ($consulta && mysqli_num_rows($consulta) > 0) {
+        while ($permiso = mysqli_fetch_array($consulta)) {
+            $goce += $permiso["dias"];
+        }
+
+        $alcopy = new DateTime($al);
+        $ultimo = (clone $alcopy)->modify('last day of this month');
+        if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
+            $goce += (30 - $ultimo->format('d'));
+        }
+    }
+
     $paga = $paga - ($descontados + $descontados_permiso);
 
     // ESTA CONDICION CREO QUE NO ES NECESARIA AHORA CON LO DE DIFF > DIAS
@@ -457,6 +481,7 @@ while ($usuario = mysqli_fetch_array($query)) {
     $datos["rfc"]          = $usuario["RFC"];
     $datos['paga']         = $paga;
     $datos['dias']         = $descontados;
+    $datos['dias_goce']         = $goce;
     $datos['dias_permiso'] = $descontados_permiso;
     array_push($descuentos, $datos);
 }
@@ -709,7 +734,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
         $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %Y", strtotime($res["del"])) . strftime(" AL %d DE %B DE %Y", strtotime($res["al"]))));
-        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('G' . $i, dias_goce($res['RFC'], $descuentos));
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
 
