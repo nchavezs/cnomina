@@ -665,7 +665,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
         $sheet->setCellValue('F' . $i, $res["fechas"]);
-        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('G' . $i, dias_descontados($res['RFC'], $descuentos));
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["motivo"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
         $i++;
@@ -755,7 +755,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
         $sheet->setCellValue('D' . $i, $res["puesto"]);
         $sheet->setCellValue('E' . $i, $res["departamento"]);
         $sheet->setCellValue('F' . $i, mb_strtoupper(strftime("DEL %d DE %B DE %Y", strtotime($res["del"])) . strftime(" AL %d DE %B DE %Y", strtotime($res["al"]))));
-        $sheet->setCellValue('G' . $i, $res["dias"]);
+        $sheet->setCellValue('G' . $i, dias_permiso($res['RFC'], $descuentos));
         $sheet->setCellValue('H' . $i, mb_strtoupper($res["descripcion"]));
         $sheet->setCellValue('I' . $i, dias_paga($res['RFC'], $descuentos));
 
