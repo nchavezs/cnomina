@@ -415,6 +415,13 @@ while ($usuario = mysqli_fetch_array($query)) {
         while ($permiso = mysqli_fetch_array($consulta)) {
             $descontados_permiso = $descontados_permiso + $permiso["dias"];
         }
+
+        $del2 = new DateTime($del);
+        $ultimo = (clone $del2)->modify('last day of this month');
+        if ($del2->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') != 31) {
+            $descontados_permiso += (30 - $ultimo->format('d'));
+        }
+
     }
 
     $paga = $paga - ($descontados + $descontados_permiso);
