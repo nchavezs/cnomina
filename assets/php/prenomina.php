@@ -418,9 +418,9 @@ while ($usuario = mysqli_fetch_array($query)) {
     }
 
     if($descontados > 0 || $descontados_permiso > 0){
-        $del_copia = new DateTime($del);
-        $ultimo = (clone $del_copia)->modify('last day of this month');
-        if ($del_copia->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
+        $alcopy = new DateTime($del);
+        $ultimo = (clone $alcopy)->modify('last day of this month');
+        if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
             $descontados_permiso += (30 - $ultimo->format('d'));
         }
     }
