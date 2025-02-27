@@ -411,6 +411,9 @@ while ($usuario = mysqli_fetch_array($query)) {
     $descontados         = 0;
     $descontados_permiso = 0;
     $goce                = 0;
+    $delcopy = new DateTime($del);
+    $alcopy  = new DateTime($al);
+    $ultimo  = (clone $alcopy)->modify('last day of this month');
 
     $sql      = "SELECT * FROM Descuento WHERE RFC = '" . $usuario["RFC"] . "' AND id_prenomina = " . $id_prenomina;
     $consulta = $conexion->query($sql);
@@ -419,9 +422,6 @@ while ($usuario = mysqli_fetch_array($query)) {
             $descontados = $descontados + $descuento["dias"];
         }
 
-        $delcopy = new DateTime($del);
-        $alcopy  = new DateTime($al);
-        $ultimo  = (clone $alcopy)->modify('last day of this month');
         $diff    = $alcopy->diff($delcopy)->format('%a') + 1;
         $diff2   = $ultimo->diff($delcopy)->format('%a') + 1;
         if ($diff === $diff2 && $ultimo->format('d') < 30) {
@@ -436,8 +436,6 @@ while ($usuario = mysqli_fetch_array($query)) {
             $descontados_permiso = $descontados_permiso + $permiso["dias"];
         }
 
-        $alcopy = new DateTime($al);
-        $ultimo = (clone $alcopy)->modify('last day of this month');
         if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
             $descontados_permiso += (30 - $ultimo->format('d'));
         }
@@ -450,8 +448,6 @@ while ($usuario = mysqli_fetch_array($query)) {
             $goce += $permiso["dias"];
         }
 
-        $alcopy = new DateTime($al);
-        $ultimo = (clone $alcopy)->modify('last day of this month');
         if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
             $goce += (30 - $ultimo->format('d'));
         }
