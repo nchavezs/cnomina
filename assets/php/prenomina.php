@@ -438,6 +438,8 @@ while ($usuario = mysqli_fetch_array($query)) {
 
         if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
             $descontados_permiso += (30 - $ultimo->format('d'));
+        }else if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') == 31) {
+            $descontados_permiso += (30 - $ultimo->format('d'));
         }
     }
 
@@ -449,6 +451,8 @@ while ($usuario = mysqli_fetch_array($query)) {
         }
 
         if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') < 30) {
+            $goce += (30 - $ultimo->format('d'));
+        }else if ($alcopy->format('Y-m-d') === $ultimo->format('Y-m-d') && $ultimo->format('d') == 31) {
             $goce += (30 - $ultimo->format('d'));
         }
     }
