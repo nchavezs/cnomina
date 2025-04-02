@@ -212,7 +212,7 @@ if ($query && $total > 0) {
                         }
                         $html = $html . '<tr>
                                     <td class="desc">' . ++$contador . '</td>
-                                    <td class="desc">' . strftime("%d de %B de %G", strtotime($date)) . '</td>
+                                    <td class="desc">' . strftime("%d de %B de %Y", strtotime($date)) . '</td>
                                     <td class="desc">' . ucfirst($descuento["motivo"]) . '</td>
                                 </tr>';
                     }
@@ -254,7 +254,7 @@ if ($query && $total > 0) {
                 $html = $html . '<tr>
                             <td class="desc">' . ++$contador . '</td>
                             <td class="desc">' . $vacacion["dias"] . '</td>
-                            <td class="desc">' . strftime("%d de %B de %G", strtotime($vacacion["del"])) . strftime(" al %d de %B de %G", strtotime($vacacion["al"])) . '</td>
+                            <td class="desc">' . strftime("%d de %B de %Y", strtotime($vacacion["del"])) . strftime(" al %d de %B de %Y", strtotime($vacacion["al"])) . '</td>
                             <td class="desc">' . ucfirst($descripcion) . '</td>
                         </tr>';
             }
@@ -292,7 +292,7 @@ if ($query && $total > 0) {
                 $html = $html . '<tr>
                             <td class="desc">' . ++$contador . '</td>
                             <td class="desc">' . $con_goce["dias"] . '</td>
-                            <td class="desc">' . strftime("%d de %B de %G", strtotime($con_goce["del"])) . strftime(" al %d de %B de %G", strtotime($con_goce["al"])) . '</td>
+                            <td class="desc">' . strftime("%d de %B de %Y", strtotime($con_goce["del"])) . strftime(" al %d de %B de %Y", strtotime($con_goce["al"])) . '</td>
                             <td class="desc">' . ucfirst($descripcion) . '</td>
                         </tr>';
             }
@@ -330,7 +330,7 @@ if ($query && $total > 0) {
                 $html = $html . '<tr>
                             <td class="desc">' . ++$contador . '</td>
                             <td class="desc">' . $sin_goce["dias"] . '</td>
-                            <td class="desc">' . strftime("%d de %B de %G", strtotime($sin_goce["del"])) . strftime(" al %d de %B de %G", strtotime($sin_goce["al"])) . '</td>
+                            <td class="desc">' . strftime("%d de %B de %Y", strtotime($sin_goce["del"])) . strftime(" al %d de %B de %Y", strtotime($sin_goce["al"])) . '</td>
                             <td class="desc">' . ucfirst($descripcion) . '</td>
                         </tr>';
             }
