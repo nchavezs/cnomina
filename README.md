@@ -29,3 +29,6 @@ If you want to learn more about creating good readme files then refer the follow
 # git pull --rebase
 
 
+# verificar permisos en h4cc en el servidor 755
+
+
