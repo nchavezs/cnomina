@@ -4,8 +4,8 @@
 
     <h3 class="font-weight-bold">Tu licencia expiró</h3>
     <small>Este mensaje es un recordatorio en relación a la próxima caducidad del nombre de dominio <span
-            class="font-italic">consultanomina.com</span>. Según nuestros registros, el nombre de dominio actualmente
-        está registrado hasta el <span class="text-warning">02 de febrero de 2023</span>, para renovar comunícate con
+            class="font-italic">consultanominacomonfort.com</span>. Según nuestros registros, el nombre de dominio actualmente
+        está registrado hasta el <span class="text-warning">31 de diciembre de 2024</span>, para renovar comunícate con
         nosotros a:
     </small>
 
