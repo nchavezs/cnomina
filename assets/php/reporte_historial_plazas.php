@@ -112,13 +112,13 @@ if ($del != "" || $al != "") {
 
         $fecha = date('Y-m-d', strtotime("$fecha_inicial -$dias days"));
 
-        if ( $fecha <= $date2 ) {
+        if ( $fecha < $date2 ) {
             $ids_plaza[] = $fila['id_plaza'];
         }
     }
 
     $sql_historial = "SELECT DISTINCT id_plaza FROM Historial_Plaza
-    WHERE fecha_inicio <= '$date2' AND fecha_fin > '$date1' AND YEAR(fecha_inicio) = $anio";
+    WHERE fecha_inicio <= '$date2' AND fecha_fin >= '$date1' AND YEAR(fecha_inicio) = $anio";
 
     $consulta      = $conexion->query($sql_historial);
     $ids_historial = [];
