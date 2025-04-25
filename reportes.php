@@ -268,13 +268,17 @@ if(!in_array(41, rol())){
 								<div class="col-xl-4">
 									<div class="card">
 										<div class="card-body">
-											<div class="check_opciones">
-												<div class="toggle-btn active">
-													<input id="descripcion_plaza" type="checkbox" class="cb-value" checked/>
-													<span class="round-btn"></span>
-												</div>
-												<span class="text-muted ml-3">Descripción de plazas</span>
-											</div>
+											<?php
+											if(date("Y") == $_SESSION["ano"]){
+												echo '<div class="check_opciones">
+														<div class="toggle-btn active">
+															<input id="descripcion_plaza" type="checkbox" class="cb-value" checked/>
+															<span class="round-btn"></span>
+														</div>
+														<span class="text-muted ml-3">Descripción de plazas</span>
+													</div>';
+											}
+											?>
 											<div class="check_opciones">
 												<div class="toggle-btn">
 													<input id="historial_plaza" type="checkbox" class="cb-value" />

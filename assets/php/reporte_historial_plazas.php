@@ -118,7 +118,7 @@ if ($del != "" || $al != "") {
     }
 
     $sql_historial = "SELECT DISTINCT id_plaza FROM Historial_Plaza
-    WHERE fecha_inicio <= '$date2' AND YEAR(fecha_inicio) = $anio";
+    WHERE fecha_inicio <= '$date2' AND fecha_fin >= '$date1' AND YEAR(fecha_inicio) = $anio";
 
     $consulta      = $conexion->query($sql_historial);
     $ids_historial = [];
@@ -138,6 +138,7 @@ if ($del != "" || $al != "") {
     (SELECT nombre FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza)) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = (SELECT id_puesto FROM Plaza WHERE id_plaza = Historial_Plaza.id_plaza))) AS departamento
     FROM Historial_Plaza WHERE
+    fecha_fin >= '$date1' AND 
     fecha_inicio <= '$date2' AND YEAR(fecha_inicio) = '$anio'
     " . $extra . ' ORDER BY id_plaza, id_historial_plaza';
 
