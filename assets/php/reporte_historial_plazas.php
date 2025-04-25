@@ -118,7 +118,7 @@ if ($del != "" || $al != "") {
     }
 
     $sql_historial = "SELECT DISTINCT id_plaza FROM Historial_Plaza
-    WHERE fecha_inicio <= '$date2' AND fecha_fin >= '$date1' AND YEAR(fecha_inicio) = $anio";
+    WHERE fecha_inicio <= '$date2' AND fecha_fin > '$date1' AND YEAR(fecha_inicio) = $anio";
 
     $consulta      = $conexion->query($sql_historial);
     $ids_historial = [];
