@@ -112,7 +112,7 @@ if ($del != "" || $al != "") {
 
         $fecha = date('Y-m-d', strtotime("$fecha_inicial -$dias days"));
 
-        if ( $fecha <= $date2 ) {
+        if ( $fecha < $date2 ) {
             $ids_plaza[] = $fila['id_plaza'];
         }
     }
