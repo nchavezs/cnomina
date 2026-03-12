@@ -9,7 +9,7 @@ $total = mysqli_num_rows($conexion->query($sql));
 
 $comprobar_baja = "SELECT * FROM Usuario WHERE RFC = '" . $id."' and estado = 'baja'";
 $baja = mysqli_num_rows(mysqli_query($conexion, $comprobar_baja));
-$bloquear = true;
+$bloquear = false;
 
 if ($total == 0) {
     echo '<div class="chat-nuevo">';

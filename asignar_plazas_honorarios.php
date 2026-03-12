@@ -54,4 +54,8 @@ while ($row = $consulta->fetch_assoc()) {
     }
 }
 
+// Limpiar plazas antiguas
+$sql = "UPDATE Plaza SET RFC = NULL WHERE YEAR(elaboracion) = " . ($ano - 1);
+$conexion->query($sql);
+
 $conexion->close();
