@@ -1164,6 +1164,71 @@ for ($c = 0; $c < sizeof($departamentos) - 1; $c++) {
 
 firma($i, $col, $sheet);
 
+// ESTADO DE PLAZAS -------------------------------------------------------------------------------------------------------------------
+$sheet = new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Estado de Plazas');
+$spreadsheet->addSheet($sheet);
+$col = "G";
+cabecera("ESTADO DE PLAZAS" . $titulo, $col, $sheet);
+
+$sheet->setCellValue('A2', "# PLAZA");
+$sheet->setCellValue('B2', 'ID EMPLEADO');
+$sheet->setCellValue('C2', 'TRABAJADOR');
+$sheet->setCellValue('D2', 'CATEGORIA');
+$sheet->setCellValue('E2', 'PUESTO');
+$sheet->setCellValue('F2', 'DEPARTAMENTO');
+$sheet->setCellValue('G2', 'ESTADO');
+
+$sql = "SELECT Plaza.id_plaza, Plaza.estado,
+    (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS categoria,
+    (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
+    (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
+    FROM Plaza WHERE YEAR(elaboracion) = " . $ano;
+
+$consulta = $conexion->query($sql);
+$i = 3;
+
+if ($consulta && (mysqli_num_rows($consulta) > 0)) {
+    while ($plaza = mysqli_fetch_array($consulta)) {
+        $id_plaza = $plaza['id_plaza'];
+        $estado_plaza = $plaza['estado'];
+        
+        $sql_hp = "SELECT Historial_Plaza.*, 
+            (SELECT id_empleado FROM Empleado WHERE RFC = Historial_Plaza.RFC) as id_empleado,
+            (SELECT nombre FROM Usuario WHERE RFC = Historial_Plaza.RFC) AS nombre
+            FROM Historial_Plaza 
+            WHERE id_plaza = $id_plaza 
+            AND fecha_inicio <= '$al' 
+            AND (fecha_fin >= '$del' OR fecha_fin IS NULL OR fecha_fin = '0000-00-00' OR fecha_fin = '')
+            ORDER BY fecha_inicio DESC LIMIT 1";
+            
+        $consulta_hp = $conexion->query($sql_hp);
+        
+        if ($consulta_hp && mysqli_num_rows($consulta_hp) > 0) {
+            $hp = mysqli_fetch_array($consulta_hp);
+            $sheet->getCell('A' . $i)->setValueExplicit($id_plaza, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->getCell('B' . $i)->setValueExplicit(str_pad($hp['id_empleado'], 5, '0', STR_PAD_LEFT), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('C' . $i, mb_strtoupper($hp['nombre']));
+            $sheet->setCellValue('D' . $i, mb_strtoupper($plaza['categoria']));
+            $sheet->setCellValue('E' . $i, mb_strtoupper($plaza['puesto']));
+            $sheet->setCellValue('F' . $i, mb_strtoupper($plaza['departamento']));
+            $sheet->setCellValue('G' . $i, "OCUPADA");
+            $i++;
+        } else {
+            $estado_texto = ($estado_plaza == 1) ? "VACANTE" : "DADA DE BAJA";
+            $sheet->getCell('A' . $i)->setValueExplicit($id_plaza, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValue('B' . $i, "");
+            $sheet->setCellValue('C' . $i, "SIN EJERCER");
+            $sheet->setCellValue('D' . $i, mb_strtoupper($plaza['categoria']));
+            $sheet->setCellValue('E' . $i, mb_strtoupper($plaza['puesto']));
+            $sheet->setCellValue('F' . $i, mb_strtoupper($plaza['departamento']));
+            $sheet->setCellValue('G' . $i, $estado_texto);
+            $i++;
+        }
+    }
+}
+
+firma($i, $col, $sheet);
+
 // --------------------------------------------------------------------------------------------------------------------------------
 
 $url  = "Prenomina_" . date("d_m_Y_H_i") . ".xlsx";
