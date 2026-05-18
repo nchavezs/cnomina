@@ -1182,7 +1182,7 @@ $sql = "SELECT Plaza.id_plaza, Plaza.estado, Plaza.fecha_baja,
     (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS categoria,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE YEAR(elaboracion) = " . $ano . " AND (Plaza.estado = 1 OR (Plaza.estado = 0 AND Plaza.fecha_baja >= '" . $del . "'))";
+    FROM Plaza WHERE YEAR(elaboracion) = " . $ano . " AND (Plaza.estado = 1 OR (Plaza.estado = 0 AND Plaza.fecha_baja BETWEEN '$del' AND '$al'))";
 
 $consulta = $conexion->query($sql);
 $i = 3;
