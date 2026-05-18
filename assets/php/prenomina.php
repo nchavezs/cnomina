@@ -1178,11 +1178,11 @@ $sheet->setCellValue('E2', 'PUESTO');
 $sheet->setCellValue('F2', 'DEPARTAMENTO');
 $sheet->setCellValue('G2', 'ESTADO');
 
-$sql = "SELECT Plaza.id_plaza, Plaza.estado,
+$sql = "SELECT Plaza.id_plaza, Plaza.estado, Plaza.fecha_baja,
     (SELECT nombre FROM Trabajador WHERE id_trabajador = (SELECT id_trabajador FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS categoria,
     (SELECT nombre FROM Puesto WHERE id_puesto = Plaza.id_puesto) AS puesto,
     (SELECT nombre FROM Departamento WHERE id_departamento = (SELECT id_departamento FROM Puesto WHERE id_puesto = Plaza.id_puesto)) AS departamento
-    FROM Plaza WHERE YEAR(elaboracion) = " . $ano;
+    FROM Plaza WHERE YEAR(elaboracion) = " . $ano . " AND (Plaza.estado = 1 OR (Plaza.estado = 0 AND Plaza.fecha_baja >= '" . $del . "'))";
 
 $consulta = $conexion->query($sql);
 $i = 3;
@@ -1214,7 +1214,7 @@ if ($consulta && (mysqli_num_rows($consulta) > 0)) {
             $sheet->setCellValue('G' . $i, "OCUPADA");
             $i++;
         } else {
-            $estado_texto = ($estado_plaza == 1) ? "VACANTE" : "DADA DE BAJA";
+            $estado_texto = ($estado_plaza == 1) ? "VACANTE" : "BAJA";
             $sheet->getCell('A' . $i)->setValueExplicit($id_plaza, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $sheet->setCellValue('B' . $i, "");
             $sheet->setCellValue('C' . $i, "SIN EJERCER");

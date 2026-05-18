@@ -489,3 +489,7 @@ ALTER TABLE Expediente ADD otros VARCHAR(100) NULL AFTER estudios;
 
 INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'admin');
 INSERT INTO `Rol_Usuario` (`id_rol`, `RFC`) VALUES ( '1', 'develop');
+
+
+ALTER TABLE Plaza
+ADD COLUMN fecha_baja DATE NULL;
